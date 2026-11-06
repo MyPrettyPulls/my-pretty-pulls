@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<base href="/">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Track your Kayou Winx Club card collection: see what you own, what you're missing, and your extras to trade.">
 <title>My Pretty Pulls</title>
@@ -55,6 +56,63 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .signin{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
 .signin-row{display:flex;gap:8px;flex-wrap:wrap}
 .signin-row input{flex:1 1 220px;min-width:0;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:10px;padding:8px 12px;font:inherit}
+
+/* ---------- Accounts, age check and profiles ---------- */
+.dob{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.dob select,.form select,.form input[type=text],.form textarea{border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:10px;padding:8px 12px;font:inherit;max-width:100%}
+.agestop{margin:0;font-weight:700;color:var(--accent)}
+.navbtn{border:0;background:transparent;font-weight:700;font-size:.88rem;padding:6px 10px;border-radius:8px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+.navbtn[aria-current="page"]{background:var(--sunk);color:var(--fg)}
+.avatar{width:120px;height:120px;border-radius:50%;overflow:hidden;background:var(--sunk);border:3px solid var(--accent);box-shadow:var(--shadow);flex:none;display:grid;place-items:center;font-family:var(--font-display);font-weight:800;font-size:2.6rem;color:var(--accent)}
+.avatar img{width:100%;height:100%;object-fit:cover;object-position:50% 34%;display:block}
+.avatar.sm{width:26px;height:26px;border-width:2px;font-size:.8rem}
+.prof{display:flex;flex-direction:column;gap:18px}
+.prof-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:22px;align-items:center}
+@media (max-width:760px){.prof-head{grid-template-columns:auto minmax(0,1fr)}.prof-actions{grid-column:1/-1;justify-content:flex-start!important}}
+.prof-head h1{margin:2px 0 4px}
+.handle{font-family:var(--font-mono);color:var(--muted);font-size:.85rem;word-break:break-all}
+.about{margin:8px 0 0;max-width:60ch}
+.about.empty{color:var(--muted);font-style:italic}
+.chip-char{display:inline-flex;gap:6px;align-items:center;background:var(--sunk);border-radius:999px;padding:3px 10px;font-size:.82rem;font-weight:700;margin-top:8px}
+.chip-char .sw{width:9px;height:9px;border-radius:50%}
+.prof-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;align-self:start}
+.vis{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;border-radius:999px;padding:3px 10px;background:var(--sunk);color:var(--muted)}
+.vis.pub{background:var(--accent-soft);color:var(--accent)}
+.banner{background:var(--accent-soft);border-radius:12px;padding:10px 14px;font-size:.9rem;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.prof-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:860px){.prof-grid{grid-template-columns:1fr}}
+.panel h2{font-family:var(--font-display);font-size:1.15rem;margin:0}
+.showcase{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+@media (max-width:520px){.showcase{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.showcase .slot{aspect-ratio:63/88;border:1.5px dashed var(--line);border-radius:10px;display:grid;place-items:center;color:var(--muted);font-size:.75rem;text-align:center;padding:6px}
+.edtiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.edtile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.edtile.done{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.edtile .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.edtile .big{font-family:var(--font-display);font-weight:800;font-size:1.5rem;font-variant-numeric:tabular-nums}
+.edtile .big small{color:var(--muted);font-size:.9rem;font-weight:600}
+.donebadge{background:var(--gold);color:#fff;font-size:.7rem;font-weight:800;border-radius:999px;padding:2px 8px;text-transform:uppercase;letter-spacing:.06em}
+.teaser{align-items:flex-start}
+.form-sheet{display:block!important;max-width:760px}
+.form{display:flex;flex-direction:column;gap:16px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field>label,.field>.lbl{font-weight:700;font-size:.9rem}
+.field .hint{margin:0}
+.uname{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;background:var(--bg);overflow:hidden}
+.uname span{padding:8px 0 8px 12px;color:var(--muted);font-family:var(--font-mono);font-size:.82rem;white-space:nowrap}
+.uname input{border:0!important;border-radius:0!important;padding-left:2px!important;flex:1;min-width:0}
+.form textarea{min-height:70px;resize:vertical}
+.msg-ok{color:var(--good);font-weight:700}.msg-bad{color:var(--accent);font-weight:700}
+.pickgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(62px,1fr));gap:8px;max-height:250px;overflow:auto;padding:4px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.pick{border:2px solid transparent;border-radius:8px;padding:0;background:none;position:relative;display:block}
+.pick[aria-pressed="true"]{border-color:var(--accent)}
+.pick img{width:100%;aspect-ratio:63/88;object-fit:contain;display:block}
+.pick .ord{position:absolute;top:2px;right:2px;background:var(--accent);color:var(--accent-ink);font-size:.7rem;font-weight:800;border-radius:999px;min-width:18px;height:18px;display:grid;place-items:center}
+.switch{display:flex;gap:10px;align-items:flex-start}
+.switch input{margin-top:4px;width:18px;height:18px;accent-color:var(--accent)}
+.formfoot{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;align-items:center}
+.empty-state{text-align:center;padding:40px 16px;color:var(--muted);display:flex;flex-direction:column;gap:12px;align-items:center}
+
 .notice{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--accent-soft);border-radius:12px;padding:10px 14px;font-size:.9rem}
 .notice button{border:0;background:var(--accent);color:var(--accent-ink);border-radius:8px;padding:6px 12px;font-weight:700;font-size:.85rem}
 
@@ -290,7 +348,16 @@ footer{color:var(--muted);font-size:.8rem;border-top:1px solid var(--line);paddi
       <div class="label">Sign in or create an account</div>
       <p class="hint" style="margin:4px 0 0">We'll email you a link. No password needed. Your collection then saves to your account on every device.</p>
     </div>
-    <div class="signin-row">
+    <fieldset class="dob" id="dobSignin">
+      <legend class="label">Your birthday</legend>
+      <div class="signin-row">
+        <select id="dobM" aria-label="Birth month" required></select>
+        <select id="dobY" aria-label="Birth year" required></select>
+      </div>
+      <p class="hint" style="margin:0">We only use this to check your age. It isn't saved.</p>
+    </fieldset>
+    <p class="agestop" id="ageStop" hidden>Sorry, you need to be 13 or older to create an account. You can still track your cards on this device without one.</p>
+    <div class="signin-row" id="emailRow">
       <input type="email" id="email" required placeholder="you@example.com" aria-label="Email address" autocomplete="email">
       <button type="submit" class="primary" id="sendLink">Email me a link</button>
       <button type="button" class="ghost" id="cancelSignin">Cancel</button>
@@ -298,6 +365,7 @@ footer{color:var(--muted);font-size:.8rem;border-top:1px solid var(--line);paddi
     <p class="hint" id="signinMsg" role="status"></p>
   </form>
 
+  <div id="viewCollection">
   <div class="notice" id="sample" hidden>
     <span>You're looking at a <b>sample collection</b>. Sign in to save your own, or clear it to start logging on this device.</span>
     <button id="clear">Start my own</button>
@@ -369,11 +437,15 @@ footer{color:var(--muted);font-size:.8rem;border-top:1px solid var(--line);paddi
       </div>
     </aside>
   </div>
+  </div>
+
+  <div id="viewProfile" hidden></div>
 
   <footer>Prototype. Card art is placeholder. Card numbers come from a collector's checklist; numbers marked unconfirmed follow Kayou's list order. Unofficial fan project, not affiliated with KAYOU or Rainbow S.p.A. Winx Club® © Rainbow S.p.A. Sign in to save your collection to your account; signed out, it's saved in this browser.</footer>
 </div>
 
 <div class="scrim" id="detail" hidden></div>
+<div class="scrim" id="editProf" hidden></div>
 <div class="toast" id="toast" hidden></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -730,11 +802,289 @@ $("#copyNeed").addEventListener("click",async()=>{
   try{await navigator.clipboard.writeText(text);toast(`Copied ${need.length} missing cards`)}catch(e){toast("Couldn't copy here. Try in a browser tab.")}
 });
 
+
+// ---------- Profiles ----------
+let myProfile=null, viewing=null;   // viewing = {prof, counts, own}
+const AGE_OK="mpp.age13", AGE_BLOCK="mpp.ageblock";
+const RESERVED=new Set(["admin","support","help","myprettypulls","kayou","winx","winxclub","official","moderator","mod","profile","api","about","settings","u"]);
+const BLOCK=["fuck","shit","bitch","cunt","nigg","fag","porn","sex","nazi","dick","cock","pussy","whore","slut","rape","kill"];
+const notOk=t=>{const s=(t||"").toLowerCase().replace(/[^a-z]/g,"");return BLOCK.some(w=>s.includes(w))};
+const ls={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
+const CHAR_COLOR=n=>(HUE[n]||["#c2366f"])[0];
+
+// Birthday pickers: neutral, no default answer
+function fillDob(mSel,ySel){
+  const months=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  mSel.innerHTML=`<option value="">Month</option>`+months.map((m,i)=>`<option value="${i+1}">${m}</option>`).join("");
+  const y=new Date().getFullYear(); let o=`<option value="">Year</option>`; for(let i=y;i>=y-100;i--)o+=`<option>${i}</option>`; ySel.innerHTML=o;
+}
+function ageFrom(m,y){const d=new Date();let a=d.getFullYear()-y;if(d.getMonth()+1<=m)a--;return a} // birthday month counts as not yet
+function ageBlocked(){const b=ls.get(AGE_BLOCK);return b&&Date.now()-(+b)<864e5}
+function showAgeStop(){ $("#dobSignin").hidden=true;$("#emailRow").hidden=true;$("#ageStop").hidden=false }
+fillDob($("#dobM"),$("#dobY"));
+
+function statsFor(cnt){
+  const own=CARDS.filter(c=>(cnt[c.uid]||0)>0);
+  const eds=EDITIONS.map(e=>{const cs=CARDS.filter(c=>c.editions.includes(e.id));const hv=cs.filter(c=>(cnt[c.uid]||0)>0).length;return{e,have:hv,total:cs.length,done:hv===cs.length}});
+  return{unique:own.length,total:own.reduce((a,c)=>a+cnt[c.uid],0),extras:own.reduce((a,c)=>a+cnt[c.uid]-1,0),
+    pct:Math.round(own.length/CARDS.length*100),eds,done:eds.filter(x=>x.done&&x.e.id!=="promo").length,boxes:eds.filter(x=>x.e.id!=="promo").length};
+}
+function avatarHTML(prof,cls=""){
+  const c=prof&&prof.avatar_card&&BYUID[prof.avatar_card], k=c&&imgKey(c);
+  const name=(prof&&(prof.display_name||prof.username))||"?";
+  return `<span class="avatar ${cls}" aria-hidden="true">${k?`<img src="cards/${k}-s.webp" alt="">`:esc(name[0].toUpperCase())}</span>`;
+}
+function miniCard(c){return `<div class="card"><div class="face${imgKey(c)?" has-img":""}${LAND.has(imgKey(c))?" land":""}" title="${esc(label(c))} · ${c.num}">${artHTML(c)}</div></div>`}
+
+function renderProfile(){
+  const el=$("#viewProfile"); const v=viewing;
+  if(!v){el.innerHTML="";return}
+  if(v.state==="loading"){el.innerHTML=`<div class="empty-state">Loading profile…</div>`;return}
+  if(v.state==="missing"){el.innerHTML=`<div class="empty-state"><h1 style="font-size:2rem">Profile not found</h1><p>This profile doesn't exist, or it's private.</p><button class="primary" data-nav="/">Browse the cards</button></div>`;return}
+  if(v.state==="signin"){el.innerHTML=`<div class="empty-state"><h1 style="font-size:2rem">Make your profile</h1><p>Sign in to pick a username, show off your favorite pulls and share your collection.</p><button class="primary" id="openSignin">Sign in</button></div>`;return}
+  if(v.state==="setup"){el.innerHTML=`<div class="empty-state"><h1 style="font-size:2rem">Make your profile</h1><p>Pick a username and a profile card to get started.</p><button class="primary" data-edit>Create profile</button></div>`;return}
+  const p=v.prof, st=statsFor(v.counts), own=v.own;
+  const url=`${location.origin}/u/${p.username}`;
+  const fav=p.fav_char?`<span class="chip-char"><span class="sw" style="background:${CHAR_COLOR(p.fav_char)}"></span>Favorite: ${esc(p.fav_char)}</span>`:"";
+  const show=(p.showcase||[]).map(u=>BYUID[u]).filter(c=>c&&(v.counts[c.uid]||0)>0);
+  const favCards=p.fav_char?CARDS.filter(c=>c.appears.includes(p.fav_char)):[];
+  const favHave=favCards.filter(c=>(v.counts[c.uid]||0)>0).length;
+  el.innerHTML=`<section class="prof">
+    ${own&&!p.is_public?`<div class="banner"><span><b>Your profile is private.</b> Only you can see it. Make it public to share your link.</span><button class="primary" data-public="1">Make public</button></div>`:""}
+    <div class="prof-head">
+      ${avatarHTML(p)}
+      <div style="min-width:0">
+        <div class="label">${own?`Your profile · <span class="vis${p.is_public?" pub":""}">${p.is_public?"Public":"Private"}</span>`:"Collector"}</div>
+        <h1>${esc(p.display_name||p.username)}</h1>
+        <div class="handle">myprettypulls.com/u/${esc(p.username)}</div>
+        <p class="about${p.about?"":" empty"}">${p.about?esc(p.about):own?"No about me yet. Tell people what you collect.":""}</p>
+        ${fav}
+      </div>
+      <div class="prof-actions">
+        ${own?`<button class="ghost" data-edit>Edit profile</button>`:""}
+        <button class="ghost" data-copylink="${esc(url)}">Copy link</button>
+        <button class="primary" data-shareimg>Share image</button>
+        ${own&&p.is_public?`<button class="ghost" data-public="0">Make private</button>`:""}
+      </div>
+    </div>
+    <section class="stats" aria-label="Collection summary">
+      <div class="stat lead"><span class="label">Collection</span><span class="v">${st.unique}<small> / ${CARDS.length}</small></span><span class="bar"><i style="width:${st.pct}%"></i></span><span class="s">${st.pct}% complete</span></div>
+      <div class="stat"><span class="label">Total cards</span><span class="v">${st.total}</span><span class="s">Including duplicates</span></div>
+      <div class="stat"><span class="label">Editions completed</span><span class="v">${st.done}<small> / ${st.boxes}</small></span><span class="s">Daily and Magic</span></div>
+      <div class="stat"><span class="label">Extras to trade</span><span class="v">${st.extras}</span><span class="s">Copies beyond the first</span></div>
+      <div class="stat soon"><span class="label">Day streak</span><span class="v">Coming soon</span><span class="s">Guess the Secret Pull</span></div>
+    </section>
+    <div class="prof-grid">
+      <section class="panel">
+        <div class="panel-h"><h2>Collection showcase</h2>${own?`<button class="ghost" data-edit>Choose cards</button>`:""}</div>
+        ${!own&&!show.length?`<p class="hint">No showcase picked yet.</p>`:`<div class="showcase">${show.map(miniCard).join("")}${Array.from({length:Math.max(0,5-show.length)},()=>`<div class="slot">${own?"Pick a favorite pull":""}</div>`).join("")}</div>`}
+      </section>
+      <section class="panel">
+        <div class="panel-h"><h2>${p.fav_char?esc(p.fav_char)+" collection":"Favorite character"}</h2></div>
+        ${p.fav_char?`<div class="edtile" style="border:0;padding:0;background:none"><span class="big">${favHave}<small> / ${favCards.length}</small></span><span class="bar"><i style="width:${favCards.length?Math.round(favHave/favCards.length*100):0}%;background:${CHAR_COLOR(p.fav_char)}"></i></span><span class="hint">Every card ${esc(p.fav_char)} appears on</span></div>`
+          :`<p class="hint">${own?"Pick a favorite character to track every card they appear on.":"No favorite picked yet."}</p>`}
+      </section>
+    </div>
+    <section class="panel">
+      <div class="panel-h"><h2>Set progress</h2><span class="hint">${st.done} of ${st.boxes} editions complete</span></div>
+      <div class="edtiles">${st.eds.map(x=>`<div class="edtile${x.done?" done":""}"><div class="row"><span class="code" style="font-family:var(--font-mono);font-size:.72rem;color:var(--muted)">${x.e.code}</span>${x.done?`<span class="donebadge">Complete</span>`:""}</div><b>${x.e.name}</b><span class="big">${x.have}<small> / ${x.total}</small></span><span class="bar"><i style="width:${Math.round(x.have/x.total*100)}%;${x.done?"background:var(--gold)":""}"></i></span></div>`).join("")}</div>
+    </section>
+    <section class="panel teaser">
+      <div><h2>Guess the Secret Pull</h2><p class="hint" style="margin:4px 0 0">One hidden card a day, 8 questions to find it. Streaks and rankings show up here. Coming soon.</p></div>
+    </section>
+    ${!own&&!user?`<div class="banner"><span>Track your own Winx cards and make a profile like this one.</span><button class="primary" data-nav="/">Start your collection</button></div>`:""}
+  </section>`;
+}
+
+async function loadMyProfile(){
+  if(!user)return null;
+  const {data,error}=await sb.from("profiles").select("*").eq("id",user.id).maybeSingle();
+  if(!error)myProfile=data||null; return myProfile;
+}
+async function fetchCounts(uid){
+  const out={};
+  for(let from=0;;from+=1000){
+    const {data,error}=await sb.from("collection_items").select("card_uid,qty").eq("user_id",uid).range(from,from+999);
+    if(error)throw error; data.forEach(r=>{if(BYUID[r.card_uid])out[r.card_uid]=r.qty}); if(data.length<1000)break;
+  }
+  return out;
+}
+
+// ---------- Pages: / collection, /profile your profile, /u/name someone's profile ----------
+function setView(which){
+  $("#viewCollection").hidden=which!=="collection"; $("#viewProfile").hidden=which!=="profile";
+  renderAcct();
+}
+async function route(){
+  const path=location.pathname.replace(/\/+$/,"")||"/";
+  const m=path.match(/^\/u\/([A-Za-z0-9_]{3,20})$/);
+  if(m){
+    const name=m[1].toLowerCase(); setView("profile");
+    if(myProfile&&myProfile.username===name){viewing={state:"ok",prof:myProfile,counts,own:true};renderProfile();document.title=`${myProfile.display_name||name} · My Pretty Pulls`;return}
+    viewing={state:"loading"};renderProfile();
+    if(!sb){viewing={state:"missing"};renderProfile();return}
+    const {data}=await sb.from("profiles").select("*").eq("username",name).maybeSingle();
+    if(!data){viewing={state:"missing"};renderProfile();return}
+    try{viewing={state:"ok",prof:data,counts:await fetchCounts(data.id),own:!!user&&user.id===data.id}}catch(e){viewing={state:"missing"}}
+    renderProfile(); document.title=`${data.display_name||data.username} · My Pretty Pulls`; return;
+  }
+  if(path==="/profile"){
+    setView("profile"); document.title="Your profile · My Pretty Pulls";
+    if(!user){viewing={state:sessionChecked?"signin":"loading"};renderProfile();return}
+    if(!myProfile){viewing={state:"setup"};renderProfile();openEdit();return}
+    viewing={state:"ok",prof:myProfile,counts,own:true};renderProfile();return;
+  }
+  setView("collection"); document.title="My Pretty Pulls";
+}
+function go(path){if(location.pathname!==path)history.pushState(null,"",path);route();window.scrollTo(0,0)}
+window.addEventListener("popstate",route);
+
+// ---------- Edit profile ----------
+let draft=null, unameT=null;
+function openEdit(){
+  if(!user)return;
+  const p=myProfile||{};
+  draft={avatar:p.avatar_card||null,showcase:[...(p.showcase||[])],unameOk:!!p.username};
+  const owned=CARDS.filter(c=>has(c.uid)>0&&imgKey(c));
+  const needAge=!myProfile&&ls.get(AGE_OK)!=="1";
+  const chars=GROUPS.map(g=>`<optgroup label="${g.name}">${g.chars.map(n=>`<option${p.fav_char===n?" selected":""}>${n}</option>`).join("")}</optgroup>`).join("");
+  $("#editProf").innerHTML=`<div class="sheet form-sheet" role="dialog" aria-modal="true" aria-labelledby="epTitle">
+    <button class="close" data-closeedit aria-label="Close">✕</button>
+    <form class="form" id="epForm" novalidate>
+      <div><div class="label">${myProfile?"Edit profile":"Welcome"}</div><h2 id="epTitle" style="font-family:var(--font-display);font-size:1.8rem;margin:2px 0 0">${myProfile?"Your profile":"Create your profile"}</h2></div>
+      ${needAge?`<fieldset class="dob field" id="epDob"><legend class="lbl">Your birthday</legend><div class="signin-row"><select id="epM" aria-label="Birth month"></select><select id="epY" aria-label="Birth year"></select></div><p class="hint">Accounts are for ages 13 and up. We only use this to check your age; it isn't saved.</p></fieldset>`:""}
+      <div class="field"><label for="epUser">Username</label>
+        <div class="uname"><span>myprettypulls.com/u/</span><input type="text" id="epUser" maxlength="20" autocomplete="off" spellcheck="false" value="${esc(p.username||"")}"></div>
+        <p class="hint" id="epUserMsg">3 to 20 lowercase letters, numbers or underscores.</p></div>
+      <div class="field"><label for="epName">Display name</label><input type="text" id="epName" maxlength="30" value="${esc(p.display_name||"")}" placeholder="Shown at the top of your profile"></div>
+      <div class="field"><label for="epAbout">About me</label><textarea id="epAbout" maxlength="160" placeholder="What do you collect? Who are you hunting for?">${esc(p.about||"")}</textarea><p class="hint"><span id="epCount">${(p.about||"").length}</span>/160</p></div>
+      <div class="field"><label for="epFav">Favorite character</label><select id="epFav"><option value="">None yet</option>${chars}</select></div>
+      <div class="field"><span class="lbl">Profile picture</span><p class="hint">Pick any card you own.</p>
+        ${owned.length?`<div class="pickgrid" id="pickAv">${owned.map(c=>`<button type="button" class="pick" data-av="${c.uid}" aria-pressed="${draft.avatar===c.uid}" aria-label="${esc(label(c))} ${c.num}"><img src="cards/${imgKey(c)}-s.webp" alt="" loading="lazy"></button>`).join("")}</div>`:`<p class="hint">Add cards to your collection first, then pick one here.</p>`}</div>
+      <div class="field"><span class="lbl">Collection showcase</span><p class="hint">Pick up to 5 cards to show off, in the order you tap them.</p>
+        ${owned.length?`<div class="pickgrid" id="pickSc">${owned.map(c=>`<button type="button" class="pick" data-sc="${c.uid}" aria-pressed="${draft.showcase.includes(c.uid)}" aria-label="${esc(label(c))} ${c.num}"><img src="cards/${imgKey(c)}-s.webp" alt="" loading="lazy">${draft.showcase.includes(c.uid)?`<span class="ord">${draft.showcase.indexOf(c.uid)+1}</span>`:""}</button>`).join("")}</div>`:`<p class="hint">Add cards to your collection first.</p>`}</div>
+      <label class="switch"><input type="checkbox" id="epPublic"${p.is_public?" checked":""}><span><b>Public profile</b><br><span class="hint">Anyone with your link can see your profile and collection. Your email is never shown.</span></span></label>
+      <p class="msg-bad" id="epErr" role="alert"></p>
+      <div class="formfoot"><button type="button" class="ghost" data-closeedit>Cancel</button><button type="submit" class="primary" id="epSave">${myProfile?"Save":"Create profile"}</button></div>
+    </form></div>`;
+  if(needAge)fillDob($("#epM"),$("#epY"));
+  $("#editProf").hidden=false; $("#epUser").focus();
+  if(p.username)$("#epUserMsg").textContent="This is your link. You can change it.";
+}
+function closeEdit(){$("#editProf").hidden=true;$("#editProf").innerHTML=""}
+function refreshPick(){
+  document.querySelectorAll("#pickAv .pick").forEach(b=>b.setAttribute("aria-pressed",b.dataset.av===draft.avatar));
+  document.querySelectorAll("#pickSc .pick").forEach(b=>{const i=draft.showcase.indexOf(b.dataset.sc);b.setAttribute("aria-pressed",i>=0);b.querySelector(".ord")?.remove();if(i>=0)b.insertAdjacentHTML("beforeend",`<span class="ord">${i+1}</span>`)});
+}
+async function checkUsername(){
+  const el=$("#epUser"), msg=$("#epUserMsg"); if(!el)return false;
+  const v=el.value.trim().toLowerCase(); el.value=v; draft.unameOk=false;
+  if(!/^[a-z0-9_]{3,20}$/.test(v)){msg.className="hint msg-bad";msg.textContent="Use 3 to 20 lowercase letters, numbers or underscores.";return false}
+  if(RESERVED.has(v)||notOk(v)){msg.className="hint msg-bad";msg.textContent="That username isn't available. Try another.";return false}
+  if(myProfile&&myProfile.username===v){msg.className="hint";msg.textContent="This is your current username.";draft.unameOk=true;return true}
+  msg.className="hint";msg.textContent="Checking…";
+  const {data,error}=await sb.rpc("username_available",{name:v});
+  if(error){msg.className="hint msg-bad";msg.textContent="Couldn't check right now. Try again in a moment.";return false}
+  msg.className=data?"hint msg-ok":"hint msg-bad"; msg.textContent=data?"Available!":"That username is taken. Try another.";
+  draft.unameOk=!!data; return !!data;
+}
+async function saveProfile(e){
+  e.preventDefault(); const err=$("#epErr"); err.textContent="";
+  if($("#epDob")){
+    const m=+$("#epM").value, y=+$("#epY").value;
+    if(!m||!y){err.textContent="Please enter your birthday.";return}
+    if(ageFrom(m,y)<13){ls.set(AGE_BLOCK,String(Date.now()));closeEdit();await sb.auth.signOut();toast("Accounts are for ages 13 and up.");return}
+    ls.set(AGE_OK,"1");
+  }
+  if(!(await checkUsername())){err.textContent="Please pick a different username.";return}
+  const name=$("#epName").value.trim(), about=$("#epAbout").value.trim();
+  if(notOk(name)||notOk(about)){err.textContent="Please remove inappropriate words from your name or about me.";return}
+  const row={id:user.id,username:$("#epUser").value.trim().toLowerCase(),display_name:name||null,about:about||null,fav_char:$("#epFav").value||null,
+    avatar_card:draft.avatar,showcase:draft.showcase,is_public:$("#epPublic").checked,age_confirmed:true,updated_at:new Date().toISOString()};
+  $("#epSave").disabled=true;
+  const {data,error}=await sb.from("profiles").upsert(row).select().single();
+  $("#epSave").disabled=false;
+  if(error){err.textContent=error.code==="23505"?"That username was just taken. Try another.":`Couldn't save: ${error.message}`;return}
+  const first=!myProfile; myProfile=data; closeEdit(); toast(first?"Profile created":"Profile saved"); go("/profile");
+}
+async function setPublic(on){
+  const {data,error}=await sb.from("profiles").update({is_public:on,updated_at:new Date().toISOString()}).eq("id",user.id).select().single();
+  if(error){toast("Couldn't change that. Try again.");return}
+  myProfile=data; viewing={state:"ok",prof:data,counts,own:true}; renderProfile(); toast(on?"Your profile is public":"Your profile is private");
+}
+
+// ---------- Share image ----------
+async function shareImage(){
+  const v=viewing; if(!v||v.state!=="ok")return;
+  const p=v.prof, st=statsFor(v.counts), W=1080, H=1350;
+  toast("Making your image…");
+  await document.fonts.ready;
+  const cv=document.createElement("canvas"); cv.width=W; cv.height=H; const g=cv.getContext("2d");
+  const load=src=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src});
+  const bg=g.createLinearGradient(0,0,W,H); bg.addColorStop(0,"#2a1633"); bg.addColorStop(1,"#6b1f4d"); g.fillStyle=bg; g.fillRect(0,0,W,H);
+  for(let i=0;i<160;i++){g.fillStyle=`rgba(255,255,255,${Math.random()*.5})`;const r=Math.random()*2.2;g.beginPath();g.arc(Math.random()*W,Math.random()*H,r,0,7);g.fill()}
+  const disp="'Bricolage Grotesque',sans-serif", body="'Nunito Sans',sans-serif";
+  // avatar
+  const ac=p.avatar_card&&BYUID[p.avatar_card], ak=ac&&imgKey(ac);
+  g.save();g.beginPath();g.arc(160,170,100,0,7);g.closePath();g.fillStyle="#ffffff22";g.fill();g.clip();
+  if(ak){const im=await load(`cards/${ak}-l.webp`);if(im){const s=Math.max(200/im.width,200/im.height*1.6);const w=im.width*s,h=im.height*s;g.drawImage(im,160-w/2,170-h*0.26,w,h)}}
+  g.restore(); g.strokeStyle="#ec6a9c"; g.lineWidth=8; g.beginPath(); g.arc(160,170,100,0,7); g.stroke();
+  g.fillStyle="#fff"; g.font=`800 64px ${disp}`; g.fillText((p.display_name||p.username).slice(0,22),300,165);
+  g.fillStyle="#f3c6dc"; g.font=`600 30px ${body}`; g.fillText(`myprettypulls.com/u/${p.username}`,300,215);
+  if(p.fav_char){g.fillStyle="#ffffffcc";g.font=`700 28px ${body}`;g.fillText(`Favorite: ${p.fav_char}`,300,258)}
+  // stats
+  const boxes=[[`${st.unique}/${CARDS.length}`,"Collected"],[`${st.pct}%`,"Complete"],[`${st.done}/${st.boxes}`,"Editions done"],[`${st.extras}`,"Extras to trade"]];
+  boxes.forEach(([n,l],i)=>{const x=60+i*245,y=320;g.fillStyle="#ffffff18";g.beginPath();g.roundRect(x,y,225,130,22);g.fill();
+    g.fillStyle="#fff";g.font=`800 48px ${disp}`;g.fillText(n,x+22,y+68);g.fillStyle="#f3c6dc";g.font=`700 24px ${body}`;g.fillText(l,x+22,y+106)});
+  // showcase
+  g.fillStyle="#fff"; g.font=`800 36px ${disp}`; g.fillText("Collection showcase",60,520);
+  const show=(p.showcase||[]).map(u=>BYUID[u]).filter(c=>c&&(v.counts[c.uid]||0)>0&&imgKey(c)).slice(0,5);
+  const cw=180,ch=252,gap=(W-120-cw*5)/4;
+  for(let i=0;i<5;i++){const x=60+i*(cw+gap),y=550;g.save();g.beginPath();g.roundRect(x,y,cw,ch,14);g.clip();
+    if(show[i]){const im=await load(`cards/${imgKey(show[i])}-l.webp`);if(im){const s=Math.min(cw/im.width,ch/im.height);const w=im.width*s,h=im.height*s;g.drawImage(im,x+(cw-w)/2,y+(ch-h)/2,w,h)}}
+    else{g.fillStyle="#ffffff14";g.fillRect(x,y,cw,ch)}
+    g.restore()}
+  // set progress
+  g.fillStyle="#fff"; g.font=`800 36px ${disp}`; g.fillText("Set progress",60,890);
+  st.eds.forEach((x,i)=>{const y=930+i*110;g.fillStyle="#fff";g.font=`700 30px ${body}`;g.fillText(x.e.name,60,y+30);
+    g.textAlign="right";g.fillText(`${x.have}/${x.total}${x.done?"  ✓":""}`,W-60,y+30);g.textAlign="left";
+    g.fillStyle="#ffffff22";g.beginPath();g.roundRect(60,y+48,W-120,18,9);g.fill();
+    g.fillStyle=x.done?"#e0b44c":"#ec6a9c";g.beginPath();g.roundRect(60,y+48,Math.max(18,(W-120)*x.have/x.total),18,9);g.fill()});
+  g.fillStyle="#ffffffaa"; g.font=`700 26px ${body}`; g.fillText("My Pretty Pulls · Winx Club Fairy Diary",60,H-50);
+  cv.toBlob(async blob=>{
+    if(!blob){toast("Couldn't make the image.");return}
+    const file=new File([blob],`${p.username}-my-pretty-pulls.png`,{type:"image/png"});
+    try{if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:"My Pretty Pulls"});return}}catch(e){if(e.name==="AbortError")return}
+    const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=file.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+    toast("Image saved to your downloads");
+  },"image/png");
+}
+
+document.addEventListener("click",async e=>{
+  const t=e.target.closest("[data-nav],[data-edit],[data-closeedit],[data-av],[data-sc],[data-public],[data-copylink],[data-shareimg]"); if(!t)return;
+  if(t.dataset.nav!==undefined){e.preventDefault();go(t.dataset.nav);return}
+  if(t.hasAttribute("data-edit")){openEdit();return}
+  if(t.hasAttribute("data-closeedit")){closeEdit();return}
+  if(t.dataset.av){draft.avatar=draft.avatar===t.dataset.av?null:t.dataset.av;refreshPick();return}
+  if(t.dataset.sc){const u=t.dataset.sc,i=draft.showcase.indexOf(u);if(i>=0)draft.showcase.splice(i,1);else if(draft.showcase.length<5)draft.showcase.push(u);else toast("You can pick up to 5 cards");refreshPick();return}
+  if(t.dataset.public!==undefined){setPublic(t.dataset.public==="1");return}
+  if(t.dataset.copylink){if(viewing&&viewing.own&&!viewing.prof.is_public)toast("Your profile is private. Make it public so others can open your link.");
+    try{await navigator.clipboard.writeText(t.dataset.copylink);if(!(viewing&&viewing.own&&!viewing.prof.is_public))toast("Link copied")}catch(err){prompt?.("Copy your link",t.dataset.copylink)}return}
+  if(t.hasAttribute("data-shareimg")){shareImage();return}
+});
+document.addEventListener("input",e=>{
+  if(e.target.id==="epUser"){clearTimeout(unameT);unameT=setTimeout(checkUsername,400)}
+  if(e.target.id==="epAbout")$("#epCount").textContent=e.target.value.length;
+});
+document.addEventListener("submit",e=>{if(e.target.id==="epForm")saveProfile(e)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#editProf").hidden)closeEdit()});
+$("#editProf").addEventListener("click",e=>{if(e.target.id==="editProf")closeEdit()});
+
 // ---------- Accounts (Supabase) ----------
 const SB_URL="https://ynoocpckygykfpirdajn.supabase.co";
 const SB_KEY="sb_publishable_sQFiRWvRoJhRoXyi2kZo3g_DUkdEekr";
 const sb=window.supabase?window.supabase.createClient(SB_URL,SB_KEY):null;
-let user=null, saveState="", flushT=null;
+let user=null, saveState="", flushT=null, sessionChecked=false;
 const pending=new Map();
 function loadLocal(){try{const raw=localStorage.getItem(KEY);if(raw){const p=JSON.parse(raw);counts=p.counts||{};isSample=!!p.sample}else{counts=makeSample();isSample=true}}catch(e){counts=makeSample();isSample=true}}
 function commit(uid){ if(user){pending.set(uid,counts[uid]||0);clearTimeout(flushT);flushT=setTimeout(flush,600);setSave("saving")} else save(); }
@@ -776,21 +1126,32 @@ async function onSignedIn(u){
     isSample=false; setSave("saved");
   }catch(e){ setSave("error"); toast("Couldn't load your collection. Check your connection and refresh."); }
   $("#signin").hidden=true; render();
+  await loadMyProfile(); sessionChecked=true;
+  if(!myProfile&&ls.get(AGE_OK)==="1"&&location.pathname!=="/profile"&&!sessionStorage.getItem("mpp.setupShown")){try{sessionStorage.setItem("mpp.setupShown","1")}catch(e){}openEdit()}
+  route();
 }
-function onSignedOut(){ user=null; pending.clear(); setSave(""); loadLocal(); render(); }
+function onSignedOut(){ user=null; myProfile=null; pending.clear(); setSave(""); loadLocal(); render(); route(); }
 function renderAcct(){
   const el=$("#acct"); if(!sb){el.innerHTML="";return}
-  if(!user){el.innerHTML=`<button class="primary" id="openSignin">Sign in</button>`;return}
-  const msg={loading:"Loading…",saving:"Saving…",saved:"Saved to your account",error:"Not saved yet, retrying"}[saveState]||"";
-  el.innerHTML=`<span class="saved${saveState==="error"?" err":""}" role="status">${msg}</span><span class="who" title="${esc(user.email||"")}">${esc(user.email||"Signed in")}</span><button class="ghost" id="signOut">Sign out</button>`;
+  const onProf=!$("#viewProfile").hidden, path=location.pathname;
+  const nav=`<button class="navbtn" data-nav="/"${!onProf?' aria-current="page"':""}>Collection</button>`;
+  if(!user){el.innerHTML=nav+`<button class="primary" id="openSignin">Sign in</button>`;return}
+  const msg={loading:"Loading…",saving:"Saving…",saved:"Saved",error:"Not saved yet, retrying"}[saveState]||"";
+  el.innerHTML=nav+`<button class="navbtn" data-nav="/profile"${onProf&&(path==="/profile"||(myProfile&&path==="/u/"+myProfile.username))?' aria-current="page"':""}>${avatarHTML(myProfile,"sm")}${myProfile?"@"+esc(myProfile.username):"My profile"}</button><span class="saved${saveState==="error"?" err":""}" role="status">${msg}</span><button class="ghost" id="signOut">Sign out</button>`;
 }
 document.addEventListener("click",async e=>{
-  if(e.target.id==="openSignin"){$("#signin").hidden=false;$("#signinMsg").textContent="";$("#email").focus()}
+  if(e.target.id==="openSignin"){$("#signin").hidden=false;$("#signinMsg").textContent="";if(ageBlocked())showAgeStop();else if(ls.get(AGE_OK)==="1"){$("#dobSignin").hidden=true;$("#email").focus()}else $("#dobM").focus();window.scrollTo(0,0)}
   if(e.target.id==="cancelSignin"){$("#signin").hidden=true}
   if(e.target.id==="signOut"){await flush();await sb.auth.signOut();toast("Signed out")}
 });
 $("#signin").addEventListener("submit",async e=>{
-  e.preventDefault(); const email=$("#email").value.trim(); if(!email)return;
+  e.preventDefault();
+  if(ageBlocked()){showAgeStop();return}
+  const m=+$("#dobM").value, y=+$("#dobY").value;
+  if(ls.get(AGE_OK)!=="1"&&(!m||!y)){$("#signinMsg").textContent="Please enter your birthday.";return}
+  if(ls.get(AGE_OK)!=="1"&&ageFrom(m,y)<13){ls.set(AGE_BLOCK,String(Date.now()));showAgeStop();return}
+  ls.set(AGE_OK,"1");
+  const email=$("#email").value.trim(); if(!email){$("#signinMsg").textContent="Please enter your email.";return}
   $("#sendLink").disabled=true; $("#signinMsg").textContent="Sending…";
   const {error}=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+location.pathname}});
   $("#sendLink").disabled=false;
@@ -798,12 +1159,13 @@ $("#signin").addEventListener("submit",async e=>{
 });
 window.addEventListener("beforeunload",()=>{if(pending.size)flush()});
 if(sb){
+  sb.auth.getSession().then(({data})=>{if(!data.session){sessionChecked=true;route()}});
   sb.auth.onAuthStateChange((event,session)=>{
     if(session&&session.user)setTimeout(()=>onSignedIn(session.user),0);
     else if(event==="SIGNED_OUT")onSignedOut();
   });
 }
-renderAcct();
+renderAcct(); route();
 
 // Light follows the pointer or finger across a card; the detail card also tilts
 function fxMove(e){
