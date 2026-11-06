@@ -125,6 +125,12 @@ input[type=search]{border:1px solid var(--line);background:var(--surface);color:
 .both{font-size:.72rem;font-weight:800;background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:2px 9px}
 .unconf{margin-top:8px;font-size:.82rem;color:var(--gold);font-weight:700}
 .art .badge{position:absolute;top:8px;left:8px;font-family:var(--font-mono);font-size:.7rem;background:rgb(0 0 0 / .35);padding:1px 6px;border-radius:5px}
+.face.has-img{background:transparent;box-shadow:none;overflow:visible}
+.face .cardimg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 3px 8px rgb(60 30 60 / .18));transition:filter .2s,opacity .2s}
+.face.has-img .edb{position:absolute;top:6px;right:6px;font-family:var(--font-mono);font-size:.62rem;background:rgb(255 255 255 / .9);color:#2a2230;padding:1px 5px;border-radius:5px;z-index:1}
+.face.has-img .qty{z-index:1}
+.card.missing .face .cardimg{filter:grayscale(1) contrast(.8);opacity:.35}
+.d-left .face.land{aspect-ratio:88/63}
 .card.missing .art{filter:grayscale(1) contrast(.75);opacity:.38}
 .qty{position:absolute;top:8px;right:8px;background:var(--surface);color:var(--fg);font-weight:800;font-size:.78rem;border-radius:999px;padding:1px 8px;font-variant-numeric:tabular-nums}
 .meta{display:flex;justify-content:space-between;align-items:center;gap:6px;min-width:0;min-height:28px}
@@ -372,7 +378,7 @@ const BLOCKS=[
  ["BP",["magic"],["Stella","Bloom","Musa","Flora","Tecna","Aisha"],true],
  ["SE",["magic"],["20th Anniversary"],true],
  ["PR",["promo"],["Bloom","Flora","Musa","Bloom"],true,null,[["daily"],["daily"],["daily"],["magic"]]],
- ["PR",["promo"],["SDCC 2026 Bloom Promo"],true,null,null,{prefix:"WFD01",nums:[1],key:"sdcc",note:"San Diego Comic-Con 2026"}],
+ ["PR",["promo"],["SDCC 2026 Bloom Promo"],true,null,null,{prefix:"WFD01",code:"PRX",nums:[1],key:"sdcc",note:"San Diego Comic-Con 2026"}],
  ["PR",["promo"],Array(4).fill("Zara Larsson x Winx Club: Midnight Sun"),true,null,null,{prefix:"WFD02",nums:[1,8,9,10],note:"Zara Larsson x Winx Club collab"}]
 ];
 // Who appears on each group card, from the collector checklist
@@ -386,7 +392,7 @@ const APPEARS={
  "WFD01-FR-001":W6S,"WFD01-FR-002":W6S,"WFD01-FR-003":"Bloom, Flora, Stella, Musa, Tecna","WFD01-FR-004":W6S,"WFD01-FR-005":W6S,
  "WFD01-FR-006":W6S,"WFD01-FR-007":"Bloom, Flora, Stella, Musa, Tecna","WFD01-FR-008":W6S,"WFD01-FR-009":"Stella, Bloom, Flora",
  "WFD01-FR-010":"Flora, Aisha","WFD01-FR-011":"Musa, Tecna","WFD01-FR-012":"Bloom, Stella","WFD01-FR-013":W6S,"WFD01-FR-014":W6S,
- "WFD01-SE-001":W6S,"WFD01-PR-001":"Bloom",
+ "WFD01-SE-001":W6S,"WFD01-PR-001":"Bloom","WFD01-PRX-001":"Bloom",
  "WFD02-PR-001":W6S+", Zara Larsson","WFD02-PR-008":"Zara Larsson","WFD02-PR-009":W6S+", Zara Larsson","WFD02-PR-010":W6S+", Zara Larsson"
 };
 const GROUPS=[
@@ -409,7 +415,7 @@ BLOCKS.forEach(([rar,eds,names,conf,restart,perEd,opt])=>{
   if(restart||counter[rar]===undefined)counter[rar]=0;
   names.forEach((name,i)=>{
     counter[rar]++;
-    const n=String(opt&&opt.nums?opt.nums[i]:counter[rar]).padStart(3,"0"), num=`${opt&&opt.prefix||"WFD01"}-${RINFO[rar].code}-${n}`;
+    const n=String(opt&&opt.nums?opt.nums[i]:counter[rar]).padStart(3,"0"), num=`${opt&&opt.prefix||"WFD01"}-${opt&&opt.code||RINFO[rar].code}-${n}`;
     const editions=perEd?["promo"]:eds, edLabel=perEd?perEd[i]:null;
     const isChar=ALLCHARS.includes(name);
     CARDS.push({uid:`${num}|${editions.join("+")}${opt&&opt.key?"|"+opt.key:""}`,num,n,rar,name,editions,promoWith:edLabel,promoNote:opt&&opt.note,
@@ -445,15 +451,26 @@ const has=uid=>counts[uid]||0;
 const charMatch=(c,name)=>cmode==="solo"?c.main===name:c.appears.includes(name);
 const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
 
+// ---------- Card images ----------
+const IMGS=new Set(["wfd01-ar-001-daily", "wfd01-ar-001-magic", "wfd01-ar-002-daily", "wfd01-ar-002-magic", "wfd01-ar-003-daily", "wfd01-ar-003-magic", "wfd01-ar-004-daily", "wfd01-ar-004-magic", "wfd01-ar-005-daily", "wfd01-ar-005-magic", "wfd01-ar-006-daily", "wfd01-ar-006-magic", "wfd01-bp-001", "wfd01-bp-002", "wfd01-bp-003", "wfd01-bp-004", "wfd01-bp-005", "wfd01-bp-006", "wfd01-cr-001", "wfd01-cr-002", "wfd01-cr-003", "wfd01-cr-004", "wfd01-cr-005", "wfd01-cr-006", "wfd01-fr-001", "wfd01-fr-002", "wfd01-fr-003", "wfd01-fr-004", "wfd01-fr-005", "wfd01-fr-006", "wfd01-fr-007", "wfd01-fr-008", "wfd01-fr-009", "wfd01-fr-010", "wfd01-fr-011", "wfd01-fr-012", "wfd01-fr-013", "wfd01-fr-014", "wfd01-hr-001", "wfd01-hr-002", "wfd01-hr-003", "wfd01-hr-004", "wfd01-hr-005", "wfd01-hr-006", "wfd01-hr-007", "wfd01-hr-008", "wfd01-hr-009", "wfd01-hr-010", "wfd01-hr-011", "wfd01-hr-012", "wfd01-pr-001", "wfd01-pr-002", "wfd01-pr-003", "wfd01-pr-004", "wfd01-prx-001", "wfd01-qr-001", "wfd01-qr-002", "wfd01-qr-003", "wfd01-qr-004", "wfd01-qr-005", "wfd01-qr-006", "wfd01-qr-007", "wfd01-qr-008", "wfd01-qr-009", "wfd01-qr-010", "wfd01-qr-011", "wfd01-qr-012", "wfd01-qr-013", "wfd01-qr-014", "wfd01-qr-015", "wfd01-qr-016", "wfd01-qr-017", "wfd01-qr-018", "wfd01-qr-019", "wfd01-qr-020", "wfd01-qr-021", "wfd01-qr-022", "wfd01-qr-023", "wfd01-qr-024", "wfd01-r-001", "wfd01-r-002", "wfd01-r-003", "wfd01-r-004", "wfd01-r-005", "wfd01-r-006", "wfd01-r-007", "wfd01-r-008", "wfd01-r-009", "wfd01-r-010", "wfd01-r-011", "wfd01-r-012", "wfd01-r-013", "wfd01-r-014", "wfd01-r-015", "wfd01-r-016", "wfd01-r-017", "wfd01-r-018", "wfd01-r-019", "wfd01-r-020", "wfd01-se-001", "wfd01-sr-001", "wfd01-sr-002", "wfd01-sr-003", "wfd01-sr-004", "wfd01-sr-005", "wfd01-sr-006", "wfd01-sr-007", "wfd01-sr-008", "wfd01-sr-009", "wfd01-sr-010", "wfd01-sr-011", "wfd01-sr-012", "wfd01-sr-013", "wfd01-sr-014", "wfd01-sr-015", "wfd01-sr-016", "wfd01-sr-017", "wfd01-sr-018", "wfd01-srp-001", "wfd01-srp-002", "wfd01-srp-003", "wfd01-srp-004", "wfd01-srp-005", "wfd01-srp-006", "wfd01-ssr-001", "wfd01-ssr-002", "wfd01-ssr-003", "wfd01-ssr-004", "wfd01-ssr-005", "wfd01-ssr-006", "wfd01-tr-001", "wfd01-tr-002", "wfd01-tr-003", "wfd01-tr-004", "wfd01-tr-005", "wfd01-tr-006", "wfd01-tr-007", "wfd01-tr-008", "wfd01-tr-009", "wfd01-tr-010", "wfd01-tr-011", "wfd01-tr-012", "wfd01-ugr-001", "wfd01-ugr-002", "wfd01-ugr-003", "wfd01-ugr-004", "wfd01-ugr-005", "wfd01-ugr-006", "wfd01-ur-001", "wfd01-ur-002", "wfd01-ur-003", "wfd01-ur-004", "wfd01-ur-005", "wfd01-ur-006", "wfd01-zr-001", "wfd01-zr-002", "wfd01-zr-003", "wfd01-zr-004", "wfd01-zr-005", "wfd01-zr-006", "wfd02-pr-001", "wfd02-pr-008", "wfd02-pr-010"]);
+const LAND=new Set(["wfd01-fr-003", "wfd01-fr-004", "wfd01-fr-005", "wfd01-fr-006", "wfd01-fr-008"]);
+function imgKey(c){
+  let k=c.num.toLowerCase().replace(/[◇◊]sr/,"srp");
+  if(c.rar==="AR"&&c.editions.length===1)k+="-"+c.editions[0];
+  return IMGS.has(k)?k:null;
+}
 // ---------- Pieces ----------
-function artHTML(c){const h=HUE[c.name]||SCENE_HUE;
+function artHTML(c,big){
+  const k=imgKey(c);
+  if(k)return `<img class="cardimg" src="cards/${k}-${big?"l":"s"}.webp" alt="${esc(label(c))}, ${c.num}" loading="lazy" decoding="async"><span class="edb">${edTag(c)}</span>`;
+  const h=HUE[c.name]||SCENE_HUE;
   return `<span class="art" style="background:linear-gradient(155deg,${h[0]},${h[1]})"><span class="badge">${RINFO[c.rar].code}</span><span class="edb">${edTag(c)}</span><span class="initial" aria-hidden="true">${esc(c.name[0])}</span><span class="cname">${esc(label(c))}</span></span>`}
 function stepHTML(c){const n=has(c.uid),l=esc(label(c));
   return n?`<span class="step"><button data-act="sub" data-id="${c.uid}" aria-label="Remove one ${l}">−</button><output>${n}</output><button data-act="add" data-id="${c.uid}" aria-label="Add one ${l}">+</button></span>`
          :`<button class="addbtn" data-act="add" data-id="${c.uid}" aria-label="Add ${l}">+ Add</button>`}
 function cardHTML(c,small){const n=has(c.uid);
   return `<div class="card${n?"":" missing"}">
-    <button class="face" data-open="${c.uid}" aria-label="View ${esc(label(c))}, ${c.num}">${artHTML(c)}${n&&!small?`<span class="qty">×${n}</span>`:""}</button>
+    <button class="face${imgKey(c)?" has-img":""}${LAND.has(imgKey(c))?" land":""}" data-open="${c.uid}" aria-label="View ${esc(label(c))}, ${c.num}">${artHTML(c)}${n&&!small?`<span class="qty">×${n}</span>`:""}</button>
     ${small?`<span class="num">${c.num}</span>`:`<div class="meta"><span class="num"><span class="nfull">${c.num}</span><span class="nshort">${c.num.replace("WFD01-","")}</span></span>${stepHTML(c)}</div>`}</div>`}
 
 function renderStats(){
@@ -554,7 +571,7 @@ function renderDetail(){
   el.innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="dTitle">
     <button class="close" id="dClose" aria-label="Close">✕</button>
     <div class="d-left">
-      <div class="face">${artHTML(c)}</div>
+      <div class="face${imgKey(c)?" has-img":""}${LAND.has(imgKey(c))?" land":""}">${artHTML(c,true)}</div>
       <div class="nav"><button data-go="${ids[i-1]||""}" ${i>0?"":"disabled"}>← Previous</button><button data-go="${ids[i+1]||""}" ${i<ids.length-1?"":"disabled"}>Next →</button></div>
     </div>
     <div class="d-right">
