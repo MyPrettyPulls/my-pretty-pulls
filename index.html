@@ -97,7 +97,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .edtile .big{font-family:var(--font-display);font-weight:800;font-size:1.5rem;font-variant-numeric:tabular-nums}
 .edtile .big small{color:var(--muted);font-size:.9rem;font-weight:600}
 .donebadge{background:var(--gold);color:#fff;font-size:.7rem;font-weight:800;border-radius:999px;padding:2px 8px;text-transform:uppercase;letter-spacing:.06em}
-.teaser{align-items:flex-start}
+.teaser{align-items:flex-start;flex-direction:row!important;justify-content:space-between;flex-wrap:wrap}
 .form-sheet{display:block!important;max-width:760px}
 .form{display:flex;flex-direction:column;gap:16px}
 .field{display:flex;flex-direction:column;gap:6px}
@@ -117,6 +117,53 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .switch input{margin-top:4px;width:18px;height:18px;accent-color:var(--accent)}
 .formfoot{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;align-items:center}
 .empty-state{text-align:center;padding:40px 16px;color:var(--muted);display:flex;flex-direction:column;gap:12px;align-items:center}
+
+
+/* ---------- Guess the Secret Pull ---------- */
+.game{display:flex;flex-direction:column;gap:18px}
+.game-head{text-align:center;display:flex;flex-direction:column;gap:4px;align-items:center}
+.game-head h1{font-size:clamp(1.9rem,5vw,2.8rem)}
+.howto{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 14px}
+.howto summary{cursor:pointer;font-weight:700;padding:6px 0}
+.howto ul{margin:6px 0 10px;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.game-main{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:760px){.game-main{grid-template-columns:1fr}.mystery-col{max-width:260px;margin:0 auto;width:100%}}
+.mystery-col{display:flex;flex-direction:column;gap:12px;align-items:center}
+.mystery{position:relative;width:100%;aspect-ratio:63/88;border-radius:14px;overflow:hidden;box-shadow:var(--shadow);background:linear-gradient(150deg,#3b1c4a,#c2366f 55%,#e0b44c)}
+.mystery.land{aspect-ratio:88/63}
+.mystery .q{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-display);font-weight:800;font-size:5rem;color:#fff;text-shadow:0 2px 12px rgb(0 0 0 / .3)}
+.mystery .glit{position:absolute;inset:0;background:url(fx/glitter-pink.webp) 0 0/180px 180px;mix-blend-mode:screen;opacity:.55;animation:twinkle 1.6s ease-in-out infinite alternate}
+.mystery canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;filter:blur(2px) saturate(1.1)}
+.mystery .lvl{position:absolute;left:8px;bottom:8px;background:rgb(0 0 0 / .45);color:#fff;font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 8px}
+.pips{display:flex;gap:5px;justify-content:center;flex-wrap:wrap}
+.pip{width:18px;height:8px;border-radius:4px;background:var(--accent)}
+.pip.used{background:var(--sunk)}
+.tries{font-weight:700;font-size:.9rem;text-align:center}
+.qpanel{display:flex;flex-direction:column;gap:14px}
+.qgroup{display:flex;flex-direction:column;gap:8px}
+.qrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.qbtn{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-weight:700;font-size:.86rem}
+.qbtn:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.qbtn:disabled{opacity:.45;cursor:default}
+.qbtn.known{border-style:dashed}
+.qrow select{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;padding:7px 12px;font:inherit;font-size:.86rem;font-weight:600}
+.qlog{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.qlog li{display:flex;justify-content:space-between;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:7px 12px;font-size:.9rem}
+.qlog .yes{color:var(--good);font-weight:800}.qlog .no{color:var(--accent);font-weight:800}
+.answer-flash{font-weight:800;text-align:center;min-height:1.4em}
+.cands-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.cands{display:grid;grid-template-columns:repeat(auto-fill,minmax(74px,1fr));gap:8px}
+.cand{border:2px solid transparent;border-radius:8px;padding:0;background:none;position:relative}
+.cand img{width:100%;aspect-ratio:63/88;object-fit:contain;display:block;border-radius:6px}
+.cand[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.cand .cn{display:block;font-family:var(--font-mono);font-size:.6rem;color:var(--muted);text-align:center;margin-top:2px}
+.guessbar{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--fg);color:var(--bg);border-radius:14px;padding:10px 14px;box-shadow:var(--shadow);z-index:5}
+.guessbar .primary{background:var(--accent)}
+.result{text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center}
+.result .face{width:min(280px,80vw)}
+.result h2{font-family:var(--font-display);font-size:2rem;margin:0}
+.result .nums{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.result .nums .stat{min-width:120px}
 
 .notice{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--accent-soft);border-radius:12px;padding:10px 14px;font-size:.9rem}
 .notice button{border:0;background:var(--accent);color:var(--accent-ink);border-radius:8px;padding:6px 12px;font-weight:700;font-size:.85rem}
@@ -445,6 +492,7 @@ footer{color:var(--muted);font-size:.8rem;border-top:1px solid var(--line);paddi
   </div>
 
   <div id="viewProfile" hidden></div>
+  <div id="viewPlay" hidden></div>
 
   <footer>Prototype. Card art is placeholder. Card numbers come from a collector's checklist; numbers marked unconfirmed follow Kayou's list order. Unofficial fan project, not affiliated with KAYOU or Rainbow S.p.A. Winx Club® © Rainbow S.p.A. Sign in to save your collection to your account; signed out, it's saved in this browser.</footer>
 </div>
@@ -879,7 +927,7 @@ function renderProfile(){
       <div class="stat"><span class="label">Total cards</span><span class="v">${st.total}</span><span class="s">Including duplicates</span></div>
       <div class="stat"><span class="label">Editions completed</span><span class="v">${st.done}<small> / ${st.boxes}</small></span><span class="s">Daily and Magic</span></div>
       <div class="stat"><span class="label">Extras to trade</span><span class="v">${st.extras}</span><span class="s">Copies beyond the first</span></div>
-      <div class="stat soon"><span class="label">Day streak</span><span class="v">Coming soon</span><span class="s">Guess the Secret Pull</span></div>
+      <div class="stat"><span class="label">Day streak</span><span class="v">${v.game?v.game.streak:0}</span><span class="s">Guess the Secret Pull</span></div>
     </section>
     <div class="prof-grid">
       <section class="panel">
@@ -897,7 +945,8 @@ function renderProfile(){
       <div class="edtiles">${st.eds.map(x=>`<div class="edtile${x.done?" done":""}"><div class="row"><span class="code" style="font-family:var(--font-mono);font-size:.72rem;color:var(--muted)">${x.e.code}</span>${x.done?`<span class="donebadge">Complete</span>`:""}</div><b>${x.e.name}</b><span class="big">${x.have}<small> / ${x.total}</small></span><span class="bar"><i style="width:${Math.round(x.have/x.total*100)}%;${x.done?"background:var(--gold)":""}"></i></span></div>`).join("")}</div>
     </section>
     <section class="panel teaser">
-      <div><h2>Guess the Secret Pull</h2><p class="hint" style="margin:4px 0 0">One hidden card a day, 8 questions to find it. Streaks and rankings show up here. Coming soon.</p></div>
+      <div><h2>Guess the Secret Pull</h2><p class="hint" style="margin:4px 0 0">${v.game?`${v.game.solved||0} solved · ${v.game.total||0} points · ${v.game.streak||0} day streak`:"One hidden card a day, 8 questions to find it."}</p></div>
+      ${own?`<button class="primary" data-nav="/play">Play today's card</button>`:""}
     </section>
     ${!own&&!user?`<div class="banner"><span>Track your own Winx cards and make a profile like this one.</span><button class="primary" data-nav="/">Start your collection</button></div>`:""}
   </section>`;
@@ -917,9 +966,167 @@ async function fetchCounts(uid){
   return out;
 }
 
+
+// ---------- Guess the Secret Pull ----------
+const SP_GROUPS=Object.fromEntries(GROUPS.map(g=>[g.name,g.chars]));
+const SP_HITLESS=new Set(["R","QR","SR","PR"]);
+function spCheck(c,q){
+  const [k,v]=q.split(":");
+  switch(k){
+    case "ed": return c.editions.includes(v);
+    case "rar": return c.rar===v;
+    case "hit": return !SP_HITLESS.has(c.rar);
+    case "solo": return !!c.main&&c.appears.length===1;
+    case "char": return c.appears.includes(v);
+    case "grp": return c.appears.some(a=>(SP_GROUPS[v]||[]).includes(a));
+    case "gt": return +c.n>+v;
+  }
+  return false;
+}
+function spLabel(q){
+  const [k,v]=q.split(":");
+  return {ed:{daily:"Is it in Daily Edition boxes?",magic:"Is it in Magic Edition boxes?",promo:"Is it a promo card?"}[v],
+    rar:`Is it ${/^[AEIOU]/.test(RINFO[v]?.name||"")?"an":"a"} ${RINFO[v]?.name||v} (${RINFO[v]?.code||v})?`,hit:"Is it a hit card (rarer than SR)?",
+    solo:"Is it a solo card?",char:`Is ${v} on it?`,grp:`Is one of the ${v} on it?`,gt:`Is its number above ${v}?`}[k];
+}
+let sp=null, spSel=null, spBusy=false, spMsg="", spPeek=null;
+const spLocalKey=d=>"mpp.sp."+d;
+function spPoints(used,solved){return solved?Math.max(2,10-used):0}
+function spCands(){
+  let cs=CARDS;
+  for(const e of sp.log){ if(e.q)cs=cs.filter(c=>spCheck(c,e.q)===e.a); else if(e.g&&!e.a)cs=cs.filter(c=>c.uid!==e.g) }
+  return cs;
+}
+function spSaveLocal(){ if(!user&&sp)ls.set(spLocalKey(sp.day),JSON.stringify({log:sp.log,used:sp.used,finished:sp.finished,solved:sp.solved,points:sp.points,card:sp.card})) }
+async function spLoad(){
+  if(!sb){sp={error:true};return}
+  const {data,error}=await sb.rpc("sp_state"); if(error){sp={error:true};return}
+  sp=data;
+  if(!user){try{const l=JSON.parse(ls.get(spLocalKey(sp.day))||"null");if(l)Object.assign(sp,l)}catch(e){}}
+  await spLoadPeek();
+}
+async function spLoadPeek(){
+  spPeek=null; if(!sp||sp.finished)return;
+  const {data}=await sb.rpc("sp_peek",{used_count:sp.used}); spPeek=data||null;
+}
+function spCountdown(){
+  const now=new Date(), et=new Date(now.toLocaleString("en-US",{timeZone:"America/New_York"})), nx=new Date(et); nx.setHours(24,0,0,0);
+  const m=Math.round((nx-et)/60000); return `${Math.floor(m/60)}h ${m%60}m`;
+}
+function spShareText(){
+  const marks=sp.log.map(e=>e.q?"❔":e.a?"💖":"❌").join("");
+  return `Guess the Secret Pull #${sp.number} ✨\n${marks}${sp.solved?"":"💔"} ${sp.solved?`${sp.used}/8`:"X/8"}\n${location.origin}/play`;
+}
+function drawPeek(){
+  const cv=$("#peekCv"); if(!cv||!spPeek)return;
+  cv.width=spPeek.w; cv.height=spPeek.h; const g=cv.getContext("2d"), im=g.createImageData(spPeek.w,spPeek.h);
+  for(let i=0;i<spPeek.w*spPeek.h;i++){const o=i*6;im.data[i*4]=parseInt(spPeek.px.substr(o,2),16);im.data[i*4+1]=parseInt(spPeek.px.substr(o+2,2),16);im.data[i*4+2]=parseInt(spPeek.px.substr(o+4,2),16);im.data[i*4+3]=255}
+  g.putImageData(im,0,0);
+}
+function renderPlay(){
+  const el=$("#viewPlay");
+  if(!sp){el.innerHTML=`<div class="empty-state">Loading today's card…</div>`;return}
+  if(sp.error){el.innerHTML=`<div class="empty-state"><h1 style="font-size:2rem">Couldn't load today's card</h1><p>Check your connection and refresh the page.</p></div>`;return}
+  const left=8-sp.used, cands=spCands();
+  const head=`<div class="game-head"><div class="label">${new Date(sp.day+"T12:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})} · #${sp.number}</div><h1>Guess the Secret Pull</h1><p class="hint" style="margin:0">One hidden card. Everyone gets the same one. 8 questions to find it.</p></div>`;
+  const howto=`<details class="howto"${sp.used||sp.finished?"":" open"}><summary>How to play</summary><ul>
+    <li>Tap a question to ask it. Each question uses one of your 8 tries.</li>
+    <li>Every answer narrows down the binder below automatically.</li>
+    <li>Tap a card and press <b>Guess</b>. A wrong guess uses a try. With no tries left you still get one final guess.</li>
+    <li>The mystery card gets clearer after 2, 4 and 6 tries.</li>
+    <li>Questions you already know the answer to are free.</li>
+    <li>Points: find it with 0 tries used for 10, then one less per try (at least 2). ${user?"Your points and streak are saved to your profile.":"<b>Sign in</b> to save your points and keep a daily streak."}</li></ul></details>`;
+  if(sp.finished){
+    const c=BYUID[sp.card]; const k=c&&imgKey(c);
+    el.innerHTML=`<section class="game">${head}<div class="result">
+      <h2>${sp.solved?`Found it with ${sp.used} ${sp.used===1?"try":"tries"}!`:"So close!"}</h2>
+      <p class="hint" style="margin:0">${sp.solved?"":"Today's Secret Pull was:"}</p>
+      ${c?`<div class="card"><div class="face${k?" has-img":""}${LAND.has(k)?" land":""}">${artHTML(c,true)}</div></div><div><b>${esc(label(c))}</b> · <span class="num">${c.num}</span> · ${RINFO[c.rar].name}</div>`:""}
+      <div class="nums">
+        <div class="stat"><span class="label">Points today</span><span class="v">${sp.points}</span></div>
+        ${user?`<div class="stat"><span class="label">Day streak</span><span class="v">${sp.streak||0}</span></div><div class="stat"><span class="label">All-time points</span><span class="v">${sp.total||0}</span></div>`:""}
+      </div>
+      <div class="qrow" style="justify-content:center"><button class="primary" data-spshare>Copy my result</button>${c?`<button class="ghost" data-open="${c.uid}">View card</button>`:""}</div>
+      <p class="hint">Next Secret Pull in ${spCountdown()}.</p>
+      ${user?"":`<div class="banner"><span>Sign in to save your points and start a daily streak.</span><button class="primary" id="openSignin">Sign in</button></div>`}
+    </div></section>`;
+    return;
+  }
+  const opt=(arr,ph)=>`<option value="">${ph}</option>`+arr.map(([v,t])=>`<option value="${esc(v)}">${esc(t)}</option>`).join("");
+  const rars=RORDER.filter(r=>CARDS.some(c=>c.rar===r)).map(r=>[r,`${RINFO[r].code} · ${RINFO[r].name}`]);
+  const chars=GROUPS.flatMap(g=>g.chars).map(n=>[n,n]);
+  const nums=Array.from({length:23},(_,i)=>[String(i+1),String(i+1)]);
+  const known=q=>{const ans=cands.map(c=>spCheck(c,q));return ans.every(a=>a)||ans.every(a=>!a)};
+  const qb=(q,t)=>`<button class="qbtn${known(q)?" known":""}" data-spq="${esc(q)}"${spBusy||(left<=0)?" disabled":""}>${t}</button>`;
+  const sel=spSel&&BYUID[spSel];
+  el.innerHTML=`<section class="game">${head}${howto}
+    <div class="game-main">
+      <div class="mystery-col">
+        <div class="mystery${spPeek&&spPeek.w>spPeek.h?" land":""}">${spPeek?`<canvas id="peekCv" aria-label="Blurry preview of the mystery card"></canvas><span class="lvl">Clearer at ${spPeek.level<3?(spPeek.level+1)*2+" tries":"max"}</span>`:`<span class="glit"></span><span class="q">?</span>`}</div>
+        <div class="pips" aria-hidden="true">${Array.from({length:8},(_,i)=>`<span class="pip${i<sp.used?" used":""}"></span>`).join("")}</div>
+        <div class="tries">${left>0?`${left} ${left===1?"try":"tries"} left`:"No tries left. Make your final guess!"}</div>
+      </div>
+      <div class="qpanel">
+        <div class="answer-flash" role="status">${spMsg}</div>
+        <div class="qgroup"><span class="label">Which box?</span><div class="qrow">${qb("ed:daily","Daily Edition?")}${qb("ed:magic","Magic Edition?")}${qb("ed:promo","Promo?")}</div></div>
+        <div class="qgroup"><span class="label">Rarity</span><div class="qrow">${qb("hit","Rarer than SR?")}<select id="spRar" aria-label="Rarity">${opt(rars,"Pick a rarity")}</select><button class="qbtn" data-spsel="spRar:rar"${spBusy||left<=0?" disabled":""}>Ask</button></div></div>
+        <div class="qgroup"><span class="label">Who's on it?</span><div class="qrow">${GROUPS.map(g=>qb("grp:"+g.name,g.name+"?")).join("")}${qb("solo","Solo card?")}</div>
+          <div class="qrow"><select id="spChar" aria-label="Character">${opt(chars,"Pick a character")}</select><button class="qbtn" data-spsel="spChar:char"${spBusy||left<=0?" disabled":""}>Ask</button></div></div>
+        <div class="qgroup"><span class="label">Card number</span><div class="qrow"><span>Is the number above</span><select id="spNum" aria-label="Number">${opt(nums,"…")}</select><button class="qbtn" data-spsel="spNum:gt"${spBusy||left<=0?" disabled":""}>Ask</button></div></div>
+        ${sp.log.length?`<div class="qgroup"><span class="label">Your questions</span><ol class="qlog">${sp.log.map(e=>e.q?`<li><span>${esc(spLabel(e.q))}</span><span class="${e.a?"yes":"no"}">${e.a?"Yes":"No"}</span></li>`:`<li><span>Guessed ${esc(label(BYUID[e.g]||{name:"a card"}))} <span class="num">${BYUID[e.g]?.num||""}</span></span><span class="no">Not it</span></li>`).join("")}</ol></div>`:""}
+      </div>
+    </div>
+    <section class="panel">
+      <div class="cands-h"><h2 style="font-family:var(--font-display);font-size:1.15rem;margin:0">Possible cards</h2><span class="hint">${cands.length} of ${CARDS.length} left · tap one to guess</span></div>
+      <div class="cands">${cands.map(c=>{const k=imgKey(c);return `<button class="cand" data-spc="${c.uid}" aria-pressed="${spSel===c.uid}" aria-label="${esc(label(c))} ${c.num}">${k?`<img src="cards/${k}-s.webp" alt="" loading="lazy">`:esc(label(c))}<span class="cn">${c.num.replace("WFD01-","").replace("WFD02-","W2 ")}</span></button>`}).join("")}</div>
+    </section>
+    ${sel?`<div class="guessbar"><span>Guess <b>${esc(label(sel))}</b> · ${sel.num}?</span><span class="qrow"><button class="ghost" data-spcancel>Cancel</button><button class="primary" data-spguess${spBusy?" disabled":""}>Guess this card</button></span></div>`:""}
+    ${user?"":`<div class="banner"><span>Playing without an account. Sign in to save your points and keep a streak.</span><button class="primary" id="openSignin">Sign in</button></div>`}
+  </section>`;
+  drawPeek();
+}
+async function spAsk(q){
+  if(spBusy||!sp||sp.finished)return;
+  const cands=spCands(), ans=cands.map(c=>spCheck(c,q));
+  if(ans.every(a=>a)||ans.every(a=>!a)){spMsg=`You already know that one: ${ans[0]?"Yes":"No"}. No try used.`;renderPlay();return}
+  if(sp.used>=8){spMsg="No tries left. Make your final guess.";renderPlay();return}
+  spBusy=true; spMsg="Asking…"; renderPlay();
+  const {data,error}=await sb.rpc("sp_ask",{q});
+  spBusy=false;
+  if(error||data?.error){spMsg=data?.error==="finished"?"You've already finished today's card.":"Couldn't ask that. Try again.";await spLoad();renderPlay();return}
+  sp.log.push({q,a:data.answer}); sp.used++; spSaveLocal();
+  spMsg=`${spLabel(q)} <b>${data.answer?"Yes!":"No."}</b>`;
+  if([2,4,6].includes(sp.used))await spLoadPeek();
+  if(spSel&&!spCands().some(c=>c.uid===spSel))spSel=null;
+  renderPlay();
+}
+async function spGuess(){
+  if(spBusy||!spSel||sp.finished)return;
+  spBusy=true; renderPlay();
+  const g=spSel, {data,error}=await sb.rpc("sp_guess",{guess:g});
+  spBusy=false;
+  if(error||data?.error){spMsg="Couldn't send that guess. Try again.";await spLoad();renderPlay();return}
+  const last=sp.used>=8;
+  sp.log.push({g,a:data.correct}); spSel=null;
+  if(data.correct){sp.finished=true;sp.solved=true;sp.card=data.card||g;sp.points=user?data.points:spPoints(sp.used,true)}
+  else if(last){sp.finished=true;sp.card=data.card||(user?null:(await sb.rpc("sp_reveal")).data)}
+  else{sp.used++;spMsg="Not that one. Keep going!"; if([2,4,6].includes(sp.used))await spLoadPeek()}
+  spSaveLocal();
+  if(sp.finished&&user){await spLoad()}
+  renderPlay(); if(sp.finished)window.scrollTo(0,0);
+}
+document.addEventListener("click",async e=>{
+  const q=e.target.closest("[data-spq]"); if(q&&!q.disabled){spAsk(q.dataset.spq);return}
+  const s=e.target.closest("[data-spsel]"); if(s&&!s.disabled){const [id,k]=s.dataset.spsel.split(":"),v=$("#"+id).value;if(!v){spMsg="Pick an option first.";renderPlay();return}spAsk(k+":"+v);return}
+  const c=e.target.closest("[data-spc]"); if(c){spSel=spSel===c.dataset.spc?null:c.dataset.spc;renderPlay();return}
+  if(e.target.closest("[data-spcancel]")){spSel=null;renderPlay();return}
+  if(e.target.closest("[data-spguess]")){spGuess();return}
+  if(e.target.closest("[data-spshare]")){try{await navigator.clipboard.writeText(spShareText());toast("Result copied")}catch(err){toast("Couldn't copy here")}return}
+});
+
 // ---------- Pages: / collection, /profile your profile, /u/name someone's profile ----------
 function setView(which){
-  $("#viewCollection").hidden=which!=="collection"; $("#viewProfile").hidden=which!=="profile";
+  $("#viewCollection").hidden=which!=="collection"; $("#viewProfile").hidden=which!=="profile"; $("#viewPlay").hidden=which!=="play";
   renderAcct();
 }
 async function route(){
@@ -933,13 +1140,21 @@ async function route(){
     const {data}=await sb.from("profiles").select("*").eq("username",name).maybeSingle();
     if(!data){viewing={state:"missing"};renderProfile();return}
     try{viewing={state:"ok",prof:data,counts:await fetchCounts(data.id),own:!!user&&user.id===data.id}}catch(e){viewing={state:"missing"}}
+    if(viewing.state==="ok"){const g=await sb.rpc("sp_profile_stats",{uname:data.username});viewing.game=g.data||null}
     renderProfile(); document.title=`${data.display_name||data.username} · My Pretty Pulls`; return;
+  }
+  if(path==="/play"){
+    setView("play"); document.title="Guess the Secret Pull · My Pretty Pulls";
+    if(!sessionChecked){sp=null;renderPlay();return}
+    sp=null; spSel=null; spMsg=""; renderPlay(); await spLoad(); renderPlay(); return;
   }
   if(path==="/profile"){
     setView("profile"); document.title="Your profile · My Pretty Pulls";
     if(!user){viewing={state:sessionChecked?"signin":"loading"};renderProfile();return}
     if(!myProfile){viewing={state:"setup"};renderProfile();openEdit();return}
-    viewing={state:"ok",prof:myProfile,counts,own:true};renderProfile();return;
+    viewing={state:"ok",prof:myProfile,counts,own:true};renderProfile();
+    const g=await sb.rpc("sp_profile_stats",{uname:myProfile.username}); if(viewing&&viewing.own){viewing.game=g.data||null;renderProfile()}
+    return;
   }
   setView("collection"); document.title="My Pretty Pulls";
 }
@@ -1184,7 +1399,8 @@ function onSignedOut(){ user=null; myProfile=null; pending.clear(); setSave("");
 function renderAcct(){
   const el=$("#acct"); if(!sb){el.innerHTML="";return}
   const onProf=!$("#viewProfile").hidden, path=location.pathname;
-  const nav=`<button class="navbtn" data-nav="/"${!onProf?' aria-current="page"':""}>Collection</button>`;
+  const onPlay=!$("#viewPlay").hidden;
+  const nav=`<button class="navbtn" data-nav="/"${!onProf&&!onPlay?' aria-current="page"':""}>Collection</button><button class="navbtn" data-nav="/play"${onPlay?' aria-current="page"':""}>Play</button>`;
   if(!user){el.innerHTML=nav+`<button class="primary" id="openSignin">Sign in</button>`;return}
   const msg={loading:"Loading…",saving:"Saving…",saved:"Saved",error:"Not saved yet, retrying"}[saveState]||"";
   el.innerHTML=nav+`<button class="navbtn" data-nav="/profile"${onProf&&(path==="/profile"||(myProfile&&path==="/u/"+myProfile.username))?' aria-current="page"':""}>${avatarHTML(myProfile,"sm")}${myProfile?"@"+esc(myProfile.username):"My profile"}</button><span class="saved${saveState==="error"?" err":""}" role="status">${msg}</span><button class="ghost" id="signOut">Sign out</button>`;
