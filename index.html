@@ -150,6 +150,9 @@ input[type=search]{border:1px solid var(--line);background:var(--surface);color:
 .fx-shine{background:linear-gradient(115deg,transparent 36%,rgb(255 255 255 / .85) 48%,rgb(255 255 255 / .25) 54%,transparent 64%) var(--mx) 50%/300% 300% no-repeat;mix-blend-mode:overlay;--fxo:1;--fxi:.35}
 .fx-pixel{background:radial-gradient(circle at var(--mx) var(--my),#fff,#9a9a9a 38%,#4a4a4a 80%),url(fx/pixel-silver.webp) calc(var(--mx) * .15) calc(var(--my) * .15)/110px 110px;background-blend-mode:multiply;mix-blend-mode:color-dodge;animation:twinkle 1.4s ease-in-out infinite alternate;--fxo:.85;--fxi:.45}
 .fx-shatter{background:url(fx/shatter.webp) calc(var(--mx) * .08) calc(var(--my) * .08)/300px 300px,repeating-linear-gradient(125deg,#ff4fa3 0%,#ffb84f 6%,#f9ff6e 12%,#5dffb5 18%,#4fd2ff 24%,#9b6bff 30%,#ff4fa3 36%) var(--mx) var(--my)/380% 380%;background-blend-mode:multiply;mix-blend-mode:color-dodge;--fxo:.55;--fxi:.2}
+.fx-finesheen{background:radial-gradient(circle at var(--mx) var(--my),#fff,#8d8d8d 40%,#3c3c3c 85%),url(fx/fine-shimmer.webp) calc(var(--mx) * .1) calc(var(--my) * .1)/100px 100px;background-blend-mode:multiply;mix-blend-mode:color-dodge;--fxo:.6;--fxi:.28}
+.fx-sheen{background:linear-gradient(115deg,transparent 30%,rgb(235 240 255 / .55) 47%,rgb(255 255 255 / .2) 55%,transparent 70%) var(--mx) 50%/300% 300% no-repeat;mix-blend-mode:overlay;--fxo:1;--fxi:.3}
+.fx-stained{background:url(fx/shatter.webp) calc(var(--mx) * .05) calc(var(--my) * .05)/560px 560px,repeating-linear-gradient(135deg,#e0306f 0%,#f2a531 8%,#3fbf6c 16%,#2f7fe0 24%,#8a3fe0 32%,#e0306f 40%) var(--mx) var(--my)/300% 300%;background-blend-mode:multiply;mix-blend-mode:overlay;--fxo:.65;--fxi:.25}
 .fx-pastel{background:linear-gradient(120deg,#ffc6e5,#c9e8ff,#e4d1ff,#fff1c4,#ffc6e5) var(--mx) var(--my)/300% 300%;mix-blend-mode:soft-light;--fxo:.85}
 .fx-rainbow,.fx-holo,.fx-holo-dark{background:repeating-linear-gradient(110deg,#ff5f9e 0%,#ffb35c 7%,#fff27a 14%,#7dffb0 21%,#6fd7ff 28%,#9a8cff 35%,#ff5f9e 42%) var(--mx) var(--my)/420% 420%,radial-gradient(circle at var(--mx) var(--my),rgb(255 255 255 / .35),transparent 40%);mix-blend-mode:color-dodge}
 .fx-rainbow{--fxo:.45;--fxi:.16}
@@ -504,6 +507,12 @@ const LAND=new Set(["wfd01-fr-003", "wfd01-fr-004", "wfd01-fr-005", "wfd01-fr-00
 const FX={R:["shine"],QR:["pixel"],SR:["shine","stars"],SRP:["shine","glitter-pink"],FR:["rainbow"],HR:["holo"],TR:["lightbar"],
   SSR:["shatter"],UR:["silver"],UGR:["gold","glitter-gold"],AR:["holo","stars"],ZR:["neon"],CR:["prism","glitter-pink"],
   BP:["shine","glitter-gold"],SE:["holo","glitter-pink"],PR:["pearl","stars"]};
+// Some cards have their own finish regardless of rarity
+function fxFor(c){
+  if(c.num.startsWith("WFD02-PR")||c.num==="WFD01-PRX-001")return ["finesheen","sheen"];
+  if(c.rar==="PR")return ["stained","sheen"];
+  return FX[c.rar]||[];
+}
 function imgKey(c){
   let k=c.num.toLowerCase().replace(/[◇◊]sr/,"srp");
   if(c.rar==="AR"&&c.editions.length===1)k+="-"+c.editions[0];
@@ -512,7 +521,7 @@ function imgKey(c){
 // ---------- Pieces ----------
 function artHTML(c,big){
   const k=imgKey(c);
-  if(k){const m=`--m:url(cards/${k}-s.webp)`;return `<img class="cardimg" src="cards/${k}-${big?"l":"s"}.webp" alt="${esc(label(c))}, ${c.num}" loading="lazy" decoding="async">${(FX[c.rar]||[]).map(f=>`<span class="fx fx-${f}" style="${m}" aria-hidden="true"></span>`).join("")}<span class="edb">${edTag(c)}</span>`}
+  if(k){const m=`--m:url(cards/${k}-s.webp)`;return `<img class="cardimg" src="cards/${k}-${big?"l":"s"}.webp" alt="${esc(label(c))}, ${c.num}" loading="lazy" decoding="async">${fxFor(c).map(f=>`<span class="fx fx-${f}" style="${m}" aria-hidden="true"></span>`).join("")}<span class="edb">${edTag(c)}</span>`}
   const h=HUE[c.name]||SCENE_HUE;
   return `<span class="art" style="background:linear-gradient(155deg,${h[0]},${h[1]})"><span class="badge">${RINFO[c.rar].code}</span><span class="edb">${edTag(c)}</span><span class="initial" aria-hidden="true">${esc(c.name[0])}</span><span class="cname">${esc(label(c))}</span></span>`}
 function stepHTML(c){const n=has(c.uid),l=esc(label(c));
