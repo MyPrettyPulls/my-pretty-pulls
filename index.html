@@ -941,9 +941,9 @@ function profCollectionHTML(v){
   const fav=p.fav_char?CARDS.filter(c=>c.appears.includes(p.fav_char)):[];
   const favHave=fav.filter(c=>(v.counts[c.uid]||0)>0).length;
   if(profTab==="fav"&&!p.fav_char)profTab="all";
-  const tabs=`<div class="tabs" role="tablist"><button role="tab" data-ptab="all" aria-selected="${profTab==="all"}">All cards · ${owned.length}</button>${p.fav_char?`<button role="tab" data-ptab="fav" aria-selected="${profTab==="fav"}">${esc(p.fav_char)} · ${favHave}/${fav.length}</button>`:""}</div>`;
+  const tabs=`<div class="tabs" role="tablist"><button role="tab" data-ptab="all" aria-selected="${profTab==="all"}">All cards · ${owned.length}</button>${p.fav_char?`<button role="tab" data-ptab="fav" aria-selected="${profTab==="fav"}">${esc(p.fav_char)} · ${favHave}</button>`:""}</div>`;
   let grid;
-  if(profTab==="fav")grid=`<p class="hint" style="margin:0">Every card ${esc(p.fav_char)} appears on. Faded cards are still missing.</p><div class="pcards">${fav.map(c=>pcardHTML(c,!(v.counts[c.uid]>0))).join("")}</div>`;
+  if(profTab==="fav"){const favOwned=fav.filter(c=>(v.counts[c.uid]||0)>0);grid=favOwned.length?`<div class="pcards">${favOwned.map(c=>pcardHTML(c,false)).join("")}</div>`:`<p class="hint">${own?"You don't":"They don't"} have any ${esc(p.fav_char)} cards yet.</p>`}
   else grid=owned.length?`<div class="pcards">${owned.map(c=>pcardHTML(c,false)).join("")}</div>`:`<p class="hint">${own?"You haven't added any cards yet.":"No cards added yet."}</p>`;
   return `<section class="panel" id="profCards"><div class="panel-h" style="flex-wrap:wrap;gap:10px"><h2>${own?"Your":esc(p.display_name||p.username)+"'s"} collection</h2>${tabs}</div>${grid}</section>`;
 }
