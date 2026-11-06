@@ -31,25 +31,29 @@ alter table public.trivia_questions enable row level security;
 alter table public.trivia_plays enable row level security;
 revoke all on public.trivia_questions, public.trivia_plays from anon, authenticated;
 
--- The 5 questions for a day: easy, card, medium, card, hard. Written questions go through the whole bank before repeating.
+-- The 5 questions for a day: 2 written questions and 3 card questions, in a mixed order.
+-- Written questions go through the whole bank (any difficulty) before repeating.
 create or replace function public.tr_build(d date, i int) returns json
 language plpgsql stable security definer set search_path = public as $$
 declare n int := d - date '2026-11-05'; seed text := (select seed from game_config); pool text[]; qn trivia_questions;
   c game_cards; kind text; opts text[]; ans text; prompt text; fact text; diff text; k int; h1 int; h2 int; extra json;
+  hs int := ('x' || substr(md5(seed || d::text || 'slots'), 1, 6))::bit(24)::int; w1 int; w2 int;
 begin
   if i not between 0 and 4 then raise exception 'Bad question'; end if;
-  if i in (0, 2, 4) then
-    pool := case i when 0 then array['Easy'] when 2 then array['Medium'] else array['Hard','Expert'] end;
-    select count(*) into k from trivia_questions where active and difficulty = any(pool);
+  -- which 2 of the 5 spots are written questions today
+  w1 := hs % 5; w2 := (w1 + 1 + (hs / 5) % 4) % 5;
+  if i in (w1, w2) then
+    select count(*) into k from trivia_questions where active;
     if k = 0 then raise exception 'No questions loaded'; end if;
-    select * into qn from trivia_questions where active and difficulty = any(pool)
-      order by md5(id::text || seed || 'tq') offset (n % k) limit 1;
+    select * into qn from trivia_questions where active
+      order by md5(id::text || seed || 'tq') offset ((2 * n + case when i = least(w1, w2) then 0 else 1 end) % k) limit 1;
     prompt := qn.question; ans := qn.answer; fact := qn.fact; diff := qn.difficulty; kind := 'q';
     opts := array_append(qn.wrong, qn.answer);
   else
     select g.* into c from game_cards g
       where exists (select 1 from game_mosaics m where m.uid = g.uid) and g.uid <> sp_card_for(d)
-      order by md5(g.uid || seed || d::text || 'tc') offset (case i when 1 then 0 else 1 end) limit 1;
+      order by md5(g.uid || seed || d::text || 'tc')
+      offset ((select count(*) from generate_series(0, i - 1) x where x not in (w1, w2))) limit 1;
     h1 := ('x' || substr(md5(c.uid || seed || d::text || 'h1'), 1, 6))::bit(24)::int;
     h2 := ('x' || substr(md5(c.uid || seed || d::text || 'h2'), 1, 6))::bit(24)::int;
     k := ('x' || substr(md5(c.uid || seed || d::text || 'kind'), 1, 6))::bit(24)::int % 6;

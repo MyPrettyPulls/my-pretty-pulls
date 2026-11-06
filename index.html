@@ -1274,7 +1274,7 @@ function renderTrivia(){
     el.innerHTML=`<section class="game">${head}<div class="trcard">
       <p style="font-size:2.6rem;margin:0">🧚</p>
       <h2>${resume?`You're on question ${tr.answers.length+1} of 5`:"5 questions. 20 seconds each."}</h2>
-      <ul class="trrules"><li>Everyone gets the same 5 questions today, from easy to hard.</li><li>Two of them are about the cards themselves.</li><li>Each right answer wins ✨ 1 Sparkle. Get all 5 for 2 bonus Sparkles.</li><li>One try per day, and the clock starts when a question appears.</li></ul>
+      <ul class="trrules"><li>Everyone gets the same 5 questions today: 2 about the show and 3 about the cards.</li><li>Each right answer wins ✨ 1 Sparkle. Get all 5 for 2 bonus Sparkles.</li><li>One try per day, and the clock starts when a question appears.</li></ul>
       ${resume?dots:""}
       ${tr.err?`<p class="trerr" role="alert">${esc(tr.err)}</p>`:""}
       <button class="primary big" data-trgo${trBusy?" disabled":""}>${resume?"Keep going":"Start today's trivia"}</button>
