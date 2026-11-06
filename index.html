@@ -157,6 +157,9 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .trtimer span{display:block;height:100%;background:linear-gradient(90deg,#c2366f,#e0b44c);transform-origin:left;transition:transform .1s linear}
 .trq{font-size:.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .trimg{width:min(240px,64vw);aspect-ratio:63/88;object-fit:contain;align-self:center;border-radius:12px;box-shadow:var(--shadow)}
+.trpeek{width:min(240px,64vw);aspect-ratio:63/88;align-self:center;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.trpeek.land{width:min(340px,84vw);aspect-ratio:88/63}
+.trpeek canvas{width:100%;height:100%;display:block;image-rendering:pixelated;filter:blur(3px);transform:scale(1.08)}
 .trimg.land{width:min(340px,84vw);aspect-ratio:88/63}
 .tropts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media (max-width:520px){.tropts{grid-template-columns:1fr}}
@@ -1268,7 +1271,7 @@ function renderTrivia(){
     </div></section>`;
     return;
   }
-  const q=trQ, c=q.card&&BYUID[q.card], k=c&&imgKey(c);
+  const q=trQ, cu=q.card||(trRes&&trRes.card), c=cu&&BYUID[cu], k=c&&imgKey(c);
   const tag=q.kind==="q"?q.difficulty:"Card question";
   const opts=q.options.map(o=>{let cls="";if(trRes){if(o===trRes.answer)cls=" right";else if(o===trRes.choice)cls=" wrong"}return `<button class="tropt${cls}" data-tra="${esc(o)}"${trRes||trBusy?" disabled":""}>${esc(trOpt(q,o))}</button>`}).join("");
   el.innerHTML=`<section class="game">${head}<div class="trcard">
@@ -1276,11 +1279,12 @@ function renderTrivia(){
     ${trRes?"":`<div class="trtimer" aria-hidden="true"><span id="trBar" style="transform:scaleX(${trLeft/20})"></span></div><div class="hint" style="text-align:right;margin-top:-8px"><span id="trSecs">${Math.ceil(trLeft)}</span>s</div>`}
     <div class="trq">Question ${q.i+1} of 5</div>
     <h2>${esc(q.question)}</h2>
-    ${k?`<img class="trimg${LAND.has(k)?" land":""}" src="cards/${k}-l.webp" alt="The card for this question">`:""}
+    ${q.peek&&!trRes?`<div class="trpeek${q.peek.w>q.peek.h?" land":""}"><canvas id="trPeek" aria-label="A blurry card"></canvas></div>`:k?`<img class="trimg${LAND.has(k)?" land":""}" src="cards/${k}-l.webp" alt="The card for this question">`:""}
     <div class="tropts">${opts}</div>
     ${trRes?`<div class="trfeed ${trRes.correct?"ok":"no"}" role="status"><b>${trRes.correct?"Correct!":trRes.choice?"Not quite.":"Time's up!"}</b> ${trRes.correct?"":`The answer is <b>${esc(trOpt(q,trRes.answer))}</b>.`}${trRes.fact?`<div class="hint" style="margin-top:4px">${q.kind==="q"?esc(trRes.fact):c?`That's <b>${esc(label(c))}</b> · ${c.num} · ${RINFO[c.rar].name}`:""}</div>`:""}</div>
       <button class="primary big" data-trnext>${tr.finished?"See my results":"Next question"}</button>`:""}
   </div></section>`;
+  const cv=$("#trPeek"); if(cv&&q.peek){const P=q.peek;cv.width=P.w;cv.height=P.h;const g=cv.getContext("2d"),im=g.createImageData(P.w,P.h);for(let i=0;i<P.w*P.h;i++){const o=i*6;im.data[i*4]=parseInt(P.px.substr(o,2),16);im.data[i*4+1]=parseInt(P.px.substr(o+2,2),16);im.data[i*4+2]=parseInt(P.px.substr(o+4,2),16);im.data[i*4+3]=255}g.putImageData(im,0,0)}
 }
 document.addEventListener("click",async e=>{
   if(e.target.closest("[data-trgo]")){trNext();return}

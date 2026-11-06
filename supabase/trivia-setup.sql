@@ -57,7 +57,7 @@ begin
       opts := array_append(array(select r from (select distinct rar r from game_cards where rar <> c.rar) x
                 order by md5(r || seed || d::text || i::text) limit 3), c.rar);
     elsif kind = 'char' then
-      prompt := 'Who is on this card?'; ans := c.main;
+      prompt := 'Who''s on this blurry card?'; ans := c.main;
       opts := array_append(array(select m from (select distinct main m from game_cards where main is not null and main <> c.main and cardinality(appears) = 1) x
                 order by md5(m || seed || d::text || i::text) limit 3), c.main);
     else
@@ -108,8 +108,11 @@ begin
       left_s := greatest(0, 20 - extract(epoch from now() - p.served_at));
     end if;
   end if;
+  -- the "who's on it" question shows a blurry version, since most cards print the name
   return json_build_object('i', i, 'kind', q->>'kind', 'difficulty', q->>'difficulty', 'question', q->>'question',
-    'options', q->'options', 'card', q->>'card', 'seconds', round(left_s, 1));
+    'options', q->'options', 'card', case when q->>'kind' <> 'char' then q->>'card' end,
+    'peek', case when q->>'kind' = 'char' then (select json_build_object('w', m.w, 'h', m.h, 'px', m.px) from game_mosaics m where m.uid = q->>'card' and m.level = 3) end,
+    'seconds', round(left_s, 1));
 end $$;
 
 -- Answer question i (an empty choice means time ran out)
@@ -130,7 +133,7 @@ begin
       score = sc, served_i = null, finished = done, sparkles = sp, finished_at = case when done then now() end
       where user_id = uid and day = d;
   end if;
-  return json_build_object('correct', ok, 'answer', q->>'answer', 'fact', q->>'fact', 'finished', done,
+  return json_build_object('correct', ok, 'answer', q->>'answer', 'fact', q->>'fact', 'card', q->>'card', 'finished', done,
     'score', sc, 'sparkles', sp, 'total', case when uid is null then 0 else tr_total(uid) end);
 end $$;
 
