@@ -158,7 +158,7 @@ input[type=search]{border:1px solid var(--line);background:var(--surface);color:
 .fx-silver{background:repeating-linear-gradient(100deg,#8a8f99 0%,#f4f6fa 6%,#a6abb5 12%,#ffffff 18%,#8a8f99 24%) var(--mx) var(--my)/300% 300%;mix-blend-mode:overlay;--fxo:.7;--fxi:.25}
 .fx-gold{background:repeating-linear-gradient(105deg,#6b4708 0%,#ffe08a 6%,#b8841f 12%,#fff6cc 18%,#6b4708 24%) var(--mx) var(--my)/260% 260%,radial-gradient(circle at var(--mx) var(--my),rgb(255 236 180 / .8),transparent 42%);mix-blend-mode:hard-light;--fxo:.38;--fxi:.15}
 .fx-prism{background:conic-gradient(from calc(var(--mx) * 3.6deg) at var(--mx) var(--my),#ff9ad5,#8fd8ff,#c7a6ff,#8fffc4,#ffe28a,#ff9ad5);mix-blend-mode:overlay;--fxo:.55;--fxi:.2}
-.fx-pearl{background:radial-gradient(circle at var(--mx) var(--my),rgb(255 255 255 / .75),transparent 40%),linear-gradient(130deg,#ffe3f1,#e3f3ff,#f4e8ff) 50% 50%/200% 200%;mix-blend-mode:soft-light;--fxo:.9}
+.fx-pearl{background:radial-gradient(circle at var(--mx) var(--my),rgb(255 255 255 / .9),transparent 42%),repeating-linear-gradient(120deg,#ffc2e2 0%,#bfe6ff 9%,#e6ccff 18%,#c9ffe6 27%,#ffc2e2 36%) var(--mx) var(--my)/300% 300%;mix-blend-mode:overlay;--fxo:.6;--fxi:.22}
 .fx-neon{background:radial-gradient(circle at var(--mx) var(--my),rgb(255 60 200 / .7),transparent 50%),radial-gradient(circle at calc(100% - var(--mx)) calc(100% - var(--my)),rgb(40 220 255 / .6),transparent 50%);mix-blend-mode:screen;animation:neon 2.4s ease-in-out infinite;--fxo:.85;--fxi:.25}
 @keyframes neon{0%,100%{filter:brightness(.8)}45%{filter:brightness(1.35)}55%{filter:brightness(.95)}60%{filter:brightness(1.3)}}
 /* sparkles: a random glitter texture in two layers at different scales, drifting with the pointer and twinkling */
@@ -502,7 +502,7 @@ const LAND=new Set(["wfd01-fr-003", "wfd01-fr-004", "wfd01-fr-005", "wfd01-fr-00
 // Finish for each rarity (one or two layers)
 const FX={R:["shine"],QR:["pixel"],SR:["shine","stars"],SRP:["shine","glitter-pink"],FR:["rainbow"],HR:["holo"],TR:["lightbar"],
   SSR:["holo-dark","glitter-violet"],UR:["silver"],UGR:["gold","glitter-gold"],AR:["holo","stars"],ZR:["neon"],CR:["prism","glitter-pink"],
-  BP:["shine","glitter-gold"],SE:["holo","glitter-pink"],PR:["pearl"]};
+  BP:["shine","glitter-gold"],SE:["holo","glitter-pink"],PR:["pearl","stars"]};
 function imgKey(c){
   let k=c.num.toLowerCase().replace(/[◇◊]sr/,"srp");
   if(c.rar==="AR"&&c.editions.length===1)k+="-"+c.editions[0];
