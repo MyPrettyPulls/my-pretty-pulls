@@ -100,6 +100,27 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .sc-move button:disabled{opacity:.3}
 .sc-n{position:absolute;top:-8px;left:-8px;z-index:3;background:var(--accent);color:#fff;font-weight:800;font-size:.72rem;width:22px;height:22px;border-radius:50%;display:grid;place-items:center}
 .stat.spark .v{background:linear-gradient(90deg,#c2366f,#e0b44c);-webkit-background-clip:text;background-clip:text;color:transparent}
+.board{display:flex;flex-direction:column;gap:16px;max-width:760px;margin:0 auto;width:100%}
+.board-top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.board-top h1{font-size:clamp(1.9rem,5vw,2.6rem);margin:0}
+.tabs{display:inline-flex;background:var(--sunk);border-radius:999px;padding:4px;gap:2px}
+.tabs button{border:0;background:none;border-radius:999px;padding:7px 14px;font-weight:700;font-size:.86rem;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 3px rgb(0 0 0 / .12)}
+.lb{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.lb li{display:grid;grid-template-columns:44px 44px minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+.lb li.me{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.lb .rk{font-family:var(--font-display);font-weight:800;font-size:1.25rem;text-align:center;font-variant-numeric:tabular-nums}
+.lb li.r1 .rk,.lb li.r2 .rk,.lb li.r3 .rk{font-size:1.6rem}
+.lb .avatar{width:44px;height:44px;border-width:2px;font-size:1.1rem;box-shadow:none}
+.lb .who{min-width:0;display:flex;flex-direction:column}
+.lb .who a,.lb .who b{font-weight:800;color:var(--fg);text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb .who a:hover{color:var(--accent)}
+.lb .who span{font-size:.8rem;color:var(--muted)}
+.lb .sp{font-family:var(--font-display);font-weight:800;font-size:1.2rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+@media (max-width:480px){.lb li{grid-template-columns:30px 38px minmax(0,1fr) auto;gap:8px;padding:8px 10px}.lb .avatar{width:38px;height:38px}}
+.storebtn{border:1.5px dashed var(--accent);background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:6px 12px;font-weight:800;font-size:.84rem;display:inline-flex;gap:6px;align-items:center}
+.stat .storebtn{align-self:flex-start;margin-top:4px;font-size:.74rem;padding:4px 10px}
+.storebtn .soon{font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:#fff;border-radius:999px;padding:1px 6px}
 .edtiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
 .edtile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
 .edtile.done{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
@@ -503,6 +524,7 @@ footer{color:var(--muted);font-size:.8rem;border-top:1px solid var(--line);paddi
 
   <div id="viewProfile" hidden></div>
   <div id="viewPlay" hidden></div>
+  <div id="viewBoard" hidden></div>
 
   <footer>Prototype. Card art is placeholder. Card numbers come from a collector's checklist; numbers marked unconfirmed follow Kayou's list order. Unofficial fan project, not affiliated with KAYOU or Rainbow S.p.A. Winx Club® © Rainbow S.p.A. Sign in to save your collection to your account; signed out, it's saved in this browser.</footer>
 </div>
@@ -966,7 +988,7 @@ function renderProfile(){
       <div class="stat"><span class="label">Total cards</span><span class="v">${st.total}</span><span class="s">Including duplicates</span></div>
       <div class="stat"><span class="label">Editions completed</span><span class="v">${st.done}<small> / ${st.boxes}</small></span><span class="s">Daily and Magic</span></div>
       <div class="stat"><span class="label">Extras to trade</span><span class="v">${st.extras}</span><span class="s">Copies beyond the first</span></div>
-      <div class="stat spark"><span class="label">Sparkles</span><span class="v">✨ ${v.game?v.game.total||0:0}</span><span class="s">${v.game?v.game.streak||0:0} day streak · Secret Pull</span></div>
+      <div class="stat spark"><span class="label">Sparkles</span><span class="v">✨ ${v.game?v.game.total||0:0}</span><span class="s">${v.game?v.game.streak||0:0} day streak · Secret Pull</span>${own?STORE_BTN:""}</div>
     </section>
     <div class="prof-grid">
       <section class="panel">
@@ -986,7 +1008,7 @@ function renderProfile(){
     </section>
     <section class="panel teaser">
       <div><h2>Guess the Secret Pull</h2><p class="hint" style="margin:4px 0 0">${v.game?`${v.game.solved||0} solved · ✨ ${v.game.total||0} Sparkles · ${v.game.streak||0} day streak`:"One hidden card a day, 8 questions to find it."}</p></div>
-      ${own?`<button class="primary" data-nav="/play">Play today's card</button>`:""}
+      <span class="qrow">${own?`<button class="primary" data-nav="/play">Play today's card</button>`:""}<button class="ghost" data-nav="/leaderboard">Leaderboard</button></span>
     </section>
     ${!own&&!user?`<div class="banner"><span>Track your own Winx cards and make a profile like this one.</span><button class="primary" data-nav="/">Start your collection</button></div>`:""}
   </section>`;
@@ -1086,7 +1108,8 @@ function renderPlay(){
         <div class="stat"><span class="label">Sparkles today</span><span class="v">✨ ${sp.points}</span></div>
         ${user?`<div class="stat"><span class="label">Day streak</span><span class="v">${sp.streak||0}</span></div><div class="stat"><span class="label">All-time Sparkles</span><span class="v">✨ ${sp.total||0}</span></div>`:""}
       </div>
-      <div class="qrow" style="justify-content:center"><button class="primary" data-spshare>Copy my result</button>${c?`<button class="ghost" data-open="${c.uid}">View card</button>`:""}</div>
+      <div class="qrow" style="justify-content:center"><button class="primary" data-spshare>Copy my result</button>${c?`<button class="ghost" data-open="${c.uid}">View card</button>`:""}<button class="ghost" data-nav="/leaderboard">Leaderboard</button></div>
+      ${user?STORE_BTN:""}
       <p class="hint">Next Secret Pull in ${spCountdown()}.</p>
       ${user?"":`<div class="banner"><span>Sign in to save your Sparkles and start a daily streak.</span><button class="primary" id="openSignin">Sign in</button></div>`}
     </div></section>`;
@@ -1164,9 +1187,48 @@ document.addEventListener("click",async e=>{
   if(e.target.closest("[data-spshare]")){try{await navigator.clipboard.writeText(spShareText());toast("Result copied")}catch(err){toast("Couldn't copy here")}return}
 });
 
+
+// ---------- Leaderboard ----------
+let lbPeriod="week", lb=null;
+try{const s=localStorage.getItem("mpp.lbPeriod");if(["today","week","all"].includes(s))lbPeriod=s}catch(e){}
+const STORE_BTN=`<button class="storebtn" data-store>✨ Sparkle Store <span class="soon">Coming soon</span></button>`;
+async function lbLoad(){
+  lb=null; renderBoard(); if(!sb){lb={error:true};renderBoard();return}
+  const want=lbPeriod, {data,error}=await sb.rpc("sp_leaderboard",{period:want});
+  if(want!==lbPeriod)return;
+  lb=error?{error:true}:data; renderBoard();
+}
+function renderBoard(){
+  const el=$("#viewBoard");
+  const tabs=`<div class="tabs" role="tablist">${[["today","Today"],["week","This week"],["all","All time"]].map(([k,t])=>`<button role="tab" data-lbp="${k}" aria-selected="${lbPeriod===k}">${t}</button>`).join("")}</div>`;
+  const sub={today:"Sparkles won on today's Secret Pull.",week:"Sparkles won since Monday. Resets every Monday.",all:"Every Sparkle ever won."}[lbPeriod];
+  let body;
+  if(!lb)body=`<div class="empty-state" style="padding:30px">Loading…</div>`;
+  else if(lb.error)body=`<div class="empty-state" style="padding:30px">Couldn't load the leaderboard. Refresh to try again.</div>`;
+  else if(!lb.top.length)body=`<div class="empty-state" style="padding:30px"><h2 style="font-family:var(--font-display);margin:0 0 6px">No Sparkles yet</h2><p>Be the first on the board. Find today's Secret Pull.</p><button class="primary" data-nav="/play">Play today's card</button></div>`;
+  else body=`<ol class="lb">${lb.top.map(r=>`<li class="${r.me?"me ":""}r${r.rank}"><span class="rk">${r.rank===1?"🥇":r.rank===2?"🥈":r.rank===3?"🥉":r.rank}</span>${avatarHTML(r)}<span class="who">${r.is_public?`<a href="/u/${esc(r.username)}" data-nav="/u/${esc(r.username)}">${esc(r.display_name||r.username)}</a>`:`<b>${esc(r.display_name||r.username)}</b>`}<span>@${esc(r.username)}${r.me?" · you":""}${r.me&&!r.is_public?" · only you can see this":""} · ${r.solved} solved${r.streak?` · 🔥 ${r.streak}`:""}</span></span><span class="sp">✨ ${r.sparkles}</span></li>`).join("")}</ol>`;
+  let mine="";
+  if(lb&&!lb.error){
+    if(!user)mine=`<div class="banner"><span>Sign in and make a public profile to get on the leaderboard.</span><button class="primary" id="openSignin">Sign in</button></div>`;
+    else if(!lb.has_profile)mine=`<div class="banner"><span>Make a profile to get on the leaderboard.</span><button class="primary" data-nav="/profile">Make my profile</button></div>`;
+    else if(lb.me&&lb.me.rank>50)mine=`<div class="banner"><span>You're <b>#${lb.me.rank}</b> of ${lb.players} with ✨ ${lb.me.sparkles} Sparkles.</span><button class="primary" data-nav="/play">Play today's card</button></div>`;
+    else if(!lb.me)mine=`<div class="banner"><span>You haven't won any Sparkles ${lbPeriod==="today"?"today":lbPeriod==="week"?"this week":"yet"}.</span><button class="primary" data-nav="/play">Play today's card</button></div>`;
+    if(lb.me&&!lb.me.is_public)mine+=`<div class="banner"><span>Your profile is private, so other people can't see you here.</span><button class="primary" data-nav="/profile">Go to my profile</button></div>`;
+  }
+  el.innerHTML=`<section class="board">
+    <div class="board-top"><div><div class="label">Guess the Secret Pull</div><h1>Leaderboard</h1></div>${STORE_BTN}</div>
+    <div class="board-top" style="align-items:center">${tabs}<span class="hint">${sub}</span></div>
+    ${mine}${body}
+  </section>`;
+}
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-lbp]"); if(t){lbPeriod=t.dataset.lbp;try{localStorage.setItem("mpp.lbPeriod",lbPeriod)}catch(err){}lbLoad();return}
+  if(e.target.closest("[data-store]")){toast("✨ The Sparkle Store is coming soon!");return}
+});
+
 // ---------- Pages: / collection, /profile your profile, /u/name someone's profile ----------
 function setView(which){
-  $("#viewCollection").hidden=which!=="collection"; $("#viewProfile").hidden=which!=="profile"; $("#viewPlay").hidden=which!=="play";
+  $("#viewCollection").hidden=which!=="collection"; $("#viewProfile").hidden=which!=="profile"; $("#viewPlay").hidden=which!=="play"; $("#viewBoard").hidden=which!=="board";
   renderAcct();
 }
 async function route(){ arranging=false;
@@ -1182,6 +1244,11 @@ async function route(){ arranging=false;
     try{viewing={state:"ok",prof:data,counts:await fetchCounts(data.id),own:!!user&&user.id===data.id}}catch(e){viewing={state:"missing"}}
     if(viewing.state==="ok"){const g=await sb.rpc("sp_profile_stats",{uname:data.username});viewing.game=g.data||null}
     renderProfile(); document.title=`${data.display_name||data.username} · My Pretty Pulls`; return;
+  }
+  if(path==="/leaderboard"){
+    setView("board"); document.title="Leaderboard · My Pretty Pulls";
+    if(!sessionChecked){lb=null;renderBoard();return}
+    await lbLoad(); return;
   }
   if(path==="/play"){
     setView("play"); document.title="Guess the Secret Pull · My Pretty Pulls";
@@ -1439,8 +1506,8 @@ function onSignedOut(){ user=null; myProfile=null; pending.clear(); setSave("");
 function renderAcct(){
   const el=$("#acct"); if(!sb){el.innerHTML="";return}
   const onProf=!$("#viewProfile").hidden, path=location.pathname;
-  const onPlay=!$("#viewPlay").hidden;
-  const nav=`<button class="navbtn" data-nav="/"${!onProf&&!onPlay?' aria-current="page"':""}>Collection</button><button class="navbtn" data-nav="/play"${onPlay?' aria-current="page"':""}>Play</button>`;
+  const onPlay=!$("#viewPlay").hidden, onBoard=!$("#viewBoard").hidden;
+  const nav=`<button class="navbtn" data-nav="/"${!onProf&&!onPlay&&!onBoard?' aria-current="page"':""}>Collection</button><button class="navbtn" data-nav="/play"${onPlay?' aria-current="page"':""}>Play</button><button class="navbtn" data-nav="/leaderboard"${onBoard?' aria-current="page"':""}>Leaderboard</button>`;
   if(!user){el.innerHTML=nav+`<button class="primary" id="openSignin">Sign in</button>`;return}
   const msg={loading:"Loading…",saving:"Saving…",saved:"Saved",error:"Not saved yet, retrying"}[saveState]||"";
   el.innerHTML=nav+`<button class="navbtn" data-nav="/profile"${onProf&&(path==="/profile"||(myProfile&&path==="/u/"+myProfile.username))?' aria-current="page"':""}>${avatarHTML(myProfile,"sm")}${myProfile?"@"+esc(myProfile.username):"My profile"}</button><span class="saved${saveState==="error"?" err":""}" role="status">${msg}</span><button class="ghost" id="signOut">Sign out</button>`;
