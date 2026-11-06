@@ -121,6 +121,15 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .storebtn{border:1.5px dashed var(--accent);background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:6px 12px;font-weight:800;font-size:.84rem;display:inline-flex;gap:6px;align-items:center}
 .stat .storebtn{align-self:flex-start;margin-top:4px;font-size:.74rem;padding:4px 10px}
 .storebtn .soon{font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:#fff;border-radius:999px;padding:1px 6px}
+.pcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px}
+@media (max-width:480px){.pcards{grid-template-columns:repeat(auto-fill,minmax(76px,1fr))}}
+.pcard{border:0;background:none;padding:0;display:flex;flex-direction:column;gap:3px;text-align:center;position:relative}
+.pcard img,.pcard .ph{width:100%;aspect-ratio:63/88;object-fit:contain;border-radius:7px;display:block}
+.pcard .ph{background:var(--sunk);display:grid;place-items:center;font-size:.65rem;color:var(--muted);padding:4px}
+.pcard .cn{font-family:var(--font-mono);font-size:.6rem;color:var(--muted)}
+.pcard.miss img,.pcard.miss .ph{filter:grayscale(1);opacity:.35}
+.pcard .misslbl{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border:1px solid var(--line);border-radius:999px;font-size:.62rem;font-weight:800;padding:1px 7px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.gametabs{display:flex;justify-content:center}
 .edtiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
 .edtile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
 .edtile.done{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
@@ -923,6 +932,26 @@ function avPos(p){return{x:p&&p.avatar_x!=null?p.avatar_x:50,y:p&&p.avatar_y!=nu
 function avStyle(k,p,size="s"){const a=avPos(p);return `background-image:url(cards/${k}-${size}.webp);background-size:${a.z}% auto;background-position:${a.x}% ${a.y}%`}
 function miniCard(c){return `<div class="card"><div class="face${imgKey(c)?" has-img":""}${LAND.has(imgKey(c))?" land":""}" title="${esc(label(c))} · ${c.num}">${artHTML(c)}</div></div>`}
 
+
+let profTab="all";
+function pcardHTML(c,miss){const k=imgKey(c);return `<button class="pcard${miss?" miss":""}" data-open="${c.uid}" aria-label="${esc(label(c))} ${c.num}${miss?", missing":""}">${k?`<img src="cards/${k}-s.webp" alt="" loading="lazy">`:`<span class="ph">${esc(label(c))}</span>`}${miss?`<span class="misslbl">Missing</span>`:""}<span class="cn">${c.num.replace("WFD01-","").replace("WFD02-","W2 ")}</span></button>`}
+function profCollectionHTML(v){
+  const p=v.prof, own=v.own, who=own?"You":esc(p.display_name||p.username);
+  const owned=CARDS.filter(c=>(v.counts[c.uid]||0)>0);
+  const fav=p.fav_char?CARDS.filter(c=>c.appears.includes(p.fav_char)):[];
+  const favHave=fav.filter(c=>(v.counts[c.uid]||0)>0).length;
+  if(profTab==="fav"&&!p.fav_char)profTab="all";
+  const tabs=`<div class="tabs" role="tablist"><button role="tab" data-ptab="all" aria-selected="${profTab==="all"}">All cards · ${owned.length}</button>${p.fav_char?`<button role="tab" data-ptab="fav" aria-selected="${profTab==="fav"}">${esc(p.fav_char)} · ${favHave}/${fav.length}</button>`:""}</div>`;
+  let grid;
+  if(profTab==="fav")grid=`<p class="hint" style="margin:0">Every card ${esc(p.fav_char)} appears on. Faded cards are still missing.</p><div class="pcards">${fav.map(c=>pcardHTML(c,!(v.counts[c.uid]>0))).join("")}</div>`;
+  else grid=owned.length?`<div class="pcards">${owned.map(c=>pcardHTML(c,false)).join("")}</div>`:`<p class="hint">${own?"You haven't added any cards yet.":"No cards added yet."}</p>`;
+  return `<section class="panel" id="profCards"><div class="panel-h" style="flex-wrap:wrap;gap:10px"><h2>${own?"Your":esc(p.display_name||p.username)+"'s"} collection</h2>${tabs}</div>${grid}</section>`;
+}
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-ptab]"); if(t){profTab=t.dataset.ptab;const y=window.scrollY;renderProfile();window.scrollTo(0,y);return}
+  if(e.target.closest("[data-favjump]")){profTab="fav";renderProfile();$("#profCards")?.scrollIntoView({behavior:"smooth",block:"start"});return}
+});
+
 let arranging=false, arrOrder=null, dragI=null;
 function shownShowcase(){const v=viewing;return (v.prof.showcase||[]).filter(u=>BYUID[u]&&(v.counts[u]||0)>0)}
 function moveShowcase(from,to){
@@ -998,10 +1027,11 @@ function renderProfile(){
       </section>
       <section class="panel">
         <div class="panel-h"><h2>${p.fav_char?esc(p.fav_char)+" collection":"Favorite character"}</h2></div>
-        ${p.fav_char?`<div class="edtile" style="border:0;padding:0;background:none"><span class="big">${favHave}<small> / ${favCards.length}</small></span><span class="bar"><i style="width:${favCards.length?Math.round(favHave/favCards.length*100):0}%;background:${CHAR_COLOR(p.fav_char)}"></i></span><span class="hint">Every card ${esc(p.fav_char)} appears on</span></div>`
+        ${p.fav_char?`<div class="edtile" style="border:0;padding:0;background:none"><span class="big">${favHave}<small> / ${favCards.length}</small></span><span class="bar"><i style="width:${favCards.length?Math.round(favHave/favCards.length*100):0}%;background:${CHAR_COLOR(p.fav_char)}"></i></span><span class="hint">Every card ${esc(p.fav_char)} appears on</span><button class="ghost" style="align-self:flex-start;margin-top:4px" data-favjump>See ${esc(p.fav_char)} cards</button></div>`
           :`<p class="hint">${own?"Pick a favorite character to track every card they appear on.":"No favorite picked yet."}</p>`}
       </section>
     </div>
+    ${profCollectionHTML(v)}
     <section class="panel">
       <div class="panel-h"><h2>Set progress</h2><span class="hint">${st.done} of ${st.boxes} editions complete</span></div>
       <div class="edtiles">${st.eds.map(x=>`<div class="edtile${x.done?" done":""}"><div class="row"><span class="code" style="font-family:var(--font-mono);font-size:.72rem;color:var(--muted)">${x.e.code}</span>${x.done?`<span class="donebadge">Complete</span>`:""}</div><b>${x.e.name}</b><span class="big">${x.have}<small> / ${x.total}</small></span><span class="bar"><i style="width:${Math.round(x.have/x.total*100)}%;${x.done?"background:var(--gold)":""}"></i></span></div>`).join("")}</div>
@@ -1085,12 +1115,19 @@ function drawPeek(){
   for(let i=0;i<spPeek.w*spPeek.h;i++){const o=i*6;im.data[i*4]=parseInt(spPeek.px.substr(o,2),16);im.data[i*4+1]=parseInt(spPeek.px.substr(o+2,2),16);im.data[i*4+2]=parseInt(spPeek.px.substr(o+4,2),16);im.data[i*4+3]=255}
   g.putImageData(im,0,0);
 }
+const GAME_TABS=on=>`<nav class="gametabs" aria-label="Games"><div class="tabs"><button data-nav="/play" aria-selected="${on==="sp"}">Secret Pull</button><button data-nav="/trivia" aria-selected="${on==="trivia"}">Daily Trivia</button><button data-nav="/leaderboard" aria-selected="false">Leaderboard</button></div></nav>`;
+function renderTrivia(){
+  $("#viewPlay").innerHTML=`<section class="game">${GAME_TABS("trivia")}
+    <div class="game-head"><div class="label">Coming soon</div><h1>Daily Trivia</h1><p class="hint" style="margin:0;max-width:520px">A few Winx Club questions every day. Answer right to win ✨ Sparkles and keep your streak going.</p></div>
+    <div class="empty-state" style="padding:30px"><p style="font-size:3rem;margin:0">🧚</p><h2 style="font-family:var(--font-display);margin:6px 0">Trivia is on its way</h2><p>Until then, try today's Secret Pull.</p><button class="primary" data-nav="/play">Play Secret Pull</button></div>
+  </section>`;
+}
 function renderPlay(){
   const el=$("#viewPlay");
   if(!sp){el.innerHTML=`<div class="empty-state">Loading today's card…</div>`;return}
   if(sp.error){el.innerHTML=`<div class="empty-state"><h1 style="font-size:2rem">Couldn't load today's card</h1><p>Check your connection and refresh the page.</p></div>`;return}
   const left=8-sp.used, cands=spCands();
-  const head=`<div class="game-head"><div class="label">${new Date(sp.day+"T12:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})} · #${sp.number}</div><h1>Guess the Secret Pull</h1><p class="hint" style="margin:0">One hidden card. Everyone gets the same one. 8 questions to find it.</p></div>`;
+  const head=GAME_TABS("sp")+`<div class="game-head"><div class="label">${new Date(sp.day+"T12:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})} · #${sp.number}</div><h1>Guess the Secret Pull</h1><p class="hint" style="margin:0">One hidden card. Everyone gets the same one. 8 questions to find it.</p></div>`;
   const howto=`<details class="howto"${sp.used||sp.finished?"":" open"}><summary>How to play</summary><ul>
     <li>Tap a question to ask it. Each question uses one of your 8 tries.</li>
     <li>Every answer narrows down the binder below automatically.</li>
@@ -1231,7 +1268,7 @@ function setView(which){
   $("#viewCollection").hidden=which!=="collection"; $("#viewProfile").hidden=which!=="profile"; $("#viewPlay").hidden=which!=="play"; $("#viewBoard").hidden=which!=="board";
   renderAcct();
 }
-async function route(){ arranging=false;
+async function route(){ arranging=false; if(!location.pathname.startsWith("/u/")&&location.pathname!=="/profile")profTab="all";
   const path=location.pathname.replace(/\/+$/,"")||"/";
   const m=path.match(/^\/u\/([A-Za-z0-9_]{3,20})$/);
   if(m){
@@ -1250,6 +1287,7 @@ async function route(){ arranging=false;
     if(!sessionChecked){lb=null;renderBoard();return}
     await lbLoad(); return;
   }
+  if(path==="/trivia"){ setView("play"); document.title="Daily Trivia · My Pretty Pulls"; renderTrivia(); return; }
   if(path==="/play"){
     setView("play"); document.title="Guess the Secret Pull · My Pretty Pulls";
     if(!sessionChecked){sp=null;renderPlay();return}
