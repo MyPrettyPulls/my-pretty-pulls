@@ -55,6 +55,16 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .primary{border:0;background:var(--accent);color:var(--accent-ink);border-radius:10px;padding:7px 14px;font-weight:700;font-size:.86rem}
 .signin{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
 .signin-row{display:flex;gap:8px;flex-wrap:wrap}
+.signin{max-width:460px;margin:0 auto;width:100%}
+.authfields{display:flex;flex-direction:column;gap:10px}
+.authfields .field{display:flex;flex-direction:column;gap:4px}
+.authfields input{border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:10px;padding:9px 12px;font:inherit;width:100%;min-width:0}
+.pwwrap{position:relative;display:block}
+.pwwrap input{padding-right:64px}
+.pwshow{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--accent);font-weight:700;font-size:.8rem;padding:4px 6px}
+#signinMsg:empty{display:none}
+.authlinks{display:flex;gap:14px;flex-wrap:wrap;font-size:.86rem}
+.authlinks button{border:0;background:none;padding:0;color:var(--accent);font-weight:700;text-decoration:underline;text-underline-offset:2px}
 .signin-row input{flex:1 1 220px;min-width:0;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:10px;padding:8px 12px;font:inherit}
 
 /* ---------- Accounts, age check and profiles ---------- */
@@ -435,11 +445,9 @@ footer{color:var(--muted);font-size:.8rem;border-top:1px solid var(--line);paddi
     <div class="acct" id="acct"></div>
   </header>
 
-  <form class="signin" id="signin" hidden>
-    <div>
-      <div class="label">Sign in or create an account</div>
-      <p class="hint" style="margin:4px 0 0">We'll email you a link. No password needed. Your collection then saves to your account on every device.</p>
-    </div>
+  <form class="signin" id="signin" hidden novalidate>
+    <div class="tabs" role="tablist" id="amodeTabs"><button type="button" role="tab" data-amode="in">Sign in</button><button type="button" role="tab" data-amode="up">Create account</button></div>
+    <p class="hint" id="signinIntro" style="margin:0"></p>
     <fieldset class="dob" id="dobSignin">
       <legend class="label">Your birthday</legend>
       <div class="signin-row">
@@ -449,10 +457,15 @@ footer{color:var(--muted);font-size:.8rem;border-top:1px solid var(--line);paddi
       <p class="hint" style="margin:0">We only use this to check your age. It isn't saved.</p>
     </fieldset>
     <p class="agestop" id="ageStop" hidden>Sorry, you need to be 13 or older to create an account. You can still track your cards on this device without one.</p>
-    <div class="signin-row" id="emailRow">
-      <input type="email" id="email" required placeholder="you@example.com" aria-label="Email address" autocomplete="email">
-      <button type="submit" class="primary" id="sendLink">Email me a link</button>
-      <button type="button" class="ghost" id="cancelSignin">Cancel</button>
+    <div class="authfields" id="emailRow">
+      <label class="field" id="emailField"><span class="lbl">Email</span><input type="email" id="email" placeholder="you@example.com" autocomplete="email"></label>
+      <label class="field" id="pwField"><span class="lbl" id="pwLbl">Password</span><span class="pwwrap"><input type="password" id="pw" autocomplete="current-password" minlength="8"><button type="button" class="pwshow" id="pwShow" aria-label="Show password">Show</button></span></label>
+      <label class="field" id="pw2Field"><span class="lbl">Type it again</span><input type="password" id="pw2" autocomplete="new-password" minlength="8"></label>
+      <div class="signin-row">
+        <button type="submit" class="primary" id="sendLink">Sign in</button>
+        <button type="button" class="ghost" id="cancelSignin">Cancel</button>
+      </div>
+      <div class="authlinks" id="authLinks"></div>
     </div>
     <p class="hint" id="signinMsg" role="status"></p>
   </form>
@@ -915,6 +928,39 @@ function fillDob(mSel,ySel){
 function ageFrom(m,y){const d=new Date();let a=d.getFullYear()-y;if(d.getMonth()+1<=m)a--;return a} // birthday month counts as not yet
 function ageBlocked(){const b=ls.get(AGE_BLOCK);return b&&Date.now()-(+b)<864e5}
 function showAgeStop(){ $("#dobSignin").hidden=true;$("#emailRow").hidden=true;$("#ageStop").hidden=false }
+// Sign-in form modes: in (password), up (create account), link (email link), forgot (send reset), reset (choose new password)
+let amode="in";
+function setAuthMode(m,msg=""){
+  amode=m; const f=$("#signin"); f.hidden=false; $("#signinMsg").textContent=msg;
+  if(ageBlocked()&&(m==="up"||m==="link")){showAgeStop();return}
+  $("#ageStop").hidden=true; $("#emailRow").hidden=false;
+  $("#amodeTabs").hidden=m==="reset"||m==="forgot";
+  document.querySelectorAll("[data-amode]").forEach(b=>b.setAttribute("aria-selected",b.dataset.amode===m||(m==="link"&&b.dataset.amode==="in")));
+  $("#dobSignin").hidden=!((m==="up"||m==="link")&&ls.get(AGE_OK)!=="1");
+  $("#emailField").hidden=m==="reset";
+  $("#pwField").hidden=m==="link"||m==="forgot";
+  $("#pw2Field").hidden=!(m==="up"||m==="reset");
+  $("#pw").autocomplete=m==="in"?"current-password":"new-password";
+  $("#pwLbl").textContent=m==="in"?"Password":m==="reset"?"New password (8+ characters)":"Choose a password (8+ characters)";
+  $("#signinIntro").textContent={in:"Welcome back! Your collection saves to your account on every device.",
+    up:"Make a free account to save your collection, build a profile and earn Sparkles.",
+    link:"We'll email you a one-time sign-in link. No password needed.",
+    forgot:"Enter your email and we'll send you a link to choose a new password.",
+    reset:user?"Choose a password for your account. You'll use it with your email to sign in.":"Choose a new password for your account."}[m];
+  $("#sendLink").textContent={in:"Sign in",up:"Create account",link:"Email me a link",forgot:"Send reset link",reset:"Save password"}[m];
+  $("#authLinks").innerHTML={in:`<button type="button" data-amode="forgot">Forgot password?</button><button type="button" data-amode="link">Email me a sign-in link instead</button>`,
+    up:`<button type="button" data-amode="link">Email me a sign-in link instead</button>`,
+    link:`<button type="button" data-amode="in">Sign in with a password</button>`,
+    forgot:`<button type="button" data-amode="in">Back to sign in</button>`,reset:""}[m];
+  $("#pw").value="";$("#pw2").value="";$("#pw").type="password";$("#pwShow").textContent="Show";
+  window.scrollTo(0,0);
+  setTimeout(()=>{const t=!$("#dobSignin").hidden?$("#dobM"):m==="reset"?$("#pw"):$("#email");t.focus()},0);
+}
+document.addEventListener("click",e=>{
+  const a=e.target.closest("[data-amode]"); if(a&&a.closest("#signin")){setAuthMode(a.dataset.amode);return}
+  if(e.target.id==="pwShow"){const s=$("#pw").type==="password";$("#pw").type=s?"text":"password";$("#pw2").type=s?"text":"password";e.target.textContent=s?"Hide":"Show";return}
+  if(e.target.closest("[data-setpw]")){setAuthMode("reset");return}
+});
 fillDob($("#dobM"),$("#dobY"));
 
 function statsFor(cnt){
@@ -1006,7 +1052,7 @@ function renderProfile(){
         ${fav}
       </div>
       <div class="prof-actions">
-        ${own?`<button class="ghost" data-edit>Edit profile</button>`:""}
+        ${own?`<button class="ghost" data-edit>Edit profile</button><button class="ghost" data-setpw>Password</button>`:""}
         <button class="ghost" data-copylink="${esc(url)}">Copy link</button>
         <button class="primary" data-shareimg>Share image</button>
         ${own&&p.is_public?`<button class="ghost" data-public="0">Make private</button>`:""}
@@ -1535,7 +1581,8 @@ async function onSignedIn(u){
     }
     isSample=false; setSave("saved");
   }catch(e){ setSave("error"); toast("Couldn't load your collection. Check your connection and refresh."); }
-  $("#signin").hidden=true; render();
+  if(amode!=="reset")$("#signin").hidden=true; render();
+  if(new URLSearchParams(location.search).has("reset")&&amode!=="reset")setAuthMode("reset");
   await loadMyProfile(); sessionChecked=true;
   if(!myProfile&&ls.get(AGE_OK)==="1"&&location.pathname!=="/profile"&&!sessionStorage.getItem("mpp.setupShown")){try{sessionStorage.setItem("mpp.setupShown","1")}catch(e){}openEdit()}
   route();
@@ -1551,27 +1598,63 @@ function renderAcct(){
   el.innerHTML=nav+`<button class="navbtn" data-nav="/profile"${onProf&&(path==="/profile"||(myProfile&&path==="/u/"+myProfile.username))?' aria-current="page"':""}>${avatarHTML(myProfile,"sm")}${myProfile?"@"+esc(myProfile.username):"My profile"}</button><span class="saved${saveState==="error"?" err":""}" role="status">${msg}</span><button class="ghost" id="signOut">Sign out</button>`;
 }
 document.addEventListener("click",async e=>{
-  if(e.target.id==="openSignin"){$("#signin").hidden=false;$("#signinMsg").textContent="";if(ageBlocked())showAgeStop();else if(ls.get(AGE_OK)==="1"){$("#dobSignin").hidden=true;$("#email").focus()}else $("#dobM").focus();window.scrollTo(0,0)}
+  if(e.target.id==="openSignin"){setAuthMode("in")}
   if(e.target.id==="cancelSignin"){$("#signin").hidden=true}
   if(e.target.id==="signOut"){await flush();await sb.auth.signOut();toast("Signed out")}
 });
 $("#signin").addEventListener("submit",async e=>{
   e.preventDefault();
-  if(ageBlocked()){showAgeStop();return}
-  const m=+$("#dobM").value, y=+$("#dobY").value;
-  if(ls.get(AGE_OK)!=="1"&&(!m||!y)){$("#signinMsg").textContent="Please enter your birthday.";return}
-  if(ls.get(AGE_OK)!=="1"&&ageFrom(m,y)<13){ls.set(AGE_BLOCK,String(Date.now()));showAgeStop();return}
-  ls.set(AGE_OK,"1");
-  const email=$("#email").value.trim(); if(!email){$("#signinMsg").textContent="Please enter your email.";return}
-  $("#sendLink").disabled=true; $("#signinMsg").textContent="Sending…";
-  const {error}=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+location.pathname}});
-  $("#sendLink").disabled=false;
-  $("#signinMsg").textContent=error?`Couldn't send the link: ${error.message}`:`Check ${email} for your sign-in link. It may take a minute, and check spam if you don't see it.`;
+  const msg=t=>$("#signinMsg").textContent=t, btn=$("#sendLink");
+  if((amode==="up"||amode==="link")){
+    if(ageBlocked()){showAgeStop();return}
+    if(ls.get(AGE_OK)!=="1"){
+      const m=+$("#dobM").value, y=+$("#dobY").value;
+      if(!m||!y){msg("Please enter your birthday.");return}
+      if(ageFrom(m,y)<13){ls.set(AGE_BLOCK,String(Date.now()));showAgeStop();return}
+    }
+  }
+  const email=$("#email").value.trim(), pw=$("#pw").value, pw2=$("#pw2").value;
+  if(amode!=="reset"&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){msg("Please enter your email address.");return}
+  if(amode==="in"&&!pw){msg("Please enter your password.");return}
+  if(amode==="up"||amode==="reset"){
+    if(pw.length<8){msg("Your password needs at least 8 characters.");return}
+    if(pw!==pw2){msg("The two passwords don't match.");return}
+  }
+  btn.disabled=true; msg({in:"Signing in…",up:"Creating your account…",link:"Sending…",forgot:"Sending…",reset:"Saving…"}[amode]);
+  const back=location.origin+location.pathname;
+  let r;
+  try{
+    if(amode==="in"){
+      r=await sb.auth.signInWithPassword({email,password:pw});
+      if(r.error){msg(/confirm/i.test(r.error.message)?"Please confirm your email first. Check your inbox for the confirmation link.":/invalid/i.test(r.error.message)?"That email and password don't match. If you've only used email links before, tap \"Forgot password?\" to set one.":`Couldn't sign in: ${r.error.message}`)}
+      else{$("#signin").hidden=true;toast("Signed in")}
+    }else if(amode==="up"){
+      ls.set(AGE_OK,"1");
+      r=await sb.auth.signUp({email,password:pw,options:{emailRedirectTo:back}});
+      if(r.error)msg(/registered|exists/i.test(r.error.message)?"There's already an account with that email. Sign in instead, or tap \"Forgot password?\".":`Couldn't create the account: ${r.error.message}`);
+      else if(r.data.user&&r.data.user.identities&&r.data.user.identities.length===0)msg("There's already an account with that email. Sign in instead, or use \"Forgot password?\" on the sign-in tab.");
+      else if(r.data.session){$("#signin").hidden=true;toast("Account created")}
+      else msg(`Almost done! We sent a confirmation link to ${email}. Tap it once to finish making your account. Check spam if you don't see it.`);
+    }else if(amode==="link"){
+      ls.set(AGE_OK,"1");
+      r=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:back}});
+      msg(r.error?`Couldn't send the link: ${r.error.message}`:`Check ${email} for your sign-in link. It may take a minute, and check spam if you don't see it.`);
+    }else if(amode==="forgot"){
+      r=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+"/?reset=1"});
+      msg(r.error?`Couldn't send the email: ${r.error.message}`:`If there's an account for ${email}, a link to choose a new password is on its way. Check spam if you don't see it.`);
+    }else if(amode==="reset"){
+      r=await sb.auth.updateUser({password:pw});
+      if(r.error)msg(/different|same/i.test(r.error.message)?"That's your current password. Pick a new one.":`Couldn't save the password: ${r.error.message}`);
+      else{$("#signin").hidden=true;toast("Password saved");if(location.search.includes("reset=1"))history.replaceState(null,"",location.pathname)}
+    }
+  }catch(err){msg("Something went wrong. Check your connection and try again.")}
+  btn.disabled=false;
 });
 window.addEventListener("beforeunload",()=>{if(pending.size)flush()});
 if(sb){
   sb.auth.getSession().then(({data})=>{if(!data.session){sessionChecked=true;route()}});
   sb.auth.onAuthStateChange((event,session)=>{
+    if(event==="PASSWORD_RECOVERY")setTimeout(()=>setAuthMode("reset"),50);
     if(session&&session.user)setTimeout(()=>onSignedIn(session.user),0);
     else if(event==="SIGNED_OUT")onSignedOut();
   });
