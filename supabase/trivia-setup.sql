@@ -12,6 +12,8 @@ create table if not exists public.trivia_questions (
   fact text,
   active boolean not null default true
 );
+-- Which transformation each card shows (filled in by card-transformations.sql)
+alter table public.game_cards add column if not exists transformation text;
 -- Each signed-in player's trivia for each day
 create table if not exists public.trivia_plays (
   user_id uuid references auth.users(id) on delete cascade,
@@ -50,8 +52,10 @@ begin
       order by md5(g.uid || seed || d::text || 'tc') offset (case i when 1 then 0 else 1 end) limit 1;
     h1 := ('x' || substr(md5(c.uid || seed || d::text || 'h1'), 1, 6))::bit(24)::int;
     h2 := ('x' || substr(md5(c.uid || seed || d::text || 'h2'), 1, 6))::bit(24)::int;
-    k := ('x' || substr(md5(c.uid || seed || d::text || 'kind'), 1, 6))::bit(24)::int % 5;
-    kind := (array['rar','char','box','zoom','odd'])[k + 1];
+    k := ('x' || substr(md5(c.uid || seed || d::text || 'kind'), 1, 6))::bit(24)::int % 6;
+    kind := (array['rar','char','box','zoom','odd','trans'])[k + 1];
+    -- only ask about transformations on cards with a Winx fairy (not pets, witches or Specialists)
+    if kind = 'trans' and (c.transformation is null or not c.appears && array['Bloom','Stella','Flora','Musa','Tecna','Aisha']) then kind := 'box'; end if;
     if kind = 'char' and not (c.main is not null and cardinality(c.appears) = 1) then kind := 'rar'; end if;
     diff := 'Card'; fact := c.num;
     if kind = 'rar' then
@@ -62,6 +66,12 @@ begin
       prompt := 'Who''s on this blurry card?'; ans := c.main;
       opts := array_append(array(select m from (select distinct main m from game_cards where main is not null and main <> c.main and cardinality(appears) = 1) x
                 order by md5(m || seed || d::text || i::text) limit 3), c.main);
+    elsif kind = 'trans' then
+      prompt := 'What transformation is shown on this card?'; ans := c.transformation;
+      opts := array_append(array(select t from (
+                select distinct transformation t from game_cards where transformation is not null
+                union select unnest(array['Charmix','Harmonix','Bloomix','Mythix','Butterflix'])) x
+                where t <> c.transformation order by md5(t || seed || d::text || i::text) limit 3), c.transformation);
     elsif kind = 'zoom' then
       -- a close-up of one spot on the card; the choices are 4 cards, mostly of the same rarity so they look alike
       prompt := 'Which card is this close-up from?'; ans := c.uid;
