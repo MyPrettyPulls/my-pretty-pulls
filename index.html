@@ -146,6 +146,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .trrules{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
 .primary.big{padding:12px 20px;font-size:1rem;align-self:center}
 .linkbtn{border:0;background:none;padding:0;color:var(--accent);font-weight:700;text-decoration:underline;font-size:inherit}
+.trerr{margin:0;padding:10px 12px;border-radius:10px;background:#fde0e6;color:#7a1f33;font-weight:600;text-align:center}
 .trtop{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .trdots{display:flex;gap:6px;justify-content:center}
 .trdot{width:14px;height:14px;border-radius:50%;background:var(--sunk);border:2px solid var(--line)}
@@ -1222,10 +1223,10 @@ async function trLoad(){
 }
 async function trNext(){
   if(trBusy||!tr||tr.finished)return;
-  trBusy=true; trRes=null; trStarted=true;
+  trBusy=true; trRes=null; trStarted=true; tr.err=""; renderTrivia();
   const i=tr.answers.length, {data,error}=await sb.rpc("tr_get",{i});
   trBusy=false;
-  if(error||data?.error){await trLoad();renderTrivia();return}
+  if(error||data?.error){const m=error?.message||data.error;console.error("tr_get",m);await trLoad();tr.err=/no questions/i.test(m)?"Today's questions haven't been loaded yet.":`Couldn't start: ${m}`;renderTrivia();return}
   trQ=data; trLeft=Math.max(0,+data.seconds||0); renderTrivia();
   trStop(); const t0=performance.now(), start=trLeft;
   trTimer=setInterval(()=>{trLeft=Math.max(0,start-(performance.now()-t0)/1000);const b=$("#trBar"),n=$("#trSecs");if(b)b.style.transform=`scaleX(${trLeft/20})`;if(n)n.textContent=Math.ceil(trLeft);if(trLeft<=0){trStop();trAnswer("")}},100);
@@ -1272,6 +1273,7 @@ function renderTrivia(){
       <h2>${resume?`You're on question ${tr.answers.length+1} of 5`:"5 questions. 20 seconds each."}</h2>
       <ul class="trrules"><li>Everyone gets the same 5 questions today, from easy to hard.</li><li>Two of them are about the cards themselves.</li><li>Each right answer wins ✨ 1 Sparkle. Get all 5 for 2 bonus Sparkles.</li><li>One try per day, and the clock starts when a question appears.</li></ul>
       ${resume?dots:""}
+      ${tr.err?`<p class="trerr" role="alert">${esc(tr.err)}</p>`:""}
       <button class="primary big" data-trgo${trBusy?" disabled":""}>${resume?"Keep going":"Start today's trivia"}</button>
       ${user?"":`<p class="hint" style="margin:0">Playing without an account. <button class="linkbtn" id="openSignin">Sign in</button> to save your Sparkles.</p>`}
     </div></section>`;
