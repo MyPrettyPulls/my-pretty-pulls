@@ -536,14 +536,21 @@ function renderCards(){
   $("#cards").innerHTML=head+RORDER.map(k=>{const cs=list.filter(c=>c.rar===k);if(!cs.length)return"";navList.push(...cs.map(c=>c.uid));
     return `<section><div class="section-h"><h2>${RINFO[k].name}</h2><span>${RINFO[k].code} · ${cs.filter(c=>has(c.uid)).length}/${cs.length}</span></div><div class="grid">${cs.map(c=>cardHTML(c)).join("")}</div></section>`}).join("");
 }
+// How each promo is obtained
+function promoHow(c){
+  if(c.promoWith&&c.promoWith[0]==="daily")return "Possible bonus card when you buy a full 20-pack Daily Edition box";
+  if(c.promoWith&&c.promoWith[0]==="magic")return "Bonus card when you buy a full 12-pack Magic Edition box";
+  if(c.promoNote)return `${c.promoNote} promo, not in booster packs`;
+  return "Promo card, not in booster packs";
+}
 function renderDetail(){
   const el=$("#detail"); if(!openId){el.hidden=true;return}
   const c=BYUID[openId], r=RINFO[c.rar], n=has(c.uid);
   const ids=navList.includes(c.uid)?navList:CARDS.map(x=>x.uid), i=ids.indexOf(c.uid);
   const who=c.main;
   const more=who?CARDS.filter(x=>x!==c&&x.appears.includes(who)):[];
-  const found=c.editions[0]==="promo"?`Promo${c.promoWith?` (with ${EDBY[c.promoWith[0]].name})`:c.promoNote?` (${c.promoNote})`:""}`:c.editions.map(e=>EDBY[e].name).join("<br>");
-  const odds=c.editions.map(e=>`${c.editions.length>1?`<b>${EDBY[e].name.split(" ")[0]}:</b> `:""}${ODDS[e][c.rar]||"—"}`).join("<br>");
+  const found=c.editions[0]==="promo"?`Promo${c.promoWith?` (${EDBY[c.promoWith[0]].name} box bonus)`:c.promoNote?` (${c.promoNote})`:""}`:c.editions.map(e=>EDBY[e].name).join("<br>");
+  const odds=c.editions[0]==="promo"?promoHow(c):c.editions.map(e=>`${c.editions.length>1?`<b>${EDBY[e].name.split(" ")[0]}:</b> `:""}${ODDS[e][c.rar]||"—"}`).join("<br>");
   el.innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="dTitle">
     <button class="close" id="dClose" aria-label="Close">✕</button>
     <div class="d-left">
