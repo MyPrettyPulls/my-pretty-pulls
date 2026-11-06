@@ -140,6 +140,33 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .pcard.miss img,.pcard.miss .ph{filter:grayscale(1);opacity:.35}
 .pcard .misslbl{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border:1px solid var(--line);border-radius:999px;font-size:.62rem;font-weight:800;padding:1px 7px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 .gametabs{display:flex;justify-content:center}
+.trcard{max-width:620px;margin:0 auto;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:14px;align-items:stretch;box-shadow:var(--shadow);text-align:left}
+.trcard>p:first-child,.trcard>h2:nth-child(2){text-align:center}
+.trcard h2{font-family:var(--font-display);font-size:clamp(1.25rem,3.6vw,1.6rem);margin:0;line-height:1.25}
+.trrules{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.primary.big{padding:12px 20px;font-size:1rem;align-self:center}
+.linkbtn{border:0;background:none;padding:0;color:var(--accent);font-weight:700;text-decoration:underline;font-size:inherit}
+.trtop{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.trdots{display:flex;gap:6px;justify-content:center}
+.trdot{width:14px;height:14px;border-radius:50%;background:var(--sunk);border:2px solid var(--line)}
+.trdot.cur{border-color:var(--accent)}
+.trdot.ok{background:#2f9e6a;border-color:#2f9e6a}.trdot.no{background:#d64060;border-color:#d64060}
+.trtag{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;border-radius:999px;padding:3px 10px;background:var(--sunk)}
+.trtag.easy{background:#dff3e8;color:#1f6f48}.trtag.medium{background:#fff1d6;color:#8a5a00}.trtag.hard{background:#fde0e6;color:#a3243f}.trtag.expert{background:#e9ddff;color:#5a2fa8}.trtag.card{background:var(--accent-soft);color:var(--accent)}
+.trtimer{height:8px;border-radius:4px;background:var(--sunk);overflow:hidden}
+.trtimer span{display:block;height:100%;background:linear-gradient(90deg,#c2366f,#e0b44c);transform-origin:left;transition:transform .1s linear}
+.trq{font-size:.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.trimg{width:min(240px,64vw);aspect-ratio:63/88;object-fit:contain;align-self:center;border-radius:12px;box-shadow:var(--shadow)}
+.trimg.land{width:min(340px,84vw);aspect-ratio:88/63}
+.tropts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:520px){.tropts{grid-template-columns:1fr}}
+.tropt{border:2px solid var(--line);background:var(--bg);border-radius:12px;padding:12px 14px;font-weight:700;text-align:left;min-height:52px;color:var(--fg)}
+.tropt:hover:not(:disabled){border-color:var(--accent)}
+.tropt:disabled{cursor:default}
+.tropt.right{border-color:#2f9e6a;background:#dff3e8;color:#1f5a3c}
+.tropt.wrong{border-color:#d64060;background:#fde0e6;color:#7a1f33}
+.trfeed{border-radius:12px;padding:12px 14px;background:var(--sunk)}
+.trfeed.ok b:first-child{color:#2f9e6a}.trfeed.no b:first-child{color:#d64060}
 .edtiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
 .edtile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
 .edtile.done{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
@@ -604,7 +631,7 @@ const ODDS={
 // ---------- Card list: numbers from a collector's sheet, checked against Kayou's official lists ----------
 // [rarity, editions, names, confirmed?]  Numbers run 001.. within each block, continuing across blocks of the same rarity.
 const W6=["Bloom","Flora","Stella","Musa","Tecna","Aisha"];
-const R_TITLES=["Under the sign of Winx!","Sisterhood of shadows","Fair besties forever!","Skincare first, magic later!","True love is the strongest magic of all!","Witch, please!","Sirenix fairies ready to make magic!","Pet squad in formation!","Believe in our own sparkle!","The dark side of the Dragon Flame!","No sleep, just beauty things.","Music and chill!","Beauty of nature","Fly high with the Winx fairy!","Always ready for the mission!","Winx fairies are always here for you!","Tech magic activated!","C'mon girls, feel the Enchantix power!","Friends forever, fairies always!","Fear? Yes! Iconic? Absolutely!"];
+const R_TITLES=["Under the sign of Winx!","Sisterhood of shadows","Fair besties forever!","Skincare first, magic later!","True love is the strongest magic of all!","Witch, please!","Sirenix fairies ready to make magic!","Pet squad in formation!","Believe in our own sparkle!","The dark side of the Dragon Flame!","No sleep, just bestie things.","Music and chill!","Beauty of nature","Fly high with the Winx fairy!","Always ready for the mission!","Winx fairies are always here for you!","Tech magic activated!","C'mon girls, feel the Enchantix power!","Friends forever, fairies always!","Fear? Yes! Iconic? Absolutely!"];
 const BLOCKS=[
  ["R",["daily","magic"],R_TITLES,true],
  ["QR",["daily"],["Milly","Milly","Belle","Belle","Coco","Coco","Pepe","Pepe","Ginger","Ginger","Chicko","Chicko"],true],
@@ -984,21 +1011,25 @@ function avStyle(k,p,size="s"){const a=avPos(p);return `background-image:url(car
 function miniCard(c){return `<div class="card"><div class="face${imgKey(c)?" has-img":""}${LAND.has(imgKey(c))?" land":""}" title="${esc(label(c))} · ${c.num}">${artHTML(c)}</div></div>`}
 
 
-let profTab="all";
+let profTab="all", profOpen=false;
 function pcardHTML(c,miss){const k=imgKey(c);return `<button class="pcard${miss?" miss":""}" data-open="${c.uid}" aria-label="${esc(label(c))} ${c.num}${miss?", missing":""}">${k?`<img src="cards/${k}-s.webp" alt="" loading="lazy">`:`<span class="ph">${esc(label(c))}</span>`}${miss?`<span class="misslbl">Missing</span>`:""}<span class="cn">${c.num.replace("WFD01-","").replace("WFD02-","W2 ")}</span></button>`}
 function profCollectionHTML(v){
   const p=v.prof, own=v.own, who=own?"You":esc(p.display_name||p.username);
-  const owned=CARDS.filter(c=>(v.counts[c.uid]||0)>0);
+  const byRar=(a,b)=>RORDER.indexOf(a.rar)-RORDER.indexOf(b.rar)||(+a.n)-(+b.n)||a.uid.localeCompare(b.uid);
+  const owned=CARDS.filter(c=>(v.counts[c.uid]||0)>0).sort(byRar);
   const fav=p.fav_char?CARDS.filter(c=>c.appears.includes(p.fav_char)):[];
   const favHave=fav.filter(c=>(v.counts[c.uid]||0)>0).length;
   if(profTab==="fav"&&!p.fav_char)profTab="all";
   const tabs=`<div class="tabs" role="tablist"><button role="tab" data-ptab="all" aria-selected="${profTab==="all"}">All cards · ${owned.length}</button>${p.fav_char?`<button role="tab" data-ptab="fav" aria-selected="${profTab==="fav"}">${esc(p.fav_char)} · ${favHave}</button>`:""}</div>`;
+  const list=profTab==="fav"?owned.filter(c=>c.appears.includes(p.fav_char)):owned;
+  const PREVIEW=12, shown=profOpen?list:list.slice(0,PREVIEW);
   let grid;
-  if(profTab==="fav"){const favOwned=fav.filter(c=>(v.counts[c.uid]||0)>0);grid=favOwned.length?`<div class="pcards">${favOwned.map(c=>pcardHTML(c,false)).join("")}</div>`:`<p class="hint">${own?"You don't":"They don't"} have any ${esc(p.fav_char)} cards yet.</p>`}
-  else grid=owned.length?`<div class="pcards">${owned.map(c=>pcardHTML(c,false)).join("")}</div>`:`<p class="hint">${own?"You haven't added any cards yet.":"No cards added yet."}</p>`;
+  if(!list.length)grid=profTab==="fav"?`<p class="hint">${own?"You don't":"They don't"} have any ${esc(p.fav_char)} cards yet.</p>`:`<p class="hint">${own?"You haven't added any cards yet.":"No cards added yet."}</p>`;
+  else grid=`<p class="hint" style="margin:0">Rarest first.</p><div class="pcards">${shown.map(c=>pcardHTML(c,false)).join("")}</div>${list.length>PREVIEW?`<div style="display:flex;justify-content:center"><button class="ghost" data-popen>${profOpen?"Hide full collection":`Show full collection (${list.length})`}</button></div>`:""}`;
   return `<section class="panel" id="profCards"><div class="panel-h" style="flex-wrap:wrap;gap:10px"><h2>${own?"Your":esc(p.display_name||p.username)+"'s"} collection</h2>${tabs}</div>${grid}</section>`;
 }
 document.addEventListener("click",e=>{
+  if(e.target.closest("[data-popen]")){profOpen=!profOpen;renderProfile();if(!profOpen)$("#profCards")?.scrollIntoView({block:"start"});return}
   const t=e.target.closest("[data-ptab]"); if(t){profTab=t.dataset.ptab;const y=window.scrollY;renderProfile();window.scrollTo(0,y);return}
   if(e.target.closest("[data-favjump]")){profTab="fav";renderProfile();$("#profCards")?.scrollIntoView({behavior:"smooth",block:"start"});return}
 });
@@ -1088,7 +1119,7 @@ function renderProfile(){
       <div class="edtiles">${st.eds.map(x=>`<div class="edtile${x.done?" done":""}"><div class="row"><span class="code" style="font-family:var(--font-mono);font-size:.72rem;color:var(--muted)">${x.e.code}</span>${x.done?`<span class="donebadge">Complete</span>`:""}</div><b>${x.e.name}</b><span class="big">${x.have}<small> / ${x.total}</small></span><span class="bar"><i style="width:${Math.round(x.have/x.total*100)}%;${x.done?"background:var(--gold)":""}"></i></span></div>`).join("")}</div>
     </section>
     <section class="panel teaser">
-      <div><h2>Guess the Secret Pull</h2><p class="hint" style="margin:4px 0 0">${v.game?`${v.game.solved||0} solved · ✨ ${v.game.total||0} Sparkles · ${v.game.streak||0} day streak`:"One hidden card a day, 8 questions to find it."}</p></div>
+      <div><h2>Guess the Secret Pull</h2><p class="hint" style="margin:4px 0 0">${v.game?`${v.game.solved||0} Secret Pulls solved · ${v.game.trivia_perfect||0} perfect trivia days · ✨ ${v.game.total||0} Sparkles · ${v.game.streak||0} day streak`:"One hidden card a day, 8 questions to find it."}</p></div>
       <span class="qrow">${own?`<button class="primary" data-nav="/play">Play today's card</button>`:""}<button class="ghost" data-nav="/leaderboard">Leaderboard</button></span>
     </section>
     ${!own&&!user?`<div class="banner"><span>Track your own Winx cards and make a profile like this one.</span><button class="primary" data-nav="/">Start your collection</button></div>`:""}
@@ -1167,12 +1198,96 @@ function drawPeek(){
   g.putImageData(im,0,0);
 }
 const GAME_TABS=on=>`<nav class="gametabs" aria-label="Games"><div class="tabs"><button data-nav="/play" aria-selected="${on==="sp"}">Secret Pull</button><button data-nav="/trivia" aria-selected="${on==="trivia"}">Daily Trivia</button><button data-nav="/leaderboard" aria-selected="false">Leaderboard</button></div></nav>`;
-function renderTrivia(){
-  $("#viewPlay").innerHTML=`<section class="game">${GAME_TABS("trivia")}
-    <div class="game-head"><div class="label">Coming soon</div><h1>Daily Trivia</h1><p class="hint" style="margin:0;max-width:520px">A few Winx Club questions every day. Answer right to win ✨ Sparkles and keep your streak going.</p></div>
-    <div class="empty-state" style="padding:30px"><p style="font-size:3rem;margin:0">🧚</p><h2 style="font-family:var(--font-display);margin:6px 0">Trivia is on its way</h2><p>Until then, try today's Secret Pull.</p><button class="primary" data-nav="/play">Play Secret Pull</button></div>
-  </section>`;
+// ---------- Daily Trivia ----------
+let tr=null, trQ=null, trRes=null, trBusy=false, trTimer=0, trLeft=20, trStarted=false;
+const trLocalKey=d=>"mpp.tr."+d;
+function trStop(){ if(trTimer){clearInterval(trTimer);trTimer=0} }
+function trSaveLocal(){ if(!user&&tr)ls.set(trLocalKey(tr.day),JSON.stringify({answers:tr.answers,finished:tr.finished,score:tr.score,sparkles:tr.sparkles})) }
+function trOpt(q,o){ return q.kind==="rar"?`${RINFO[o]?.name||o} (${RINFO[o]?.code||o})`:o }
+async function trLoad(){
+  trStop(); trQ=null; trRes=null; trStarted=false;
+  if(!sb){tr={error:true};return}
+  const {data,error}=await sb.rpc("tr_state"); if(error){tr={error:true};return}
+  tr=data;
+  if(!user){try{const l=JSON.parse(ls.get(trLocalKey(tr.day))||"null");if(l)Object.assign(tr,l)}catch(e){}}
 }
+async function trNext(){
+  if(trBusy||!tr||tr.finished)return;
+  trBusy=true; trRes=null; trStarted=true;
+  const i=tr.answers.length, {data,error}=await sb.rpc("tr_get",{i});
+  trBusy=false;
+  if(error||data?.error){await trLoad();renderTrivia();return}
+  trQ=data; trLeft=Math.max(0,+data.seconds||0); renderTrivia();
+  trStop(); const t0=performance.now(), start=trLeft;
+  trTimer=setInterval(()=>{trLeft=Math.max(0,start-(performance.now()-t0)/1000);const b=$("#trBar"),n=$("#trSecs");if(b)b.style.transform=`scaleX(${trLeft/20})`;if(n)n.textContent=Math.ceil(trLeft);if(trLeft<=0){trStop();trAnswer("")}},100);
+  if(trLeft<=0){trStop();trAnswer("")}
+}
+async function trAnswer(choice){
+  if(trBusy||!trQ||trRes)return;
+  trStop(); trBusy=true; renderTrivia();
+  const {data,error}=await sb.rpc("tr_answer",{i:trQ.i,choice});
+  trBusy=false;
+  if(error||data?.error){await trLoad();renderTrivia();return}
+  trRes={...data,choice};
+  tr.answers.push({c:choice,ok:data.correct});
+  if(user){tr.score=data.score;if(data.finished){tr.finished=true;tr.sparkles=data.sparkles;tr.total=data.total}}
+  else{tr.score=(tr.score||0)+(data.correct?1:0);if(trQ.i===4){tr.finished=true;tr.sparkles=tr.score+(tr.score===5?2:0)}}
+  trSaveLocal(); renderTrivia();
+}
+function trShareText(){
+  return `Winx Trivia #${tr.number} ✨\n${tr.answers.map(a=>a.ok?"🟩":"🟥").join("")} ${tr.score}/5${user?` · +${tr.sparkles} Sparkles`:""}\n${location.origin}/trivia`;
+}
+function renderTrivia(){
+  const el=$("#viewPlay");
+  const head=GAME_TABS("trivia")+`<div class="game-head"><div class="label">${tr&&!tr.error?new Date(tr.day+"T12:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})+" · #"+tr.number:"Daily Trivia"}</div><h1>Daily Trivia</h1></div>`;
+  if(!tr){el.innerHTML=`<section class="game">${head}<div class="empty-state">Loading today's questions…</div></section>`;return}
+  if(tr.error){el.innerHTML=`<section class="game">${head}<div class="empty-state"><h2 style="font-family:var(--font-display)">Couldn't load today's trivia</h2><p>Check your connection and refresh the page.</p></div></section>`;return}
+  const dots=`<div class="trdots" aria-label="Progress">${Array.from({length:5},(_,i)=>{const a=tr.answers[i];return `<span class="trdot${a?(a.ok?" ok":" no"):""}${trQ&&trQ.i===i&&!trRes?" cur":""}"></span>`}).join("")}</div>`;
+  if(tr.finished&&!trRes){
+    const perfect=tr.score===5;
+    el.innerHTML=`<section class="game">${head}<div class="result">
+      ${dots}
+      <h2>${perfect?"Perfect score!":tr.score>=3?"Nice job!":"Thanks for playing!"}</h2>
+      <p class="hint" style="margin:0">You got ${tr.score} of 5 right${perfect?", plus a 2 Sparkle bonus":""}.</p>
+      <div class="nums"><div class="stat"><span class="label">Sparkles today</span><span class="v">✨ ${tr.sparkles}</span></div>${user?`<div class="stat"><span class="label">All-time Sparkles</span><span class="v">✨ ${tr.total||0}</span></div>`:""}</div>
+      <div class="qrow" style="justify-content:center"><button class="primary" data-trshare>Copy my result</button><button class="ghost" data-nav="/play">Play Secret Pull</button><button class="ghost" data-nav="/leaderboard">Leaderboard</button></div>
+      <p class="hint">New questions in ${spCountdown()}.</p>
+      ${user?STORE_BTN:`<div class="banner"><span>Sign in to save your Sparkles and get on the leaderboard.</span><button class="primary" id="openSignin">Sign in</button></div>`}
+    </div></section>`;
+    return;
+  }
+  if(!trQ){
+    const resume=tr.answers.length>0;
+    el.innerHTML=`<section class="game">${head}<div class="trcard">
+      <p style="font-size:2.6rem;margin:0">🧚</p>
+      <h2>${resume?`You're on question ${tr.answers.length+1} of 5`:"5 questions. 20 seconds each."}</h2>
+      <ul class="trrules"><li>Everyone gets the same 5 questions today, from easy to hard.</li><li>Two of them are about the cards themselves.</li><li>Each right answer wins ✨ 1 Sparkle. Get all 5 for 2 bonus Sparkles.</li><li>One try per day, and the clock starts when a question appears.</li></ul>
+      ${resume?dots:""}
+      <button class="primary big" data-trgo${trBusy?" disabled":""}>${resume?"Keep going":"Start today's trivia"}</button>
+      ${user?"":`<p class="hint" style="margin:0">Playing without an account. <button class="linkbtn" id="openSignin">Sign in</button> to save your Sparkles.</p>`}
+    </div></section>`;
+    return;
+  }
+  const q=trQ, c=q.card&&BYUID[q.card], k=c&&imgKey(c);
+  const tag=q.kind==="q"?q.difficulty:"Card question";
+  const opts=q.options.map(o=>{let cls="";if(trRes){if(o===trRes.answer)cls=" right";else if(o===trRes.choice)cls=" wrong"}return `<button class="tropt${cls}" data-tra="${esc(o)}"${trRes||trBusy?" disabled":""}>${esc(trOpt(q,o))}</button>`}).join("");
+  el.innerHTML=`<section class="game">${head}<div class="trcard">
+    <div class="trtop">${dots}<span class="trtag ${q.kind==="q"?q.difficulty.toLowerCase():"card"}">${esc(tag)}</span></div>
+    ${trRes?"":`<div class="trtimer" aria-hidden="true"><span id="trBar" style="transform:scaleX(${trLeft/20})"></span></div><div class="hint" style="text-align:right;margin-top:-8px"><span id="trSecs">${Math.ceil(trLeft)}</span>s</div>`}
+    <div class="trq">Question ${q.i+1} of 5</div>
+    <h2>${esc(q.question)}</h2>
+    ${k?`<img class="trimg${LAND.has(k)?" land":""}" src="cards/${k}-l.webp" alt="The card for this question">`:""}
+    <div class="tropts">${opts}</div>
+    ${trRes?`<div class="trfeed ${trRes.correct?"ok":"no"}" role="status"><b>${trRes.correct?"Correct!":trRes.choice?"Not quite.":"Time's up!"}</b> ${trRes.correct?"":`The answer is <b>${esc(trOpt(q,trRes.answer))}</b>.`}${trRes.fact?`<div class="hint" style="margin-top:4px">${q.kind==="q"?esc(trRes.fact):c?`That's <b>${esc(label(c))}</b> · ${c.num} · ${RINFO[c.rar].name}`:""}</div>`:""}</div>
+      <button class="primary big" data-trnext>${tr.finished?"See my results":"Next question"}</button>`:""}
+  </div></section>`;
+}
+document.addEventListener("click",async e=>{
+  if(e.target.closest("[data-trgo]")){trNext();return}
+  const a=e.target.closest("[data-tra]"); if(a&&!a.disabled){trAnswer(a.dataset.tra);return}
+  if(e.target.closest("[data-trnext]")){if(tr.finished){trQ=null;trRes=null;renderTrivia();window.scrollTo(0,0)}else trNext();return}
+  if(e.target.closest("[data-trshare]")){try{await navigator.clipboard.writeText(trShareText());toast("Result copied")}catch(err){toast("Couldn't copy here")}return}
+});
 function renderPlay(){
   const el=$("#viewPlay");
   if(!sp){el.innerHTML=`<div class="empty-state">Loading today's card…</div>`;return}
@@ -1319,7 +1434,7 @@ function setView(which){
   $("#viewCollection").hidden=which!=="collection"; $("#viewProfile").hidden=which!=="profile"; $("#viewPlay").hidden=which!=="play"; $("#viewBoard").hidden=which!=="board";
   renderAcct();
 }
-async function route(){ arranging=false; if(!location.pathname.startsWith("/u/")&&location.pathname!=="/profile")profTab="all";
+async function route(){ arranging=false; profOpen=false; if(!location.pathname.startsWith("/u/")&&location.pathname!=="/profile")profTab="all"; trStop();
   const path=location.pathname.replace(/\/+$/,"")||"/";
   const m=path.match(/^\/u\/([A-Za-z0-9_]{3,20})$/);
   if(m){
@@ -1338,7 +1453,8 @@ async function route(){ arranging=false; if(!location.pathname.startsWith("/u/")
     if(!sessionChecked){lb=null;renderBoard();return}
     await lbLoad(); return;
   }
-  if(path==="/trivia"){ setView("play"); document.title="Daily Trivia · My Pretty Pulls"; renderTrivia(); return; }
+  if(path==="/trivia"){ setView("play"); document.title="Daily Trivia · My Pretty Pulls";
+    tr=null; renderTrivia(); if(!sessionChecked)return; await trLoad(); renderTrivia(); return; }
   if(path==="/play"){
     setView("play"); document.title="Guess the Secret Pull · My Pretty Pulls";
     if(!sessionChecked){sp=null;renderPlay();return}

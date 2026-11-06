@@ -47,7 +47,7 @@ insert into public.game_cards (uid, num, n, rar, editions, name, main, appears) 
 ('WFD01-R-008|daily+magic','WFD01-R-008',8,'R',array['daily','magic']::text[],'Pet squad in formation!',null,array['Kiko','Coco','Milly','Belle','Pepe','Ginger','Chicko']::text[]),
 ('WFD01-R-009|daily+magic','WFD01-R-009',9,'R',array['daily','magic']::text[],'Believe in our own sparkle!',null,array['Tecna','Flora','Stella','Musa']::text[]),
 ('WFD01-R-010|daily+magic','WFD01-R-010',10,'R',array['daily','magic']::text[],'The dark side of the Dragon Flame!','Bloom',array['Bloom']::text[]),
-('WFD01-R-011|daily+magic','WFD01-R-011',11,'R',array['daily','magic']::text[],'No sleep, just beauty things.',null,array['Bloom','Flora']::text[]),
+('WFD01-R-011|daily+magic','WFD01-R-011',11,'R',array['daily','magic']::text[],'No sleep, just bestie things.',null,array['Bloom','Flora']::text[]),
 ('WFD01-R-012|daily+magic','WFD01-R-012',12,'R',array['daily','magic']::text[],'Music and chill!','Musa',array['Musa']::text[]),
 ('WFD01-R-013|daily+magic','WFD01-R-013',13,'R',array['daily','magic']::text[],'Beauty of nature','Flora',array['Flora']::text[]),
 ('WFD01-R-014|daily+magic','WFD01-R-014',14,'R',array['daily','magic']::text[],'Fly high with the Winx fairy!',null,array['Bloom','Flora','Stella','Musa','Tecna','Aisha']::text[]),
