@@ -166,6 +166,7 @@ input[type=search]{border:1px solid var(--line);background:var(--surface);color:
 .fx-disco{background:radial-gradient(circle at var(--mx) var(--my),rgb(255 255 255 / .7),rgb(255 255 255 / .1) 38%,transparent 60%),url(fx/disco.webp) calc(var(--mx) * .25) calc(var(--my) * .25)/96px 96px;mix-blend-mode:normal;animation:twinkle 1.6s ease-in-out infinite alternate;--fxo:1;--fxi:1}
 /* clear acetate window: faint glass tint, a soft edge, and reflections gliding across */
 .fx-glass{background:linear-gradient(105deg,transparent 38%,rgb(255 255 255 / .75) 46%,rgb(255 255 255 / .15) 50%,transparent 56%) var(--mx) 50%/300% 300% no-repeat,linear-gradient(105deg,transparent 58%,rgb(255 255 255 / .4) 61%,transparent 64%) calc(var(--mx) * .7) 50%/300% 300% no-repeat,linear-gradient(160deg,rgb(214 232 245 / .55),rgb(240 246 252 / .35) 45%,rgb(205 222 238 / .5));mix-blend-mode:normal;--fxo:1;--fxi:1}
+.fx-glitter-strong{background-image:radial-gradient(circle at var(--mx) var(--my),#fff,#d0d0d0 45%,#8a8a8a 90%),url(fx/glitter-gray.webp),url(fx/glitter-gray.webp);background-size:auto,140px 140px,95px 95px;background-position:0 0,calc(var(--mx) * .2) calc(var(--my) * .2),calc(var(--mx) * -.15 + 40px) calc(var(--my) * -.15 + 20px);background-blend-mode:multiply;mix-blend-mode:color-dodge;animation:twinkle 1.4s ease-in-out infinite alternate;--fxo:1;--fxi:.75}
 .fx-pastel{background:linear-gradient(120deg,#ffc6e5,#c9e8ff,#e4d1ff,#fff1c4,#ffc6e5) var(--mx) var(--my)/300% 300%;mix-blend-mode:soft-light;--fxo:.85}
 .fx-rainbow,.fx-holo,.fx-holo-dark{background:repeating-linear-gradient(110deg,#ff5f9e 0%,#ffb35c 7%,#fff27a 14%,#7dffb0 21%,#6fd7ff 28%,#9a8cff 35%,#ff5f9e 42%) var(--mx) var(--my)/420% 420%,radial-gradient(circle at var(--mx) var(--my),rgb(255 255 255 / .35),transparent 40%);mix-blend-mode:color-dodge}
 .fx-rainbow{--fxo:.45;--fxi:.16}
@@ -535,7 +536,7 @@ function fxFor(c){
     case "QR": return [["disco",1]];
     case "SR": return [["foil-cc",0,.75],["shine",0,.75]];
     case "SRP":return [["glitter-cc",1],["shine",0]];
-    case "FR": return daily?[["glitter-cc",1],["glitter-square",1]]:[["glitter-cc",1]];
+    case "FR": return daily?[["glitter-cc",1],["glitter-square",1]]:[["glitter-strong",1],["glitter-strong",1],["shine",1]];
     case "HR": return [["holo-strong",0,.5],["stars",0,.5],["shine",0,.5]];
     case "TR": return [["glass",1],["lightbar",0,.6]];
     case "UR": return [["tint",1],["shine",1]];
