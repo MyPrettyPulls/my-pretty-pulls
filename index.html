@@ -160,6 +160,12 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .trpeek{width:min(240px,64vw);aspect-ratio:63/88;align-self:center;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
 .trpeek.land{width:min(340px,84vw);aspect-ratio:88/63}
 .trpeek canvas{width:100%;height:100%;display:block;image-rendering:pixelated;filter:blur(3px);transform:scale(1.08)}
+.trzoom{width:min(260px,70vw);aspect-ratio:1;align-self:center;border-radius:14px;box-shadow:var(--shadow);background-size:420% auto;background-repeat:no-repeat;border:3px solid var(--surface);outline:2px solid var(--accent)}
+.trodd canvas{filter:none;transform:none;image-rendering:auto}
+.tropts.thumbs{grid-template-columns:repeat(4,1fr)}
+@media (max-width:520px){.tropts.thumbs{grid-template-columns:repeat(2,1fr)}}
+.tropt.thumb{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px;text-align:center;font-size:.78rem}
+.tropt.thumb img{width:100%;aspect-ratio:63/88;object-fit:contain;border-radius:6px}
 .trimg.land{width:min(340px,84vw);aspect-ratio:88/63}
 .tropts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media (max-width:520px){.tropts{grid-template-columns:1fr}}
@@ -1206,7 +1212,7 @@ let tr=null, trQ=null, trRes=null, trBusy=false, trTimer=0, trLeft=20, trStarted
 const trLocalKey=d=>"mpp.tr."+d;
 function trStop(){ if(trTimer){clearInterval(trTimer);trTimer=0} }
 function trSaveLocal(){ if(!user&&tr)ls.set(trLocalKey(tr.day),JSON.stringify({answers:tr.answers,finished:tr.finished,score:tr.score,sparkles:tr.sparkles})) }
-function trOpt(q,o){ return q.kind==="rar"?`${RINFO[o]?.name||o} (${RINFO[o]?.code||o})`:o }
+function trOpt(q,o){ if(q.kind==="zoom"){const c=BYUID[o];if(!c)return o;const dup=CARDS.some(x=>x!==c&&x.num===c.num);return `${label(c)} · ${c.num.replace("WFD01-","")}${dup?` · ${c.editions.includes("daily")?"Daily":"Magic"}`:""}`} return q.kind==="rar"?`${RINFO[o]?.name||o} (${RINFO[o]?.code||o})`:o }
 async function trLoad(){
   trStop(); trQ=null; trRes=null; trStarted=false;
   if(!sb){tr={error:true};return}
@@ -1273,17 +1279,24 @@ function renderTrivia(){
   }
   const q=trQ, cu=q.card||(trRes&&trRes.card), c=cu&&BYUID[cu], k=c&&imgKey(c);
   const tag=q.kind==="q"?q.difficulty:"Card question";
-  const opts=q.options.map(o=>{let cls="";if(trRes){if(o===trRes.answer)cls=" right";else if(o===trRes.choice)cls=" wrong"}return `<button class="tropt${cls}" data-tra="${esc(o)}"${trRes||trBusy?" disabled":""}>${esc(trOpt(q,o))}</button>`}).join("");
+  const opts=q.options.map(o=>{let cls="";if(trRes){if(o===trRes.answer)cls=" right";else if(o===trRes.choice)cls=" wrong"}
+    const oc=q.kind==="zoom"&&BYUID[o], ok=oc&&imgKey(oc);
+    return `<button class="tropt${cls}${ok?" thumb":""}" data-tra="${esc(o)}"${trRes||trBusy?" disabled":""}>${ok?`<img src="cards/${ok}-s.webp" alt="">`:""}<span>${esc(trOpt(q,o))}</span></button>`}).join("");
   el.innerHTML=`<section class="game">${head}<div class="trcard">
     <div class="trtop">${dots}<span class="trtag ${q.kind==="q"?q.difficulty.toLowerCase():"card"}">${esc(tag)}</span></div>
     ${trRes?"":`<div class="trtimer" aria-hidden="true"><span id="trBar" style="transform:scaleX(${trLeft/20})"></span></div><div class="hint" style="text-align:right;margin-top:-8px"><span id="trSecs">${Math.ceil(trLeft)}</span>s</div>`}
     <div class="trq">Question ${q.i+1} of 5</div>
     <h2>${esc(q.question)}</h2>
-    ${q.peek&&!trRes?`<div class="trpeek${q.peek.w>q.peek.h?" land":""}"><canvas id="trPeek" aria-label="A blurry card"></canvas></div>`:k?`<img class="trimg${LAND.has(k)?" land":""}" src="cards/${k}-l.webp" alt="The card for this question">`:""}
-    <div class="tropts">${opts}</div>
+    ${q.kind==="zoom"&&k&&!trRes?`<div class="trzoom" role="img" aria-label="A close-up of part of a card" style="background-image:url(cards/${k}-l.webp);background-position:${q.extra.zx}% ${q.extra.zy}%"></div>`:
+      q.kind==="odd"&&k&&!trRes?`<div class="trpeek trodd${LAND.has(k)?" land":""}"><canvas id="trOdd" aria-label="A card with something changed, or nothing" style="${q.extra.fx==="h"?`filter:hue-rotate(${q.extra.hue}deg) saturate(1.2)`:""}"></canvas></div>`:
+      q.peek&&!trRes?`<div class="trpeek${q.peek.w>q.peek.h?" land":""}"><canvas id="trPeek" aria-label="A blurry card"></canvas></div>`:k?`<img class="trimg${LAND.has(k)?" land":""}" src="cards/${k}-l.webp" alt="The card for this question">`:""}
+    <div class="tropts${q.kind==="zoom"?" thumbs":""}">${opts}</div>
     ${trRes?`<div class="trfeed ${trRes.correct?"ok":"no"}" role="status"><b>${trRes.correct?"Correct!":trRes.choice?"Not quite.":"Time's up!"}</b> ${trRes.correct?"":`The answer is <b>${esc(trOpt(q,trRes.answer))}</b>.`}${trRes.fact?`<div class="hint" style="margin-top:4px">${q.kind==="q"?esc(trRes.fact):c?`That's <b>${esc(label(c))}</b> · ${c.num} · ${RINFO[c.rar].name}`:""}</div>`:""}</div>
       <button class="primary big" data-trnext>${tr.finished?"See my results":"Next question"}</button>`:""}
   </div></section>`;
+  const oc=$("#trOdd"); if(oc&&k){const im=new Image();im.onload=()=>{const W=im.naturalWidth,H=im.naturalHeight;oc.width=W;oc.height=H;const g=oc.getContext("2d");
+    if(q.extra.fx==="m"){g.translate(W,0);g.scale(-1,1)} g.drawImage(im,0,0); g.setTransform(1,0,0,1,0,0);
+    if(q.extra.fx==="s"){const tw=Math.floor(W/3),th=Math.floor(H/3),A=q.extra.a,B=q.extra.b,ax=(A%3)*tw,ay=Math.floor(A/3)*th,bx=(B%3)*tw,by=Math.floor(B/3)*th;const ta=g.getImageData(ax,ay,tw,th),tb=g.getImageData(bx,by,tw,th);g.putImageData(tb,ax,ay);g.putImageData(ta,bx,by)}};im.src=`cards/${k}-l.webp`}
   const cv=$("#trPeek"); if(cv&&q.peek){const P=q.peek;cv.width=P.w;cv.height=P.h;const g=cv.getContext("2d"),im=g.createImageData(P.w,P.h);for(let i=0;i<P.w*P.h;i++){const o=i*6;im.data[i*4]=parseInt(P.px.substr(o,2),16);im.data[i*4+1]=parseInt(P.px.substr(o+2,2),16);im.data[i*4+2]=parseInt(P.px.substr(o+4,2),16);im.data[i*4+3]=255}g.putImageData(im,0,0)}
 }
 document.addEventListener("click",async e=>{

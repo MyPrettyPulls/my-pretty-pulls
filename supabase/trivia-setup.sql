@@ -33,7 +33,7 @@ revoke all on public.trivia_questions, public.trivia_plays from anon, authentica
 create or replace function public.tr_build(d date, i int) returns json
 language plpgsql stable security definer set search_path = public as $$
 declare n int := d - date '2026-11-05'; seed text := (select seed from game_config); pool text[]; qn trivia_questions;
-  c game_cards; kind text; opts text[]; ans text; prompt text; fact text; diff text; k int;
+  c game_cards; kind text; opts text[]; ans text; prompt text; fact text; diff text; k int; h1 int; h2 int; extra json;
 begin
   if i not between 0 and 4 then raise exception 'Bad question'; end if;
   if i in (0, 2, 4) then
@@ -48,8 +48,10 @@ begin
     select g.* into c from game_cards g
       where exists (select 1 from game_mosaics m where m.uid = g.uid) and g.uid <> sp_card_for(d)
       order by md5(g.uid || seed || d::text || 'tc') offset (case i when 1 then 0 else 1 end) limit 1;
-    k := ('x' || substr(md5(c.uid || seed || d::text || 'kind'), 1, 6))::bit(24)::int % 3;
-    kind := (array['rar','char','box'])[k + 1];
+    h1 := ('x' || substr(md5(c.uid || seed || d::text || 'h1'), 1, 6))::bit(24)::int;
+    h2 := ('x' || substr(md5(c.uid || seed || d::text || 'h2'), 1, 6))::bit(24)::int;
+    k := ('x' || substr(md5(c.uid || seed || d::text || 'kind'), 1, 6))::bit(24)::int % 5;
+    kind := (array['rar','char','box','zoom','odd'])[k + 1];
     if kind = 'char' and not (c.main is not null and cardinality(c.appears) = 1) then kind := 'rar'; end if;
     diff := 'Card'; fact := c.num;
     if kind = 'rar' then
@@ -60,6 +62,20 @@ begin
       prompt := 'Who''s on this blurry card?'; ans := c.main;
       opts := array_append(array(select m from (select distinct main m from game_cards where main is not null and main <> c.main and cardinality(appears) = 1) x
                 order by md5(m || seed || d::text || i::text) limit 3), c.main);
+    elsif kind = 'zoom' then
+      -- a close-up of one spot on the card; the choices are 4 cards, mostly of the same rarity so they look alike
+      prompt := 'Which card is this close-up from?'; ans := c.uid;
+      opts := array_append(array(select g2.uid from game_cards g2
+                where g2.uid <> c.uid and exists (select 1 from game_mosaics m where m.uid = g2.uid)
+                order by (g2.rar <> c.rar), md5(g2.uid || seed || d::text || i::text) limit 3), c.uid);
+      extra := json_build_object('zx', 25 + h1 % 51, 'zy', 22 + h2 % 50);
+    elsif kind = 'odd' then
+      -- the card is shown with one thing changed (or nothing)
+      prompt := 'What''s wrong with this card?';
+      k := h1 % 4;
+      ans := (array['It''s mirrored','The colors are wrong','Two pieces are swapped','Nothing, it''s right'])[k + 1];
+      opts := array['It''s mirrored','The colors are wrong','Two pieces are swapped','Nothing, it''s right'];
+      extra := json_build_object('fx', (array['m','h','s','n'])[k + 1], 'a', h2 % 9, 'b', (h2 % 9 + 1 + (h1 / 4) % 8) % 9, 'hue', 110 + h2 % 140);
     else
       prompt := 'Which box can you pull this card from?';
       ans := case when 'promo' = any(c.editions) then 'Promo card'
@@ -71,7 +87,7 @@ begin
   -- shuffle so the right answer lands in a different spot from question to question
   opts := array(select o from unnest(opts) o order by md5(o || seed || d::text || i::text || 'shuffle'));
   return json_build_object('i', i, 'kind', kind, 'difficulty', diff, 'question', prompt, 'options', opts,
-    'card', case when kind <> 'q' then c.uid end, 'answer', ans, 'fact', fact);
+    'card', case when kind <> 'q' then c.uid end, 'answer', ans, 'fact', fact, 'extra', extra);
 end $$;
 revoke all on function public.tr_build(date, int) from public, anon, authenticated;
 
@@ -110,7 +126,7 @@ begin
   end if;
   -- the "who's on it" question shows a blurry version, since most cards print the name
   return json_build_object('i', i, 'kind', q->>'kind', 'difficulty', q->>'difficulty', 'question', q->>'question',
-    'options', q->'options', 'card', case when q->>'kind' <> 'char' then q->>'card' end,
+    'options', q->'options', 'card', case when q->>'kind' <> 'char' then q->>'card' end, 'extra', q->'extra',
     'peek', case when q->>'kind' = 'char' then (select json_build_object('w', m.w, 'h', m.h, 'px', m.px) from game_mosaics m where m.uid = q->>'card' and m.level = 3) end,
     'seconds', round(left_s, 1));
 end $$;
