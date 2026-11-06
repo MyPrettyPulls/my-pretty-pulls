@@ -153,6 +153,16 @@ input[type=search]{border:1px solid var(--line);background:var(--surface);color:
 .fx-finesheen{background:radial-gradient(circle at var(--mx) var(--my),#fff,#8d8d8d 40%,#3c3c3c 85%),url(fx/fine-shimmer.webp) calc(var(--mx) * .1) calc(var(--my) * .1)/100px 100px;background-blend-mode:multiply;mix-blend-mode:color-dodge;--fxo:.6;--fxi:.28}
 .fx-sheen{background:linear-gradient(115deg,transparent 30%,rgb(235 240 255 / .55) 47%,rgb(255 255 255 / .2) 55%,transparent 70%) var(--mx) 50%/300% 300% no-repeat;mix-blend-mode:overlay;--fxo:1;--fxi:.3}
 .fx-stained{background:url(fx/shatter.webp) calc(var(--mx) * .05) calc(var(--my) * .05)/560px 560px,repeating-linear-gradient(135deg,#e0306f 0%,#f2a531 8%,#3fbf6c 16%,#2f7fe0 24%,#8a3fe0 32%,#e0306f 40%) var(--mx) var(--my)/300% 300%;background-blend-mode:multiply;mix-blend-mode:overlay;--fxo:.65;--fxi:.25}
+/* card-colored finishes: grayscale textures blended so each card's own colors do the shining */
+.fx-glitter-cc,.fx-glitter-chunky,.fx-glitter-square,.fx-foil-cc{background-image:radial-gradient(circle at var(--mx) var(--my),#fff,#a8a8a8 38%,#5a5a5a 85%),var(--t);background-blend-mode:multiply;mix-blend-mode:color-dodge;animation:twinkle 1.6s ease-in-out infinite alternate;--fxo:.85;--fxi:.4}
+.fx-pixel-dark,.fx-glitter-dark,.fx-chunky-dark{background-image:radial-gradient(circle at var(--mx) var(--my),#fff,#b0b0b0 40%,#6a6a6a 85%),var(--t);background-blend-mode:multiply;mix-blend-mode:screen;animation:twinkle 1.6s ease-in-out infinite alternate;--fxo:.9;--fxi:.5}
+.fx-glitter-cc,.fx-glitter-dark{--t:url(fx/glitter-gray.webp);background-size:auto,180px 180px;background-position:0 0,calc(var(--mx) * .2) calc(var(--my) * .2)}
+.fx-glitter-chunky,.fx-chunky-dark{--t:url(fx/glitter-chunky.webp);background-size:auto,200px 200px;background-position:0 0,calc(var(--mx) * .2) calc(var(--my) * .2)}
+.fx-glitter-square{--t:url(fx/glitter-square.webp);background-size:auto,200px 200px;background-position:0 0,calc(var(--mx) * .2) calc(var(--my) * .2)}
+.fx-pixel-dark{--t:url(fx/pixel-silver.webp);background-size:auto,110px 110px;background-position:0 0,calc(var(--mx) * .15) calc(var(--my) * .15)}
+.fx-foil-cc{--t:repeating-linear-gradient(110deg,#2a2a2a 0%,#ffffff 7%,#666 14%,#e6e6e6 21%,#2a2a2a 28%);background-size:auto,300% 300%;background-position:0 0,var(--mx) var(--my);animation:none;--fxo:.55;--fxi:.22}
+.fx-tint{background:linear-gradient(115deg,var(--c) 30%,#fff 47%,var(--c) 62%) var(--mx) 50%/300% 300%;mix-blend-mode:multiply;--fxo:.9;--fxi:.7}
+.fx-holo-strong{background:repeating-linear-gradient(110deg,#ff2f86 0%,#ff9a2f 7%,#ffe94a 14%,#3dff9a 21%,#2fc4ff 28%,#7a5cff 35%,#ff2f86 42%) var(--mx) var(--my)/360% 360%,radial-gradient(circle at var(--mx) var(--my),rgb(255 255 255 / .55),transparent 40%);mix-blend-mode:overlay;--fxo:.75;--fxi:.3}
 .fx-pastel{background:linear-gradient(120deg,#ffc6e5,#c9e8ff,#e4d1ff,#fff1c4,#ffc6e5) var(--mx) var(--my)/300% 300%;mix-blend-mode:soft-light;--fxo:.85}
 .fx-rainbow,.fx-holo,.fx-holo-dark{background:repeating-linear-gradient(110deg,#ff5f9e 0%,#ffb35c 7%,#fff27a 14%,#7dffb0 21%,#6fd7ff 28%,#9a8cff 35%,#ff5f9e 42%) var(--mx) var(--my)/420% 420%,radial-gradient(circle at var(--mx) var(--my),rgb(255 255 255 / .35),transparent 40%);mix-blend-mode:color-dodge}
 .fx-rainbow{--fxo:.45;--fxi:.16}
@@ -508,10 +518,27 @@ const FX={R:["shine"],QR:["pixel"],SR:["shine","stars"],SRP:["shine","glitter-pi
   SSR:["shatter"],UR:["silver"],UGR:["gold","glitter-gold"],AR:["holo","stars"],ZR:["neon"],CR:["prism","glitter-pink"],
   BP:["shine","glitter-gold"],SE:["holo","glitter-pink"],PR:["pearl","stars"]};
 // Some cards have their own finish regardless of rarity
+// Cards with a targeted finish only shine in certain areas (lettering, borders, backgrounds), found automatically per card
+const REGION=new Set(["wfd01-ar-001-magic", "wfd01-ar-002-magic", "wfd01-ar-003-magic", "wfd01-ar-004-magic", "wfd01-ar-005-magic", "wfd01-ar-006-magic", "wfd01-fr-001", "wfd01-fr-002", "wfd01-fr-003", "wfd01-fr-004", "wfd01-fr-005", "wfd01-fr-006", "wfd01-fr-007", "wfd01-fr-008", "wfd01-fr-009", "wfd01-fr-010", "wfd01-fr-011", "wfd01-fr-012", "wfd01-fr-013", "wfd01-fr-014", "wfd01-pr-004", "wfd01-qr-001", "wfd01-qr-002", "wfd01-qr-003", "wfd01-qr-004", "wfd01-qr-005", "wfd01-qr-006", "wfd01-qr-007", "wfd01-qr-008", "wfd01-qr-009", "wfd01-qr-010", "wfd01-qr-011", "wfd01-qr-012", "wfd01-qr-013", "wfd01-qr-014", "wfd01-qr-015", "wfd01-qr-016", "wfd01-qr-017", "wfd01-qr-018", "wfd01-qr-019", "wfd01-qr-020", "wfd01-qr-021", "wfd01-qr-022", "wfd01-qr-023", "wfd01-qr-024", "wfd01-r-001", "wfd01-r-002", "wfd01-r-003", "wfd01-r-004", "wfd01-r-005", "wfd01-r-006", "wfd01-r-007", "wfd01-r-008", "wfd01-r-009", "wfd01-r-010", "wfd01-r-011", "wfd01-r-012", "wfd01-r-013", "wfd01-r-014", "wfd01-r-015", "wfd01-r-016", "wfd01-r-017", "wfd01-r-018", "wfd01-r-019", "wfd01-r-020", "wfd01-srp-001", "wfd01-srp-002", "wfd01-srp-003", "wfd01-srp-004", "wfd01-srp-005", "wfd01-srp-006", "wfd01-ur-001", "wfd01-ur-002", "wfd01-ur-003", "wfd01-ur-004", "wfd01-ur-005", "wfd01-ur-006", "wfd01-zr-001", "wfd01-zr-002", "wfd01-zr-003", "wfd01-zr-004", "wfd01-zr-005", "wfd01-zr-006"]);
+const TINT={"wfd01-ur-001": "#f2883c", "wfd01-ur-002": "#f2e33c", "wfd01-ur-003": "#f23c88", "wfd01-ur-004": "#f2883c", "wfd01-ur-005": "#e3f23c", "wfd01-ur-006": "#f23ca6"};
+// Each entry: [finish, only in the card's highlighted areas?]
 function fxFor(c){
-  if(c.num.startsWith("WFD02-PR")||c.num==="WFD01-PRX-001")return ["finesheen","sheen"];
-  if(c.rar==="PR")return ["stained","sheen"];
-  return FX[c.rar]||[];
+  const k=imgKey(c)||"", daily=c.editions.includes("daily"), magic=c.editions.includes("magic");
+  if(c.num.startsWith("WFD02-PR")||c.num==="WFD01-PRX-001")return [["finesheen",0],["sheen",0]];
+  if(c.num==="WFD01-PR-004")return [["foil-cc",1],["shine",1]];
+  if(c.rar==="PR")return [["stained",0],["sheen",0]];
+  switch(c.rar){
+    case "R":  return [["shine",0],["glitter-cc",1]];
+    case "QR": return daily?[["pixel",1]]:[["pixel-dark",1]];
+    case "SR": return [["foil-cc",0],["shine",0]];
+    case "SRP":return [["glitter-cc",1],["shine",0]];
+    case "FR": return daily?[["glitter-square",1]]:[["chunky-dark",1],["glitter-chunky",1]];
+    case "HR": return [["holo-strong",0],["stars",0],["shine",0]];
+    case "UR": return [["tint",1],["shine",1]];
+    case "AR": return magic&&!daily?[["glitter-chunky",1],["holo",0]]:[["holo",0],["stars",0]];
+    case "ZR": return [["glitter-cc",1],["glitter-dark",1],["neon",0]];
+  }
+  return (FX[c.rar]||[]).map(f=>[f,0]);
 }
 function imgKey(c){
   let k=c.num.toLowerCase().replace(/[◇◊]sr/,"srp");
@@ -521,7 +548,7 @@ function imgKey(c){
 // ---------- Pieces ----------
 function artHTML(c,big){
   const k=imgKey(c);
-  if(k){const m=`--m:url(cards/${k}-s.webp)`;return `<img class="cardimg" src="cards/${k}-${big?"l":"s"}.webp" alt="${esc(label(c))}, ${c.num}" loading="lazy" decoding="async">${fxFor(c).map(f=>`<span class="fx fx-${f}" style="${m}" aria-hidden="true"></span>`).join("")}<span class="edb">${edTag(c)}</span>`}
+  if(k){const tint=TINT[k]?`;--c:${TINT[k]}`:"";return `<img class="cardimg" src="cards/${k}-${big?"l":"s"}.webp" alt="${esc(label(c))}, ${c.num}" loading="lazy" decoding="async">${fxFor(c).map(([f,reg])=>`<span class="fx fx-${f}" style="--m:url(cards/${k}-${reg&&REGION.has(k)?"m":"s"}.webp)${tint}" aria-hidden="true"></span>`).join("")}<span class="edb">${edTag(c)}</span>`}
   const h=HUE[c.name]||SCENE_HUE;
   return `<span class="art" style="background:linear-gradient(155deg,${h[0]},${h[1]})"><span class="badge">${RINFO[c.rar].code}</span><span class="edb">${edTag(c)}</span><span class="initial" aria-hidden="true">${esc(c.name[0])}</span><span class="cname">${esc(label(c))}</span></span>`}
 function stepHTML(c){const n=has(c.uid),l=esc(label(c));
