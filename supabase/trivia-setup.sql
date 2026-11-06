@@ -54,8 +54,9 @@ begin
     h2 := ('x' || substr(md5(c.uid || seed || d::text || 'h2'), 1, 6))::bit(24)::int;
     k := ('x' || substr(md5(c.uid || seed || d::text || 'kind'), 1, 6))::bit(24)::int % 6;
     kind := (array['rar','char','box','zoom','odd','trans'])[k + 1];
-    -- only ask about transformations on cards with a Winx fairy (not pets, witches or Specialists)
-    if kind = 'trans' and (c.transformation is null or not c.appears && array['Bloom','Stella','Flora','Musa','Tecna','Aisha']) then kind := 'box'; end if;
+    -- only ask about transformations on cards where a Winx fairy is transformed (not everyday clothes, pets, witches or Specialists)
+    if kind = 'trans' and (c.transformation is null or c.transformation like 'No transformation%'
+        or not c.appears && array['Bloom','Stella','Flora','Musa','Tecna','Aisha']) then kind := 'box'; end if;
     if kind = 'char' and not (c.main is not null and cardinality(c.appears) = 1) then kind := 'rar'; end if;
     diff := 'Card'; fact := c.num;
     if kind = 'rar' then
@@ -69,7 +70,7 @@ begin
     elsif kind = 'trans' then
       prompt := 'What transformation is shown on this card?'; ans := c.transformation;
       opts := array_append(array(select t from (
-                select distinct transformation t from game_cards where transformation is not null
+                select distinct transformation t from game_cards where transformation is not null and transformation not like 'No transformation%'
                 union select unnest(array['Charmix','Harmonix','Bloomix','Mythix','Butterflix'])) x
                 where t <> c.transformation order by md5(t || seed || d::text || i::text) limit 3), c.transformation);
     elsif kind = 'zoom' then
