@@ -305,7 +305,12 @@ input[type=search]{border:1px solid var(--line);background:var(--surface);color:
 .d-left .fx{opacity:calc(var(--fxo,.9) * var(--k,1))}
 /* animations only run where someone is looking: hovered grid cards and the detail page */
 .fx{animation-play-state:paused}
-.face:hover .fx,.d-left .fx{animation-play-state:running}
+.face:hover .fx,.d-left .fx,.face.inview .fx{animation-play-state:running}
+/* cards on screen drift slowly on their own, each at its own pace; hovering hands the light to the pointer */
+.card:not(.missing) .face.has-img.inview:not(:hover){animation:drift 8s ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+.face.inview .fx{animation-delay:var(--dl,0s)}
+.card:not(.missing) .face.inview .fx{opacity:calc(var(--fxi,.28) * 1.6 * var(--k,1))}
+.card:not(.missing) .face.inview:hover .fx{opacity:calc(var(--fxo,.9) * var(--k,1))}
 /* finishes */
 .fx-shine{background:linear-gradient(115deg,transparent 36%,rgb(255 255 255 / .85) 48%,rgb(255 255 255 / .25) 54%,transparent 64%) var(--mx) 50%/300% 300% no-repeat;mix-blend-mode:overlay;--fxo:1;--fxi:.35}
 .fx-pixel{background:radial-gradient(circle at var(--mx) var(--my),#fff,#9a9a9a 38%,#4a4a4a 80%),url(fx/pixel-silver.webp) calc(var(--mx) * .15) calc(var(--my) * .15)/110px 110px;background-blend-mode:multiply;mix-blend-mode:color-dodge;animation:twinkle 1.4s ease-in-out infinite alternate;--fxo:.85;--fxi:.45}
@@ -352,7 +357,7 @@ input[type=search]{border:1px solid var(--line);background:var(--surface);color:
 .d-left .face.has-img:not(.live){animation:drift 7s ease-in-out infinite alternate}
 @keyframes drift{0%{--mx:15%;--my:25%}50%{--mx:70%;--my:45%}100%{--mx:90%;--my:80%}}
 .d-left .face.has-img{transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .2s ease-out;touch-action:none}
-@media (prefers-reduced-motion:reduce){.fx{animation:none!important}.d-left .face.has-img{animation:none!important;transform:none!important}}
+@media (prefers-reduced-motion:reduce){.fx{animation:none!important}.d-left .face.has-img,.face.has-img.inview{animation:none!important;transform:none!important}}
 
 .card.missing .art{filter:grayscale(1) contrast(.75);opacity:.38}
 .qty{position:absolute;top:8px;right:8px;background:var(--surface);color:var(--fg);font-weight:800;font-size:.78rem;border-radius:999px;padding:1px 8px;font-variant-numeric:tabular-nums}
@@ -1673,6 +1678,23 @@ function fxLeave(e){
   f.classList.remove("live");["--mx","--my","--rx","--ry"].forEach(v=>f.style.removeProperty(v));
 }
 document.addEventListener("pointermove",fxMove,{passive:true});
+// Cards on screen take turns catching the light: a handful at a time, so big binders stay smooth on phones
+const fxVis=new Set();
+const fxIO="IntersectionObserver" in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)fxVis.add(e.target);else{fxVis.delete(e.target);e.target.classList.remove("inview")}}),{rootMargin:"40px"}):null;
+function fxWatch(){ if(!fxIO)return; document.querySelectorAll(".face.has-img:not([data-io])").forEach(f=>{if(f.closest(".d-left"))return;f.dataset.io="1";fxIO.observe(f)}) }
+let fxQ=0; new MutationObserver(()=>{if(!fxQ)fxQ=requestAnimationFrame(()=>{fxQ=0;fxWatch()})}).observe(document.body,{childList:true,subtree:true});
+function fxTick(){
+  const now=performance.now(), max=innerWidth<700?5:10;
+  for(const f of fxVis){ if(!f.isConnected){fxVis.delete(f);continue} if(f.classList.contains("inview")&&now>+f.dataset.until)f.classList.remove("inview") }
+  const live=[...fxVis].filter(f=>f.classList.contains("inview")).length;
+  const idle=[...fxVis].filter(f=>!f.classList.contains("inview")&&!f.closest(".card.missing"));
+  for(let i=0;i<max-live&&idle.length;i++){
+    const f=idle.splice(Math.floor(Math.random()*idle.length),1)[0];
+    f.style.setProperty("--dl",(-Math.random()*8).toFixed(2)+"s"); f.dataset.until=now+5000+Math.random()*5000; f.classList.add("inview");
+  }
+}
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches)setInterval(()=>{if(!document.hidden)fxTick()},700);
+fxWatch();
 document.addEventListener("pointerout",e=>{if(!e.relatedTarget||!e.target.closest(".face.has-img")?.contains(e.relatedTarget))fxLeave(e)});
 document.addEventListener("pointerup",e=>{if(e.pointerType==="touch")fxLeave(e)});
 render();
