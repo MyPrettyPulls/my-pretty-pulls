@@ -149,6 +149,7 @@ input[type=search]{border:1px solid var(--line);background:var(--surface);color:
 /* finishes */
 .fx-shine{background:linear-gradient(115deg,transparent 36%,rgb(255 255 255 / .85) 48%,rgb(255 255 255 / .25) 54%,transparent 64%) var(--mx) 50%/300% 300% no-repeat;mix-blend-mode:overlay;--fxo:1;--fxi:.35}
 .fx-pixel{background:radial-gradient(circle at var(--mx) var(--my),#fff,#9a9a9a 38%,#4a4a4a 80%),url(fx/pixel-silver.webp) calc(var(--mx) * .15) calc(var(--my) * .15)/110px 110px;background-blend-mode:multiply;mix-blend-mode:color-dodge;animation:twinkle 1.4s ease-in-out infinite alternate;--fxo:.85;--fxi:.45}
+.fx-shatter{background:url(fx/shatter.webp) calc(var(--mx) * .08) calc(var(--my) * .08)/300px 300px,repeating-linear-gradient(125deg,#ff4fa3 0%,#ffb84f 6%,#f9ff6e 12%,#5dffb5 18%,#4fd2ff 24%,#9b6bff 30%,#ff4fa3 36%) var(--mx) var(--my)/380% 380%;background-blend-mode:multiply;mix-blend-mode:color-dodge;--fxo:.55;--fxi:.2}
 .fx-pastel{background:linear-gradient(120deg,#ffc6e5,#c9e8ff,#e4d1ff,#fff1c4,#ffc6e5) var(--mx) var(--my)/300% 300%;mix-blend-mode:soft-light;--fxo:.85}
 .fx-rainbow,.fx-holo,.fx-holo-dark{background:repeating-linear-gradient(110deg,#ff5f9e 0%,#ffb35c 7%,#fff27a 14%,#7dffb0 21%,#6fd7ff 28%,#9a8cff 35%,#ff5f9e 42%) var(--mx) var(--my)/420% 420%,radial-gradient(circle at var(--mx) var(--my),rgb(255 255 255 / .35),transparent 40%);mix-blend-mode:color-dodge}
 .fx-rainbow{--fxo:.45;--fxi:.16}
@@ -501,7 +502,7 @@ const IMGS=new Set(["wfd01-ar-001-daily", "wfd01-ar-001-magic", "wfd01-ar-002-da
 const LAND=new Set(["wfd01-fr-003", "wfd01-fr-004", "wfd01-fr-005", "wfd01-fr-006", "wfd01-fr-008"]);
 // Finish for each rarity (one or two layers)
 const FX={R:["shine"],QR:["pixel"],SR:["shine","stars"],SRP:["shine","glitter-pink"],FR:["rainbow"],HR:["holo"],TR:["lightbar"],
-  SSR:["holo-dark","glitter-violet"],UR:["silver"],UGR:["gold","glitter-gold"],AR:["holo","stars"],ZR:["neon"],CR:["prism","glitter-pink"],
+  SSR:["shatter"],UR:["silver"],UGR:["gold","glitter-gold"],AR:["holo","stars"],ZR:["neon"],CR:["prism","glitter-pink"],
   BP:["shine","glitter-gold"],SE:["holo","glitter-pink"],PR:["pearl","stars"]};
 function imgKey(c){
   let k=c.num.toLowerCase().replace(/[◇◊]sr/,"srp");
