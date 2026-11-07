@@ -496,7 +496,11 @@ input[type=search]{border:1px solid var(--line);background:var(--surface);color:
 .unconf{margin-top:8px;font-size:.82rem;color:var(--gold);font-weight:700}
 .art .badge{font-size:.62rem}
 
-footer{color:var(--muted);font-size:.8rem;border-top:1px solid var(--line);padding-top:14px;max-width:70ch}
+/* footer sits at the bottom of the screen on short pages, and after the content on long ones, always centered */
+body{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+body>.wrap{flex:1;width:100%}
+.site-foot{margin-top:auto;align-self:center;text-align:center;max-width:62ch;color:var(--muted);font-size:.78rem;line-height:1.5;padding:18px 16px 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.site-foot p{margin:0}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:10px;font-weight:600;font-size:.88rem;z-index:30}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -619,7 +623,11 @@ footer{color:var(--muted);font-size:.8rem;border-top:1px solid var(--line);paddi
   <div id="viewPlay" hidden></div>
   <div id="viewBoard" hidden></div>
 
-  <footer>Prototype. Card art is placeholder. Card numbers come from a collector's checklist; numbers marked unconfirmed follow Kayou's list order. Unofficial fan project, not affiliated with KAYOU or Rainbow S.p.A. Winx Club® © Rainbow S.p.A. Sign in to save your collection to your account; signed out, it's saved in this browser.</footer>
+  <footer class="site-foot">
+    <p>My Pretty Pulls is an unofficial fan project. It isn't affiliated with, sponsored by or endorsed by KAYOU or Rainbow S.p.A.</p>
+    <p>Winx Club® and its characters © Rainbow S.p.A. Card images © KAYOU and their respective owners. Card details come from collector checklists and may contain mistakes.</p>
+    <p>© 2026 My Pretty Pulls</p>
+  </footer>
 </div>
 
 <div class="scrim" id="detail" hidden></div>
