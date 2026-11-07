@@ -86,6 +86,8 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:18px}
 .brand{font-family:var(--font-display);font-weight:800;font-size:1.35rem;letter-spacing:-.02em;display:flex;align-items:flex-end;line-height:1}
 .brand .b-word{padding-bottom:2px}
+.brand .b-word{white-space:nowrap}
+@media (max-width:420px){.brand{font-size:1.12rem}.brand .logo{width:34px;height:54px}}
 .brand .logo{width:40px;height:64px;margin-right:10px;flex:none;overflow:visible}
 /* logo: the pack starts sealed, gets torn open, and the holo card pops up */
 .lg .lg-lid{opacity:0;transform-box:view-box;transform-origin:136px 70px}
@@ -231,6 +233,28 @@ a.brand{color:var(--fg);text-decoration:none}
 .primary.big{padding:12px 20px;font-size:1rem;align-self:center}
 .linkbtn{border:0;background:none;padding:0;color:var(--accent);font-weight:700;text-decoration:underline;font-size:inherit}
 .trerr{margin:0;padding:10px 12px;border-radius:10px;background:#fde0e6;color:#7a1f33;font-weight:600;text-align:center}
+.since{font-size:.82rem;color:var(--muted);font-weight:600;margin-top:4px}
+.bdg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
+.bdg{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:10px 6px;border-radius:14px;background:var(--sunk)}
+.bdg-n{font-weight:800;font-size:.82rem;line-height:1.2}
+.bdg-s{font-size:.7rem;color:var(--muted)}
+.bdg-ic{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:1.6rem;flex:none;background:radial-gradient(circle at 35% 30%,#fff,#ffe9f5 45%,#f5c6e2);box-shadow:inset 0 0 0 3px #fff,0 0 0 2px #e7b8d4,0 4px 10px rgb(194 54 111 / .18)}
+.bdg-ic.rar{background:radial-gradient(circle at 35% 30%,#fff 0,color-mix(in srgb,var(--c) 30%,#fff) 40%,var(--c));color:#fff;font-weight:800;font-size:.9rem;text-shadow:0 1px 2px rgb(0 0 0 / .35);box-shadow:inset 0 0 0 3px rgb(255 255 255 / .8),0 0 0 2px var(--c)}
+.bdg-ic.locked{filter:grayscale(1);opacity:.45}
+.doc.wide{max-width:900px}
+.ways{display:flex;flex-direction:column;gap:10px}
+.way{display:flex;gap:12px;align-items:center;background:var(--sunk);border-radius:14px;padding:10px 12px}
+.way div{display:flex;flex-direction:column}.way span{color:var(--muted);font-size:.9rem}
+.bdg-list{display:flex;flex-direction:column;gap:8px}
+.bdg-row{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.bdg-row.got{background:var(--accent-soft);border-color:transparent}
+.bdg-txt{display:flex;flex-direction:column;min-width:0;flex:1}.bdg-txt span{color:var(--muted);font-size:.88rem}
+.bdg-prog{font-weight:700;color:var(--accent)!important}
+.bdg-pts{font-weight:800;white-space:nowrap}
+.badge-pop{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;display:flex;gap:12px;align-items:center;background:var(--surface);border:2px solid var(--accent);border-radius:18px;padding:10px 18px 10px 10px;box-shadow:0 14px 40px rgb(60 20 70 / .3);max-width:calc(100vw - 32px)}
+.badge-pop div{display:flex;flex-direction:column}.badge-pop span{color:var(--accent);font-weight:700;font-size:.85rem}
+.badge-pop.show{animation:popin .45s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes popin{from{opacity:0;transform:translate(-50%,30px) scale(.8)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
 .trtop{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .trdots{display:flex;gap:6px;justify-content:center}
 .trdot{width:14px;height:14px;border-radius:50%;background:var(--sunk);border:2px solid var(--line)}
@@ -698,6 +722,7 @@ body>.wrap{flex:1;width:100%}
   <div id="viewPlay" hidden></div>
   <div id="viewBoard" hidden></div>
   <div id="viewPage" hidden></div>
+  <div class="badge-pop" id="badgePop" role="status" hidden></div>
 
   <footer class="site-foot">
     <nav class="foot-nav" aria-label="About this site"><a href="/about" data-nav="/about">About</a><a href="/contact" data-nav="/contact">Suggestions &amp; contact</a><a href="/privacy" data-nav="/privacy">Privacy</a><a href="/terms" data-nav="/terms">Terms</a></nav>
@@ -1215,6 +1240,7 @@ function renderProfile(){
         <div class="label">${own?`Your profile · <span class="vis${p.is_public?" pub":""}">${p.is_public?"Public":"Private"}</span>`:"Collector"}</div>
         <h1>${esc(p.display_name||p.username)}</h1>
         <div class="handle">myprettypulls.com/u/${esc(p.username)}</div>
+        ${p.created_at?`<div class="since">🗓️ Collecting since ${new Date(p.created_at).toLocaleDateString("en-US",{month:"long",year:"numeric"})} · ${(d=>d<1?"joined today":d===1?"1 day":d+" days")(Math.floor((Date.now()-new Date(p.created_at))/864e5))}</div>`:""}
         <p class="about${p.about?"":" empty"}">${p.about?esc(p.about):own?"No about me yet. Tell people what you collect.":""}</p>
         ${fav}
       </div>
@@ -1244,6 +1270,7 @@ function renderProfile(){
           :`<p class="hint">${own?"Pick a favorite character to track every card they appear on.":"No favorite picked yet."}</p>`}
       </section>
     </div>
+    ${profBadgesHTML(v)}
     ${profCollectionHTML(v)}
     <section class="panel">
       <div class="panel-h"><h2>Set progress</h2><span class="hint">${st.done} of ${st.boxes} editions complete</span></div>
@@ -1386,7 +1413,7 @@ async function trAnswer(choice){
   tr.answers.push({c:choice,ok:data.correct});
   if(user){tr.score=data.score;if(data.finished){tr.finished=true;tr.sparkles=data.sparkles;tr.total=data.total}}
   else{tr.score=(tr.score||0)+(data.correct?1:0);if(trQ.i===4){tr.finished=true;tr.sparkles=tr.score+(tr.score===5?2:0)}}
-  trSaveLocal(); renderTrivia();
+  trSaveLocal(); renderTrivia(); if(tr.finished)checkBadges(800);
 }
 function trShareText(){
   return `Winx Trivia #${tr.number} ✨\n${tr.answers.map(a=>a.ok?"🟩":"🟥").join("")} ${tr.score}/5${user?` · +${tr.sparkles} Sparkles`:""}\n${location.origin}/trivia`;
@@ -1541,7 +1568,7 @@ async function spGuess(){
   else if(last){sp.finished=true;sp.card=data.card||(user?null:(await sb.rpc("sp_reveal")).data)}
   else{sp.used++;spMsg="Not that one. Keep going!"; if([2,4,6].includes(sp.used))await spLoadPeek()}
   spSaveLocal();
-  if(sp.finished&&user){await spLoad()}
+  if(sp.finished&&user){await spLoad();checkBadges(800)}
   renderPlay(); if(sp.finished)window.scrollTo(0,0);
 }
 document.addEventListener("click",async e=>{
@@ -1722,25 +1749,99 @@ document.addEventListener("click",async e=>{
 });
 document.addEventListener("input",e=>{ if(e.target.id==="delConfirm"){$("#delGo").disabled=e.target.value.trim().toUpperCase()!=="DELETE"} });
 
+
+// ---------- Badges ----------
+let BADGES=null, myBadges=null, badgesOpen=false;
+async function loadBadgeCatalog(){ if(BADGES||!sb)return BADGES; const {data}=await sb.from("badge_catalog").select("*").order("sort"); BADGES=data||[]; return BADGES }
+const badgeById=id=>(BADGES||[]).find(b=>b.id===id);
+function badgeIcon(b,locked){
+  const m=b.id.match(/^winx-rar-(.+)$/);
+  if(m){const key=m[1]==="srp"?"SRP":m[1].toUpperCase(),r=RINFO[key];if(r)return `<span class="bdg-ic rar${locked?" locked":""}" style="--c:${r.color}">${esc(r.code)}</span>`}
+  return `<span class="bdg-ic${locked?" locked":""}">${b.icon}</span>`;
+}
+function badgeTile(b,earned,extra=""){
+  return `<div class="bdg${earned?"":" off"}" title="${esc(b.description)}">${badgeIcon(b,!earned)}<span class="bdg-n">${esc(b.name)}</span><span class="bdg-s">${earned?`Earned${typeof earned==="string"?" "+new Date(earned).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}):""}`:`✨ ${b.sparkles}`}</span>${extra}</div>`;
+}
+// celebrate newly earned badges one at a time
+const popQ=[]; let popping=false;
+function celebrate(list){ popQ.push(...list); if(!popping)nextPop() }
+function nextPop(){
+  const b=popQ.shift(); const el=$("#badgePop"); if(!b){popping=false;el.hidden=true;return}
+  popping=true; const full=badgeById(b.id)||b;
+  el.innerHTML=`${badgeIcon(full)}<div><div class="label">Badge earned!</div><b>${esc(b.name)}</b><span>+${b.sparkles} ✨ Sparkles</span></div>`;
+  el.hidden=false; el.classList.remove("show"); void el.offsetWidth; el.classList.add("show");
+  setTimeout(nextPop,3200);
+}
+let badgeT=0;
+function checkBadges(delay=1500){ if(!user||!sb)return; clearTimeout(badgeT); badgeT=setTimeout(async()=>{
+  const {data,error}=await sb.rpc("award_badges"); if(error||!Array.isArray(data)||!data.length)return;
+  await loadBadgeCatalog(); celebrate(data);
+  if(myProfile){const g=await sb.rpc("profile_badges",{uname:myProfile.username});myBadges=g.data||myBadges;if(viewing&&viewing.own){viewing.badges=myBadges;renderProfile()}}
+},delay) }
+function profBadgesHTML(v){
+  const list=(v.badges||[]).map(x=>({...badgeById(x.id),earned_at:x.earned_at})).filter(b=>b.id);
+  const total=(BADGES||[]).length, who=v.own?"You haven't":"No badges";
+  const shown=badgesOpen?list:list.slice().reverse().slice(0,6);
+  return `<section class="panel" id="profBadges"><div class="panel-h"><h2>Badges</h2><span class="hint">${list.length}${total?` of ${total}`:""} earned</span></div>
+    ${list.length?`<div class="bdg-grid">${shown.map(b=>badgeTile(b,b.earned_at)).join("")}</div>`:`<p class="hint" style="margin:0">${v.own?"You haven't earned any badges yet. Add cards and play the daily games to start earning them.":"No badges yet."}</p>`}
+    <div class="qrow" style="justify-content:center;margin-top:10px">${list.length>6?`<button class="ghost" data-bopen>${badgesOpen?"Show fewer":`View all ${list.length} badges`}</button>`:""}<button class="ghost" data-nav="/badges">How to earn badges</button></div>
+  </section>`;
+}
+document.addEventListener("click",e=>{ if(e.target.closest("[data-bopen]")){badgesOpen=!badgesOpen;renderProfile();if(!badgesOpen)$("#profBadges")?.scrollIntoView({block:"start"})} });
+// the Badges & Sparkles page
+async function renderBadgesPage(){
+  const el=$("#viewPage");
+  el.innerHTML=`<article class="doc"><h1>Badges &amp; Sparkles</h1><p class="updated">Loading…</p></article>`;
+  await loadBadgeCatalog();
+  let mine=new Map();
+  if(user&&myProfile){const g=await sb.rpc("profile_badges",{uname:myProfile.username});(g.data||[]).forEach(x=>mine.set(x.id,x.earned_at))}
+  const own=n=>CARDS.filter(c=>(counts[c.uid]||0)>0&&n(c)).length, all=n=>CARDS.filter(n).length;
+  const prog=b=>{
+    if(!user)return "";
+    let m;
+    if(/^winx-col|^cards-|^first-card/.test(b.id))return `${own(()=>true)} / ${b.id==="first-card"?1:b.id==="cards-50"?50:b.id==="cards-100"?100:Math.ceil(CARDS.length*{ "winx-col25":.25,"winx-col50":.5,"winx-col75":.75,"winx-col100":1}[b.id])} cards`;
+    if((m=b.id.match(/^winx-ed-(.+)$/)))return `${own(c=>c.editions.includes(m[1]))} / ${all(c=>c.editions.includes(m[1]))} cards`;
+    if((m=b.id.match(/^winx-rar-(.+)$/))){const k=m[1]==="srp"?"SRP":m[1].toUpperCase();return `${own(c=>c.rar===k)} / ${all(c=>c.rar===k)} cards`}
+    return "";
+  };
+  const cats=[...new Set(BADGES.map(b=>b.category))];
+  const earned=BADGES.filter(b=>mine.has(b.id)).length, spark=BADGES.filter(b=>mine.has(b.id)).reduce((s,b)=>s+b.sparkles,0);
+  el.innerHTML=`<article class="doc wide">
+    <h1>Badges &amp; Sparkles</h1>
+    <p class="updated">Everything you can earn on My Pretty Pulls, and how to earn it.</p>
+    ${user?`<div class="okbox" style="background:var(--accent-soft);color:var(--fg)">You've earned <b>${earned} of ${BADGES.length}</b> badges and <b>✨ ${spark}</b> Sparkles from badges.</div>`:`<div class="banner"><span>Sign in to start earning badges and Sparkles.</span><button class="primary" id="openSignin">Sign in</button></div>`}
+    <h2>Ways to earn ✨ Sparkles</h2>
+    <div class="ways">
+      <div class="way"><span class="bdg-ic">🃏</span><div><b>Guess the Secret Pull</b><span>Up to 10 Sparkles a day. The fewer tries you use, the more you win.</span></div></div>
+      <div class="way"><span class="bdg-ic">💡</span><div><b>Daily Trivia</b><span>1 Sparkle for each right answer, plus 2 bonus Sparkles for a perfect 5 out of 5. Up to 7 a day.</span></div></div>
+      <div class="way"><span class="bdg-ic">🏅</span><div><b>Badges</b><span>Every badge comes with Sparkles the moment you earn it. Badges are yours to keep, even if you trade cards away later.</span></div></div>
+    </div>
+    <p class="hint">Sparkles add up on your profile and on the leaderboard. They have no cash value. Something fun is coming to the ✨ Sparkle Store soon.</p>
+    ${cats.map(cat=>`<h2>${esc(cat)}</h2><div class="bdg-list">${BADGES.filter(b=>b.category===cat).map(b=>{const e=mine.get(b.id),pg=e?"":prog(b);
+      return `<div class="bdg-row${e?" got":""}">${badgeIcon(b,!e)}<div class="bdg-txt"><b>${esc(b.name)}</b><span>${esc(b.description)}</span>${pg?`<span class="bdg-prog">You have ${pg}</span>`:""}</div><span class="bdg-pts">${e?"✓ Earned":`+${b.sparkles} ✨`}</span></div>`}).join("")}</div>`).join("")}
+  </article>`;
+}
+
 // ---------- Pages: / collection, /profile your profile, /u/name someone's profile ----------
 function setView(which){
   $("#viewCollection").hidden=which!=="collection"; $("#viewProfile").hidden=which!=="profile"; $("#viewPlay").hidden=which!=="play"; $("#viewBoard").hidden=which!=="board"; $("#viewPage").hidden=which!=="page";
   renderAcct();
 }
-async function route(){ arranging=false; profOpen=false; if(!location.pathname.startsWith("/u/")&&location.pathname!=="/profile")profTab="all"; trStop();
+async function route(){ arranging=false; profOpen=false; badgesOpen=false; if(!location.pathname.startsWith("/u/")&&location.pathname!=="/profile")profTab="all"; trStop();
   const path=location.pathname.replace(/\/+$/,"")||"/";
   const m=path.match(/^\/u\/([A-Za-z0-9_]{3,20})$/);
   if(m){
     const name=m[1].toLowerCase(); setView("profile");
-    if(myProfile&&myProfile.username===name){viewing={state:"ok",prof:myProfile,counts,own:true};renderProfile();document.title=`${myProfile.display_name||name} · My Pretty Pulls`;return}
+    if(myProfile&&myProfile.username===name){viewing={state:"ok",prof:myProfile,counts,own:true,badges:myBadges||[]};renderProfile();document.title=`${myProfile.display_name||name} · My Pretty Pulls`;return}
     viewing={state:"loading"};renderProfile();
     if(!sb){viewing={state:"missing"};renderProfile();return}
     const {data}=await sb.from("profiles").select("*").eq("username",name).maybeSingle();
     if(!data){viewing={state:"missing"};renderProfile();return}
     try{viewing={state:"ok",prof:data,counts:await fetchCounts(data.id),own:!!user&&user.id===data.id}}catch(e){viewing={state:"missing"}}
-    if(viewing.state==="ok"){const g=await sb.rpc("sp_profile_stats",{uname:data.username});viewing.game=g.data||null}
+    if(viewing.state==="ok"){const [g,bd]=await Promise.all([sb.rpc("sp_profile_stats",{uname:data.username}),sb.rpc("profile_badges",{uname:data.username}),loadBadgeCatalog()]);viewing.game=g.data||null;viewing.badges=bd.data||[]}
     renderProfile(); document.title=`${data.display_name||data.username} · My Pretty Pulls`; return;
   }
+  if(path==="/badges"){ setView("page"); document.title="Badges & Sparkles · My Pretty Pulls"; await renderBadgesPage(); return; }
   if(["/about","/privacy","/terms","/contact"].includes(path)){
     setView("page"); const k=path.slice(1);
     document.title={about:"About",privacy:"Privacy Policy",terms:"Terms of Use",contact:"Suggestions & contact"}[k]+" · My Pretty Pulls";
@@ -1763,8 +1864,9 @@ async function route(){ arranging=false; profOpen=false; if(!location.pathname.s
     setView("profile"); document.title="Your profile · My Pretty Pulls";
     if(!user){viewing={state:sessionChecked?"signin":"loading"};renderProfile();return}
     if(!myProfile){viewing={state:"setup"};renderProfile();openEdit();return}
-    viewing={state:"ok",prof:myProfile,counts,own:true};renderProfile();
-    const g=await sb.rpc("sp_profile_stats",{uname:myProfile.username}); if(viewing&&viewing.own){viewing.game=g.data||null;renderProfile()}
+    viewing={state:"ok",prof:myProfile,counts,own:true,badges:myBadges||[]};renderProfile();
+    const [g,bd]=await Promise.all([sb.rpc("sp_profile_stats",{uname:myProfile.username}),sb.rpc("profile_badges",{uname:myProfile.username}),loadBadgeCatalog()]);
+    myBadges=bd.data||[]; if(viewing&&viewing.own){viewing.game=g.data||null;viewing.badges=myBadges;renderProfile()}
     return;
   }
   setView("collection"); document.title="My Pretty Pulls";
@@ -1879,12 +1981,12 @@ async function saveProfile(e){
   }
   $("#epSave").disabled=false;
   if(error){err.textContent=error.code==="23505"?"That username was just taken. Try another.":/inappropriate/.test(error.message)?"Please remove inappropriate words from your username, name or about me.":`Couldn't save: ${error.message}`;return}
-  const first=!myProfile; myProfile=data; closeEdit(); toast(first?"Profile created":"Profile saved"); go("/profile");
+  const first=!myProfile; myProfile=data; closeEdit(); toast(first?"Profile created":"Profile saved"); go("/profile"); checkBadges();
 }
 async function setPublic(on){
   const {data,error}=await sb.from("profiles").update({is_public:on,updated_at:new Date().toISOString()}).eq("id",user.id).select().single();
   if(error){toast("Couldn't change that. Try again.");return}
-  myProfile=data; viewing={state:"ok",prof:data,counts,own:true}; renderProfile(); toast(on?"Your profile is public":"Your profile is private");
+  myProfile=data; viewing={...viewing,state:"ok",prof:data,counts,own:true}; renderProfile(); toast(on?"Your profile is public":"Your profile is private"); checkBadges();
 }
 
 // ---------- Share image ----------
@@ -1974,7 +2076,7 @@ async function flush(){
   try{
     if(ups.length){const {error}=await sb.from("collection_items").upsert(ups);if(error)throw error}
     if(dels.length){const {error}=await sb.from("collection_items").delete().eq("user_id",user.id).in("card_uid",dels);if(error)throw error}
-    setSave(pending.size?"saving":"saved");
+    setSave(pending.size?"saving":"saved"); checkBadges();
   }catch(e){
     items.forEach(([u,q])=>{if(!pending.has(u))pending.set(u,q)});
     setSave("error"); clearTimeout(flushT); flushT=setTimeout(flush,4000);
@@ -2004,7 +2106,7 @@ async function onSignedIn(u){
   }catch(e){ setSave("error"); toast("Couldn't load your collection. Check your connection and refresh."); }
   if(amode!=="reset")$("#signin").hidden=true; render();
   if(new URLSearchParams(location.search).has("reset")&&amode!=="reset")setAuthMode("reset");
-  await loadMyProfile(); sessionChecked=true;
+  await loadMyProfile(); sessionChecked=true; checkBadges(400);
   if(!myProfile&&ls.get(AGE_OK)==="1"&&location.pathname!=="/profile"&&!sessionStorage.getItem("mpp.setupShown")){try{sessionStorage.setItem("mpp.setupShown","1")}catch(e){}openEdit()}
   route();
 }
@@ -2031,6 +2133,7 @@ function renderMenu(){
     <a class="mi" href="/play" data-nav="/play"${cur("/play")}><span class="ic">🃏</span>Guess the Secret Pull</a>
     <a class="mi" href="/trivia" data-nav="/trivia"${cur("/trivia")}><span class="ic">💡</span>Daily Trivia</a>
     <a class="mi" href="/leaderboard" data-nav="/leaderboard"${cur("/leaderboard")}><span class="ic">🏆</span>Leaderboard</a>
+    <a class="mi" href="/badges" data-nav="/badges"${cur("/badges")}><span class="ic">🏅</span>Badges &amp; Sparkles</a>
     <button class="mi" data-store><span class="ic">💎</span>Sparkle Store<span class="tag">Soon</span></button>
     <hr>
     <h3>Account</h3>
