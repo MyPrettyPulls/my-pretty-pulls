@@ -84,8 +84,9 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 
 /* Top */
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:18px}
-.brand{font-family:var(--font-display);font-weight:800;font-size:1.35rem;letter-spacing:-.02em;display:flex;align-items:center}
-.brand .logo{width:40px;height:40px;margin-right:8px;flex:none;overflow:visible}
+.brand{font-family:var(--font-display);font-weight:800;font-size:1.35rem;letter-spacing:-.02em;display:flex;align-items:flex-end;line-height:1}
+.brand .b-word{padding-bottom:2px}
+.brand .logo{width:40px;height:64px;margin-right:10px;flex:none;overflow:visible}
 /* logo: the pack starts sealed, gets torn open, and the holo card pops up */
 .lg .lg-lid{opacity:0;transform-box:view-box;transform-origin:136px 70px}
 .lg .lg-pack{transform-box:view-box;transform-origin:80px 194px}
@@ -100,7 +101,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 @keyframes lgShake{0%,4%{transform:none}8%{transform:rotate(-4deg)}13%{transform:rotate(4deg)}18%{transform:rotate(-3deg)}23%{transform:rotate(2deg)}28%,100%{transform:none}}
 @keyframes lgSp{0%,62%{transform:scale(0) rotate(-30deg);opacity:0}80%{transform:scale(1.35) rotate(10deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:1}}
 @media (prefers-reduced-motion:reduce){.lg.play *{animation:none!important}}
-.brand .b-pulls{color:var(--accent);margin-left:.25em}
+.brand .b-pulls{color:var(--accent)}
 .brand .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:10px 0 0 var(--gold);margin-right:20px}
 .franchises{display:flex;gap:6px;flex-wrap:wrap}
 .fr{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-weight:600;font-size:.88rem}
@@ -108,7 +109,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .fr .soon{font-size:.68rem;color:var(--muted);margin-left:5px;text-transform:uppercase;letter-spacing:.06em}
 .acct{display:flex;align-items:center;gap:8px;font-size:.85rem}
 a.brand{color:var(--fg);text-decoration:none}
-.top{position:relative;flex-wrap:nowrap}
+.top{position:relative;flex-wrap:nowrap;align-items:flex-end}
 .menubtn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px 6px 8px;font-weight:700;box-shadow:0 1px 3px rgb(0 0 0 / .08)}
 .menubtn .bars{width:18px;height:12px;display:inline-flex;flex-direction:column;justify-content:space-between;margin-left:4px}
 .menubtn .bars span{height:2px;border-radius:2px;background:currentColor;transition:transform .2s,opacity .2s}
@@ -564,6 +565,7 @@ body>.wrap{flex:1;width:100%}
 .doc h2{font-family:var(--font-display);font-size:1.15rem;margin:22px 0 6px}
 .doc p,.doc li{line-height:1.6}
 .doc ul{padding-left:20px}
+.doc a{color:var(--accent);font-weight:600}
 .doc .updated{color:var(--muted);font-size:.85rem;margin:0 0 14px}
 .cform{display:flex;flex-direction:column;gap:12px;margin-top:14px}
 .cform label{font-weight:700;font-size:.9rem;display:flex;flex-direction:column;gap:5px}
@@ -588,7 +590,7 @@ body>.wrap{flex:1;width:100%}
 
 <div class="wrap">
   <header class="top">
-    <a class="brand" href="/" data-nav="/"><svg class="logo lg" viewBox="14 0 132 132" width="40" height="40" aria-hidden="true"><defs><linearGradient id="lgrb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5fd3e0"/><stop offset=".22" stop-color="#8fe3a8"/><stop offset=".42" stop-color="#ffe27a"/><stop offset=".6" stop-color="#ffb070"/><stop offset=".78" stop-color="#f27cc8"/><stop offset="1" stop-color="#b48df0"/></linearGradient><linearGradient id="lgsh" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><clipPath id="lgcl"><rect x="45" y="6" width="70" height="98" rx="8"/></clipPath><linearGradient id="lgpk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#24285e"/><stop offset="1" stop-color="#120f2e"/></linearGradient></defs><g class="lg-card"><g transform="rotate(9 80 70)"><rect x="45" y="6" width="70" height="98" rx="8" fill="url(#lgrb)"/><rect x="51" y="12" width="58" height="86" rx="5" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="2.5"/><g clip-path="url(#lgcl)"><rect x="70" y="0" width="20" height="110" fill="url(#lgsh)" transform="skewX(-18)" opacity=".8"/></g><path d="M80 29 L84.2 39.8 L95 44 L84.2 48.2 L80 59 L75.8 48.2 L65 44 L75.8 39.8Z" fill="#fff"/><path d="M98 20 L99.68 24.32 L104 26 L99.68 27.68 L98 32 L96.32 27.68 L92 26 L96.32 24.32Z" fill="#fff"/><path d="M64 61 L65.4 64.6 L69 66 L65.4 67.4 L64 71 L62.6 67.4 L59 66 L62.6 64.6Z" fill="#fff"/></g></g><g class="lg-pack"><path d="M24 86 L24 80 L32 86 L40 80 L48 86 L56 80 L64 86 L72 80 L80 86 L88 80 L96 86 L104 80 L112 86 L120 80 L128 86 L136 80 L136 186 Q136 194 128 194 L32 194 Q24 194 24 186 Z" fill="url(#lgpk)"/><path class="lg-tear" d="M24 86 L24 80 L32 86 L40 80 L48 86 L56 80 L64 86 L72 80 L80 86 L88 80 L96 86 L104 80 L112 86 L120 80 L128 86 L136 80" fill="none" stroke="#c9d2e8" stroke-width="3" stroke-linejoin="round"/><path d="M30 92 v86" stroke="#fff" stroke-opacity=".08" stroke-width="10"/><g class="lg-lid"><path d="M24 60 L32 54 L40 60 L48 54 L56 60 L64 54 L72 60 L80 54 L88 60 L96 54 L104 60 L112 54 L120 60 L128 54 L136 60 L136 60 L136 80 L136 80 L128 86 L120 80 L112 86 L104 80 L96 86 L88 80 L80 86 L72 80 L64 86 L56 80 L48 86 L40 80 L32 86 L24 80 L24 86 Z" fill="url(#lgpk)"/><path d="M24 60 L32 54 L40 60 L48 54 L56 60 L64 54 L72 60 L80 54 L88 60 L96 54 L104 60 L112 54 L120 60 L128 54 L136 60 L136 60" fill="none" stroke="#c9d2e8" stroke-width="3" stroke-linejoin="round"/></g></g><path class="lg-sp" d="M22 31 L24.52 37.48 L31 40 L24.52 42.52 L22 49 L19.48 42.52 L13 40 L19.48 37.48Z" fill="#ffd6f0"/><path class="lg-sp" d="M140 47 L141.96 52.04 L147 54 L141.96 55.96 L140 61 L138.04 55.96 L133 54 L138.04 52.04Z" fill="#ffd6f0"/><path class="lg-sp" d="M32 62 L33.12 64.88 L36 66 L33.12 67.12 L32 70 L30.88 67.12 L28 66 L30.88 64.88Z" fill="#ffd6f0"/><path class="lg-sp" d="M146 22 L147.12 24.88 L150 26 L147.12 27.12 L146 30 L144.88 27.12 L142 26 L144.88 24.88Z" fill="#ffd6f0"/></svg>My Pretty <span class="b-pulls">Pulls</span></a>
+    <a class="brand" href="/" data-nav="/"><svg class="logo lg" viewBox="18 -4 124 200" width="40" height="64" aria-hidden="true"><defs><linearGradient id="lgrb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5fd3e0"/><stop offset=".22" stop-color="#8fe3a8"/><stop offset=".42" stop-color="#ffe27a"/><stop offset=".6" stop-color="#ffb070"/><stop offset=".78" stop-color="#f27cc8"/><stop offset="1" stop-color="#b48df0"/></linearGradient><linearGradient id="lgsh" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><clipPath id="lgcl"><rect x="45" y="6" width="70" height="98" rx="8"/></clipPath><linearGradient id="lgpk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#24285e"/><stop offset="1" stop-color="#120f2e"/></linearGradient></defs><g class="lg-card"><g transform="rotate(9 80 70)"><rect x="45" y="6" width="70" height="98" rx="8" fill="url(#lgrb)"/><rect x="51" y="12" width="58" height="86" rx="5" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="2.5"/><g clip-path="url(#lgcl)"><rect x="70" y="0" width="20" height="110" fill="url(#lgsh)" transform="skewX(-18)" opacity=".8"/></g><path d="M80 29 L84.2 39.8 L95 44 L84.2 48.2 L80 59 L75.8 48.2 L65 44 L75.8 39.8Z" fill="#fff"/><path d="M98 20 L99.68 24.32 L104 26 L99.68 27.68 L98 32 L96.32 27.68 L92 26 L96.32 24.32Z" fill="#fff"/><path d="M64 61 L65.4 64.6 L69 66 L65.4 67.4 L64 71 L62.6 67.4 L59 66 L62.6 64.6Z" fill="#fff"/></g></g><g class="lg-pack"><path d="M24 86 L24 80 L32 86 L40 80 L48 86 L56 80 L64 86 L72 80 L80 86 L88 80 L96 86 L104 80 L112 86 L120 80 L128 86 L136 80 L136 186 Q136 194 128 194 L32 194 Q24 194 24 186 Z" fill="url(#lgpk)"/><path class="lg-tear" d="M24 86 L24 80 L32 86 L40 80 L48 86 L56 80 L64 86 L72 80 L80 86 L88 80 L96 86 L104 80 L112 86 L120 80 L128 86 L136 80" fill="none" stroke="#c9d2e8" stroke-width="3" stroke-linejoin="round"/><path d="M30 92 v86" stroke="#fff" stroke-opacity=".08" stroke-width="10"/><g class="lg-lid"><path d="M24 60 L32 54 L40 60 L48 54 L56 60 L64 54 L72 60 L80 54 L88 60 L96 54 L104 60 L112 54 L120 60 L128 54 L136 60 L136 60 L136 80 L136 80 L128 86 L120 80 L112 86 L104 80 L96 86 L88 80 L80 86 L72 80 L64 86 L56 80 L48 86 L40 80 L32 86 L24 80 L24 86 Z" fill="url(#lgpk)"/><path d="M24 60 L32 54 L40 60 L48 54 L56 60 L64 54 L72 60 L80 54 L88 60 L96 54 L104 60 L112 54 L120 60 L128 54 L136 60 L136 60" fill="none" stroke="#c9d2e8" stroke-width="3" stroke-linejoin="round"/></g></g><path class="lg-sp" d="M22 31 L24.52 37.48 L31 40 L24.52 42.52 L22 49 L19.48 42.52 L13 40 L19.48 37.48Z" fill="#ffd6f0"/><path class="lg-sp" d="M140 47 L141.96 52.04 L147 54 L141.96 55.96 L140 61 L138.04 55.96 L133 54 L138.04 52.04Z" fill="#ffd6f0"/><path class="lg-sp" d="M32 62 L33.12 64.88 L36 66 L33.12 67.12 L32 70 L30.88 67.12 L28 66 L30.88 64.88Z" fill="#ffd6f0"/><path class="lg-sp" d="M146 22 L147.12 24.88 L150 26 L147.12 27.12 L146 30 L144.88 27.12 L142 26 L144.88 24.88Z" fill="#ffd6f0"/></svg><span class="b-word">My Pretty <span class="b-pulls">Pulls</span></span></a>
     <div class="acct" id="acct"></div>
     <div class="menu-panel" id="menuPanel" hidden></div>
   </header>
@@ -1597,8 +1599,10 @@ const PAGES={
 about:()=>`<article class="doc">
   <h1>About My Pretty Pulls</h1>
   <p class="updated">A collection tracker made by a collector, for collectors.</p>
-  <p>My Pretty Pulls started with a binder full of Winx Club cards and a spreadsheet that kept getting longer. Keeping track of which cards I had, which ones I was still hunting for, and which duplicates I could trade got complicated fast, especially with Daily and Magic Edition boxes sharing so many cards.</p>
-  <p>So I built the tracker I wished existed: every card in the set with real card numbers and images, your progress by rarity and by character, a profile to show off your favorite pulls, and a couple of daily games to keep things fun between pack openings.</p>
+  <p>I've been a Winx Club fan my whole life. Somewhere along the way of growing up, I forgot how much joy there is in collecting the things you love. Then Winx Club trading cards showed up in my feed, and I knew right away I had to start collecting.</p>
+  <p>It brought back the fun of opening packs, holding the cards in my hands, and seeing the beauty of every single card, with all the little details you just don't notice when you look at them online. And once I started, it opened the door to so many other collections I didn't even know existed. Before long I was hooked on hunting down cards and completing sets of everything I love.</p>
+  <p>I made My Pretty Pulls to share that joy: a place to show off the collections we love when we can't bring them with us, and to always know exactly what we still need while we're hunting for the newest set or that one rare card we're missing.</p>
+  <p>I hope this site brings you as much joy as it brings me. Happy pulling! ✨</p>
   <h2>What's here now</h2>
   <ul><li>The full Winx Club Fairy Diary set from KAYOU, including promos</li><li>Your collection, saved to your account so it's there on every device</li><li>Profiles you can share, with a showcase of your best cards</li><li>Guess the Secret Pull and Daily Trivia, where you can win ✨ Sparkles</li></ul>
   <h2>What's coming</h2>
