@@ -501,6 +501,28 @@ body{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
 body>.wrap{flex:1;width:100%}
 .site-foot{margin-top:auto;align-self:center;text-align:center;max-width:62ch;color:var(--muted);font-size:.78rem;line-height:1.5;padding:18px 16px 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
 .site-foot p{margin:0}
+.foot-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-bottom:6px;font-size:.86rem;font-weight:700}
+.foot-nav a{color:var(--fg);text-decoration:none}
+.foot-nav a:hover{color:var(--accent);text-decoration:underline}
+.doc{max-width:760px;margin:0 auto;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,4vw,36px);box-shadow:var(--shadow)}
+.doc h1{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,2.4rem);margin:0 0 4px}
+.doc h2{font-family:var(--font-display);font-size:1.15rem;margin:22px 0 6px}
+.doc p,.doc li{line-height:1.6}
+.doc ul{padding-left:20px}
+.doc .updated{color:var(--muted);font-size:.85rem;margin:0 0 14px}
+.cform{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+.cform label{font-weight:700;font-size:.9rem;display:flex;flex-direction:column;gap:5px}
+.cform select,.cform textarea,.cform input{border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:10px;padding:9px 12px;font:inherit;font-weight:400}
+.cform textarea{min-height:150px;resize:vertical}
+.cform .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.cform .row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.okbox{background:#dff3e8;color:#1f5a3c;border-radius:12px;padding:14px;font-weight:600}
+.danger{border:1.5px solid #d64060;color:#b3263f;background:transparent;border-radius:999px;padding:7px 14px;font-weight:700}
+.danger.solid{background:#d64060;color:#fff}
+.danger:disabled{opacity:.5;cursor:default}
+.acct-panel .delbox{margin-top:10px;display:flex;flex-direction:column;gap:10px;border:1px solid #f0b6c3;background:#fff3f6;border-radius:12px;padding:14px;color:#5a1f2c}
+.acct-panel .delbox input{border:1px solid var(--line);border-radius:10px;padding:8px 12px;font:inherit;max-width:220px}
+.report-link{border:0;background:none;padding:0;color:var(--muted);font-size:.82rem;text-decoration:underline;cursor:pointer}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:10px;font-weight:600;font-size:.88rem;z-index:30}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -622,8 +644,10 @@ body>.wrap{flex:1;width:100%}
   <div id="viewProfile" hidden></div>
   <div id="viewPlay" hidden></div>
   <div id="viewBoard" hidden></div>
+  <div id="viewPage" hidden></div>
 
   <footer class="site-foot">
+    <nav class="foot-nav" aria-label="About this site"><a href="/about" data-nav="/about">About</a><a href="/contact" data-nav="/contact">Suggestions &amp; contact</a><a href="/privacy" data-nav="/privacy">Privacy</a><a href="/terms" data-nav="/terms">Terms</a></nav>
     <p>My Pretty Pulls is an unofficial fan project. It isn't affiliated with, sponsored by or endorsed by KAYOU or Rainbow S.p.A.</p>
     <p>Winx Club® and its characters © Rainbow S.p.A. Card images © KAYOU and their respective owners. Card details come from collector checklists and may contain mistakes.</p>
     <p>© 2026 My Pretty Pulls</p>
@@ -996,8 +1020,12 @@ $("#copyNeed").addEventListener("click",async()=>{
 let myProfile=null, viewing=null;   // viewing = {prof, counts, own}
 const AGE_OK="mpp.age13", AGE_BLOCK="mpp.ageblock";
 const RESERVED=new Set(["admin","support","help","myprettypulls","kayou","winx","winxclub","official","moderator","mod","profile","api","about","settings","u"]);
-const BLOCK=["fuck","shit","bitch","cunt","nigg","fag","porn","sex","nazi","dick","cock","pussy","whore","slut","rape","kill"];
-const notOk=t=>{const s=(t||"").toLowerCase().replace(/[^a-z]/g,"");return BLOCK.some(w=>s.includes(w))};
+// Same lists as the database's word filter (supabase/site-setup.sql). Long words are blocked anywhere; short ones only as whole words.
+const BLOCK_ANY=["fuck","shit","cunt","nigger","nigga","faggot","whore","slut","porn","bitch","pussy","asshole","motherf","dickhead","blowjob","handjob","jizz","cocksuck","retard","hitler","nazi","rapist","molest","pedophil","incest","hentai","onlyfans","xxx","dildo","masturbat","orgasm","erotic"];
+const BLOCK_WORD=new Set(["sex","sexy","sexting","rape","raped","raping","kys","kms","dick","dicks","cock","cocks","fag","fags","ass","tits","titty","titties","boob","boobs","cum","penis","vagina","nude","nudes","naked","horny","hoe","hoes","thot","milf","anal","pedo","pedos","nsfw","kkk"]);
+const notOk=t=>{const s=(t||"").toLowerCase().replace(/[013457@$!|]/g,ch=>({"0":"o","1":"i","3":"e","4":"a","5":"s","7":"t","@":"a","$":"s","!":"i","|":"i"}[ch]));
+  const joined=s.replace(/[^a-z]/g,""); if(BLOCK_ANY.some(w=>joined.includes(w)))return true;
+  return s.split(/[^a-z]+/).some(w=>BLOCK_WORD.has(w))};
 const ls={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
 const CHAR_COLOR=n=>(HUE[n]||["#c2366f"])[0];
 
@@ -1173,6 +1201,7 @@ function renderProfile(){
       <span class="qrow">${own?`<button class="primary" data-nav="/play">Play today's card</button>`:""}<button class="ghost" data-nav="/leaderboard">Leaderboard</button></span>
     </section>
     ${!own&&!user?`<div class="banner"><span>Track your own Winx cards and make a profile like this one.</span><button class="primary" data-nav="/">Start your collection</button></div>`:""}
+    ${own?accountPanelHTML():`<p style="text-align:center;margin:0"><button class="report-link" data-nav="/contact?topic=${encodeURIComponent("Report a profile")}&about=${encodeURIComponent(p.username)}">Report this profile</button></p>`}
   </section>`;
 }
 
@@ -1502,9 +1531,137 @@ document.addEventListener("click",e=>{
   if(e.target.closest("[data-store]")){toast("✨ The Sparkle Store is coming soon!");return}
 });
 
+
+// ---------- About, Privacy, Terms, Contact ----------
+const PAGE_UPDATED="November 7, 2026";
+const PAGES={
+about:()=>`<article class="doc">
+  <h1>About My Pretty Pulls</h1>
+  <p class="updated">A collection tracker made by a collector, for collectors.</p>
+  <p>My Pretty Pulls started with a binder full of Winx Club cards and a spreadsheet that kept getting longer. Keeping track of which cards I had, which ones I was still hunting for, and which duplicates I could trade got complicated fast, especially with Daily and Magic Edition boxes sharing so many cards.</p>
+  <p>So I built the tracker I wished existed: every card in the set with real card numbers and images, your progress by rarity and by character, a profile to show off your favorite pulls, and a couple of daily games to keep things fun between pack openings.</p>
+  <h2>What's here now</h2>
+  <ul><li>The full Winx Club Fairy Diary set from KAYOU, including promos</li><li>Your collection, saved to your account so it's there on every device</li><li>Profiles you can share, with a showcase of your best cards</li><li>Guess the Secret Pull and Daily Trivia, where you can win ✨ Sparkles</li></ul>
+  <h2>What's coming</h2>
+  <p>KPop Demon Hunters and My Little Pony are next, with more card collections to follow. Want a set added? <a href="/contact" data-nav="/contact">Tell me which one</a>.</p>
+  <h2>The fine print</h2>
+  <p>My Pretty Pulls is an unofficial fan project. It isn't affiliated with, sponsored by or endorsed by KAYOU, Rainbow S.p.A. or any other brand whose cards appear here. All card art belongs to its owners.</p>
+</article>`,
+privacy:()=>`<article class="doc">
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated ${PAGE_UPDATED}</p>
+  <p>This page explains what My Pretty Pulls collects, why, and what you can do about it. The short version: we only keep what the site needs to work, we never sell your information, and you can delete your account at any time.</p>
+  <h2>What we collect</h2>
+  <ul>
+    <li><b>Your email address</b>, so you can sign in and reset your password.</li>
+    <li><b>Your password</b>, stored only in scrambled (hashed) form by our sign-in provider. We can never see it.</li>
+    <li><b>Your profile</b>: username, display name, about me, favorite character, profile card and showcase.</li>
+    <li><b>Your collection</b>: which cards you own and how many copies.</li>
+    <li><b>Your game results</b>: Secret Pull and trivia answers, Sparkles and streaks.</li>
+    <li><b>Messages you send us</b> through the contact form, and the email address you give if you'd like a reply.</li>
+    <li><b>Basic technical information</b>, like your IP address, which our hosting and security providers handle to keep the site running and to stop spam and abuse.</li>
+  </ul>
+  <h2>What we don't collect</h2>
+  <ul><li>Your birthday. We ask for your birth month and year only to check that you're 13 or older. The date itself isn't saved, just that you passed the check.</li><li>Photos, your location, or payment information.</li></ul>
+  <h2>Who can see what</h2>
+  <ul><li>Profiles are <b>private</b> until you choose to make them public. A public profile shows your username, display name, about me, profile card, showcase, collection and game stats. Your email is never shown.</li><li>Only people with public profiles appear on the leaderboard.</li></ul>
+  <h2>Things saved on your device</h2>
+  <p>If you use the site without an account, your collection and game progress are saved in your browser's storage on that device only. We also save small settings there, like your card size. We don't use advertising or tracking cookies.</p>
+  <h2>Services we use</h2>
+  <p>We rely on a few trusted providers to run the site: <b>Supabase</b> (accounts and database), <b>Cloudflare</b> (hosting and security) and <b>Resend</b> (sign-in and password emails). They only process your information to provide those services to us. We don't sell or rent your information to anyone, and we don't show ads.</p>
+  <h2>Kids</h2>
+  <p>You must be 13 or older to make an account. If we learn that someone under 13 has made an account, we'll delete it. If you think that's happened, please <a href="/contact" data-nav="/contact">let us know</a>.</p>
+  <h2>Your choices</h2>
+  <ul><li><b>Change</b> your profile any time from your profile page.</li><li><b>Make your profile private</b> to hide it from everyone else.</li><li><b>Delete your account</b> from the bottom of your profile page. This permanently removes your account, profile, collection and game results.</li><li>To ask for a copy of your information or anything else privacy-related, <a href="/contact" data-nav="/contact">contact us</a>.</li></ul>
+  <h2>How long we keep things</h2>
+  <p>We keep your information while your account exists. When you delete your account, it's removed right away. Contact messages are kept so we can follow up, then deleted when they're no longer needed.</p>
+  <h2>Changes</h2>
+  <p>If we change this policy, we'll update the date at the top. Big changes will be announced on the site.</p>
+  <h2>Contact</h2>
+  <p>Questions? Use the <a href="/contact" data-nav="/contact">contact form</a> or email <a href="mailto:myprettypulls@gmail.com">myprettypulls@gmail.com</a>.</p>
+</article>`,
+terms:()=>`<article class="doc">
+  <h1>Terms of Use</h1>
+  <p class="updated">Last updated ${PAGE_UPDATED}</p>
+  <p>By using My Pretty Pulls, you agree to these terms. They're written to be easy to read, so please do.</p>
+  <h2>The site</h2>
+  <p>My Pretty Pulls is a free, unofficial fan site for tracking trading card collections. It isn't affiliated with, sponsored by or endorsed by KAYOU, Rainbow S.p.A. or any other brand whose cards appear here. Card names, art and logos belong to their owners.</p>
+  <h2>Your account</h2>
+  <ul><li>You must be 13 or older to make an account.</li><li>Keep your password to yourself. You're responsible for what happens on your account.</li><li>One account per person, please. Extra accounts made to farm Sparkles or game the leaderboard may be removed.</li></ul>
+  <h2>Be kind</h2>
+  <p>Your username, display name and about me are visible to others if your profile is public. Don't post anything hateful, harassing, sexual, violent or otherwise inappropriate, and don't pretend to be someone else. We may change, hide or remove profiles or accounts that break these rules.</p>
+  <h2>Sparkles and games</h2>
+  <p>✨ Sparkles are just for fun. They have no cash value, can't be bought, sold or transferred, and may be changed or reset. If we ever offer rewards or giveaways, those will come with their own rules.</p>
+  <h2>Accuracy</h2>
+  <p>We work hard to keep card lists, numbers, rarities and pull rates correct, but they come from collector checklists and may contain mistakes. Please don't rely on them for buying or selling decisions. Spot something wrong? <a href="/contact" data-nav="/contact">Tell us</a>.</p>
+  <h2>No guarantees</h2>
+  <p>The site is provided as is. We can't promise it will always be available or error-free, and we're not responsible for lost data or anything that results from using the site, to the extent the law allows.</p>
+  <h2>Changes</h2>
+  <p>We may update these terms. When we do, we'll change the date at the top. Using the site after that means you accept the new terms.</p>
+  <h2>Contact</h2>
+  <p>Use the <a href="/contact" data-nav="/contact">contact form</a> or email <a href="mailto:myprettypulls@gmail.com">myprettypulls@gmail.com</a>.</p>
+</article>`
+};
+const TOPICS=["Suggestion","Add a card collection","Problem or bug","Complaint","Report a profile","Other"];
+let contactSent=false;
+function renderContact(){
+  const q=new URLSearchParams(location.search), pre=TOPICS.includes(q.get("topic"))?q.get("topic"):"Suggestion", about=q.get("about")||"";
+  $("#viewPage").innerHTML=`<article class="doc">
+    <h1>Suggestions &amp; contact</h1>
+    <p class="updated">Ideas, card collections you'd like added, problems, complaints. It all goes straight to me, and I read every message.</p>
+    ${contactSent?`<div class="okbox" role="status">Thank you! Your message was sent. ${user||$("#cEmail")?.value?"If you asked a question, I'll reply by email.":""}</div><p><button class="ghost" id="cAgain">Send another message</button></p>`:`
+    <form class="cform" id="cform" novalidate>
+      <label>What's this about?<select id="cTopic">${TOPICS.map(t=>`<option${t===pre?" selected":""}>${t}</option>`).join("")}</select></label>
+      <label>Your message<textarea id="cMsg" maxlength="2000" placeholder="Tell me what you're thinking…">${about?esc(`About @${about}: `):""}</textarea></label>
+      <label>Your email <span class="hint" style="font-weight:400">(optional, only if you'd like a reply)</span><input type="email" id="cEmail" maxlength="200" value="${esc(user?.email||"")}" autocomplete="email"></label>
+      <div class="hp" aria-hidden="true"><label>Leave this empty<input id="cWeb" tabindex="-1" autocomplete="off"></label></div>
+      <div class="row"><span class="hint" id="cMsgErr" role="alert"></span><button class="primary" type="submit" id="cSend">Send message</button></div>
+    </form>`}
+  </article>`;
+}
+async function sendContact(e){
+  e.preventDefault();
+  const err=$("#cMsgErr"), btn=$("#cSend"), msg=$("#cMsg").value.trim(), email=$("#cEmail").value.trim();
+  if($("#cWeb").value){contactSent=true;renderContact();return}
+  if(msg.length<5){err.textContent="Please write a little more.";return}
+  if(email&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){err.textContent="That email doesn't look right.";return}
+  if(!sb){err.textContent="Couldn't send right now. Please try again later.";return}
+  btn.disabled=true; err.textContent="Sending…";
+  const {data,error}=await sb.rpc("submit_feedback",{topic:$("#cTopic").value,message:msg,email:email||null});
+  btn.disabled=false;
+  if(error||data?.error){err.textContent=data?.error==="too_many"?"You've sent a lot of messages today. Please try again tomorrow.":"Couldn't send right now. Please try again in a moment.";return}
+  contactSent=true; renderContact(); window.scrollTo(0,0);
+}
+document.addEventListener("submit",e=>{if(e.target.id==="cform")sendContact(e)});
+document.addEventListener("click",e=>{ if(e.target.id==="cAgain"){contactSent=false;renderContact()} });
+// ---------- Delete account ----------
+let delOpen=false;
+function accountPanelHTML(){
+  return `<section class="panel acct-panel"><div class="panel-h"><h2>Account</h2></div>
+    <p class="hint" style="margin:0">Signed in as ${esc(user?.email||"")}. <button class="linkbtn" data-setpw>Change password</button></p>
+    ${delOpen?`<div class="delbox"><b>Delete your account for good?</b><span>This permanently removes your account, profile, collection and Sparkles. It can't be undone.</span>
+      <label style="display:flex;flex-direction:column;gap:5px;font-weight:600">Type DELETE to confirm<input id="delConfirm" autocomplete="off" autocapitalize="characters"></label>
+      <span class="qrow"><button class="danger solid" id="delGo" disabled>Delete my account</button><button class="ghost" id="delCancel">Keep my account</button></span><span class="hint" id="delMsg" role="alert"></span></div>`
+    :`<p style="margin:10px 0 0"><button class="danger" id="delOpen">Delete my account</button></p>`}
+  </section>`;
+}
+document.addEventListener("click",async e=>{
+  if(e.target.id==="delOpen"){delOpen=true;renderProfile();$("#delConfirm")?.focus();return}
+  if(e.target.id==="delCancel"){delOpen=false;renderProfile();return}
+  if(e.target.id==="delGo"){
+    const b=e.target; b.disabled=true; $("#delMsg").textContent="Deleting…";
+    const {data,error}=await sb.rpc("delete_my_account");
+    if(error||data?.error){$("#delMsg").textContent="Couldn't delete your account right now. Please try again or contact us.";b.disabled=false;return}
+    try{localStorage.clear();sessionStorage.clear()}catch(err){}
+    try{await sb.auth.signOut()}catch(err){}
+    delOpen=false; location.href="/?deleted=1";
+  }
+});
+document.addEventListener("input",e=>{ if(e.target.id==="delConfirm"){$("#delGo").disabled=e.target.value.trim().toUpperCase()!=="DELETE"} });
+
 // ---------- Pages: / collection, /profile your profile, /u/name someone's profile ----------
 function setView(which){
-  $("#viewCollection").hidden=which!=="collection"; $("#viewProfile").hidden=which!=="profile"; $("#viewPlay").hidden=which!=="play"; $("#viewBoard").hidden=which!=="board";
+  $("#viewCollection").hidden=which!=="collection"; $("#viewProfile").hidden=which!=="profile"; $("#viewPlay").hidden=which!=="play"; $("#viewBoard").hidden=which!=="board"; $("#viewPage").hidden=which!=="page";
   renderAcct();
 }
 async function route(){ arranging=false; profOpen=false; if(!location.pathname.startsWith("/u/")&&location.pathname!=="/profile")profTab="all"; trStop();
@@ -1520,6 +1677,12 @@ async function route(){ arranging=false; profOpen=false; if(!location.pathname.s
     try{viewing={state:"ok",prof:data,counts:await fetchCounts(data.id),own:!!user&&user.id===data.id}}catch(e){viewing={state:"missing"}}
     if(viewing.state==="ok"){const g=await sb.rpc("sp_profile_stats",{uname:data.username});viewing.game=g.data||null}
     renderProfile(); document.title=`${data.display_name||data.username} · My Pretty Pulls`; return;
+  }
+  if(["/about","/privacy","/terms","/contact"].includes(path)){
+    setView("page"); const k=path.slice(1);
+    document.title={about:"About",privacy:"Privacy Policy",terms:"Terms of Use",contact:"Suggestions & contact"}[k]+" · My Pretty Pulls";
+    if(k==="contact"){contactSent=false;renderContact()}else $("#viewPage").innerHTML=PAGES[k]();
+    return;
   }
   if(path==="/leaderboard"){
     setView("board"); document.title="Leaderboard · My Pretty Pulls";
@@ -1545,6 +1708,7 @@ async function route(){ arranging=false; profOpen=false; if(!location.pathname.s
 }
 function go(path){if(location.pathname!==path)history.pushState(null,"",path);route();window.scrollTo(0,0)}
 window.addEventListener("popstate",route);
+if(new URLSearchParams(location.search).has("deleted")){history.replaceState(null,"","/");setTimeout(()=>toast("Your account was deleted. Thanks for collecting with us!"),600)}
 
 // ---------- Edit profile ----------
 let draft=null, unameT=null;
@@ -1651,7 +1815,7 @@ async function saveProfile(e){
     if(!error)toast("Saved. The picture position needs one more database step.");
   }
   $("#epSave").disabled=false;
-  if(error){err.textContent=error.code==="23505"?"That username was just taken. Try another.":`Couldn't save: ${error.message}`;return}
+  if(error){err.textContent=error.code==="23505"?"That username was just taken. Try another.":/inappropriate/.test(error.message)?"Please remove inappropriate words from your username, name or about me.":`Couldn't save: ${error.message}`;return}
   const first=!myProfile; myProfile=data; closeEdit(); toast(first?"Profile created":"Profile saved"); go("/profile");
 }
 async function setPublic(on){
@@ -1786,7 +1950,7 @@ function renderAcct(){
   const el=$("#acct"); if(!sb){el.innerHTML="";return}
   const onProf=!$("#viewProfile").hidden, path=location.pathname;
   const onPlay=!$("#viewPlay").hidden, onBoard=!$("#viewBoard").hidden;
-  const nav=`<button class="navbtn" data-nav="/"${!onProf&&!onPlay&&!onBoard?' aria-current="page"':""}>Collection</button><button class="navbtn" data-nav="/play"${onPlay?' aria-current="page"':""}>Play</button><button class="navbtn" data-nav="/leaderboard"${onBoard?' aria-current="page"':""}>Leaderboard</button>`;
+  const nav=`<button class="navbtn" data-nav="/"${!$("#viewCollection").hidden?' aria-current="page"':""}>Collection</button><button class="navbtn" data-nav="/play"${onPlay?' aria-current="page"':""}>Play</button><button class="navbtn" data-nav="/leaderboard"${onBoard?' aria-current="page"':""}>Leaderboard</button>`;
   if(!user){el.innerHTML=nav+`<button class="primary" id="openSignin">Sign in</button>`;return}
   const msg={loading:"Loading…",saving:"Saving…",saved:"Saved",error:"Not saved yet, retrying"}[saveState]||"";
   el.innerHTML=nav+`<button class="navbtn" data-nav="/profile"${onProf&&(path==="/profile"||(myProfile&&path==="/u/"+myProfile.username))?' aria-current="page"':""}>${avatarHTML(myProfile,"sm")}${myProfile?"@"+esc(myProfile.username):"My profile"}</button><span class="saved${saveState==="error"?" err":""}" role="status">${msg}</span><button class="ghost" id="signOut">Sign out</button>`;
