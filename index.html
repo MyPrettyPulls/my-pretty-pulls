@@ -585,6 +585,9 @@ body>.wrap{flex:1;width:100%}
 .site-foot p{margin:0}
 .foot-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-bottom:6px;font-size:.86rem;font-weight:700}
 .foot-nav a{color:var(--fg);text-decoration:none}
+.foot-social{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:6px}
+.foot-social a{font-size:.78rem;font-weight:700;color:var(--fg);text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+.foot-social a:hover{border-color:var(--accent);color:var(--accent)}
 .foot-nav a:hover{color:var(--accent);text-decoration:underline}
 .doc{max-width:760px;margin:0 auto;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,4vw,36px);box-shadow:var(--shadow)}
 .doc h1{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,2.4rem);margin:0 0 4px}
@@ -728,6 +731,7 @@ body>.wrap{flex:1;width:100%}
 
   <footer class="site-foot">
     <nav class="foot-nav" aria-label="About this site"><a href="/about" data-nav="/about">About</a><a href="/contact" data-nav="/contact">Suggestions &amp; contact</a><a href="/privacy" data-nav="/privacy">Privacy</a><a href="/terms" data-nav="/terms">Terms</a></nav>
+    <nav class="foot-social" aria-label="Follow My Pretty Pulls"><a href="https://www.tiktok.com/@myprettypulls" target="_blank" rel="noopener">TikTok</a><a href="https://www.instagram.com/myprettypulls/" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/@MyPrettyPulls" target="_blank" rel="noopener">YouTube</a><a href="https://discord.gg/X2d9BKh5d" target="_blank" rel="noopener">Discord</a></nav>
     <p>My Pretty Pulls is an unofficial fan project. It isn't affiliated with, sponsored by or endorsed by KAYOU or Rainbow S.p.A.</p>
     <p>Winx Club® and its characters © Rainbow S.p.A. Card images © KAYOU and their respective owners. Card details come from collector checklists and may contain mistakes.</p>
     <p>© 2026 My Pretty Pulls</p>
@@ -1636,6 +1640,8 @@ about:()=>`<article class="doc">
   <ul><li>The full Winx Club Fairy Diary set from KAYOU, including promos</li><li>Your collection, saved to your account so it's there on every device</li><li>Profiles you can share, with a showcase of your best cards</li><li>Guess the Secret Pull and Daily Trivia, where you can win ✨ Sparkles</li></ul>
   <h2>What's coming</h2>
   <p>KPop Demon Hunters and My Little Pony are next, with more card collections to follow. Want a set added? <a href="/contact" data-nav="/contact">Tell me which one</a>.</p>
+  <h2>Follow along</h2>
+  <p>Pack openings, new sets and site updates: find us on <a href="https://www.tiktok.com/@myprettypulls" target="_blank" rel="noopener">TikTok</a>, <a href="https://www.instagram.com/myprettypulls/" target="_blank" rel="noopener">Instagram</a> and <a href="https://www.youtube.com/@MyPrettyPulls" target="_blank" rel="noopener">YouTube</a>, and come hang out in our <a href="https://discord.gg/X2d9BKh5d" target="_blank" rel="noopener">Discord</a>. Following earns you a badge and ✨ Sparkles too.</p>
   <h2>The fine print</h2>
   <p>My Pretty Pulls is an unofficial fan project. It isn't affiliated with, sponsored by or endorsed by KAYOU, Rainbow S.p.A. or any other brand whose cards appear here. All card art belongs to its owners.</p>
 </article>`,
@@ -2158,6 +2164,9 @@ function renderMenu(){
     :`<p class="hint" style="margin:2px 10px 6px">Save your collection on every device and get on the leaderboard.</p>
       <div class="signin-cta"><button class="primary" id="openSignin">Sign in</button><button class="ghost" id="openSignup">Create account</button></div>`}
     <hr>
+    <div class="small">
+      <a class="mi" href="https://www.tiktok.com/@myprettypulls" target="_blank" rel="noopener">TikTok</a><a class="mi" href="https://www.instagram.com/myprettypulls/" target="_blank" rel="noopener">Instagram</a><a class="mi" href="https://www.youtube.com/@MyPrettyPulls" target="_blank" rel="noopener">YouTube</a><a class="mi" href="https://discord.gg/X2d9BKh5d" target="_blank" rel="noopener">Discord</a>
+    </div>
     <div class="small">
       <a class="mi" href="/about" data-nav="/about">About</a><a class="mi" href="/contact" data-nav="/contact">Suggestions &amp; contact</a><a class="mi" href="/privacy" data-nav="/privacy">Privacy</a><a class="mi" href="/terms" data-nav="/terms">Terms</a>
     </div>

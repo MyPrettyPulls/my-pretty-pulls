@@ -72,9 +72,13 @@ insert into public.badge_catalog (id, category, name, description, sparkles, ico
 on conflict (id) do update set category = excluded.category, name = excluded.name, description = excluded.description,
   sparkles = excluded.sparkles, icon = excluded.icon, sort = excluded.sort, currency = excluded.currency, kind = excluded.kind;
 -- Follow badges (one per social account). To add or change one, edit this list and run the file again.
--- insert into public.badge_catalog (id, category, name, description, sparkles, icon, sort, currency, kind, url) values
---   ('follow-tiktok','Social','TikTok Follower','Follow My Pretty Pulls on TikTok.',10,'🎵',910,'sparkles','claim','https://www.tiktok.com/@yourname')
--- on conflict (id) do update set name = excluded.name, description = excluded.description, sparkles = excluded.sparkles, url = excluded.url;
+insert into public.badge_catalog (id, category, name, description, sparkles, icon, sort, currency, kind, url) values
+  ('follow-tiktok','Social','TikTok Follower','Follow My Pretty Pulls on TikTok.',10,'🎵',910,'sparkles','claim','https://www.tiktok.com/@myprettypulls'),
+  ('follow-instagram','Social','Instagram Follower','Follow My Pretty Pulls on Instagram.',10,'📸',920,'sparkles','claim','https://www.instagram.com/myprettypulls/'),
+  ('follow-youtube','Social','YouTube Subscriber','Subscribe to My Pretty Pulls on YouTube.',10,'▶️',930,'sparkles','claim','https://www.youtube.com/@MyPrettyPulls'),
+  ('follow-discord','Social','Discord Member','Join the My Pretty Pulls Discord.',10,'💬',940,'sparkles','claim','https://discord.gg/X2d9BKh5d')
+on conflict (id) do update set category = excluded.category, name = excluded.name, description = excluded.description,
+  sparkles = excluded.sparkles, icon = excluded.icon, sort = excluded.sort, currency = excluded.currency, kind = excluded.kind, url = excluded.url;
 
 -- Badges each person has earned. Once earned, a badge is kept.
 create table if not exists public.user_badges (
