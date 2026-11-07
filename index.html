@@ -4,8 +4,22 @@
 <meta charset="utf-8">
 <base href="/">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Track your Kayou Winx Club card collection: see what you own, what you're missing, and your extras to trade.">
+<meta name="description" content="Track your trading card collection, show off your pulls, and play daily card games. Starting with the KAYOU Winx Club Fairy Diary set.">
 <title>My Pretty Pulls</title>
+<link rel="icon" href="brand/icon.svg" type="image/svg+xml">
+<link rel="icon" href="brand/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
+<meta name="theme-color" content="#1b1f45">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="My Pretty Pulls">
+<meta property="og:title" content="My Pretty Pulls">
+<meta property="og:description" content="Track your trading card collection, show off your pulls, and play daily card games.">
+<meta property="og:url" content="https://myprettypulls.com/">
+<meta property="og:image" content="https://myprettypulls.com/brand/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://myprettypulls.com/brand/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=JetBrains+Mono:wght@500&display=swap">
 <style>
@@ -71,6 +85,8 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 /* Top */
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:18px}
 .brand{font-family:var(--font-display);font-weight:800;font-size:1.35rem;letter-spacing:-.02em;display:flex;align-items:center}
+.brand .logo{width:40px;height:40px;margin-right:8px;flex:none}
+.brand .b-pulls{color:var(--accent);margin-left:.25em}
 .brand .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:10px 0 0 var(--gold);margin-right:20px}
 .franchises{display:flex;gap:6px;flex-wrap:wrap}
 .fr{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-weight:600;font-size:.88rem}
@@ -558,7 +574,7 @@ body>.wrap{flex:1;width:100%}
 
 <div class="wrap">
   <header class="top">
-    <a class="brand" href="/" data-nav="/"><span class="dot" aria-hidden="true"></span>My Pretty Pulls</a>
+    <a class="brand" href="/" data-nav="/"><img class="logo" src="brand/icon.svg" alt="" width="40" height="40">My Pretty <span class="b-pulls">Pulls</span></a>
     <div class="acct" id="acct"></div>
     <div class="menu-panel" id="menuPanel" hidden></div>
   </header>
