@@ -43,7 +43,7 @@ create trigger profiles_clean before insert or update of username, display_name,
 create table if not exists public.feedback (
   id bigserial primary key,
   created_at timestamptz not null default now(),
-  topic text not null check (topic in ('Suggestion','Add a card collection','Problem or bug','Complaint','Report a profile','Other')),
+  topic text not null check (topic in ('Suggestion','Add a card collection','Problem or bug','Complaint','Report a profile','Claim a badge','Other')),
   message text not null check (char_length(message) between 5 and 2000),
   email text check (char_length(email) <= 200),
   username text,

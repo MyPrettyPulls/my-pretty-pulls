@@ -293,7 +293,11 @@ end $$;
 revoke all on function public.delete_my_account() from public, anon;
 grant execute on function public.delete_my_account() to authenticated;
 
--- New contact topic for claiming the Content Creator badge
-alter table public.feedback drop constraint if exists feedback_topic_check;
-alter table public.feedback add constraint feedback_topic_check
-  check (topic in ('Suggestion','Add a card collection','Problem or bug','Complaint','Report a profile','Claim a badge','Other'));
+-- New contact topic for claiming the Content Creator badge (only if the contact form from "Site setup" exists yet)
+do $$ begin
+  if to_regclass('public.feedback') is not null then
+    alter table public.feedback drop constraint if exists feedback_topic_check;
+    alter table public.feedback add constraint feedback_topic_check
+      check (topic in ('Suggestion','Add a card collection','Problem or bug','Complaint','Report a profile','Claim a badge','Other'));
+  end if;
+end $$;
