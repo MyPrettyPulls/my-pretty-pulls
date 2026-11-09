@@ -15,6 +15,7 @@
 
 ## KPop Demon Hunters (added Nov 2026)
 - Page: /kpop-demon-hunters. 399 cards: Series 1 Classic + Energy (KPDH01, 170), Special Mini Edition (KPDHM01, 41), Series 2 Classic + Energy (KPDH02, 178), 10 promos.
-- Products guide on the page: every box/pack type, pull rates, serial numbers, Costco boxes, promos, Series 1 rarity styles.
+- KAYOU products on the page: tiles (picture + name) for every card product and the merch line; tap one for details.
+  Product photos live in products/<id>.webp and are listed in PROD_IMGS. Real photos so far: energy-1, energy-2. The rest use drawn placeholders.
 - To do: confirm Series 2 card numbers once collectors list them (marked "not confirmed" for now); add card pictures (none yet, cards show colour placeholders);
   KPDH on profiles shows in the card grid, but profile stats and the games are still Winx only.
