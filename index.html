@@ -645,6 +645,7 @@ input[type=search]{border:1px solid var(--line);background:var(--surface);color:
 .fx-iris{background:repeating-linear-gradient(110deg,#ffc2dc 0%,#ffe2b0 7%,#fff7b5 14%,#c4f7d6 21%,#bfe6ff 28%,#d8ccff 35%,#ffc2dc 42%) var(--mx) var(--my)/360% 360%;mix-blend-mode:multiply;--fxo:.8;--fxi:.35}
 .fx-edge{background:linear-gradient(115deg,transparent 35%,rgb(255 255 255 / .55) 48%,rgb(200 220 255 / .2) 55%,transparent 66%) var(--mx) 50%/300% 300% no-repeat;mix-blend-mode:screen;--fxo:.9;--fxi:.25}
 .fx-glitter-holo{background-image:url(fx/glitter-gray.webp),repeating-linear-gradient(110deg,#ff5f9e 0%,#ffb35c 7%,#fff27a 14%,#7dffb0 21%,#6fd7ff 28%,#9a8cff 35%,#ff5f9e 42%);background-size:150px 150px,400% 400%;background-position:calc(var(--mx) * .2) calc(var(--my) * .2),var(--mx) var(--my);background-blend-mode:multiply;mix-blend-mode:color-dodge;animation:twinkle 1.6s ease-in-out infinite alternate;--fxo:.9;--fxi:.4}
+.fx-foil-bright{background:repeating-linear-gradient(105deg,#3a3a3a 0%,#ffffff 6%,#7a7a7a 12%,#f0f0f0 18%,#3a3a3a 24%) var(--mx) var(--my)/280% 280%,radial-gradient(circle at var(--mx) var(--my),#fff,transparent 45%);mix-blend-mode:color-dodge;--fxo:.75;--fxi:.35}
 .fx-pastel{background:linear-gradient(120deg,#ffc6e5,#c9e8ff,#e4d1ff,#fff1c4,#ffc6e5) var(--mx) var(--my)/300% 300%;mix-blend-mode:soft-light;--fxo:.85}
 .fx-rainbow,.fx-holo,.fx-holo-dark{background:repeating-linear-gradient(110deg,#ff5f9e 0%,#ffb35c 7%,#fff27a 14%,#7dffb0 21%,#6fd7ff 28%,#9a8cff 35%,#ff5f9e 42%) var(--mx) var(--my)/420% 420%,radial-gradient(circle at var(--mx) var(--my),rgb(255 255 255 / .35),transparent 40%);mix-blend-mode:color-dodge}
 .fx-rainbow{--fxo:.45;--fxi:.16}
@@ -1261,14 +1262,14 @@ function fxFor(c){
       case "R":  if(REGION.has(k))return K_R_PINK.has(k)?[["holo","m"],["shine","m2"]]:[["holo","m"],["shine","m"]]; break;
       case "QR": return [["silver",0],["shine",0],["glitter-holo",0]];           // foil in the card's own colours, holographic glitter
       case "SR": return [["silver","m"],["shine","m"],["silverfoil","m2"],["shine","m2"],["edge","m3"]]; // pop-outs shiny, top-right square silver, black edges shiny
-      case "SSR":return [["finesheen","m"],["holo","m"]];                         // fine holo shimmer on the character's ticket
+      case "SSR":return [["finesheen",0],["holo",0]];                             // fine holo shimmer over the whole card
       case "UR": return [["shatter",0,.7],["gold","m2"],["silverfoil","m3"],["iris","m3"],["shine","m3"]]; // shattered background, gold name, silver+holo outlines
       case "ZR": return K_MARK.has(k)?[["holo-strong","m"],["shine","m"],["holo-strong","m2"],["glitter-violet","m2"]]:[["holo-strong","m"],["shine","m"]];
       case "CR": case "CRP": return [["silver",0],["shine",0]];                   // shifting shine over the character and background
       case "SE": return [["gold","m"],["shine","m"],["glitter-cc","m2"],["stars","m2",.7]]; // raised gold shine, sparkle in the colour of the glow behind
       case "BP": return [["silver",0],["finesheen",0],["shine",0]];               // shiny shimmer all over, in the card's own colours
-      case "SP": return [["glitter-strong","m"],["glitter-cc","m"],["shine","m"]]; // super glittery on every colour, not black or white
-      case "LR": return [["glitter-dark","m"],["stars","m",.6],["iris","m2"],["holo","m2"],["shine","m2"]]; // sparkly black background, holo details
+      case "SP": return [["foil-bright","m"],["silver","m"],["shine","m"]];        // super bright colourful foil on every colour, not black or white
+      case "LR": return [["glitter-dark","m"],["stars","m",.6],["iris","m2"],["holo","m2"],["shine","m2"],["silver","m3"],["shine","m3"]]; // sparkly black background, holo details, shiny chains
       // TR: plain shine (Kinsey: fine as it is)
     }
     return [["shine",0,["R","SR"].includes(c.rar)?.6:1]]}

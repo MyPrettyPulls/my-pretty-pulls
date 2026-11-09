@@ -42,5 +42,13 @@ for k in ks('LR'):
     skin=(a[...,0]>.55)&(a[...,1]>.42)&(a[...,2]>.38)&((a[...,0]-a[...,2])<.28)&((a[...,0]-a[...,2])>.07)&(s<.35)
     det=(~dark)&~skin&(l>.55)&(s<.4)                # silver lettering, chains, jewellery, white paper edges
     det=ndimage.binary_opening(det,iterations=1)
-    save(k,back,'m',1); save(k,det,'m2',1)
+    # red chains running across the black background (and over the red paper edges)
+    red=((h<22)|(h>335))&(s>.45)&(v>.3)
+    near=ndimage.binary_dilation(back,iterations=int(10*f))
+    loc=ndimage.uniform_filter(l,int(25*f))
+    chain=red&near&(l>loc-.02)
+    chain=ndimage.binary_opening(chain,iterations=1)
+    chain=chain&~ndimage.binary_dilation(ndimage.binary_erosion(chain,iterations=int(4*f)),iterations=int(7*f))   # keep thin links, drop jackets and paper
+    lab,n=ndimage.label(chain); sz=ndimage.sum(chain,lab,range(1,n+1)); chain=np.isin(lab,1+np.where(sz>30*f*f)[0])
+    save(k,back,'m',1); save(k,det,'m2',1); save(k,chain,'m3',1)
 print('ok')

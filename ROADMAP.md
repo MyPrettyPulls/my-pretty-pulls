@@ -61,8 +61,8 @@
 - A card effect's mask can now be a named file: ["shine","m2"] uses cards/<key>-m2.webp.
 - Classic Edition Series 1 (only cards in C1; Kinsey does each collection separately), masks made by tools/kpdh-c1-masks.py:
   QR foil in the card's colours + holographic glitter; SR shiny pop-outs (-m), silver foil top-right square (-m2), shiny black edges (-m3);
-  SSR fine holo shimmer on the character's ticket (-m); HR as is (animated); UR shattered background, gold signature (-m2), silver+holo white outlines (-m3);
+  SSR fine holo shimmer over the whole card; HR as is (animated); UR shattered background, gold signature (-m2), silver+holo white outlines (-m3);
   ZR holo on background lines (-m) + demon markings (-m2, ZR-006/008); CR shifting silver shine over the whole card.
 - Energy Edition Series 1: QR, SR, SSR, UR, ◇CR, HR same as Classic. New (tools/kpdh-e1-masks.py): SE raised gold shine on frame/lettering (-m) + sparkle in the glow behind the girls (-m2);
-  BP shiny shimmer all over; SP super glittery on every colour except black/white and dark flat purples (-m); LR sparkly patterned black background (-m) + holo silver details (-m2); TR plain shine.
+  BP shiny shimmer all over; SP super bright colourful foil on every colour except black/white and dark flat purples (-m); LR sparkly patterned black background (-m) + holo silver details (-m2) + shiny red chains (-m3); TR plain shine.
 - Still to describe: Special Mini Edition, Series 2. Until then those cards get a plain shine.
