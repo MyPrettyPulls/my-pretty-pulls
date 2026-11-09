@@ -18,8 +18,7 @@
 - KAYOU products on the page: tiles (picture + name) for every card product and the merch line; tap one for details.
   Product photos live in products/<id>.webp (listed in PROD_IMGS); per-style photos are products/<id>-<n>.webp (STYLE_IMGS).
   Still drawn: Costco box, Laser Ticket, promo cards.
-- Winx Costume Party (WXCP01, Nov 11 2026): 45 placeholder cards (CPCARDS) in KAYOU's 8 rarities (ZR, GP, AR, UGR, UR 6 each; SSR 3; FR, SR 6 each).
-  When KAYOU posts the cards: replace "Card N" names, real numbers, pictures; GP full name still unknown.
+- Winx Costume Party (WCP01, Nov 11 2026): real numbers and names in (CPCARDS), plus PR-001..003. Pictures still to add.
 - To do: confirm Series 2 card numbers once collectors list them (marked "not confirmed" for now); add card pictures (none yet, cards show colour placeholders);
   KPDH on profiles shows in the card grid, but profile stats and the games are still Winx only.
 

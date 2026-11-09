@@ -1109,16 +1109,23 @@ const CP_ED={id:"cp1",short:"CP",code:"WX-KP-CP-001",name:"Costume Party · Mini
 EDBY.cp1=CP_ED;
 ODDS.cp1=Object.fromEntries(["ZR","GP","AR","UGR","UR","SSR","FR","SR"].map(k=>[k,"KAYOU hasn't published pull rates for this set yet"]));
 const CPCARDS=[];
-[["ZR",6],["GP",6],["AR",6],["UGR",6],["UR",6],["SSR",3],["FR",6],["SR",6]].forEach(([rar,n])=>{for(let i=1;i<=n;i++){
-  const num=`WXCP01-${rar}-${String(i).padStart(3,"0")}`;
-  CPCARDS.push({fr:"winx",set:"WXCP01",uid:`${num}|cp1`,num,n:String(i).padStart(3,"0"),rar,name:"Card",variant:i,editions:["cp1"],confirmed:false,cpSoon:true,main:null,appears:[]})}});
+{const W6O=["Bloom","Flora","Stella","Musa","Tecna","Aisha"];
+ const CP_BLOCKS=[["ZR",W6O],["GP",W6O],["AR",W6O],["UGR",W6O],["UR",W6O],["SSR",["Stormy","Icy","Darcy"]],
+  ["FR",["Bloom & Sky","Flora & Helia","Stella & Brandon","Riven & Musa","Tecna & Timmy","Aisha & Nabu"]],["SR",W6O]];
+ const mk=(rar,name,i,eds,extra)=>{const n=String(i).padStart(3,"0"),num=`WCP01-${rar}-${n}`,who=name.split(" & ");
+  CPCARDS.push(Object.assign({fr:"winx",set:"WCP01",uid:`${num}|${eds.join("+")}`,num,n,rar,name,variant:null,editions:eds,confirmed:true,cpPic:true,
+    main:who.length===1?who[0]:null,appears:who},extra||{}))};
+ CP_BLOCKS.forEach(([rar,names])=>names.forEach((nm,i)=>mk(rar,nm,i+1,["cp1"])));
+ // Promo cards: each 36-pack Costume Party display box comes with 1 of these 3
+ ["Bloom & Stella","Aisha & Tecna","Musa & Flora"].forEach((nm,i)=>mk("PR",nm,i+1,["promo"],{promoNote:"Costume Party promo",how:"Costume Party promo: each 36-pack display box comes with 1 of the 3 promo cards"}));
+}
 
 // ---------- Franchises: the collection page shows one at a time ----------
 const FRANCH={
  winx:{id:"winx",name:"Winx Club",path:"/",title:"My Pretty Pulls",cards:[...CARDS,...CPCARDS],editions:[...EDITIONS.filter(e=>e.id!=="promo"),CP_ED,EDBY.promo],odds:ODDS,groups:GROUPS,hue:HUE,scene:SCENE_HUE,
-   allCode:"WINX",every:"every Winx Club card",setsLabel:"KAYOU Winx Club · every edition",setName:c=>c.set==="WXCP01"?"Winx Club Costume Party":"Winx Club Fairy Diary",
+   allCode:"WINX",every:"every Winx Club card",setsLabel:"KAYOU Winx Club · every edition",setName:c=>c.set==="WCP01"?"Winx Club Costume Party":"Winx Club Fairy Diary",
    series:[{set:"WFD01",code:"WFD01",name:"Fairy Diary · every card",ct:"D = Daily Edition · M = Magic Edition · D+M = pulls from both"},
-     {set:"WXCP01",code:"CP",name:"Costume Party · Mini Series 1",ct:"Mini cards, out Nov 11, 2026 · 45 cards in 8 rarities · names and pictures come once KAYOU posts them"}],
+     {set:"WCP01",code:"WCP01",name:"Costume Party · Mini Series 1",ct:"Mini cards, out Nov 11, 2026 · 45 cards in 8 rarities plus 3 promos · card pictures come once KAYOU posts them"}],
    hint:`Try <code>Stella</code>, <code>SR-004</code>, <code>Magic</code>, <code>Both</code> or <code>UGR</code>. Combine words to narrow it down, like <code>Bloom SR Both</code>.`},
  kpdh:{id:"kpdh",name:"KPop Demon Hunters",path:"/kpop-demon-hunters",title:"KPop Demon Hunters · My Pretty Pulls",cards:KCARDS,editions:K_EDITIONS,odds:K_ODDS,groups:K_GROUPS,hue:K_HUE,scene:K_SCENE,
    allCode:"KPDH",every:"every KPop Demon Hunters card",setsLabel:"KAYOU World Tour · every edition",
@@ -1205,7 +1212,7 @@ function artHTML(c,big){
   const k=imgKey(c);
   if(k){const tint=TINT[k]?`;--c:${TINT[k]}`:"";return `<img class="cardimg" src="cards/${k}-${big?"l":"s"}.webp" alt="${esc(label(c))}, ${c.num}" loading="lazy" decoding="async">${fxFor(c).map(([f,reg,kk])=>`<span class="fx fx-${f}" style="--m:url(cards/${k}-${reg&&REGION.has(k)?"m":"s"}.webp)${tint}${kk?`;--k:${kk}`:""}" aria-hidden="true"></span>`).join("")}<span class="edb">${edTag(c)}</span>`}
   const ff=FR_OF(c), h=ff.hue[c.name]||ff.scene;
-  return `<span class="art" style="background:linear-gradient(155deg,${h[0]},${h[1]})"><span class="badge">${RINFO[c.rar].code}</span><span class="edb">${edTag(c)}</span><span class="initial" aria-hidden="true">${c.cpSoon?"✦":esc(c.name[0])}</span><span class="cname">${esc(label(c))}</span></span>`}
+  return `<span class="art" style="background:linear-gradient(155deg,${h[0]},${h[1]})"><span class="badge">${RINFO[c.rar].code}</span><span class="edb">${edTag(c)}</span><span class="initial" aria-hidden="true">${esc(c.name[0])}</span><span class="cname">${esc(label(c))}</span></span>`}
 function stepHTML(c){const n=has(c.uid),l=esc(label(c));
   return n?`<span class="step"><button data-act="sub" data-id="${c.uid}" aria-label="Remove one ${l}">−</button><output>${n}</output><button data-act="add" data-id="${c.uid}" aria-label="Add one ${l}">+</button></span>`
          :`<button class="addbtn" data-act="add" data-id="${c.uid}" aria-label="Add ${l}">+ Add</button>`}
@@ -1345,11 +1352,11 @@ function renderDetail(){
         <div class="tags"><span class="num">${c.num}</span><span class="rchip" style="background:${r.color}">${r.code}</span>${c.editions.length>1?`<span class="both">${c.editions.map(e=>EDBY[e].name.split(" ")[0]).join(" + ")}</span>`:""}</div>
         <h2 id="dTitle">${esc(label(c))}</h2>
         <div class="d-sub">${r.name} · ${cf.setName(c)}</div>
-        ${c.cpSoon?`<div class="unconf">Coming Nov 11, 2026. This card's name, picture and number will be added once KAYOU posts the Costume Party cards.</div>`:c.confirmed?"":`<div class="unconf">Card number not confirmed yet. Based on Kayou's list order.</div>`}
+        ${c.cpPic?`<div class="unconf">Out Nov 11, 2026. The card picture will be added once KAYOU posts the Costume Party cards.</div>`:c.confirmed?"":`<div class="unconf">Card number not confirmed yet. Based on Kayou's list order.</div>`}
       </div>
       <div class="facts">
         <div class="fact"><span>Found in</span><span>${found}</span></div>
-        <div class="fact"><span>Character</span><span>${who||(c.cpSoon?"Not announced yet":cast?"Group card":c.fr==="kpdh"?"Scene card":"Group card")}</span></div>
+        <div class="fact"><span>Character</span><span>${who||(cast?"Group card":c.fr==="kpdh"?"Scene card":"Group card")}</span></div>
         ${cast?`<div class="fact"><span>On the card</span><span>${esc(cast)}</span></div>`:""}
         ${style?`<div class="fact"><span>Card style</span><span>${style}</span></div>`:""}
         ${TRANSFORM[c.uid]?`<div class="fact"><span>Transformation</span><span>${TRANSFORM[c.uid]}</span></div>`:""}
@@ -1398,11 +1405,11 @@ const W_PRODUCTS=[
   intro:"A mini-card set all about the Winx fairies' fashion, with a costume-party look for each girl.",
   sections:[
    ["Every pack",["3 mini cards","KAYOU hasn't published pull rates yet"]],
-   ["Ways to buy",["Single pack: $2.99","4-pack collector box: $11.99 (12 mini cards)","36-pack display: $107.64, comes with 1 promo card"]],
-   ["The cards",["45 types of cards in 8 rarities","6 each: ZR, GP, AR, UGR, UR, FR and SR","3 SSR cards","Card names and pictures will be added once KAYOU posts them on its website"]],
+   ["Ways to buy",["Single pack: $2.99","4-pack collector box: $11.99 (12 mini cards)","36-pack display: $107.64, comes with 1 of the 3 promo cards"]],
+   ["The cards",["45 types of cards in 8 rarities, numbered WCP01","ZR, GP, AR, UGR, UR and SR: one of each Winx fairy","FR: each fairy with her Specialist","SSR: the Trix (Stormy, Icy, Darcy)","3 promo cards (PR-001 to 003), each with two fairies. You get 1 of them with a 36-pack display box","Card pictures will be added once KAYOU posts them"]],
    ["Good to know",["Mini-size cards, smaller than the Fairy Diary cards","Shops also list a “Midnight Sun Version” 4-pack collector box for January 2027"]]]},
  {id:"promos",ed:"promo",kind:"promo",brand:"Winx Club",name:"Promo cards",series:"Not in packs",when:"2026",code:"PR",col:["#ffe7a6","#c98a2a"],
-  intro:"Box bonus cards, the San Diego Comic-Con Bloom and the Zara Larsson collab.",sections:[]}
+  intro:"Box bonus cards, the San Diego Comic-Con Bloom, the Zara Larsson collab and the Costume Party promos.",sections:[]}
 ];
 const K_PRODUCTS=[
  {id:"classic-1",ed:"c1",kind:"box",name:"Classic Edition",series:"Series 1",when:"June 2026",code:"KPDH01",col:["#ffe08a","#e08a2c"],url:KAYOU_SERIES+"series-zg0wzuko",
