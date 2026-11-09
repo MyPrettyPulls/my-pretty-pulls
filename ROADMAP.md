@@ -31,3 +31,6 @@
 - Card lists: every collection block and every rarity has Hide/Show, plus Hide all / Show all.
   Works in "Every card" and in a single edition. Remembered on the device.
 - Winx merch: none from KAYOU yet ("additional collectibles will follow"); add to W_PRODUCTS when it arrives.
+- Merchandise is tracked in the collection list (its own "Merchandise" block and tile), per style, like cards.
+  Master list: Google Sheet "Kayou Merchandise List" (one tab per IP). Item IDs (last column) must match the site.
+- Trade list ("Make a trade list"): needs + extras (+ merch), follows filters and hidden sections, adds public profile link.

@@ -152,6 +152,20 @@ html[data-brand="kpdh"] .bg-glitter{opacity:calc(var(--bg-g,.34) * .5)}
 .linkbtn{border:0;background:none;padding:0;color:var(--accent);font-weight:700;font-size:.85rem;text-decoration:underline}
 .mtrack{list-style:none!important;padding:0!important;display:grid!important;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px!important}
 .mtrack li{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 8px 6px 12px;background:var(--bg)}
+.mcard .mname{font-weight:700;font-size:.85rem;line-height:1.2;margin-top:-2px}
+.mcard .face.has-img{background:var(--surface);border-radius:10px;box-shadow:var(--shadow)}
+.mcard .face.has-img .cardimg{inset:8px;width:calc(100% - 16px);height:calc(100% - 16px);filter:none}
+.mcard.missing .face.has-img .cardimg{filter:grayscale(1) contrast(.8);opacity:.4}
+.mcard .art .initial{font-size:2.6rem;opacity:.9}
+.msecret{position:absolute;top:6px;left:6px;z-index:1;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f5c84b;color:#3a2a00;border-radius:999px;padding:1px 7px}
+.tradehint{margin:-4px 0 6px;text-align:right;font-size:.82rem;color:var(--muted)}
+.tsheet{background:var(--bg);border-radius:16px;max-width:620px;width:100%;padding:22px;position:relative;display:flex;flex-direction:column;gap:12px}
+.tsheet h2{margin:0;font-family:var(--font-display);font-size:1.5rem}
+.tsheet p{margin:0;color:var(--muted);font-size:.9rem;padding-right:30px}
+.tsteps{margin:0;padding-left:22px;font-size:.9rem;display:flex;flex-direction:column;gap:4px}
+.topts{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.9rem;font-weight:600}
+.topts label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.tpre{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-family:var(--font-mono);font-size:.78rem;line-height:1.6;white-space:pre-wrap;max-height:42vh;overflow:auto}
 .mtrack.pics{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
 .mtrack.pics li{flex-direction:column;align-items:center;text-align:center;padding:10px;gap:6px}
 .mtrack li img{width:90px;height:110px;object-fit:contain}
@@ -803,7 +817,7 @@ body>.wrap{flex:1;width:100%}
               <button data-size="m" aria-pressed="true" aria-label="Medium cards">M</button>
               <button data-size="l" aria-pressed="false" aria-label="Large cards">L</button>
             </div>
-            <button class="ghost" id="copyNeed">Copy missing list</button>
+            <button class="ghost" id="tradeOpen">⇄ Make a trade list</button>
           </div>
         </div>
         <div class="searchrow">
@@ -819,6 +833,7 @@ body>.wrap{flex:1;width:100%}
         </div>
         <div class="searchhint" id="searchHint">Try <code>Stella</code>, <code>SR-004</code>, <code>Magic</code>, <code>Both</code> or <code>UGR</code>. Combine words to narrow it down, like <code>Bloom SR Both</code>.</div>
       </div>
+      <p class="tradehint">Make a trade list: get a list of the cards you need and your extras, ready to paste into a trade post.</p>
       <div class="chips" id="chips"></div>
       <div id="cards"></div>
     </section>
@@ -860,6 +875,7 @@ body>.wrap{flex:1;width:100%}
 
 <div class="scrim" id="detail" hidden></div>
 <div class="scrim" id="prodSheet" hidden></div>
+<div class="scrim" id="tradeSheet" hidden></div>
 <div class="scrim" id="editProf" hidden></div>
 <div class="toast" id="toast" hidden></div>
 
@@ -1242,7 +1258,7 @@ function renderStats(){
   $("#stats").innerHTML=`
    <div class="stat lead"><span class="label">Everything collected</span><span class="v">${allH}<small> / ${all}</small></span>${bar(pc(allH,all))}<span class="s">${pc(allH,all)}% of every ${F.name} card${MS.length?" and merch style":""}</span></div>
    <div class="stat"><span class="label">Cards</span><span class="v">${owned}<small> / ${CS.length}</small></span>${bar(pc(owned,CS.length))}<span class="s">${done} of ${boxes.length} editions complete</span></div>
-   <div class="stat"><span class="label">Merchandise</span>${MS.length?`<span class="v">${mOwned}<small> / ${MS.length}</small></span>${bar(pc(mOwned,MS.length))}<span class="s">Styles owned · track them in the Products guide</span>`:`<span class="v" style="font-size:1.1rem">Coming soon</span><span class="s">No ${F.name} merch from KAYOU yet</span>`}</div>
+   <div class="stat"><span class="label">Merchandise</span>${MS.length?`<span class="v">${mOwned}<small> / ${MS.length}</small></span>${bar(pc(mOwned,MS.length))}<span class="s">Styles owned · add them in the Merchandise section</span>`:`<span class="v" style="font-size:1.1rem">Coming soon</span><span class="s">No ${F.name} merch from KAYOU yet</span>`}</div>
    <div class="stat"><span class="label">Extras to trade</span><span class="v">${dupes}</span><span class="s">Copies beyond your first</span></div>
    <div class="stat soon"><span class="label">Binder value</span><span class="v">More coming soon</span><span class="s">eBay prices</span></div>`;
 }
@@ -1252,7 +1268,8 @@ function setTile(id,code,name,cs,sub){const h=cs.filter(c=>has(c.uid)).length,p=
 function renderSets(){
   $("#sets").innerHTML=setTile("all",F.allCode,"Every card",F.cards,"all box types")+
     F.editions.map(e=>{const cs=F.cards.filter(c=>c.editions.includes(e.id));
-      return setTile(e.id,e.code,e.name,cs,e.id==="promo"?"promos":`${cs.filter(c=>c.editions.length>1).length} shared`)}).join("");
+      return setTile(e.id,e.code,e.name,cs,e.id==="promo"?"promos":`${cs.filter(c=>c.editions.length>1).length} shared`)}).join("")
+    +(merchOf(F.id).length?setTile("merch","MERCH","Merchandise",merchOf(F.id),"styles"):"");
 }
 function prow(key,val,text,have,total,sw,pressed){const p=total?Math.round(have/total*100):0;
   return `<button class="prow${have===total&&total?" done":""}" data-${key}="${val}" aria-pressed="${pressed}"><span class="nm"><span class="sw" style="background:${sw}"></span>${text}</span><span class="bar"><i style="width:${p}%;background:${sw}"></i></span><span class="ct">${have}/${total}</span></button>`}
@@ -1286,6 +1303,27 @@ function matchQuery(c){
       ||rk===tf||r.name.toLowerCase().includes(t)||eds.includes(t)||tr.includes(t);
   });
 }
+// Merch styles shown in the collection list: same filters as cards (no rarity), shown in "Every card" or the Merchandise tile
+function matchMerch(m){
+  if(!query)return true;
+  const q=query.replace(/huntr\s*\/\s*x/g,"huntrix").replace(/saja\s+boys/g,"sajaboys").replace(/pixie\s+pets?/g,"pixiepets");
+  const text=`${m.name} ${m.prodName} ${m.num} merch merchandise ${m.secret?"secret":""} ${m.appears.join(" ")}`.toLowerCase();
+  return q.split(/\s+/).every(t=>{const tf=flat(t); if(!tf)return true;
+    const gn=(F.groupAlias||{})[tf], grp=gn&&F.groups.find(g=>g.name===gn);
+    if(grp&&m.appears.some(a=>grp.chars.includes(a)))return true;
+    return text.includes(t)||flat(text).includes(tf)});
+}
+function merchBase(){ if(rarF||(activeEd!=="all"&&activeEd!=="merch"))return [];
+  return merchOf(F.id).filter(m=>(!charF||charMatch(m,charF))&&matchMerch(m)) }
+function visibleMerch(){return merchBase().filter(m=>{const n=has(m.uid);
+  if(view==="have"&&!n)return false; if(view==="need"&&n)return false; if(view==="dupes"&&n<2)return false; return true})}
+function merchHTML(m){const n=has(m.uid), pr=(F.products||[]).find(p=>p.id===m.prod)||{col:["#ddd","#999"]};
+  const art=m.img?`<img class="cardimg" src="products/${m.img}.webp" alt="${esc(m.prodName+", "+m.name)}" loading="lazy" decoding="async">`
+    :`<span class="art" style="background:linear-gradient(155deg,${pr.col[0]},${pr.col[1]})"><span class="initial" aria-hidden="true">${pr.icon||"✦"}</span><span class="cname">${esc(m.name)}</span></span>`;
+  return `<div class="card mcard${n?"":" missing"}">
+    <button class="face${m.img?" has-img":""}" data-prod="${m.prod}" aria-label="${esc(m.prodName)}, ${esc(m.name)}. Open product details">${art}${n?`<span class="qty">×${n}</span>`:""}${m.secret?`<span class="msecret">Secret</span>`:""}</button>
+    <div class="mname">${esc(m.name)}</div>
+    <div class="meta"><span class="num"><span class="nfull">${m.num}</span><span class="nshort">${m.num.replace(/^[A-Z]+-M-/,"")}</span></span>${stepHTML(m)}</div></div>`}
 function visible(){return F.cards.filter(c=>{const n=has(c.uid);
   if(!inScope(c))return false; if(rarF&&c.rar!==rarF)return false; if(charF&&!charMatch(c,charF))return false;
   if(view==="have"&&!n)return false; if(view==="need"&&n)return false; if(view==="dupes"&&n<2)return false;
@@ -1297,7 +1335,7 @@ function syncControls(){
   $("#fRar").value=rarF||"";
   $("#fChar").innerHTML=`<option value="">Character: any</option>`+F.groups.map(g=>`<optgroup label="${g.label||g.name}">${g.chars.map(n=>`<option value="${n}">${n}</option>`).join("")}</optgroup>`).join("");
   $("#fChar").value=charF||"";
-  $("#fSet").innerHTML=`<option value="all">Edition: all</option>`+F.editions.map(e=>`<option value="${e.id}">${e.name}</option>`).join("");
+  $("#fSet").innerHTML=`<option value="all">Edition: all</option>`+F.editions.map(e=>`<option value="${e.id}">${e.name}</option>`).join("")+(merchOf(F.id).length?`<option value="merch">Merchandise</option>`:"");
   $("#fSet").value=activeEd;
   $("#fSort").value=sortBy;
   $("#cards").className="size-"+size;
@@ -1320,12 +1358,19 @@ function renderCards(){
   const chips=[]; if(rarF)chips.push(`<button class="chip" data-clear="rar">${RINFO[rarF].name} ✕</button>`);
   if(charF)chips.push(`<button class="chip" data-clear="char">${charF} · ${cmode==="solo"?"solo":"appears in"} ✕</button>`);
   $("#chips").innerHTML=chips.join("");
-  const list=visible();
-  if(!list.length){navList=[];$("#cards").innerHTML=`<p class="empty">No cards match. ${view==="need"?"You might have them all!":"Try another filter."}</p>`;return}
+  const list=visible(), mlist=visibleMerch();
+  if(!list.length&&!mlist.length){navList=[];$("#cards").innerHTML=`<p class="empty">Nothing matches. ${view==="need"?"You might have them all!":"Try another filter."}</p>`;return}
+  // Merchandise: one block, a section per product
+  const merchBlock=()=>{if(!mlist.length)return"";const key=`${F.id}|S|merch`, hid=HIDE.has(key); shownKeys.push(key);
+    const prods=(F.products||[]).filter(p=>mlist.some(m=>m.prod===p.id));
+    const secs=prods.map(p=>{const ms=mlist.filter(m=>m.prod===p.id), k=`${F.id}|M|${p.id}`, h=HIDE.has(k); shownKeys.push(k);
+      return `<section class="rsec${h?" folded":""}"><div class="section-h"><h2>${p.name}</h2><span>${p.series} · ${ms.filter(m=>has(m.uid)).length}/${ms.length}</span>${hideBtn(k,h,p.name)}</div>${h?"":`<div class="grid">${ms.map(merchHTML).join("")}</div>`}</section>`}).join("");
+    return `<div class="sblock${hid?" folded":""}"><div class="set-h"><span class="code">MERCH</span><h2>Merchandise</h2><span class="sh-r"><span class="sown">${mlist.filter(m=>has(m.uid)).length}/${mlist.length} owned</span>${hideBtn(key,hid,"Merchandise")}</span><span class="ct">Albums, holders and display pieces · tap a picture for the product details</span></div>${hid?"":secs}</div>`};
   if(sortBy!=="set"){
     const sorted=[...list].sort(sortBy==="name"?(a,b)=>label(a).localeCompare(label(b))||a.num.localeCompare(b.num):(a,b)=>has(b.uid)-has(a.uid)||F.cards.indexOf(a)-F.cards.indexOf(b));
     navList=sorted.map(c=>c.uid);
-    $("#cards").innerHTML=`<section><div class="section-h"><h2>${sortBy==="name"?"By name":"Most copies first"}</h2><span>${sorted.filter(c=>has(c.uid)).length}/${sorted.length} owned</span></div><div class="grid">${sorted.map(c=>cardHTML(c)).join("")}</div></section>`;
+    shownKeys=[];
+    $("#cards").innerHTML=(sorted.length?`<section><div class="section-h"><h2>${sortBy==="name"?"By name":"Most copies first"}</h2><span>${sorted.filter(c=>has(c.uid)).length}/${sorted.length} owned</span></div><div class="grid">${sorted.map(c=>cardHTML(c)).join("")}</div></section>`:"")+merchBlock();
     return;
   }
   navList=[]; shownKeys=[];
@@ -1336,11 +1381,12 @@ function renderCards(){
   const block=(scope,code,name,ct,cl)=>{const key=`${F.id}|S|${scope}`, hid=HIDE.has(key); shownKeys.push(key);
     return `<div class="sblock${hid?" folded":""}"><div class="set-h"><span class="code">${code}</span><h2>${name}</h2><span class="sh-r"><span class="sown">${own(cl)} owned</span>${hideBtn(key,hid,name)}</span><span class="ct">${ct}</span></div>${hid?"":byRar(cl,scope)}</div>`};
   const bar=`<div class="foldbar"><span class="hint">Hide any collection or rarity you don't want to see.</span><button class="linkbtn" data-hideall="1">Hide all</button><button class="linkbtn" data-hideall="0">Show all</button></div>`;
+  if(activeEd==="merch"){$("#cards").innerHTML=bar+merchBlock();return}
   if(activeEd!=="all"){
     $("#cards").innerHTML=bar+block("ed:"+activeEd,EDBY[activeEd].code,EDBY[activeEd].name,EDBY[activeEd].pack,list);return}
-  // Every card: one block per series (Winx has just one)
+  // Every card: one block per series (Winx has just one), then merchandise
   $("#cards").innerHTML=bar+F.series.map(sr=>{const cl=list.filter(c=>c.set===sr.set||F.series.length===1);if(!cl.length)return"";
-    return block(sr.set,sr.code,sr.name,sr.ct,cl)}).join("");
+    return block(sr.set,sr.code,sr.name,sr.ct,cl)}).join("")+merchBlock();
 }
 // How each promo is obtained
 function promoHow(c){
@@ -1398,9 +1444,10 @@ function renderDetail(){
 // Each franchise lists its KAYOU products. Card products link to their cards; merchandise has styles you can track.
 // Real product photos: put a file at products/<id>.webp and add the id to PROD_IMGS. Until then a drawn picture shows.
 const PROD_IMGS=new Set(["daily-1","magic-1","winx-mini-1","classic-1","energy-1","mini-1","classic-2","energy-2",
- "acrylic-holder","photo-frame","wear-mini","embroidered-holder","lenticular-album","mini-album","plush-album","plush-holder"]);
+ "acrylic-holder","photo-frame","wear-mini","embroidered-holder","laser-ticket","lenticular-album","mini-album","plush-album","plush-holder"]);
 // Pictures of individual merch styles: products/<product id>-<style number>.webp
-const STYLE_IMGS=new Set(["photo-frame-1","photo-frame-2","photo-frame-3","mini-album-1","mini-album-2"]);
+const STYLE_IMGS=new Set([...["acrylic-holder","wear-mini","embroidered-holder","plush-holder"].flatMap(p=>[1,2,3,4,5,6,7].map(n=>`${p}-${n}`)),
+ "photo-frame-1","photo-frame-2","photo-frame-3","mini-album-1","mini-album-2","lenticular-album-1","plush-album-1"]);
 const KAYOU_SERIES="https://www.kayouofficial.com/en-US/series/";
 const styles=(n,secret=1,word="Style")=>[...Array(n)].map((_,i)=>`${word} ${i+1}`).concat(secret>1?[...Array(secret)].map((_,i)=>`Secret style ${i+1}`):secret?["Secret style"]:[]);
 const W_PRODUCTS=[
@@ -1478,58 +1525,73 @@ const K_PRODUCTS=[
    ["Buying",["$53.99 at Costco","Members only, up to 2 per membership every 24 hours"]]]},
  {id:"promos",ed:"promo",kind:"promo",name:"Promo cards",series:"Not in packs",when:"2026",code:"PR",col:["#ffe7a6","#c98a2a"],
   intro:"Bonus cards from shops, events and special boxes.",sections:[]},
- // ---- Merchandise: "items" are the styles you can collect ----
- {id:"acrylic-holder",group:"merch",kind:"merch",icon:"🪪",name:"Acrylic Card Holder",series:"Series 1",when:"2026",code:"Merchandise",col:["#d9f3ff","#5fa8e8"],items:styles(6),
-  intro:"A clear acrylic holder that shows off one of your standard-size cards.",
-  sections:[["What it is",["Acrylic holder for one standard-size card","Comes as a blind box, so you don't know which design you'll get"]],
-   ["Styles",["6 regular styles","1 secret style"]],
+ // ---- Merchandise: "items" are the styles you can collect: [name, characters on it, secret?] ----
+ {id:"acrylic-holder",group:"merch",kind:"merch",abbr:"ACH",icon:"🪪",name:"Acrylic Card Holder",series:"Series 1",when:"Sept 2026",code:"Merchandise",col:["#d9f3ff","#5fa8e8"],
+  items:[["Saja Boys",K_SAJA],["Zoey",["Zoey"]],["Rumi",["Rumi"]],["HUNTR/X",K6],["Mira",["Mira"]],["Derpy",["Derpy"]],["HUNTR/X Pearl",K6,1]],
+  intro:"A clear acrylic card holder on a keychain clip, sold as a blind box.",
+  sections:[["What it is",["Acrylic wearable card holder with a keychain clip","Holds one standard-size card","Blind box: the secret style is 1 in 36"]],
+   ["Styles",["Saja Boys","Zoey","Rumi","HUNTR/X","Mira","Derpy","Secret style: HUNTR/X Pearl"]],
+   ["Product specs",["KAYOU name: Acrylic Wearable Card Holder-001","Model KPDH-KT-YKL-001","Box: 4.06 × 5.20 × 0.98 in","Released September 2026"]],
    ["Buying",["Blind boxes from about $11 at card shops","Some shops bundle it with a Classic or Energy display box"]]]},
- {id:"photo-frame",group:"merch",kind:"merch",icon:"🖼️",name:"Acrylic Card Photo Frame",series:"Series 1",when:"2026",code:"Merchandise",col:["#ffe1b8","#e0884a"],items:["HUNTR/X","Saja Boys","Demons"],
-  intro:"A layered display frame that turns one card into a little scene.",
-  sections:[["What it is",["Three-layer acrylic frame with a character scene","Holds one standard-size card"]],
+ {id:"photo-frame",group:"merch",kind:"merch",abbr:"PF",icon:"🖼️",name:"Acrylic Card Photo Frame",series:"Series 1",when:"Sept 2026",code:"Merchandise",col:["#ffe1b8","#e0884a"],
+  items:[["HUNTR/X",K6],["Saja Boys",K_SAJA],["Demons",[]]],
+  intro:"A layered acrylic stand-up frame that turns one card into a little scene.",
+  sections:[["What it is",["Three-layer acrylic frame with chibi characters around the card","Holds one standard-size card","Each style is sold on its own (not a blind box)"]],
    ["Styles",["HUNTR/X","Saja Boys","Demons"]],
+   ["Product specs",["Models KPDH-KZ-CJ-HUNTR/X, -SAJA BOYS and -DEMONS","Box: 4.61 × 6.14 × 0.98 in","Released September 2026"]],
    ["Good to know",["The HUNTR/X and Saja Boys frames also come in the Costco Collector Boxes"]]]},
- {id:"wear-mini",group:"merch",kind:"merch",icon:"📿",name:"Wearable Mini Card Holder",series:"Series 1",when:"Sept 2026",code:"Merchandise · mini cards",col:["#ffd0e6","#d9568f"],url:KAYOU_SERIES+"series-h95clggx",
-  items:["Rumi","Mira","Zoey","Jinu","Demon Jinu","Saja Boys","Derpy (secret)"],
+ {id:"wear-mini",group:"merch",kind:"merch",abbr:"WMH",icon:"📿",name:"Wearable Mini Card Holder",series:"Series 1",when:"Sept 2026",code:"Merchandise · mini cards",col:["#ffd0e6","#d9568f"],url:KAYOU_SERIES+"series-h95clggx",
+  items:[["Demon Jinu",["Jinu"]],["Saja Boys",K_SAJA],["Zoey",["Zoey"]],["Jinu",["Jinu"]],["Rumi",["Rumi"]],["Mira",["Mira"]],["Derpy",["Derpy"],1]],
   intro:"A mini-card sleeve on a beaded chain you can wear or clip to a bag.",
   sections:[["What it is",["A sleeve for one Special Mini Edition card","Character-colored bead chain you can mix and match","Designs inspired by HUNTR/X's ramen cups and the Saja Boys' “Soda Pop”"]],
-   ["Styles (blind box)",["Rumi","Mira","Zoey","Jinu","Demon Jinu","Saja Boys","Secret style: Derpy"]],
+   ["Styles (blind box)",["Demon Jinu","Saja Boys","Zoey","Jinu","Rumi","Mira","Secret style: Derpy"]],
+   ["Product specs",["Model KPDH-KT-MNZC-001","Box: 7.87 × 4.72 × 0.79 in","Released September 2026"]],
    ["Buying",["Blind boxes from about $13.50","Some shops bundle it with a Special Mini Edition collector box"]]]},
- {id:"embroidered-holder",group:"merch",kind:"merch",icon:"🧵",name:"Embroidered Wearable Card Holder",series:"Series 1",when:"2026",code:"Merchandise",col:["#e6dcff","#8a6ad8"],items:styles(6),
-  intro:"An embroidered fabric sleeve for a standard-size card, made to wear.",
-  sections:[["What it is",["Embroidered fabric card sleeve you can wear","Fits a standard-size card"]],
-   ["Styles",["6 regular styles","1 secret style"]],
+ {id:"embroidered-holder",group:"merch",kind:"merch",abbr:"EWH",icon:"🧵",name:"Embroidered Wearable Card Holder",series:"Series 1",when:"Sept 2026",code:"Merchandise",col:["#e6dcff","#8a6ad8"],
+  items:[["Rumi",["Rumi"]],["Mira",["Mira"]],["Zoey",["Zoey"]],["Jinu",["Jinu"]],["Derpy",["Derpy"]],["Sussie",["Sussie"]],["HUNTR/X",K6,1]],
+  intro:"An embroidered card holder on a cord, made to wear.",
+  sections:[["What it is",["Embroidered card holder with a wrist cord and a little charm","Fits a standard-size card"]],
+   ["Styles (blind box)",["Rumi","Mira","Zoey","Jinu","Derpy","Sussie","Secret style: HUNTR/X"]],
+   ["Product specs",["Model KPDH-KT-CX-001","Box: 4.72 × 5.91 × 1.97 in","Released September 2026"]],
    ["Buying",["From about $22 at card shops"]]]},
- {id:"laser-ticket",group:"merch",kind:"merch",icon:"🎟️",name:"Laser Ticket",series:"Series 1",when:"2026",code:"Merchandise",col:["#fff0a6","#d6a21c"],items:styles(16,4,"Ticket"),
+ {id:"laser-ticket",group:"merch",kind:"merch",abbr:"LT",icon:"🎟️",name:"Laser Ticket",series:"Series 1",when:"2026",code:"Merchandise",col:["#fff0a6","#d6a21c"],items:styles(16,4,"Ticket"),
   intro:"Shiny laser-finish collectible tickets, sold in boxes.",
-  sections:[["Styles",["16 regular styles","4 secret styles"]],
+  sections:[["Styles",["16 regular styles","4 secret styles","KAYOU hasn't shown the ticket designs yet"]],
    ["Buying",["Sold by the box at card shops"]]]},
- {id:"lenticular-album",group:"merch",kind:"merch",icon:"📒",name:"Lenticular Card Album",series:"Series 1",when:"2026",code:"Merchandise",col:["#c9b8ff","#5b3fb8"],items:["HUNTR/X"],
+ {id:"lenticular-album",group:"merch",kind:"merch",abbr:"LA",icon:"📒",name:"Lenticular Card Album",series:"Series 1",when:"Oct 2026",code:"Merchandise",col:["#c9b8ff","#5b3fb8"],items:[["HUNTR/X",K6]],
   intro:"A binder for your cards with a moving-picture HUNTR/X cover.",
-  sections:[["What it is",["Card album with a lenticular cover that changes as you tilt it","Pages hold 4 cards each"]],
-   ["Style",["HUNTR/X"]],
+  sections:[["What it is",["Card album with a lenticular cover that changes as you tilt it","20 pages, 4 pockets per page","Holds up to 80 cards","Made of PVC and paper"]],
+   ["Product specs",["Model KPDH-KC-GS-001","Size: 9.35 × 9.65 × 1.65 in","Released October 2026"]],
    ["Buying",["List price $24.99"]]]},
- {id:"mini-album",group:"merch",kind:"merch",icon:"✈️",name:"Mini Card Album",series:"Series 1",when:"Sept 2026",code:"Merchandise · mini cards",col:["#bfe8ff","#3a8fd0"],url:KAYOU_SERIES+"series-7cn07mak",items:["HUNTR/X","Saja Boys"],
+ {id:"mini-album",group:"merch",kind:"merch",abbr:"MA",icon:"✈️",name:"Mini Card Album",series:"Series 1",when:"Sept 2026",code:"Merchandise · mini cards",col:["#bfe8ff","#3a8fd0"],url:KAYOU_SERIES+"series-7cn07mak",
+  items:[["HUNTR/X",K6],["Saja Boys",K_SAJA]],
   intro:"A pocket album for Special Mini Edition cards that doubles as a bag charm.",
-  sections:[["What it is",["22 pages, one mini card per page","Airplane-shaped window on the cover: slide in your favorite mini card to show it off","Magnetic closure","Small enough to hang on a bag","Made of PVC, acrylic and magnets"]],
-   ["Styles",["HUNTR/X","Saja Boys"]],
-   ["Size",["Box: 3.62 × 3.74 × 1.06 in"]]]},
- {id:"plush-album",group:"merch",kind:"merch",icon:"🐯",name:"Plush Card Album",series:"Series 1",when:"2026",code:"Merchandise",col:["#bcd8ff","#3d63c4"],items:["Derpy"],
-  intro:"A soft plush card album themed after Derpy.",
-  sections:[["What it is",["Plush-covered album for standard-size cards"]],["Style",["Derpy"]]]},
- {id:"plush-holder",group:"merch",kind:"merch",icon:"🧸",name:"Plush Card Holder",series:"Series 1",when:"2026",code:"Merchandise",col:["#ffd6c2","#e07a5a"],items:styles(6),
-  intro:"Cuddly plush card holders shaped like Derpy and the HUNTR/X girls.",
-  sections:[["What it is",["Plush holder for one standard-size card"]],
-   ["Styles",["6 regular styles","1 secret style","Designs include Derpy and HUNTR/X"]]]}
+  sections:[["What it is",["22 pages, one mini card per page","Window on the cover: slide in your favorite mini card to show it off","Magnetic closure","Comes with a Derpy charm and hangs on a bag","Made of PVC, acrylic and magnets"]],
+   ["Styles",["HUNTR/X","Saja Boys","Each style is sold on its own"]],
+   ["Product specs",["Models KPDH-KC-MN-HUNTR/X and KPDH-KC-MN-SAJA BOYS","Box: 3.62 × 3.74 × 1.06 in","Released September 2026"]]]},
+ {id:"plush-album",group:"merch",kind:"merch",abbr:"PA",icon:"🐯",name:"Plush Card Album",series:"Series 1",when:"Oct 2026",code:"Merchandise",col:["#bcd8ff","#3d63c4"],items:[["Derpy",["Derpy"]]],
+  intro:"A fuzzy Derpy card album, with Derpy's face on the front and his tail on the back.",
+  sections:[["What it is",["Plush-covered card album","20 pages, 4 pockets per page (80 cards)"]],
+   ["Product specs",["Model KPDH-KC-MR-001","Size: 10.2 × 9 × 2 in","Released October 2026"]]]},
+ {id:"plush-holder",group:"merch",kind:"merch",abbr:"PH",icon:"🧸",name:"Plush Card Holder",series:"Series 1",when:"Oct 2026",code:"Merchandise",col:["#ffd6c2","#e07a5a"],
+  items:[["Rumi",["Rumi"]],["Zoey",["Zoey"]],["Mira",["Mira"]],["Jinu",["Jinu"]],["Demon Jinu",["Jinu"]],["Demon Rumi",["Rumi"]],["Derpy",["Derpy"],1]],
+  intro:"Cuddly plush card holders with a character peeking over the top, on a wrist cord.",
+  sections:[["What it is",["Plush wearable card holder for one standard-size card"]],
+   ["Styles (blind box)",["Rumi","Zoey","Mira","Jinu","Demon Jinu","Demon Rumi","Secret style: Derpy"]],
+   ["Product specs",["KAYOU name: Plush Wearable Card Holder-001","Model KPDH-KT-MR-001","Box: 4.33 × 7.87 × 2.36 in","Released October 2026"]]]}
 ];
 FRANCH.winx.products=W_PRODUCTS; FRANCH.winx.kayou="https://www.kayouofficial.com/en-US/ip-collections";
 FRANCH.winx.merchSoon="More Winx Club collectibles are on the way: KAYOU's shop lists a Winx Club Card Album, and shops list an Acrylic Card Frame and Mini Card Album for early 2027. They'll show up here once KAYOU posts the details.";
 FRANCH.kpdh.products=K_PRODUCTS; FRANCH.kpdh.kayou="https://www.kayouofficial.com/en-US/ip-collections";
 // Merchandise you can track: one item per style
 const MERCH=[];
-Object.values(FRANCH).forEach(ff=>(ff.products||[]).forEach(pr=>{pr.fr=ff.id;(pr.items||[]).forEach((nm,i)=>{
-  const it={kind:"merch",fr:ff.id,prod:pr.id,uid:`${ff.id.toUpperCase()}-M|${pr.id}|${i+1}`,name:nm,num:`${pr.name} · ${nm}`,editions:[],appears:[],img:STYLE_IMGS.has(`${pr.id}-${i+1}`)?`${pr.id}-${i+1}`:null};
+Object.values(FRANCH).forEach(ff=>(ff.products||[]).forEach(pr=>{pr.fr=ff.id;(pr.items||[]).forEach((itm,i)=>{
+  const [nm,who,sec]=Array.isArray(itm)?itm:[itm,[],/^Secret/.test(itm)];
+  const it={kind:"merch",fr:ff.id,prod:pr.id,uid:`${ff.id.toUpperCase()}-M|${pr.id}|${i+1}`,name:sec&&!/^Secret/.test(nm)?`${nm} (secret)`:nm,secret:!!sec,
+    num:`${ff.id.toUpperCase()}-M-${pr.abbr||"X"}-${String(i+1).padStart(2,"0")}`,prodName:pr.name,editions:[],appears:who||[],main:who&&who.length===1?who[0]:null,
+    img:STYLE_IMGS.has(`${pr.id}-${i+1}`)?`${pr.id}-${i+1}`:null};
   MERCH.push(it);BYUID[it.uid]=it})}));
+EDBY.merch={id:"merch",short:"MERCH",code:"MERCH",name:"Merchandise",pack:"Albums, holders and display pieces"};
 const merchOf=(fid,pid)=>MERCH.filter(m=>m.fr===fid&&(!pid||m.prod===pid));
 const prodCards=pr=>{const cs=FRANCH[pr.fr].cards;return pr.kind==="promo"?cs.filter(c=>c.rar==="PR"):pr.kind==="merch"?[]:cs.filter(c=>c.editions.includes(pr.ed))};
 
@@ -1639,12 +1701,56 @@ $("#fSet").addEventListener("change",e=>{activeEd=e.target.value;render()});
 $("#fSort").addEventListener("change",e=>{sortBy=e.target.value;renderCards()});
 $("#q").addEventListener("input",e=>{query=e.target.value.trim().toLowerCase();renderCards()});
 $("#clear").addEventListener("click",()=>{counts={};isSample=false;save();render();toast("Cleared. Tap + Add to log a card.")});
-$("#copyNeed").addEventListener("click",async()=>{
-  const need=F.cards.filter(c=>inScope(c)&&!has(c.uid));
-  const lines=RORDER.map(k=>{const cs=need.filter(c=>c.rar===k);return cs.length?`${RINFO[k].code}: ${cs.map(c=>`${shortNum(c)} ${label(c)}`).join(", ")}`:""}).filter(Boolean);
-  const text=`Looking for (${F.name}${activeEd==="all"?"":", "+EDBY[activeEd].name}):\n`+lines.join("\n");
-  try{await navigator.clipboard.writeText(text);toast(`Copied ${need.length} missing cards`)}catch(e){toast("Couldn't copy here. Try in a browser tab.")}
+// ---------- Trade list: what you need and your extras, matching what's showing on the page ----------
+let tradeOpts={need:true,extra:true,merch:true}, tradeFocus=null;
+function shownForTrade(){
+  // Same filters as the page (search, rarity, character, edition) and leaves out hidden collections and rarities.
+  const cards=F.cards.filter(c=>inScope(c)&&(!rarF||c.rar===rarF)&&(!charF||charMatch(c,charF))&&matchQuery(c)).filter(c=>{
+    const sc=activeEd==="all"?(F.series.length===1?F.series[0].set:c.set):"ed:"+activeEd;
+    return !HIDE.has(`${F.id}|S|${sc}`)&&!HIDE.has(`${F.id}|${sc}|${c.rar}`)});
+  const merch=merchBase().filter(m=>!HIDE.has(`${F.id}|S|merch`)&&!HIDE.has(`${F.id}|M|${m.prod}`));
+  return {cards,merch};
+}
+function tradeText(){
+  const {cards,merch}=shownForTrade(), L=[];
+  const head=`${F.name}${activeEd==="all"?"":" · "+(activeEd==="merch"?"Merchandise":EDBY[activeEd].name)}`;
+  const cardLines=(cs,ex)=>RORDER.map(k=>{const g=cs.filter(c=>c.rar===k);return g.length?`${RINFO[k].code}: ${g.map(c=>`${shortNum(c)} ${label(c)}${ex&&has(c.uid)>2?` (${has(c.uid)-1} extra)`:""}`).join(", ")}`:""}).filter(Boolean);
+  const merchLines=(ms,ex)=>(F.products||[]).map(p=>{const g=ms.filter(m=>m.prod===p.id);return g.length?`${p.name}: ${g.map(m=>`${m.name}${ex&&has(m.uid)>2?` (${has(m.uid)-1} extra)`:""}`).join(", ")}`:""}).filter(Boolean);
+  const needC=cards.filter(c=>!has(c.uid)), extraC=cards.filter(c=>has(c.uid)>1);
+  const needM=tradeOpts.merch?merch.filter(m=>!has(m.uid)):[], extraM=tradeOpts.merch?merch.filter(m=>has(m.uid)>1):[];
+  if(tradeOpts.need&&(needC.length||needM.length)){L.push("","LOOKING FOR",...cardLines(needC,false));if(needM.length)L.push("Merch:",...merchLines(needM,false))}
+  if(tradeOpts.extra&&(extraC.length||extraM.length)){L.push("","UP FOR TRADE",...cardLines(extraC,true));if(extraM.length)L.push("Merch:",...merchLines(extraM,true))}
+  if(L.length<2)L.push("","(Nothing to list with these choices.)");
+  if(myProfile&&myProfile.is_public)L.push("",`My full collection: ${location.origin}/u/${myProfile.username}`);
+  return {text:head+"\n"+L.join("\n").replace(/^\n/,""),counts:{need:needC.length+needM.length,extra:extraC.length+extraM.length,needC:needC.length,extraC:extraC.length}};
+}
+function renderTrade(){
+  const el=$("#tradeSheet"); const {text,counts}=tradeText(); const hasMerch=merchOf(F.id).length>0;
+  el.innerHTML=`<div class="tsheet" role="dialog" aria-modal="true" aria-labelledby="tTitle">
+    <button class="close" id="tClose" aria-label="Close">✕</button>
+    <h2 id="tTitle">Your trade list</h2>
+    <p>This list matches what's showing on your page. To leave cards off it, close this window and hide those collections or rarities, or narrow it down with the filters (like rarity or character). When you open your trade list again, it updates to match.</p>
+    <ol class="tsteps"><li>Choose what's on your page: hide or filter out anything you're not looking for.</li><li>Open <b>Make a trade list</b> and tick what to include.</li><li>Copy the list and paste it into Discord, a Facebook group or a text.</li></ol>
+    <div class="topts">
+      <label><input type="checkbox" data-topt="need"${tradeOpts.need?" checked":""}> Cards I'm looking for (${counts.need})</label>
+      <label><input type="checkbox" data-topt="extra"${tradeOpts.extra?" checked":""}> My extras to trade (${counts.extra})</label>
+      ${hasMerch?`<label><input type="checkbox" data-topt="merch"${tradeOpts.merch?" checked":""}> Include merch</label>`:""}
+    </div>
+    <pre class="tpre" id="tPre">${esc(text)}</pre>
+    <div class="qrow" style="justify-content:flex-end"><button class="ghost" id="tClose2">Close</button><button class="primary" id="tCopy">Copy list</button></div>
+  </div>`;
+  el.hidden=false;
+}
+function openTrade(){tradeFocus=document.activeElement;renderTrade();$("#tCopy")?.focus()}
+function closeTrade(){$("#tradeSheet").hidden=true;$("#tradeSheet").innerHTML="";tradeFocus?.focus?.()}
+$("#tradeOpen").addEventListener("click",openTrade);
+document.addEventListener("click",async e=>{
+  if($("#tradeSheet").hidden)return;
+  if(e.target.id==="tClose"||e.target.id==="tClose2"||e.target.id==="tradeSheet"){closeTrade();return}
+  if(e.target.id==="tCopy"){try{await navigator.clipboard.writeText(tradeText().text);toast("Copied. Paste it into your trade post.")}catch(err){toast("Couldn't copy here. Try in a browser tab.")}}
 });
+document.addEventListener("change",e=>{const t=e.target.closest("[data-topt]"); if(!t)return; tradeOpts[t.dataset.topt]=t.checked; const k=t.dataset.topt; renderTrade(); $(`[data-topt="${k}"]`)?.focus()});
+document.addEventListener("keydown",e=>{if(!$("#tradeSheet").hidden&&e.key==="Escape")closeTrade()});
 
 
 // ---------- Profiles ----------
