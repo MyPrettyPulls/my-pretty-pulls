@@ -77,6 +77,58 @@ html[data-brand="winx"] .bg-colors{background:
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg-o:.26;--bg-g:.14}}
 :root[data-theme="dark"]{--bg-o:.26;--bg-g:.14}
 @media (prefers-reduced-motion:reduce){.bg-colors{animation:none}.bg-sparkles{display:none}}
+/* KPop Demon Hunters: night-sky stage glow with flowing, patterned light lines (inspired by the movie's style, not a copy of any character's markings) */
+html[data-brand="kpdh"] .bg-colors{background:
+  radial-gradient(45% 40% at 10% 6%,#8f6bff 0,transparent 70%),
+  radial-gradient(40% 36% at 92% 10%,#ff5fae 0,transparent 70%),
+  radial-gradient(46% 40% at 75% 78%,#5b7cff 0,transparent 72%),
+  radial-gradient(36% 32% at 15% 85%,#d65cff 0,transparent 70%),
+  radial-gradient(28% 24% at 50% 42%,#ffd98a 0,transparent 75%),
+  linear-gradient(165deg,#b9a8f5,#cdb6f7 35%,#f3b9de 65%,#b7c3f7)}
+.bg-lines{position:absolute;inset:-4%;display:none;pointer-events:none}
+.bg-lines::before,.bg-lines::after{content:"";position:absolute;inset:0;background-repeat:no-repeat;background-size:100% 100%;will-change:transform,opacity}
+.bg-lines::before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 800%22 preserveAspectRatio=%22none%22%3E%3Cdefs%3E%3ClinearGradient id=%22a%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%220%22%3E%3Cstop offset=%220%22 stop-color=%22%23ffd27a%22 stop-opacity=%220%22/%3E%3Cstop offset=%22.25%22 stop-color=%22%23ffd27a%22/%3E%3Cstop offset=%22.55%22 stop-color=%22%23ff7ac0%22/%3E%3Cstop offset=%22.85%22 stop-color=%22%239b7bff%22/%3E%3Cstop offset=%221%22 stop-color=%22%239b7bff%22 stop-opacity=%220%22/%3E%3C/linearGradient%3E%3ClinearGradient id=%22c%22 x1=%220%22 y1=%221%22 x2=%221%22 y2=%220%22%3E%3Cstop offset=%220%22 stop-color=%22%236fe3ff%22 stop-opacity=%220%22/%3E%3Cstop offset=%22.3%22 stop-color=%22%236fe3ff%22/%3E%3Cstop offset=%22.7%22 stop-color=%22%23c58bff%22/%3E%3Cstop offset=%221%22 stop-color=%22%23c58bff%22 stop-opacity=%220%22/%3E%3C/linearGradient%3E%3Cfilter id=%22g%22 x=%22-20%25%22 y=%22-20%25%22 width=%22140%25%22 height=%22140%25%22%3E%3CfeGaussianBlur stdDeviation=%225%22 result=%22b%22/%3E%3CfeMerge%3E%3CfeMergeNode in=%22b%22/%3E%3CfeMergeNode in=%22b%22/%3E%3CfeMergeNode in=%22SourceGraphic%22/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cg fill=%22none%22 stroke-linecap=%22round%22 filter=%22url(%23g)%22%3E%3Cpath d=%22M-40 520 C 180 420, 360 640, 600 520 S 1000 380, 1240 470%22 stroke=%22url(%23a)%22 stroke-width=%223%22/%3E%3Cpath d=%22M-40 540 C 180 440, 360 660, 600 540 S 1000 400, 1240 490%22 stroke=%22url(%23a)%22 stroke-width=%221.6%22 stroke-dasharray=%222 14%22 opacity=%22.9%22/%3E%3Cpath d=%22M-40 180 C 220 90, 420 300, 640 200 S 1020 70, 1240 160%22 stroke=%22url(%23c)%22 stroke-width=%222.4%22/%3E%3Cpath d=%22M-40 204 C 220 114, 420 324, 640 224 S 1020 94, 1240 184%22 stroke=%22url(%23c)%22 stroke-width=%221.2%22 stroke-dasharray=%2218 10 2 10%22 opacity=%22.8%22/%3E%3Cpath d=%22M-40 760 C 260 650, 520 820, 820 700 S 1140 640, 1240 690%22 stroke=%22url(%23a)%22 stroke-width=%222%22 opacity=%22.8%22/%3E%3C/g%3E%3C/svg%3E");animation:klines 26s ease-in-out infinite alternate,kglow 6s ease-in-out infinite}
+.bg-lines::after{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 800%22 preserveAspectRatio=%22none%22%3E%3Cdefs%3E%3ClinearGradient id=%22a%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%220%22%3E%3Cstop offset=%220%22 stop-color=%22%23ffd27a%22 stop-opacity=%220%22/%3E%3Cstop offset=%22.25%22 stop-color=%22%23ffd27a%22/%3E%3Cstop offset=%22.55%22 stop-color=%22%23ff7ac0%22/%3E%3Cstop offset=%22.85%22 stop-color=%22%239b7bff%22/%3E%3Cstop offset=%221%22 stop-color=%22%239b7bff%22 stop-opacity=%220%22/%3E%3C/linearGradient%3E%3ClinearGradient id=%22c%22 x1=%220%22 y1=%221%22 x2=%221%22 y2=%220%22%3E%3Cstop offset=%220%22 stop-color=%22%236fe3ff%22 stop-opacity=%220%22/%3E%3Cstop offset=%22.3%22 stop-color=%22%236fe3ff%22/%3E%3Cstop offset=%22.7%22 stop-color=%22%23c58bff%22/%3E%3Cstop offset=%221%22 stop-color=%22%23c58bff%22 stop-opacity=%220%22/%3E%3C/linearGradient%3E%3Cfilter id=%22g%22 x=%22-20%25%22 y=%22-20%25%22 width=%22140%25%22 height=%22140%25%22%3E%3CfeGaussianBlur stdDeviation=%225%22 result=%22b%22/%3E%3CfeMerge%3E%3CfeMergeNode in=%22b%22/%3E%3CfeMergeNode in=%22b%22/%3E%3CfeMergeNode in=%22SourceGraphic%22/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cg fill=%22none%22 stroke-linecap=%22round%22 filter=%22url(%23g)%22%3E%3Cpath d=%22M-40 360 C 200 300, 380 460, 620 360 S 980 250, 1240 330%22 stroke=%22url(%23c)%22 stroke-width=%222.6%22/%3E%3Cpath d=%22M-40 383 C 200 323, 380 483, 620 383 S 980 273, 1240 353%22 stroke=%22url(%23c)%22 stroke-width=%221.4%22 stroke-dasharray=%223 9%22 opacity=%22.9%22/%3E%3Cpath d=%22M-40 640 C 240 560, 480 720, 760 610 S 1100 520, 1240 580%22 stroke=%22url(%23a)%22 stroke-width=%222.2%22 stroke-dasharray=%2226 8 4 8%22 opacity=%22.85%22/%3E%3Cpath d=%22M-40 60 C 260 10, 520 150, 800 70 S 1120 20, 1240 60%22 stroke=%22url(%23a)%22 stroke-width=%221.8%22 opacity=%22.75%22/%3E%3C/g%3E%3C/svg%3E");animation:klines2 32s ease-in-out infinite alternate,kglow 7.5s ease-in-out -3s infinite}
+html[data-brand="kpdh"] .bg-lines{display:block;opacity:var(--bg-l,.8)}
+html[data-brand="kpdh"] .bg-glitter{opacity:calc(var(--bg-g,.34) * .5)}
+@keyframes klines{0%{transform:translate(0,0)}100%{transform:translate(-2.5%,1.5%)}}
+@keyframes klines2{0%{transform:translate(0,0)}100%{transform:translate(2.5%,-2%)}}
+@keyframes kglow{0%,100%{opacity:.65}50%{opacity:1}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg-l:.55}}
+:root[data-theme="dark"]{--bg-l:.55}
+@media (prefers-reduced-motion:reduce){.bg-lines::before,.bg-lines::after{animation:none}}
+/* Products guide */
+.gpanel{padding:0;gap:0}
+.gpanel summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px}
+.gpanel summary::-webkit-details-marker{display:none}
+.gpanel summary>span:first-child{display:flex;flex-direction:column;gap:2px}
+.gpanel summary b{font-family:var(--font-display);font-size:1.15rem;letter-spacing:-.01em}
+.gpanel .gchev{font-size:1.2rem;color:var(--muted);transition:transform .2s}
+.gpanel[open] .gchev{transform:rotate(180deg)}
+.gbody{padding:0 16px 16px;display:flex;flex-direction:column;gap:18px}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:12px}
+.pbox{border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.pbox .pb-h{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:.72rem;color:var(--muted)}
+.pbox h3{margin:0;font-family:var(--font-display);font-size:1.05rem}
+.pbox .pb-sub{margin:-4px 0 0;color:var(--muted);font-size:.85rem}
+.pbox dl{margin:0;display:flex;flex-direction:column;gap:6px}
+.pbox dl div{display:flex;flex-direction:column;gap:0;font-size:.85rem}
+.pbox dt{font-weight:700;color:var(--muted)}
+.pbox dd{margin:0}
+.pbox .small-btn{align-self:flex-start;margin-top:auto}
+.ppromo h3,.pstyle h3{margin:0 0 8px;font-family:var(--font-display);font-size:1.05rem}
+.ppromo ul{list-style:none;margin:0 0 8px;padding:0;display:flex;flex-direction:column;gap:6px}
+.ppromo li{display:grid;grid-template-columns:minmax(200px,auto) 1fr;gap:4px 12px;font-size:.86rem;align-items:baseline}
+.ppromo .plink{border:0;background:none;padding:0;text-align:left;color:var(--fg)}
+.ppromo .plink b{font-family:var(--font-mono);font-size:.78rem;margin-right:4px}
+.ppromo .plink:hover{color:var(--accent)}
+.ppromo li>span{color:var(--muted)}
+@media (max-width:560px){.ppromo li{grid-template-columns:1fr}}
+.stylegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px 14px;font-size:.86rem}
+.stylegrid div{display:flex;gap:8px;align-items:center}
+.stylegrid .rchip{min-width:38px;text-align:center}
+.set-h:not(:first-child){margin-top:30px}
+
 .wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
 button{font:inherit;color:inherit;cursor:pointer}
 button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -614,7 +666,7 @@ body>.wrap{flex:1;width:100%}
 </style>
 </head>
 <body>
-<div class="bgfx" aria-hidden="true"><div class="bg-colors"></div><div class="bg-glitter"></div><div class="bg-sparkles" id="bgSparkles"></div></div>
+<div class="bgfx" aria-hidden="true"><div class="bg-colors"></div><div class="bg-lines"></div><div class="bg-glitter"></div><div class="bg-sparkles" id="bgSparkles"></div></div>
 
 
 <div class="wrap">
@@ -656,16 +708,18 @@ body>.wrap{flex:1;width:100%}
   </div>
 
   <div>
-    <div class="label">Winx Club</div>
+    <div class="label" id="frLabel">Winx Club</div>
     <h1>Your collection</h1>
   </div>
 
   <section class="stats" id="stats" aria-label="Collection summary"></section>
 
   <section aria-label="Sets">
-    <div class="label" style="margin-bottom:8px">Fairy Diary · box editions</div>
+    <div class="label" style="margin-bottom:8px" id="setsLabel">Fairy Diary · box editions</div>
     <div class="sets" id="sets"></div>
   </section>
+
+  <section class="guide" id="frGuide" aria-label="Products guide" hidden></section>
 
   <div class="main">
     <section aria-label="Cards">
@@ -697,7 +751,7 @@ body>.wrap{flex:1;width:100%}
             <option value="copies">Most copies</option>
           </select>
         </div>
-        <div class="searchhint">Try <code>Stella</code>, <code>SR-004</code>, <code>Magic</code>, <code>Both</code> or <code>UGR</code>. Combine words to narrow it down, like <code>Bloom SR Both</code>.</div>
+        <div class="searchhint" id="searchHint">Try <code>Stella</code>, <code>SR-004</code>, <code>Magic</code>, <code>Both</code> or <code>UGR</code>. Combine words to narrow it down, like <code>Bloom SR Both</code>.</div>
       </div>
       <div class="chips" id="chips"></div>
       <div id="cards"></div>
@@ -732,8 +786,8 @@ body>.wrap{flex:1;width:100%}
   <footer class="site-foot">
     <nav class="foot-nav" aria-label="About this site"><a href="/about" data-nav="/about">About</a><a href="/contact" data-nav="/contact">Suggestions &amp; contact</a><a href="/privacy" data-nav="/privacy">Privacy</a><a href="/terms" data-nav="/terms">Terms</a></nav>
     <nav class="foot-social" aria-label="Follow My Pretty Pulls"><a href="https://www.tiktok.com/@myprettypulls" target="_blank" rel="noopener">TikTok</a><a href="https://www.instagram.com/myprettypulls/" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/@MyPrettyPulls" target="_blank" rel="noopener">YouTube</a><a href="https://discord.gg/X2d9BKh5d" target="_blank" rel="noopener">Discord</a></nav>
-    <p>My Pretty Pulls is an unofficial fan project. It isn't affiliated with, sponsored by or endorsed by KAYOU or Rainbow S.p.A.</p>
-    <p>Winx Club® and its characters © Rainbow S.p.A. Card images © KAYOU and their respective owners. Card details come from collector checklists and may contain mistakes.</p>
+    <p>My Pretty Pulls is an unofficial fan project. It isn't affiliated with, sponsored by or endorsed by KAYOU, Rainbow S.p.A. or Netflix.</p>
+    <p>Winx Club® and its characters © Rainbow S.p.A. KPop Demon Hunters and its characters © Netflix. Card images © KAYOU and their respective owners. Card details come from collector checklists and may contain mistakes.</p>
     <p>© 2026 My Pretty Pulls</p>
   </footer>
 </div>
@@ -748,8 +802,11 @@ body>.wrap{flex:1;width:100%}
 const RINFO={
  SE:{code:"SE",name:"Scenario-E",color:"#1f8fa8"},
  BP:{code:"BP",name:"Brush Rare",color:"#9a5a32"},
+ CRP:{code:"◇CR",name:"Creative Rare Parallel",color:"#8a2f86"},
  CR:{code:"CR",name:"Creative Rare",color:"#b8337f"},
  ZR:{code:"ZR",name:"Zenith Rare",color:"#3a5fcd"},
+ SP:{code:"SP",name:"Special Picture",color:"#d4447a"},
+ LR:{code:"LR",name:"Legacy Rare",color:"#5a3f9a"},
  AR:{code:"AR",name:"Artist Rare",color:"#7a3fb0"},
  UGR:{code:"UGR",name:"Ultra Golden Rare",color:"#b8860b"},
  UR:{code:"UR",name:"Ultra Rare",color:"#c2366f"},
@@ -858,7 +915,150 @@ CARDS.forEach(c=>{const a=APPEARS[c.num];if(!a)return;c.appears=a.split(",").map
 // Number the repeats (Bloom 1, Bloom 2...) within each rarity + edition group
 CARDS.forEach(c=>{const peers=CARDS.filter(x=>x.rar===c.rar&&x.name===c.name&&x.editions.join()===c.editions.join());
   c.variant=peers.length>1&&peers.every(x=>x.main)?peers.indexOf(c)+1:null;});
-const BYUID=Object.fromEntries(CARDS.map(c=>[c.uid,c]));
+CARDS.forEach(c=>{c.fr="winx";c.set="WFD01"});
+
+// ================= KPop Demon Hunters (KAYOU World Tour cards) =================
+// Card names and order come from KAYOU's official series pages. Kayou's list order matches the printed card numbers
+// (checked against known cards, e.g. KPDH01-CR-006 Abby, SSR-010 Mira, QR-011 Zoey, SP-004 Rumi, SE-001..004).
+// Classic and Energy packs of the same series share one numbered set (like Winx Daily/Magic): a card in both lists is one card.
+const K_EDITIONS=[
+ {id:"c1",short:"C1",code:"KPDH01",name:"Classic Edition · Series 1",pack:"5 cards per pack · 20 packs per box · June 2026"},
+ {id:"e1",short:"E1",code:"KPDH01",name:"Energy Edition · Series 1",pack:"8 cards per pack · 12 packs per box · June 2026"},
+ {id:"m1",short:"MINI",code:"KPDHM01",name:"Special Mini Edition · Series 1",pack:"3 mini cards per pack · 4-pack collector box · Sept 2026"},
+ {id:"c2",short:"C2",code:"KPDH02",name:"Classic Edition · Series 2",pack:"5 cards per pack · 20 packs per box · Nov 2026"},
+ {id:"e2",short:"E2",code:"KPDH02",name:"Energy Edition · Series 2",pack:"8 cards per pack · 12 packs per box · Nov 2026"},
+ EDITIONS.find(e=>e.id==="promo")
+];
+K_EDITIONS.forEach(e=>{if(!EDBY[e.id])EDBY[e.id]=e});
+const K_ODDS={
+ c1:{R:"2 in every pack",SR:"1 in every pack, plus a chance in the bonus slot",SSR:"1 in every pack",
+   HR:"10 in 20 packs (HR, QR or UR slot)",QR:"10 in 20 packs (HR, QR or UR slot)",UR:"10 in 20 packs (HR, QR or UR slot)",
+   ZR:"10 in 20 packs (SR, ZR or CR slot)",CR:"10 in 20 packs (SR, ZR or CR slot)"},
+ e1:{SR:"3 in every pack, sometimes more",SSR:"2 in every pack, sometimes 3",HR:"1 in every pack (HR or TR slot)",
+   TR:"8 in 12 packs (HR or TR slot)",QR:"8 in 12 packs (QR, SR or LR slot, and UR, QR or SP slot)",UR:"8 in 12 packs (UR, QR or SP slot)",
+   LR:"8 in 12 packs (QR, SR or LR slot) or 4 in 12 (top slot)",SP:"8 in 12 packs (UR, QR or SP slot) or 4 in 12 (SR or SP slot)",
+   CRP:"4 in 12 packs (SSR, LR, ◇CR, BP or SE slot)",BP:"4 in 12 packs (SSR, LR, ◇CR, BP or SE slot) · numbered to 999",SE:"4 in 12 packs (SSR, LR, ◇CR, BP or SE slot) · numbered to 366"},
+ m1:{CR:"KAYOU hasn't published pull rates for this set",SP:"KAYOU hasn't published pull rates for this set",LR:"KAYOU hasn't published pull rates for this set",
+   HR:"KAYOU hasn't published pull rates for this set",SSR:"KAYOU hasn't published pull rates for this set"},
+ c2:{R:"2 in every pack",SR:"1 in every pack",SSR:"1 in every pack",QR:"10 in 20 packs (QR or CR slot)",CR:"10 in 20 packs (QR or CR slot)",
+   TR:"10 in 20 packs (TR, UR or ZR slot)",UR:"10 in 20 packs (TR, UR or ZR slot)",ZR:"10 in 20 packs (TR, UR or ZR slot)"},
+ e2:{SR:"3 in every pack",SSR:"2 in every pack, sometimes 3",HR:"1 in every pack (HR or TR slot)",TR:"1 in every pack (HR or TR slot)",
+   QR:"1 in every pack, sometimes 2",UR:"8 in 12 packs (SSR, UR or SE slot)",SE:"8 in 12 packs (SSR, UR or SE slot)",
+   LR:"4 in 12 packs (QR, LR, SP, ◇CR or BP slot)",SP:"4 in 12 packs (QR, LR, SP, ◇CR or BP slot)",CRP:"4 in 12 packs (QR, LR, SP, ◇CR or BP slot)",BP:"4 in 12 packs (QR, LR, SP, ◇CR or BP slot)"},
+ promo:{PR:"Promo card, not in booster packs"}
+};
+// What each Series 1 rarity looks like (KAYOU's own descriptions)
+const K_STYLE={R:"Social-media post",SR:"Incoming video call",SSR:"Concert ticket",HR:"Movie moment · lenticular",QR:"Card as a charm · die-cut",
+ UR:"Signature card",TR:"Duet on stage · see-through",ZR:"Honmoon fluorescent ink",CR:"World Tour city",CRP:"World Tour city · parallel",
+ LR:"Saja Boys exclusive",SP:"HUNTR/X exclusive",BP:"Spotlight · numbered to 999",SE:"Golden · birthday-numbered to 366"};
+const K6=["Rumi","Mira","Zoey"], K_SAJA=["Jinu","Baby","Abby","Mystery","Romance"], K8=[...K6,...K_SAJA];
+const K_GROUPS=[
+ {name:"HUNTR/X",chars:["Rumi","Mira","Zoey"]},
+ {name:"Saja Boys",chars:["Jinu","Abby","Baby","Mystery","Romance"]},
+ {name:"Friends & family",chars:["Celine","Bobby","Healer Han"]},
+ {name:"Pets",chars:["Derpy","Sussie"]}
+];
+const K_ALLCHARS=K_GROUPS.flatMap(g=>g.chars);
+// Who is on cards whose name isn't just one character
+const K_APPEARS={"HUNTR/X":K6,"Saja Boys":K_SAJA,"Rumi & Jinu":["Rumi","Jinu"],"Jinu & Rumi":["Jinu","Rumi"],"RuJinu":["Rumi","Jinu"],
+ "Zoeystery":["Zoey","Mystery"],"MiRomAbby":["Mira","Romance","Abby"],"Demon Abby":["Abby"],"Demon Mystery":["Mystery"],"Demon Romance":["Romance"],
+ "Demon Baby":["Baby"],"Doctor Han":["Healer Han"],"Sussie Bird":["Sussie"],"Derpy Tiger":["Derpy"],"Derpy & Sussie":["Derpy","Sussie"],
+ "Zoey & Mira":["Zoey","Mira"],"Zoey, Mira & Bobby":["Zoey","Mira","Bobby"],"Healer Han & Rumi":["Healer Han","Rumi"],
+ "HUNTR/X & Healer Han":[...K6,"Healer Han"],"Takedown Rumi":["Rumi"],"How It's Done":K6};
+const K_HUE={Rumi:["#9b6cf2","#3f2a92"],Mira:["#ef5d8e","#7d1f52"],Zoey:["#3cc3df","#2a55b0"],
+ Jinu:["#6b5bb8","#221a4a"],Abby:["#e0874a","#5a2a1e"],Baby:["#f2a7c8","#8a3a6a"],Mystery:["#7aa3d6","#283a66"],Romance:["#d9576b","#4a1a2c"],
+ Celine:["#c9b27a","#5a4a2a"],Bobby:["#8fbf6a","#2f5a2a"],"Healer Han":["#7fd1c4","#2a6a66"],Derpy:["#5aa0e8","#1e3a7a"],Sussie:["#b06ae0","#3a1f6a"],
+ "HUNTR/X":["#f2b84c","#8a3ab0"],"Saja Boys":["#c43c5a","#2a1430"]};
+const K_SCENE=["#b9a6e8","#5b4aa0"];
+// [set, rarity, editions, names, confirmed]
+const K_BLOCKS=[
+ // ---- Series 1 (KPDH01): Classic Edition (C1) and Energy Edition (E1), June 2026 ----
+ ["KPDH01","R",["c1"],["Interrupted Snacking","Hello Friend","Fight","Saja Boys","HUNTR/X","Stage Ready","Disguise","Train Battle","Quick Huddle","Flight Fight","Golden","Rumi","Join the Pride","HUNTR/X","Derpy Tiger","Rose","Stage","Rumi","Aunties","Stage","Crying Demon","Bathhouse","Not Our Fans","Golden Music Video"],true],
+ ["KPDH01","SR",["c1","e1"],["Rumi","Mira","Zoey","Rumi","Mira","Zoey","Jinu","Baby","Mystery","Romance","Abby","Sussie","Derpy","Bobby","Celine","Demon","Demon","Demon"],true],
+ ["KPDH01","SSR",["c1","e1"],K8,true],
+ ["KPDH01","SSR",["e1"],["Rumi","Mira","Zoey","Jinu","Baby","Abby","Mystery","Romance"],true],
+ ["KPDH01","HR",["c1","e1"],["Infatuation","Gimbap","Snack Attack","Intimidate","Doctor Han","Makeup","Aunties","Sussie Bird","In Denial","Spicy Challenge","Demon","Pre-show Ramyeon"],true],
+ ["KPDH01","HR",["e1"],["Mesmerized","Demon Abby","Demon Mystery","Demon Romance","Demon Baby","Demon Mystery","Final Battle","Zoeystery","RuJinu","MiRomAbby","Battle Face","Battle Face"],true],
+ ["KPDH01","QR",["c1","e1"],["Rumi","Mira","Zoey","Jinu","Baby","Abby","Mystery","Romance","Derpy","Jinu"],true],
+ ["KPDH01","QR",["e1"],["Zoey","Rumi","Mira","HUNTR/X","Bobby","Demon","RuJinu","Jinu","Demon","Sussie","HUNTR/X","Rumi","Mira","Zoey"],true],
+ ["KPDH01","UR",["c1","e1"],["Rumi","Mira","Zoey","Jinu","Abby","Romance","Mystery","Baby","Jinu","Abby","Romance","Mystery","Baby"],true],
+ ["KPDH01","TR",["e1"],["Rumi","Mira","Zoey","Jinu","Baby","Abby","Mystery","Romance"],true],
+ ["KPDH01","ZR",["c1"],["Rumi","Zoey","Mira","HUNTR/X","Rumi & Jinu","Jinu","Saja Boys","Jinu"],true],
+ ["KPDH01","LR",["e1"],["Jinu","Baby","Abby","Mystery","Romance","Saja Boys"],true],
+ ["KPDH01","SP",["e1"],["Rumi","Mira","Zoey","Rumi","Mira","Zoey"],true],
+ ["KPDH01","CR",["c1"],["Rumi","Mira","Zoey","Jinu","Baby","Abby","Mystery","Romance"],true],
+ ["KPDH01","CRP",["e1"],["Rumi","Mira","Zoey","Jinu","Baby","Abby","Mystery","Romance"],true],
+ ["KPDH01","BP",["e1"],["Rumi","Mira","Zoey"],true],
+ ["KPDH01","SE",["e1"],["Rumi","Mira","Zoey","HUNTR/X"],true],
+ // ---- Special Mini Edition Series 1 (KPDHM01), Sept 2026: half-size cards ----
+ ["KPDHM01","SSR",["m1"],["Interrupted Snacks","Pre-show Ramyeon","In a Hurry","Carb-loading","Snacks","Saja Boys","Jinu & Rumi","MiRomAbby","Zoeystery","In Denial","Zoey","Mira","Rumi","Infatuation","Mesmerized"],true],
+ ["KPDHM01","HR",["m1"],[...K8,"Derpy & Sussie"],true],
+ ["KPDHM01","LR",["m1"],["Rumi","Mira","Zoey","Jinu","Abby","Romance","Mystery","Baby"],true],
+ ["KPDHM01","SP",["m1"],["Rumi","Mira","Zoey","Rumi","Mira","Zoey"],true],
+ ["KPDHM01","CR",["m1"],["Rumi","Mira","Zoey"],true],
+ // ---- Series 2 (KPDH02): Classic Edition (C2) and Energy Edition (E2), Nov 2026. Numbers follow Kayou's list order, not yet confirmed ----
+ ["KPDH02","R",["c2"],["Mira","Zoey","Fans","Rumi","Zoey & Mira","HUNTR/X","Zoey, Mira & Bobby","HUNTR/X","Zoey","Rumi","Golden Outfits","HUNTR/X","HUNTR/X","Healer Han & Rumi","HUNTR/X & Healer Han","Saja Boys","Jinu","Saja Boys","HUNTR/X","Zoey","Jinu","Derpy","HUNTR/X","Jinu & Rumi"],false],
+ ["KPDH02","SR",["c2","e2"],["Jinu","Romance","Mystery","Baby","Abby","Rumi","Zoey","Mira","Bobby","Celine","Dokkaebi Demon","Dokkaebi Demon","Dokkaebi Demon","Dokkaebi Demon","Dokkaebi Demon"],false],
+ ["KPDH02","SR",["e2"],["Jinu","Rumi","Derpy","Sussie","RuJinu"],false],
+ ["KPDH02","SSR",["c2","e2"],["Jinu","Romance","Mystery","Baby","Abby","Rumi","Zoey","Mira","Jinu","Romance","Mystery","Baby","Abby"],false],
+ ["KPDH02","SSR",["e2"],["Derpy & Sussie","Saja Boys","HUNTR/X"],false],
+ ["KPDH02","HR",["e2"],Array(24).fill("Screenshot"),false],
+ ["KPDH02","QR",["c2","e2"],[...Array(5).fill("Soda Pop"),...Array(3).fill("How It's Done"),...Array(5).fill("Your Idol"),...Array(3).fill("Golden"),...Array(3).fill("What It Sounds Like")],false],
+ ["KPDH02","UR",["c2","e2"],["Jinu","Romance","Mystery","Abby","Baby","Rumi","Zoey","Mira"],false],
+ ["KPDH02","TR",["c2","e2"],["Rumi","Mira","Zoey","Doctor Han","Doctor Han","Mira","Jinu","Romance","Mystery","Abby","Baby","Rumi","Mira","Mira","Zoey","Grandma","Grandma","Grandma","Bobby","Derpy"],false],
+ ["KPDH02","ZR",["c2"],["Rumi","Zoey","Mira","Rumi","Zoey","Mira"],false],
+ ["KPDH02","LR",["e2"],["Rumi","Zoey","Mira","Rumi","Zoey","Mira"],false],
+ ["KPDH02","SP",["e2"],["Rumi","Zoey","Mira","Rumi","Zoey","Mira"],false],
+ ["KPDH02","CR",["c2"],["Zoey","Rumi","Mira","Zoey","Rumi","Mira"],false],
+ ["KPDH02","CRP",["e2"],["Rumi","Zoey","Mira","Rumi","Zoey","Mira","Rumi","Zoey","Mira"],false],
+ ["KPDH02","BP",["e2"],["Rumi","Zoey","Mira","Jinu","Romance","Mystery","Baby","Abby"],false],
+ ["KPDH02","SE",["e2"],["Rumi","Zoey","Mira","Rumi","Zoey","Mira"],false]
+];
+// Promo cards: [number, name, short note, how to get it]
+const K_PROMOS=[
+ ["KPDH01-PR-01","Derpy & Sussie","Store promo","Promo card. A Derpy Tiger & Sussie Bird promo is also the bonus card in Costco's Energy Edition Collector Boxes"],
+ ["KPDH01-PR-02","Derpy","Convention promo","Convention promo from KAYOU's booth at Anime Expo and San Diego Comic-Con 2026"],
+ ["KPDH01-PR1-01","Rumi","Energy Edition promo","Shop bonus with Energy Edition box or case buys. Offers vary by shop"],
+ ["KPDH01-PR1-02","Mira","Energy Edition promo","Shop bonus with Energy Edition box or case buys. Offers vary by shop"],
+ ["KPDH01-PR1-03","Zoey","Energy Edition promo","Shop bonus with Energy Edition box or case buys. Offers vary by shop"],
+ ["KPDH01-PR2-01","HUNTR/X","Classic Edition promo","Shop bonus with Classic Edition buys. Offers vary by shop"],
+ ["KPDH01-PR2-02","HUNTR/X","Classic Edition promo","Shop bonus with Classic Edition buys. Offers vary by shop"],
+ ["KPDH01-PR2-03","HUNTR/X","Classic Edition promo","Shop bonus with Classic Edition buys. Offers vary by shop"],
+ ["KPDHM01-PR-01","Takedown Rumi","Special Mini Edition promo","Special Mini Edition promo card, not in the mini packs"],
+ ["KPDHM01-PR-02","How It's Done","Special Mini Edition promo","Special Mini Edition promo card, not in the mini packs"]
+];
+const KCARDS=[]; {const kc={};
+ K_BLOCKS.forEach(([set,rar,eds,names,conf])=>{const ck=set+"|"+rar; if(kc[ck]===undefined)kc[ck]=0;
+  names.forEach(name=>{kc[ck]++;const n=String(kc[ck]).padStart(3,"0"),num=`${set}-${RINFO[rar].code}-${n}`;
+   KCARDS.push({fr:"kpdh",set,uid:`${num}|${eds.join("+")}`,num,n,rar,name,editions:eds,confirmed:conf,main:null,appears:[]})})});
+ K_PROMOS.forEach(([num,name,note,how],i)=>{const set=num.split("-")[0];
+  KCARDS.push({fr:"kpdh",set:"PROMO",promoSet:set,uid:`${num}|promo`,num,n:String(i+1).padStart(3,"0"),rar:"PR",name,editions:["promo"],confirmed:true,promoNote:note,how,main:null,appears:[]})});
+ KCARDS.forEach(c=>{const a=K_APPEARS[c.name];
+  if(a){c.appears=[...a];if(a.length===1)c.main=a[0]}else if(K_ALLCHARS.includes(c.name)){c.main=c.name;c.appears=[c.name]}});
+ // Number repeats within a set + rarity (Rumi 1, Rumi 2...)
+ KCARDS.forEach(c=>{const peers=KCARDS.filter(x=>x.set===c.set&&x.rar===c.rar&&x.name===c.name);c.variant=peers.length>1?peers.indexOf(c)+1:null});
+}
+
+// ---------- Franchises: the collection page shows one at a time ----------
+const FRANCH={
+ winx:{id:"winx",name:"Winx Club",path:"/",title:"My Pretty Pulls",cards:CARDS,editions:EDITIONS,odds:ODDS,groups:GROUPS,hue:HUE,scene:SCENE_HUE,
+   allCode:"WFD01",every:"every Fairy Diary card",setsLabel:"Fairy Diary · box editions",setName:()=>"Winx Club Fairy Diary",
+   series:[{set:"WFD01",code:"WFD01",name:"Fairy Diary · every card",ct:"D = Daily Edition · M = Magic Edition · D+M = pulls from both"}],
+   hint:`Try <code>Stella</code>, <code>SR-004</code>, <code>Magic</code>, <code>Both</code> or <code>UGR</code>. Combine words to narrow it down, like <code>Bloom SR Both</code>.`},
+ kpdh:{id:"kpdh",name:"KPop Demon Hunters",path:"/kpop-demon-hunters",title:"KPop Demon Hunters · My Pretty Pulls",cards:KCARDS,editions:K_EDITIONS,odds:K_ODDS,groups:K_GROUPS,hue:K_HUE,scene:K_SCENE,
+   allCode:"KPDH",every:"every KPop Demon Hunters card",setsLabel:"KAYOU World Tour · every edition",
+   setName:c=>({KPDH01:"World Tour Series 1",KPDHM01:"Special Mini Edition Series 1",KPDH02:"World Tour Series 2",PROMO:"Promo cards"})[c.set]+" · KPop Demon Hunters",
+   series:[{set:"KPDH01",code:"KPDH01",name:"Series 1 · Classic + Energy",ct:"C1 = Classic Edition · E1 = Energy Edition · C1+E1 = pulls from both"},
+     {set:"KPDHM01",code:"KPDHM01",name:"Special Mini Edition · Series 1",ct:"Half-size mini cards, 62 × 44 mm"},
+     {set:"KPDH02",code:"KPDH02",name:"Series 2 · Classic + Energy",ct:"C2 = Classic · E2 = Energy · New in Nov 2026: card numbers follow KAYOU's list and aren't confirmed yet"},
+     {set:"PROMO",code:"PR",name:"Promo cards",ct:"Not found in booster packs"}],
+   hint:`Try <code>Rumi</code>, <code>SR-004</code>, <code>Energy</code>, <code>Mini</code>, <code>KPDH02</code> or <code>SE</code>. Combine words to narrow it down, like <code>Jinu UR Classic</code>.`}
+};
+let F=FRANCH.winx;
+const ALLCARDS=[...CARDS,...KCARDS];
+const FR_OF=c=>FRANCH[c.fr]||FRANCH.winx;
+const shortNum=c=>c.num.replace(/^(WFD01|KPDH01)-/,"").replace(/^WFD02-/,"W2 ");
+const BYUID=Object.fromEntries(ALLCARDS.map(c=>[c.uid,c]));
 const label=c=>c.name+(c.variant?` ${c.variant}`:"");
 const inScope=c=>activeEd==="all"||c.editions.includes(activeEd);
 const edTag=c=>c.editions.map(e=>EDBY[e].short).join("+");
@@ -870,9 +1070,16 @@ function makeSample(){const s={};CARDS.forEach((c,i)=>{
   if(c.rar==="QR"&&i%3!==2)s[c.uid]=i%5===0?2:1;
   if(c.rar==="SR"&&i%4!==3)s[c.uid]=1;
   if(["TR","HR","FR","UR"].includes(c.rar)&&i%3===0)s[c.uid]=1;
-  if(c.num==="WFD01-SSR-003")s[c.uid]=1;});return s;}
+  if(c.num==="WFD01-SSR-003")s[c.uid]=1;});return Object.assign(s,kSample());}
+function kSample(){const s={};KCARDS.forEach((c,i)=>{
+  if(c.rar==="R"&&i%3!==1)s[c.uid]=1+(i%4===0?1:0);
+  if((c.rar==="SR"||c.rar==="SSR")&&i%3===0)s[c.uid]=1;
+  if(["QR","HR","UR"].includes(c.rar)&&i%5===0)s[c.uid]=1;});return s;}
+// Older saved samples were made before KPop Demon Hunters was added
+function topUpSample(){if(isSample&&!Object.keys(counts).some(k=>k.startsWith("KPDH")))Object.assign(counts,kSample())}
 let counts={}, isSample=false;
 try{const raw=localStorage.getItem(KEY); if(raw){const p=JSON.parse(raw);counts=p.counts||{};isSample=!!p.sample}else{counts=makeSample();isSample=true}}catch(e){counts=makeSample();isSample=true}
+topUpSample();
 function save(){try{localStorage.setItem(KEY,JSON.stringify({counts,sample:isSample}))}catch(e){}}
 
 let size="m", sortBy="set", view="all", rarF=null, charF=null, cmode="solo", query="", activeEd="all", openId=null, navList=[];
@@ -922,7 +1129,7 @@ function imgKey(c){
 function artHTML(c,big){
   const k=imgKey(c);
   if(k){const tint=TINT[k]?`;--c:${TINT[k]}`:"";return `<img class="cardimg" src="cards/${k}-${big?"l":"s"}.webp" alt="${esc(label(c))}, ${c.num}" loading="lazy" decoding="async">${fxFor(c).map(([f,reg,kk])=>`<span class="fx fx-${f}" style="--m:url(cards/${k}-${reg&&REGION.has(k)?"m":"s"}.webp)${tint}${kk?`;--k:${kk}`:""}" aria-hidden="true"></span>`).join("")}<span class="edb">${edTag(c)}</span>`}
-  const h=HUE[c.name]||SCENE_HUE;
+  const ff=FR_OF(c), h=ff.hue[c.name]||ff.scene;
   return `<span class="art" style="background:linear-gradient(155deg,${h[0]},${h[1]})"><span class="badge">${RINFO[c.rar].code}</span><span class="edb">${edTag(c)}</span><span class="initial" aria-hidden="true">${esc(c.name[0])}</span><span class="cname">${esc(label(c))}</span></span>`}
 function stepHTML(c){const n=has(c.uid),l=esc(label(c));
   return n?`<span class="step"><button data-act="sub" data-id="${c.uid}" aria-label="Remove one ${l}">−</button><output>${n}</output><button data-act="add" data-id="${c.uid}" aria-label="Add one ${l}">+</button></span>`
@@ -930,65 +1137,64 @@ function stepHTML(c){const n=has(c.uid),l=esc(label(c));
 function cardHTML(c,small){const n=has(c.uid);
   return `<div class="card${n?"":" missing"}">
     <button class="face${imgKey(c)?" has-img":""}${LAND.has(imgKey(c))?" land":""}" data-open="${c.uid}" aria-label="View ${esc(label(c))}, ${c.num}">${artHTML(c)}${n&&!small?`<span class="qty">×${n}</span>`:""}</button>
-    ${small?`<span class="num">${c.num}</span>`:`<div class="meta"><span class="num"><span class="nfull">${c.num}</span><span class="nshort">${c.num.replace("WFD01-","")}</span></span>${stepHTML(c)}</div>`}</div>`}
+    ${small?`<span class="num">${c.num}</span>`:`<div class="meta"><span class="num"><span class="nfull">${c.num}</span><span class="nshort">${shortNum(c)}</span></span>${stepHTML(c)}</div>`}</div>`}
 
 function renderStats(){
-  const owned=CARDS.filter(c=>has(c.uid)).length, dupes=CARDS.reduce((a,c)=>a+Math.max(0,has(c.uid)-1),0);
-  const boxes=EDITIONS.filter(e=>e.id!=="promo"), done=boxes.filter(e=>CARDS.filter(c=>c.editions.includes(e.id)).every(c=>has(c.uid))).length;
-  const pct=Math.round(owned/CARDS.length*100);
+  const CS=F.cards, owned=CS.filter(c=>has(c.uid)).length, dupes=CS.reduce((a,c)=>a+Math.max(0,has(c.uid)-1),0);
+  const boxes=F.editions.filter(e=>e.id!=="promo"), done=boxes.filter(e=>CS.filter(c=>c.editions.includes(e.id)).every(c=>has(c.uid))).length;
+  const pct=Math.round(owned/CS.length*100);
   $("#stats").innerHTML=`
-   <div class="stat lead"><span class="label">Total collected</span><span class="v">${owned}<small> / ${CARDS.length}</small></span><span class="bar"><i style="width:${pct}%"></i></span><span class="s">${pct}% of every Fairy Diary card</span></div>
+   <div class="stat lead"><span class="label">Total collected</span><span class="v">${owned}<small> / ${CS.length}</small></span><span class="bar"><i style="width:${pct}%"></i></span><span class="s">${pct}% of ${F.every}</span></div>
    <div class="stat"><span class="label">Editions completed</span><span class="v">${done}<small> / ${boxes.length}</small></span><span class="s">Every card in a box type</span></div>
-   <div class="stat"><span class="label">Still missing</span><span class="v">${CARDS.length-owned}</span><span class="s">Cards you haven't pulled</span></div>
+   <div class="stat"><span class="label">Still missing</span><span class="v">${CS.length-owned}</span><span class="s">Cards you haven't pulled</span></div>
    <div class="stat"><span class="label">Extras to trade</span><span class="v">${dupes}</span><span class="s">Copies beyond your first</span></div>
    <div class="stat soon"><span class="label">Binder value</span><span class="v">More coming soon</span><span class="s">eBay prices</span></div>`;
 }
 function setTile(id,code,name,cs,sub){const h=cs.filter(c=>has(c.uid)).length,p=Math.round(h/cs.length*100);
   return `<button class="setb" data-ed="${id}" aria-pressed="${activeEd===id}"><span class="row"><span class="code">${code}</span><span class="pct">${p===100?"✓ ":""}${p}%</span></span><span class="nm">${name}</span><span class="bar"><i style="width:${p}%"></i></span><span class="ct">${h} / ${cs.length}${sub?` · ${sub}`:""}</span></button>`}
 function renderSets(){
-  const shared=CARDS.filter(c=>c.editions.length>1).length;
-  $("#sets").innerHTML=setTile("all","WFD01","Every card",CARDS,"all box types")+
-    EDITIONS.map(e=>{const cs=CARDS.filter(c=>c.editions.includes(e.id));
+  $("#sets").innerHTML=setTile("all",F.allCode,"Every card",F.cards,"all box types")+
+    F.editions.map(e=>{const cs=F.cards.filter(c=>c.editions.includes(e.id));
       return setTile(e.id,e.code,e.name,cs,e.id==="promo"?"promos":`${cs.filter(c=>c.editions.length>1).length} shared`)}).join("");
 }
 function prow(key,val,text,have,total,sw,pressed){const p=total?Math.round(have/total*100):0;
   return `<button class="prow${have===total&&total?" done":""}" data-${key}="${val}" aria-pressed="${pressed}"><span class="nm"><span class="sw" style="background:${sw}"></span>${text}</span><span class="bar"><i style="width:${p}%;background:${sw}"></i></span><span class="ct">${have}/${total}</span></button>`}
 function renderSide(){
-  const scope=CARDS.filter(inScope);
+  const scope=F.cards.filter(inScope);
   $("#rarHead").textContent=activeEd==="all"?"Progress by rarity":`Progress by rarity · ${EDBY[activeEd].name}`;
   $("#rarProg").innerHTML=RORDER.map(k=>{const cs=scope.filter(c=>c.rar===k);if(!cs.length)return"";const r=RINFO[k];
     return prow("rar",k,`${r.code} <span style="color:var(--muted);font-weight:400">${r.name}</span>`,cs.filter(c=>has(c.uid)).length,cs.length,r.color,rarF===k)}).join("");
-  $("#charProg").innerHTML=GROUPS.map(g=>{const rows=g.chars.map(n=>{const cs=scope.filter(c=>charMatch(c,n));
-      return cs.length?prow("char",n,n,cs.filter(c=>has(c.uid)).length,cs.length,HUE[n][0],charF===n):""}).join("");
+  $("#charProg").innerHTML=F.groups.map(g=>{const rows=g.chars.map(n=>{const cs=scope.filter(c=>charMatch(c,n));
+      return cs.length?prow("char",n,n,cs.filter(c=>has(c.uid)).length,cs.length,F.hue[n][0],charF===n):""}).join("");
     return rows?`<div class="grp">${g.name}</div>`+rows:""}).join("");
   const untagged=scope.filter(c=>!c.main&&!c.appears.length).length;
-  $("#charHint").textContent=cmode==="solo"?"Cards where the character is the main subject.":`Every card the character shows up on. ${untagged} group cards still need tagging.`;
+  $("#charHint").textContent=cmode==="solo"?"Cards where the character is the main subject.":`Every card the character shows up on.${untagged?` ${untagged} scene cards aren't tagged with characters yet.`:""}`;
 }
 // Every word must match something: name, card number, edition, or rarity
 const flat=s=>s.toLowerCase().replace(/[◇◊]/g,"p").replace(/[^a-z0-9]/g,"");
 function matchQuery(c){
   if(!query)return true;
-  const r=RINFO[c.rar], idFlat=flat(c.num), short=flat(c.num.replace("WFD01-","")), rk=flat(r.code);
-  const eds=c.editions.map(e=>EDBY[e].name.toLowerCase()).join(" ")+(c.editions.length>1?" both":"");
+  const r=RINFO[c.rar], idFlat=flat(c.num), short=flat(shortNum(c)), short2=flat(c.num.replace(/^[A-Z0-9]+-/,"")), rk=flat(r.code), setF=flat(c.set+" "+(c.promoSet||""));
+  const eds=c.editions.map(e=>EDBY[e].name.toLowerCase()).join(" ")+(c.editions.length>1?" both":"")+(c.set==="KPDHM01"?" mini":"")+(c.promoNote?" "+c.promoNote.toLowerCase():"");
   return query.split(/\s+/).every(t=>{
     const tf=flat(t); if(!tf)return true;
-    if(/\d/.test(tf))return idFlat===tf||short===tf||(/^\d+$/.test(tf)&&+c.n===+tf)||(tf==="wfd01");
+    if(/\d/.test(tf))return idFlat===tf||short===tf||short2===tf||(/^\d+$/.test(tf)&&+c.n===+tf)||setF.includes(tf);
     return label(c).toLowerCase().includes(t)||c.appears.some(a=>a.toLowerCase().includes(t))
       ||rk===tf||r.name.toLowerCase().includes(t)||eds.includes(t);
   });
 }
-function visible(){return CARDS.filter(c=>{const n=has(c.uid);
+function visible(){return F.cards.filter(c=>{const n=has(c.uid);
   if(!inScope(c))return false; if(rarF&&c.rar!==rarF)return false; if(charF&&!charMatch(c,charF))return false;
   if(view==="have"&&!n)return false; if(view==="need"&&n)return false; if(view==="dupes"&&n<2)return false;
   return matchQuery(c);})}
 function syncControls(){
-  const keys=RORDER.filter(k=>CARDS.some(c=>inScope(c)&&c.rar===k));
+  const keys=RORDER.filter(k=>F.cards.some(c=>inScope(c)&&c.rar===k));
   if(rarF&&!keys.includes(rarF))rarF=null;
   $("#fRar").innerHTML=`<option value="">Rarity: any</option>`+keys.map(k=>`<option value="${k}">${RINFO[k].code} · ${RINFO[k].name}</option>`).join("");
   $("#fRar").value=rarF||"";
-  $("#fChar").innerHTML=`<option value="">Character: any</option>`+GROUPS.map(g=>`<optgroup label="${g.name}">${g.chars.map(n=>`<option value="${n}">${n}</option>`).join("")}</optgroup>`).join("");
+  $("#fChar").innerHTML=`<option value="">Character: any</option>`+F.groups.map(g=>`<optgroup label="${g.name}">${g.chars.map(n=>`<option value="${n}">${n}</option>`).join("")}</optgroup>`).join("");
   $("#fChar").value=charF||"";
-  $("#fSet").innerHTML=`<option value="all">Edition: all</option>`+EDITIONS.map(e=>`<option value="${e.id}">${e.name}</option>`).join("");
+  $("#fSet").innerHTML=`<option value="all">Edition: all</option>`+F.editions.map(e=>`<option value="${e.id}">${e.name}</option>`).join("");
   $("#fSet").value=activeEd;
   $("#fSort").value=sortBy;
   $("#cards").className="size-"+size;
@@ -1001,19 +1207,23 @@ function renderCards(){
   const list=visible();
   if(!list.length){navList=[];$("#cards").innerHTML=`<p class="empty">No cards match. ${view==="need"?"You might have them all!":"Try another filter."}</p>`;return}
   if(sortBy!=="set"){
-    const sorted=[...list].sort(sortBy==="name"?(a,b)=>label(a).localeCompare(label(b))||a.num.localeCompare(b.num):(a,b)=>has(b.uid)-has(a.uid)||CARDS.indexOf(a)-CARDS.indexOf(b));
+    const sorted=[...list].sort(sortBy==="name"?(a,b)=>label(a).localeCompare(label(b))||a.num.localeCompare(b.num):(a,b)=>has(b.uid)-has(a.uid)||F.cards.indexOf(a)-F.cards.indexOf(b));
     navList=sorted.map(c=>c.uid);
     $("#cards").innerHTML=`<section><div class="section-h"><h2>${sortBy==="name"?"By name":"Most copies first"}</h2><span>${sorted.filter(c=>has(c.uid)).length}/${sorted.length} owned</span></div><div class="grid">${sorted.map(c=>cardHTML(c)).join("")}</div></section>`;
     return;
   }
   navList=[];
-  const head=activeEd==="all"?`<div class="set-h"><span class="code">WFD01</span><h2>Fairy Diary · every card</h2><span class="ct">D = Daily Edition · M = Magic Edition · D+M = pulls from both</span></div>`
-    :`<div class="set-h"><span class="code">${EDBY[activeEd].code}</span><h2>${EDBY[activeEd].name}</h2><span class="ct">${EDBY[activeEd].pack}</span></div>`;
-  $("#cards").innerHTML=head+RORDER.map(k=>{const cs=list.filter(c=>c.rar===k);if(!cs.length)return"";navList.push(...cs.map(c=>c.uid));
+  const byRar=cl=>RORDER.map(k=>{const cs=cl.filter(c=>c.rar===k);if(!cs.length)return"";navList.push(...cs.map(c=>c.uid));
     return `<section><div class="section-h"><h2>${RINFO[k].name}</h2><span>${RINFO[k].code} · ${cs.filter(c=>has(c.uid)).length}/${cs.length}</span></div><div class="grid">${cs.map(c=>cardHTML(c)).join("")}</div></section>`}).join("");
+  if(activeEd!=="all"){
+    $("#cards").innerHTML=`<div class="set-h"><span class="code">${EDBY[activeEd].code}</span><h2>${EDBY[activeEd].name}</h2><span class="ct">${EDBY[activeEd].pack}</span></div>`+byRar(list);return}
+  // Every card: one block per series (Winx has just one)
+  $("#cards").innerHTML=F.series.map(sr=>{const cl=list.filter(c=>c.set===sr.set||F.series.length===1);if(!cl.length)return"";
+    return `<div class="set-h"><span class="code">${sr.code}</span><h2>${sr.name}</h2><span class="ct">${sr.ct}</span></div>`+byRar(cl)}).join("");
 }
 // How each promo is obtained
 function promoHow(c){
+  if(c.how)return c.how;
   if(c.promoWith&&c.promoWith[0]==="daily")return "Possible bonus card when you buy a full 20-pack Daily Edition box";
   if(c.promoWith&&c.promoWith[0]==="magic")return "Bonus card when you buy a full 12-pack Magic Edition box";
   if(c.promoNote)return `${c.promoNote} promo, not in booster packs`;
@@ -1022,11 +1232,12 @@ function promoHow(c){
 function renderDetail(){
   const el=$("#detail"); if(!openId){el.hidden=true;return}
   const c=BYUID[openId], r=RINFO[c.rar], n=has(c.uid);
-  const ids=navList.includes(c.uid)?navList:CARDS.map(x=>x.uid), i=ids.indexOf(c.uid);
+  const cf=FR_OF(c), ids=navList.includes(c.uid)?navList:cf.cards.map(x=>x.uid), i=ids.indexOf(c.uid);
   const who=c.main;
-  const more=who?CARDS.filter(x=>x!==c&&x.appears.includes(who)):[];
+  const more=who?cf.cards.filter(x=>x!==c&&x.appears.includes(who)):[];
   const found=c.editions[0]==="promo"?`Promo${c.promoWith?` (${EDBY[c.promoWith[0]].name} box bonus)`:c.promoNote?` (${c.promoNote})`:""}`:c.editions.map(e=>EDBY[e].name).join("<br>");
-  const odds=c.editions[0]==="promo"?promoHow(c):c.editions.map(e=>`${c.editions.length>1?`<b>${EDBY[e].name.split(" ")[0]}:</b> `:""}${ODDS[e][c.rar]||"—"}`).join("<br>");
+  const odds=c.editions[0]==="promo"?promoHow(c):c.editions.map(e=>`${c.editions.length>1?`<b>${EDBY[e].name.split(" ")[0]}:</b> `:""}${cf.odds[e][c.rar]||"—"}`).join("<br>");
+  const style=c.set==="KPDH01"&&K_STYLE[c.rar], cast=c.appears.length>1?c.appears.join(", "):"";
   el.innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="dTitle">
     <button class="close" id="dClose" aria-label="Close">✕</button>
     <div class="d-left">
@@ -1035,14 +1246,16 @@ function renderDetail(){
     </div>
     <div class="d-right">
       <div>
-        <div class="tags"><span class="num">${c.num}</span><span class="rchip" style="background:${r.color}">${r.code}</span>${c.editions.length>1?`<span class="both">Daily + Magic</span>`:""}</div>
+        <div class="tags"><span class="num">${c.num}</span><span class="rchip" style="background:${r.color}">${r.code}</span>${c.editions.length>1?`<span class="both">${c.editions.map(e=>EDBY[e].name.split(" ")[0]).join(" + ")}</span>`:""}</div>
         <h2 id="dTitle">${esc(label(c))}</h2>
-        <div class="d-sub">${r.name} · Winx Club Fairy Diary</div>
+        <div class="d-sub">${r.name} · ${cf.setName(c)}</div>
         ${c.confirmed?"":`<div class="unconf">Card number not confirmed yet. Based on Kayou's list order.</div>`}
       </div>
       <div class="facts">
         <div class="fact"><span>Found in</span><span>${found}</span></div>
-        <div class="fact"><span>Character</span><span>${who||"Group card"}</span></div>
+        <div class="fact"><span>Character</span><span>${who||(cast?"Group card":c.fr==="kpdh"?"Scene card":"Group card")}</span></div>
+        ${cast?`<div class="fact"><span>On the card</span><span>${esc(cast)}</span></div>`:""}
+        ${style?`<div class="fact"><span>Card style</span><span>${style}</span></div>`:""}
         ${TRANSFORM[c.uid]?`<div class="fact"><span>Transformation</span><span>${TRANSFORM[c.uid]}</span></div>`:""}
         <div class="fact"><span>Rarity</span><span>${r.name} (${r.code})</span></div>
         <div class="fact"><span>Pull rate</span><span>${odds}</span></div>
@@ -1059,6 +1272,59 @@ function renderDetail(){
       ${more.length?`<div><div class="label" style="margin-bottom:8px">More ${who} cards · ${more.filter(x=>has(x.uid)).length}/${more.length} owned</div><div class="more">${more.map(x=>cardHTML(x,true)).join("")}</div></div>`:""}
     </div></div>`;
   el.hidden=false;
+}
+// ---------- KPop Demon Hunters: everything KAYOU makes, not just the card list ----------
+function kGuideHTML(){
+  const n=(set,ed)=>KCARDS.filter(c=>c.set===set&&(!ed||c.editions.includes(ed))).length;
+  const box=(o)=>`<article class="pbox"><div class="pb-h"><span class="code">${o.code}</span><span class="when">${o.when}</span></div>
+    <h3>${o.name}</h3><p class="pb-sub">${o.sub}</p>
+    <dl>${o.rows.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
+    ${o.note?`<p class="hint" style="margin:0">${o.note}</p>`:""}
+    <button class="ghost small-btn" data-ed="${o.ed}" data-guidego>Show these cards</button></article>`;
+  const promos=KCARDS.filter(c=>c.rar==="PR");
+  return `<details class="panel gpanel"><summary><span><span class="label">Products guide</span><b>Every KPop Demon Hunters product from KAYOU</b><span class="hint">Boxes, packs, pull rates, serial numbers, promos, and which cards come in which box.</span></span><span class="gchev" aria-hidden="true">▾</span></summary>
+  <div class="gbody">
+    <div class="pgrid">
+    ${box({code:"KPDH01",when:"June 2026",ed:"c1",name:"Classic Edition · Series 1",sub:`${n("KPDH01","c1")} cards · 8 rarities · the everyday set`,
+      rows:[["Pack","5 cards"],["Box","20 packs · 24 boxes per case"],["Every pack","2 R · 1 SR · 1 SSR, plus 1 HR, QR or UR (half the packs) or 1 SR, ZR or CR (the other half)"],
+        ["Only in Classic","R, ZR (Honmoon glow ink) and CR (World Tour cities)"],["Sold as","Booster packs, 20-pack boxes, 5- and 10-pack collector boxes"]]})}
+    ${box({code:"KPDH01",when:"June 2026",ed:"e1",name:"Energy Edition · Series 1",sub:`${n("KPDH01","e1")} cards · 11 rarities · the chase set`,
+      rows:[["Pack","8 cards"],["Box","12 packs · 16 boxes per case"],["Every pack","3 SR · 2 SSR · 1 HR or TR, plus 2 more from QR, SR, LR, UR, SP. In 4 of 12 packs the last slot can be SSR, LR, ◇CR, BP or SE"],
+        ["Serial numbered","SE Golden cards are numbered to 366 (birthday numbering for the movie's first anniversary). BP Spotlight cards are numbered to 999"],
+        ["Only in Energy","SE, BP, ◇CR, SP (HUNTR/X), LR (Saja Boys), TR, and the second half of the SSR, HR and QR lists"],
+        ["Sold as","Booster packs, 12-pack boxes, 5-pack collector boxes"],
+        ["Costco exclusive","Energy Edition Collector Boxes in HUNTR/X and Saja Boys versions: 10 packs, a Derpy & Sussie promo card and an acrylic display frame ($53.99)"]],
+      note:`Classic and Energy share one numbered set. ${KCARDS.filter(c=>c.set==="KPDH01"&&c.editions.length>1).length} cards come in both, so Series 1 has ${n("KPDH01")} different cards in all.`})}
+    ${box({code:"KPDHM01",when:"Sept 2026",ed:"m1",name:"Special Mini Edition · Series 1",sub:`${n("KPDHM01")} mini cards · 5 rarities · KAYOU's first mini set`,
+      rows:[["Card size","62 × 44 mm, about half a normal card"],["Pack","3 mini cards"],["Collector box","4 packs, 12 mini cards ($11.99)"],["Display","36 packs"],
+        ["Highlights","HR cards are lenticular and pre-holed so they hang as a charm"],["Promos","KPDHM01-PR-01 “Takedown” Rumi and PR-02 “How It's Done”"]]})}
+    ${box({code:"KPDH02",when:"Nov 2026",ed:"c2",name:"Classic Edition · Series 2",sub:`${n("KPDH02","c2")} cards · 8 rarities`,
+      rows:[["Pack","5 cards"],["Box","20 packs · 24 boxes per case"],["Every pack","2 R · 1 SR · 1 SSR, plus 1 QR or CR (half the packs) or 1 TR, UR or ZR (the other half)"],
+        ["New looks","Retro pixel art, holographic fashion, double-sided tarot cards and mini-CD cards. TR comes to Classic for the first time"],["Sold as","Booster packs, boxes, 10-pack collector boxes"]]})}
+    ${box({code:"KPDH02",when:"Nov 2026",ed:"e2",name:"Energy Edition · Series 2",sub:`${n("KPDH02","e2")} cards · 11 rarities`,
+      rows:[["Pack","8 cards"],["Box","12 packs · 16 boxes per case"],["Every pack","3 SR · 2 SSR · 1 HR or TR · 1 QR, plus 1 SSR, UR or SE (8 of 12 packs) or 1 QR, LR, SP, ◇CR or BP (4 of 12 packs)"],
+        ["Only in Energy","SE, BP, ◇CR, SP, LR, HR and a few extra SR and SSR cards"]],
+      note:`Series 2 is brand new. Card numbers here follow KAYOU's list order and will be checked once collectors confirm them.`})}
+    </div>
+    <div class="ppromo">
+      <h3>Promo cards <span class="hint">· ${promos.length} known · not in booster packs</span></h3>
+      <ul>${promos.map(c=>`<li><button class="plink" data-open="${c.uid}"><b>${c.num}</b> ${esc(c.name)}</button><span>${esc(c.how)}</span></li>`).join("")}</ul>
+      <p class="hint" style="margin:0">KAYOU also hands out convention-exclusive promos at its booths (MCM London, Anime Expo, San Diego Comic-Con, New York Comic Con). Know one that's missing? <a href="/contact" data-nav="/contact?topic=${encodeURIComponent("Suggestion")}">Tell me</a>.</p>
+    </div>
+    <div class="pstyle">
+      <h3>What each Series 1 rarity looks like</h3>
+      <div class="stylegrid">${["SE","BP","CRP","CR","ZR","SP","LR","UR","TR","HR","SSR","QR","SR","R"].map(k=>`<div><span class="rchip" style="background:${RINFO[k].color}">${RINFO[k].code}</span><span>${K_STYLE[k]}</span></div>`).join("")}</div>
+    </div>
+  </div></details>`;
+}
+function setFranchise(id){
+  const nf=FRANCH[id]||FRANCH.winx;
+  if(nf!==F){F=nf;rarF=null;charF=null;activeEd="all";query="";openId=null;view="all";
+    const q=$("#q");if(q)q.value="";document.querySelectorAll("[data-view]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.view==="all"))}
+  document.documentElement.dataset.brand=F.id;
+  $("#frLabel").textContent=F.name; $("#setsLabel").textContent=F.setsLabel; $("#searchHint").innerHTML=F.hint;
+  const g=$("#frGuide"); g.hidden=F.id!=="kpdh"; if(F.id==="kpdh"&&!g.dataset.done){g.innerHTML=kGuideHTML();g.dataset.done="1"}
+  render();
 }
 function render(){$("#sample").hidden=!isSample;syncControls();renderStats();renderSets();renderSide();renderCards();renderDetail()}
 function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,1800)}
@@ -1077,7 +1343,7 @@ document.addEventListener("click",e=>{
   const cc=e.target.closest("[data-char]"); if(cc){charF=charF===cc.dataset.char?null:cc.dataset.char;render();return}
   const cl=e.target.closest("[data-clear]"); if(cl){cl.dataset.clear==="rar"?rarF=null:charF=null;render();return}
   const cm=e.target.closest("[data-cmode]"); if(cm){cmode=cm.dataset.cmode;document.querySelectorAll("[data-cmode]").forEach(b=>b.setAttribute("aria-pressed",b===cm));render();return}
-  const st=e.target.closest("[data-ed]"); if(st){activeEd=st.dataset.ed;render();return}
+  const st=e.target.closest("[data-ed]"); if(st){activeEd=st.dataset.ed;render();if(st.hasAttribute("data-guidego"))$("#cards").scrollIntoView({behavior:"smooth",block:"start"});return}
   const v=e.target.closest("[data-view]"); if(v){view=v.dataset.view;document.querySelectorAll("[data-view]").forEach(b=>b.setAttribute("aria-pressed",b===v));render();return}
   if(e.target.closest("[data-soon]")){toast("Coming soon!");return}
   const sz=e.target.closest("[data-size]"); if(sz){size=sz.dataset.size;try{localStorage.setItem("fairybinder.size",size)}catch(err){}syncControls();return}
@@ -1093,9 +1359,9 @@ $("#fSort").addEventListener("change",e=>{sortBy=e.target.value;renderCards()});
 $("#q").addEventListener("input",e=>{query=e.target.value.trim().toLowerCase();renderCards()});
 $("#clear").addEventListener("click",()=>{counts={};isSample=false;save();render();toast("Cleared. Tap + Add to log a card.")});
 $("#copyNeed").addEventListener("click",async()=>{
-  const need=CARDS.filter(c=>inScope(c)&&!has(c.uid));
-  const lines=RORDER.map(k=>{const cs=need.filter(c=>c.rar===k);return cs.length?`${RINFO[k].code}: ${cs.map(c=>`${c.num.replace("WFD01-","")} ${label(c)}`).join(", ")}`:""}).filter(Boolean);
-  const text=`Looking for (Winx Club Fairy Diary${activeEd==="all"?"":", "+EDBY[activeEd].name}):\n`+lines.join("\n");
+  const need=F.cards.filter(c=>inScope(c)&&!has(c.uid));
+  const lines=RORDER.map(k=>{const cs=need.filter(c=>c.rar===k);return cs.length?`${RINFO[k].code}: ${cs.map(c=>`${shortNum(c)} ${label(c)}`).join(", ")}`:""}).filter(Boolean);
+  const text=`Looking for (${F.id==="winx"?"Winx Club Fairy Diary":F.name}${activeEd==="all"?"":", "+EDBY[activeEd].name}):\n`+lines.join("\n");
   try{await navigator.clipboard.writeText(text);toast(`Copied ${need.length} missing cards`)}catch(e){toast("Couldn't copy here. Try in a browser tab.")}
 });
 
@@ -1174,12 +1440,12 @@ function miniCard(c){return `<div class="card"><div class="face${imgKey(c)?" has
 
 
 let profTab="all", profOpen=false;
-function pcardHTML(c,miss){const k=imgKey(c);return `<button class="pcard${miss?" miss":""}" data-open="${c.uid}" aria-label="${esc(label(c))} ${c.num}${miss?", missing":""}">${k?`<img src="cards/${k}-s.webp" alt="" loading="lazy">`:`<span class="ph">${esc(label(c))}</span>`}${miss?`<span class="misslbl">Missing</span>`:""}<span class="cn">${c.num.replace("WFD01-","").replace("WFD02-","W2 ")}</span></button>`}
+function pcardHTML(c,miss){const k=imgKey(c);return `<button class="pcard${miss?" miss":""}" data-open="${c.uid}" aria-label="${esc(label(c))} ${c.num}${miss?", missing":""}">${k?`<img src="cards/${k}-s.webp" alt="" loading="lazy">`:`<span class="ph">${esc(label(c))}</span>`}${miss?`<span class="misslbl">Missing</span>`:""}<span class="cn">${shortNum(c)}</span></button>`}
 function profCollectionHTML(v){
   const p=v.prof, own=v.own, who=own?"You":esc(p.display_name||p.username);
   const byRar=(a,b)=>RORDER.indexOf(a.rar)-RORDER.indexOf(b.rar)||(+a.n)-(+b.n)||a.uid.localeCompare(b.uid);
-  const owned=CARDS.filter(c=>(v.counts[c.uid]||0)>0).sort(byRar);
-  const fav=p.fav_char?CARDS.filter(c=>c.appears.includes(p.fav_char)):[];
+  const owned=ALLCARDS.filter(c=>(v.counts[c.uid]||0)>0).sort(byRar);
+  const fav=p.fav_char?ALLCARDS.filter(c=>c.appears.includes(p.fav_char)):[];
   const favHave=fav.filter(c=>(v.counts[c.uid]||0)>0).length;
   if(profTab==="fav"&&!p.fav_char)profTab="all";
   const tabs=`<div class="tabs" role="tablist"><button role="tab" data-ptab="all" aria-selected="${profTab==="all"}">All cards · ${owned.length}</button>${p.fav_char?`<button role="tab" data-ptab="fav" aria-selected="${profTab==="fav"}">${esc(p.fav_char)} · ${favHave}</button>`:""}</div>`;
@@ -1540,7 +1806,7 @@ function renderPlay(){
     </div>
     <section class="panel">
       <div class="cands-h"><h2 style="font-family:var(--font-display);font-size:1.15rem;margin:0">Possible cards</h2><span class="hint">${cands.length} of ${CARDS.length} left · tap one to guess</span></div>
-      <div class="cands">${cands.map(c=>{const k=imgKey(c);return `<button class="cand" data-spc="${c.uid}" aria-pressed="${spSel===c.uid}" aria-label="${esc(label(c))} ${c.num}">${k?`<img src="cards/${k}-s.webp" alt="" loading="lazy">`:esc(label(c))}<span class="cn">${c.num.replace("WFD01-","").replace("WFD02-","W2 ")}</span></button>`}).join("")}</div>
+      <div class="cands">${cands.map(c=>{const k=imgKey(c);return `<button class="cand" data-spc="${c.uid}" aria-pressed="${spSel===c.uid}" aria-label="${esc(label(c))} ${c.num}">${k?`<img src="cards/${k}-s.webp" alt="" loading="lazy">`:esc(label(c))}<span class="cn">${shortNum(c)}</span></button>`}).join("")}</div>
     </section>
     ${sel?`<div class="guessbar"><span>Guess <b>${esc(label(sel))}</b> · ${sel.num}?</span><span class="qrow"><button class="ghost" data-spcancel>Cancel</button><button class="primary" data-spguess${spBusy?" disabled":""}>Guess this card</button></span></div>`:""}
     ${user?"":`<div class="banner"><span>Playing without an account. Sign in to save your Sparkles and keep a streak.</span><button class="primary" id="openSignin">Sign in</button></div>`}
@@ -1637,9 +1903,9 @@ about:()=>`<article class="doc">
   <p>I made My Pretty Pulls to share that joy: a place to show off the collections we love when we can't bring them with us, and to always know exactly what we still need while we're hunting for the newest set or that one rare card we're missing.</p>
   <p>I hope this site brings you as much joy as it brings me. Happy pulling! ✨</p>
   <h2>What's here now</h2>
-  <ul><li>The full Winx Club Fairy Diary set from KAYOU, including promos</li><li>Your collection, saved to your account so it's there on every device</li><li>Profiles you can share, with a showcase of your best cards</li><li>Guess the Secret Pull and Daily Trivia, where you can win ✨ Sparkles</li></ul>
+  <ul><li>The full Winx Club Fairy Diary set from KAYOU, including promos</li><li>Every KAYOU KPop Demon Hunters card: Classic and Energy Editions (Series 1 and 2), the Special Mini Edition and promos, plus a guide to the boxes and packs</li><li>Your collection, saved to your account so it's there on every device</li><li>Profiles you can share, with a showcase of your best cards</li><li>Guess the Secret Pull and Daily Trivia, where you can win ✨ Sparkles</li></ul>
   <h2>What's coming</h2>
-  <p>KPop Demon Hunters and My Little Pony are next, with more card collections to follow. Want a set added? <a href="/contact" data-nav="/contact">Tell me which one</a>.</p>
+  <p>My Little Pony is next, with more card collections to follow. Want a set added? <a href="/contact" data-nav="/contact">Tell me which one</a>.</p>
   <h2>Follow along</h2>
   <p>Pack openings, new sets and site updates: find us on <a href="https://www.tiktok.com/@myprettypulls" target="_blank" rel="noopener">TikTok</a>, <a href="https://www.instagram.com/myprettypulls/" target="_blank" rel="noopener">Instagram</a> and <a href="https://www.youtube.com/@MyPrettyPulls" target="_blank" rel="noopener">YouTube</a>, and come hang out in our <a href="https://discord.gg/X2d9BKh5d" target="_blank" rel="noopener">Discord</a>. Following earns you a badge and ✨ Sparkles too.</p>
   <h2>The fine print</h2>
@@ -1890,7 +2156,8 @@ async function route(){ arranging=false; profOpen=false; badgesOpen=false; if(!l
     myBadges=bd.data||[]; if(viewing&&viewing.own){viewing.game=g.data||null;viewing.badges=myBadges;renderProfile()}
     return;
   }
-  setView("collection"); document.title="My Pretty Pulls";
+  const fr=Object.values(FRANCH).find(x=>x.path===path)||FRANCH.winx;
+  setView("collection"); setFranchise(fr.id); document.title=fr.title;
 }
 function go(path){if(location.pathname!==path)history.pushState(null,"",path);route();window.scrollTo(0,0)}
 window.addEventListener("popstate",route);
@@ -2086,7 +2353,7 @@ const SB_KEY="sb_publishable_sQFiRWvRoJhRoXyi2kZo3g_DUkdEekr";
 const sb=window.supabase?window.supabase.createClient(SB_URL,SB_KEY):null;
 let user=null, saveState="", flushT=null, sessionChecked=false;
 const pending=new Map();
-function loadLocal(){try{const raw=localStorage.getItem(KEY);if(raw){const p=JSON.parse(raw);counts=p.counts||{};isSample=!!p.sample}else{counts=makeSample();isSample=true}}catch(e){counts=makeSample();isSample=true}}
+function loadLocal(){try{const raw=localStorage.getItem(KEY);if(raw){const p=JSON.parse(raw);counts=p.counts||{};isSample=!!p.sample}else{counts=makeSample();isSample=true}}catch(e){counts=makeSample();isSample=true}topUpSample()}
 function commit(uid){ if(user){pending.set(uid,counts[uid]||0);clearTimeout(flushT);flushT=setTimeout(flush,600);setSave("saving")} else save(); }
 function setSave(s){saveState=s;renderAcct()}
 async function flush(){
@@ -2146,7 +2413,7 @@ function renderMenu(){
   $("#menuPanel").innerHTML=`<nav aria-label="Main menu">
     <h3>Collections</h3>
     <a class="mi" href="/" data-nav="/"${cur("/")}><span class="ic">🧚</span>Winx Club<span class="tag on">Collecting</span></a>
-    <button class="mi soon" data-soon><span class="ic">🎤</span>KPop Demon Hunters<span class="tag">Soon</span></button>
+    <a class="mi" href="/kpop-demon-hunters" data-nav="/kpop-demon-hunters"${cur("/kpop-demon-hunters")}><span class="ic">🎤</span>KPop Demon Hunters<span class="tag on">Collecting</span></a>
     <button class="mi soon" data-soon><span class="ic">🦄</span>My Little Pony<span class="tag">Soon</span></button>
     <a class="mi more" href="/contact" data-nav="/contact?topic=${encodeURIComponent("Add a card collection")}"><span class="ic">✨</span><span>More coming soon. <b>Suggest one</b></span></a>
     <hr>
