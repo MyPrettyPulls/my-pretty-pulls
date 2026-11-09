@@ -19,3 +19,13 @@
   Product photos live in products/<id>.webp and are listed in PROD_IMGS. Real photos so far: energy-1, energy-2. The rest use drawn placeholders.
 - To do: confirm Series 2 card numbers once collectors list them (marked "not confirmed" for now); add card pictures (none yet, cards show colour placeholders);
   KPDH on profiles shows in the card grid, but profile stats and the games are still Winx only.
+
+## Standard for every collection page (Winx, KPDH, and every new IP)
+- Products guide: a closed-by-default panel "Every <IP> product from KAYOU". Opens to picture tiles in two groups,
+  Cards and Merchandise; each tile opens a details window (headings + bullet lists) with a link to the product's
+  KAYOU page and a source credit. Set it up with FRANCH.<id>.products (see W_PRODUCTS / K_PRODUCTS).
+- Merchandise is trackable per style (product "items"). Saved like cards, as <IP>-M|<product>|<n>.
+- Top counters: Everything collected, Cards, Merchandise, Extras to trade, Binder value.
+- Card lists: every collection block and every rarity has Hide/Show, plus Hide all / Show all.
+  Works in "Every card" and in a single edition. Remembered on the device.
+- Winx merch: none from KAYOU yet ("additional collectibles will follow"); add to W_PRODUCTS when it arrives.
