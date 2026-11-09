@@ -499,7 +499,12 @@ h1{font-family:var(--font-display);font-weight:800;font-size:clamp(2rem,5vw,3rem
 .setb .row{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
 .setb .code{font-family:var(--font-mono);font-size:.72rem;color:var(--muted)}
 .setb .pct{font-weight:800;font-size:.85rem;font-variant-numeric:tabular-nums}
-.setb .nm{font-weight:700;font-size:.92rem;line-height:1.25}
+.setb .nm{font-weight:700;font-size:.92rem;line-height:1.25;overflow:hidden}
+/* "Name · Series 1": the series drops below when it can't fit, and the dot hides at the start of a line */
+.setb .nmw{display:flex;flex-wrap:wrap;margin-left:-1em}
+.setb .np{margin-left:1em;position:relative}
+.setb .np+.np{white-space:nowrap}
+.setb .np+.np::before{content:"·";position:absolute;left:-1em;width:1em;text-align:center}
 .setb .ct{font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
 
 /* Main layout */
@@ -889,8 +894,8 @@ const TRANSFORM={"WFD01-R-001|daily+magic":"Everyday Clothes","WFD01-R-002|daily
 
 // ---------- Editions: the box types you can pull from (plus promos) ----------
 const EDITIONS=[
- {id:"daily",short:"D",code:"WX-KP-DL-001",name:"Daily Edition",pack:"5 cards per pack · 20 packs per box · Oct 2026"},
- {id:"magic",short:"M",code:"WX-KP-MG-001",name:"Magic Edition",pack:"8 cards per pack · 12 packs per box · Oct 2026"},
+ {id:"daily",short:"D",code:"WX-KP-DL-001",name:"Daily Edition · Series 1",pack:"5 cards per pack · 20 packs per box · Oct 2026"},
+ {id:"magic",short:"M",code:"WX-KP-MG-001",name:"Magic Edition · Series 1",pack:"8 cards per pack · 12 packs per box · Oct 2026"},
  {id:"promo",short:"PR",code:"PROMO",name:"Promo cards",pack:"Not found in booster packs"}
 ];
 const EDBY=Object.fromEntries(EDITIONS.map(e=>[e.id,e]));
@@ -1243,7 +1248,7 @@ function renderStats(){
 }
 
 function setTile(id,code,name,cs,sub){const h=cs.filter(c=>has(c.uid)).length,p=Math.round(h/cs.length*100);
-  return `<button class="setb" data-ed="${id}" aria-pressed="${activeEd===id}"><span class="row"><span class="code">${code}</span><span class="pct">${p===100?"✓ ":""}${p}%</span></span><span class="nm">${name}</span><span class="bar"><i style="width:${p}%"></i></span><span class="ct">${h} / ${cs.length}${sub?` · ${sub}`:""}</span></button>`}
+  return `<button class="setb" data-ed="${id}" aria-pressed="${activeEd===id}"><span class="row"><span class="code">${code}</span><span class="pct">${p===100?"✓ ":""}${p}%</span></span><span class="nm"><span class="nmw">${name.split(" · ").map(x=>`<span class="np">${x}</span>`).join("")}</span></span><span class="bar"><i style="width:${p}%"></i></span><span class="ct">${h} / ${cs.length}${sub?` · ${sub}`:""}</span></button>`}
 function renderSets(){
   $("#sets").innerHTML=setTile("all",F.allCode,"Every card",F.cards,"all box types")+
     F.editions.map(e=>{const cs=F.cards.filter(c=>c.editions.includes(e.id));
