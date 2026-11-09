@@ -48,3 +48,10 @@
 - "Your collection" grid gets a tab per collection when there's more than one, plus the favourite-character tab.
 - Favourite character, profile picture and showcase can come from any collection. Share image uses the combined numbers.
 - Still Winx-only: badges.
+
+## KPop Demon Hunters card pictures (Nov 2026)
+- Pictures come from KAYOU's set pages. tools/kpdh-kayou-pages.py lists every picture link in page order; tools/kpdh-image-map.json matches each to a card number.
+- Kinsey downloads them (save a page of all pictures as "Webpage, Complete", zip the _files folder); files keep KAYOU's names so they can be matched.
+- Converted to cards/<number>-s.webp (560px) and -l.webp (1260px max); ◇CR uses "crp" in the file name. Holo Rare GIFs stay animated (K_ANIM, no extra shine).
+- Done: 206 (Series 1 + most of the Mini Edition). Still to add: all of Series 2 and 5 Mini cards (LR-003, LR-008, SP-005, SP-006, CR-003). Promos have no pictures on KAYOU's pages.
+- Laser Tickets: real styles (8 Regular, 8 Special, 2 Secret Saja Boys, 2 Super Secret HUNTR/X) with pictures cut from KAYOU's page.
