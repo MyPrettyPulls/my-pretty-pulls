@@ -1524,11 +1524,11 @@ const K_PRODUCTS=[
    ["Good to know",["Brand new: card numbers follow KAYOU's list and aren't confirmed yet"]]]},
  {id:"costco",ed:"e1",kind:"costco",abbr:"CCB",name:"Costco Collector Box",series:"Energy Edition",when:"Fall 2026",code:"Costco only",col:["#ffd27a","#c43c5a"],url:"https://www.costco.com/p/-/kayou-k-pop-demon-hunters-huntrix-energy-edition-trading-cards-and-holder/4201032698",urlName:"Costco",
   gallery:[["costco-huntrx","HUNTR/X version"],["costco-saja","Saja Boys version"]],
-  items:[["HUNTR/X Costco frame",K6],["Saja Boys Costco frame",K_SAJA]],
+  items:[["HUNTR/X Collector Box",K6],["Saja Boys Collector Box",K_SAJA]],
   intro:"A Costco members-only Premium Collector Box (Energy Edition) in two versions: HUNTR/X and Saja Boys.",
   sections:[
    ["What's inside",["10 Energy Edition Series 1 packs (8 cards each, 80 cards)","1 promo card","1 three-layer Acrylic Card Photo Frame that matches the version"]],
-   ["Versions",["HUNTR/X version: comes with the HUNTR/X frame","Saja Boys version: comes with the Saja Boys frame","These frames only come in the Costco box, so they’re tracked here and not with the regular Acrylic Card Photo Frames"]],
+   ["Versions",["HUNTR/X version: comes with the HUNTR/X frame","Saja Boys version: comes with the Saja Boys frame","Track each version as its own box in your collection"]],
    ["Product specs",["Box: 15.75 × 3.58 × 9.84 in","Weight: 1.89 lb","The box front says “Premium Collector Box · Energy Edition · Pearl”"]],
    ["Buying",["$53.99 at Costco","Members only, up to 2 per membership every 24 hours"]]]},
  {id:"promos",ed:"promo",kind:"promo",name:"Promo cards",series:"Not in packs",when:"2026",code:"PR",col:["#ffe7a6","#c98a2a"],
@@ -1547,7 +1547,7 @@ const K_PRODUCTS=[
   sections:[["What it is",["Three-layer acrylic frame with chibi characters around the card","Holds one standard-size card","Each style is sold on its own (not a blind box)"]],
    ["Styles",["HUNTR/X","Saja Boys","Demons"]],
    ["Product specs",["Models KPDH-KZ-CJ-HUNTR/X, -SAJA BOYS and -DEMONS","Box: 4.61 × 6.14 × 0.98 in","Released September 2026"]],
-   ["Good to know",["The Costco Collector Boxes come with their own Costco-only frames. Track those under Costco Collector Box."]]]},
+   ["Good to know",["The Costco Collector Boxes come with their own Costco-only frames, so those aren’t counted here"]]]},
  {id:"wear-mini",group:"merch",kind:"merch",abbr:"WMH",icon:"📿",name:"Wearable Mini Card Holder",series:"Series 1",when:"Sept 2026",code:"Merchandise · mini cards",col:["#ffd0e6","#d9568f"],url:KAYOU_SERIES+"series-h95clggx",
   items:[["Demon Jinu",["Jinu"]],["Saja Boys",K_SAJA],["Zoey",["Zoey"]],["Jinu",["Jinu"]],["Rumi",["Rumi"]],["Mira",["Mira"]],["Derpy",["Derpy"],1]],
   intro:"A mini-card sleeve on a beaded chain you can wear or clip to a bag.",
@@ -1617,7 +1617,7 @@ function guideHTML(){
   const P=F.products||[];
   const tile=p=>{let sub;
     if(p.kind==="merch"){const its=merchOf(F.id,p.id),h=its.filter(m=>has(m.uid)).length;sub=`${p.series} · ${h} / ${its.length} owned`}
-    else if(p.kind==="costco"){const its=merchOf(F.id,p.id),h=its.filter(m=>has(m.uid)).length;sub=`${p.series} · ${p.when}<br>${h} / ${its.length} frames owned`}
+    else if(p.kind==="costco"){const its=merchOf(F.id,p.id),h=its.filter(m=>has(m.uid)).length;sub=`${p.series} · ${p.when}<br>${h} / ${its.length} boxes owned`}
     else if(p.cardsSoon)sub=`${p.series.replace("Mini Collectible Cards · ","")} · ${p.when}<br>Cards coming soon`;
     else{const cs=prodCards(p),h=cs.filter(c=>has(c.uid)).length;sub=`${p.series.replace("Fairy Diary · ","")} · ${p.when}<br>${h} / ${cs.length} cards`}
     return `<button class="ptile" data-prod="${p.id}">${prodArt(p)}<span class="pt-n">${p.name}</span><span class="pt-s">${sub}</span></button>`};
