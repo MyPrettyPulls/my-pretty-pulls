@@ -39,5 +39,5 @@
 - Day: pastel stage with colour-changing rainbow lines (richer colours, thin lines). No sparkles.
 - Every 30–90 s it fades into a dark sparkly night for 10–25 s (sparkles + shooting stars), then back. Lines keep changing colour.
 - At night in light mode, text sitting straight on the background turns light; panels, cards and buttons keep their colours.
-- Profile pages (/profile, /u/name) use this background too. Winx keeps its always-on sparkles.
+- Profile pages (/profile, /u/name) follow what the person collects: Winx only = Winx sparkles; KPop only = KPop day/night; both = KPop day/night with sparkles always on. Winx collection page keeps its always-on sparkles.
 - Reduced-motion users stay on day. Demon-marking experiments were dropped.

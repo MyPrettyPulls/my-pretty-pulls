@@ -105,7 +105,7 @@ html[data-brand="kpdh"] .bg-glitter{opacity:calc(var(--bg-g,.34) * .5)}
   linear-gradient(165deg,#120a2c,#1d0f3d 40%,#2a0f3a 70%,#0d1533)}
 html[data-scene="night"] .bg-night{opacity:1}
 html[data-brand="kpdh"] .bg-sparkles{opacity:0;transition:opacity 2.5s ease-in-out}
-html[data-brand="kpdh"][data-scene="night"] .bg-sparkles{opacity:1}
+html[data-brand="kpdh"][data-scene="night"] .bg-sparkles,html[data-sparkle="always"] .bg-sparkles{opacity:1}
 .bg-lines{transition:opacity 3s,filter 3s}
 html[data-brand="kpdh"][data-scene="night"] .bg-lines{opacity:1}
 /* daytime: richer line colours so they don't get lost in the pastel background */
@@ -1695,7 +1695,7 @@ function setFranchise(id){
   const nf=FRANCH[id]||FRANCH.winx;
   if(nf!==F){F=nf;rarF=null;charF=null;activeEd="all";query="";openId=null;prodOpen=null;view="all";
     const q=$("#q");if(q)q.value="";document.querySelectorAll("[data-view]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.view==="all"))}
-  document.documentElement.dataset.brand=F.id;
+  document.documentElement.dataset.brand=F.id; delete document.documentElement.dataset.sparkle;
   $("#frLabel").textContent=F.name; $("#setsLabel").textContent=F.setsLabel; $("#searchHint").innerHTML=F.hint;
   render();
 }
@@ -1908,6 +1908,14 @@ document.addEventListener("click",e=>{
   if(e.target.closest("[data-arrdone]")){saveShowcaseOrder();return}
   const m=e.target.closest("[data-scmv]"); if(m){const [i,d]=m.dataset.scmv.split(":").map(Number);moveShowcase(i,i+d);return}
 });
+// A profile's background follows what that person collects: Winx only → Winx sparkles,
+// KPop Demon Hunters only → the KPop day and night, both → the KPop day and night with the sparkles always on.
+function profileBackground(counts){
+  const H=document.documentElement, has={};
+  for(const u in counts){if(counts[u]>0&&BYUID[u])has[BYUID[u].fr]=true}
+  if(has.kpdh){H.dataset.brand="kpdh"; if(has.winx)H.dataset.sparkle="always"; else delete H.dataset.sparkle}
+  else{H.dataset.brand="winx"; delete H.dataset.sparkle}
+}
 function renderProfile(){
   const el=$("#viewProfile"); const v=viewing;
   if(!v){el.innerHTML="";return}
@@ -1915,6 +1923,7 @@ function renderProfile(){
   if(v.state==="missing"){el.innerHTML=`<div class="empty-state"><h1 style="font-size:2rem">Profile not found</h1><p>This profile doesn't exist, or it's private.</p><button class="primary" data-nav="/">Browse the cards</button></div>`;return}
   if(v.state==="signin"){el.innerHTML=`<div class="empty-state"><h1 style="font-size:2rem">Make your profile</h1><p>Sign in to pick a username, show off your favorite pulls and share your collection.</p><button class="primary" id="openSignin">Sign in</button></div>`;return}
   if(v.state==="setup"){el.innerHTML=`<div class="empty-state"><h1 style="font-size:2rem">Make your profile</h1><p>Pick a username and a profile card to get started.</p><button class="primary" data-edit>Create profile</button></div>`;return}
+  profileBackground(v.counts);
   const p=v.prof, st=statsFor(v.counts), own=v.own;
   const url=`${location.origin}/u/${p.username}`;
   const fav=p.fav_char?`<span class="chip-char"><span class="sw" style="background:${CHAR_COLOR(p.fav_char)}"></span>Favorite: ${esc(p.fav_char)}</span>`:"";
@@ -2003,7 +2012,7 @@ async function fetchCounts(uid){
   const cols=["#ffffff","#ffd6f0","#d6f3ff","#fff1c2","#e6d9ff"], n=innerWidth<700?16:30;
   const place=s=>{s.style.left=(Math.random()*100).toFixed(2)+"%";s.style.top=(Math.random()*100).toFixed(2)+"%";s.style.setProperty("--s",(6+Math.random()*11).toFixed(0)+"px");s.style.setProperty("--c",cols[Math.floor(Math.random()*cols.length)])};
   // now and then a shimmer streaks across, like a shooting star
-  const shoot=()=>{ const H=document.documentElement; if(!document.hidden&&(H.dataset.brand!=="kpdh"||H.dataset.scene==="night")){const s=document.createElement("span");s.className="bg-shoot";s.style.left=(5+Math.random()*80).toFixed(1)+"%";s.style.top=(3+Math.random()*80).toFixed(1)+"%";
+  const shoot=()=>{ const H=document.documentElement; if(!document.hidden&&(H.dataset.brand!=="kpdh"||H.dataset.scene==="night"||H.dataset.sparkle==="always")){const s=document.createElement("span");s.className="bg-shoot";s.style.left=(5+Math.random()*80).toFixed(1)+"%";s.style.top=(3+Math.random()*80).toFixed(1)+"%";
       s.style.setProperty("--a",(8+Math.random()*30).toFixed(0)+"deg");s.style.setProperty("--len",(90+Math.random()*130).toFixed(0)+"px");s.style.setProperty("--dist",(180+Math.random()*240).toFixed(0)+"px");
       s.style.setProperty("--t",(0.9+Math.random()*0.8).toFixed(2)+"s");s.style.setProperty("--c",cols[Math.floor(Math.random()*cols.length)]);
       s.addEventListener("animationend",()=>s.remove());box.appendChild(s)}
@@ -2545,7 +2554,7 @@ async function route(){ arranging=false; profOpen=false; badgesOpen=false; if(!l
   const path=location.pathname.replace(/\/+$/,"")||"/";
   const m=path.match(/^\/u\/([A-Za-z0-9_]{3,20})$/);
   if(m){
-    const name=m[1].toLowerCase(); setView("profile"); document.documentElement.dataset.brand="kpdh"; // profiles use the day-and-night background
+    const name=m[1].toLowerCase(); setView("profile");
     if(myProfile&&myProfile.username===name){viewing={state:"ok",prof:myProfile,counts,own:true,badges:myBadges||[]};renderProfile();document.title=`${myProfile.display_name||name} · My Pretty Pulls`;return}
     viewing={state:"loading"};renderProfile();
     if(!sb){viewing={state:"missing"};renderProfile();return}
@@ -2576,7 +2585,7 @@ async function route(){ arranging=false; profOpen=false; badgesOpen=false; if(!l
     sp=null; spSel=null; spMsg=""; renderPlay(); await spLoad(); renderPlay(); return;
   }
   if(path==="/profile"){
-    setView("profile"); document.documentElement.dataset.brand="kpdh"; document.title="Your profile · My Pretty Pulls";
+    setView("profile"); document.title="Your profile · My Pretty Pulls";
     if(!user){viewing={state:sessionChecked?"signin":"loading"};renderProfile();return}
     if(!myProfile){viewing={state:"setup"};renderProfile();openEdit();return}
     viewing={state:"ok",prof:myProfile,counts,own:true,badges:myBadges||[]};renderProfile();
