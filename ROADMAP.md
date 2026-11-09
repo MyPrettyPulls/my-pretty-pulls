@@ -34,3 +34,10 @@
 - Merchandise is tracked in the collection list (its own "Merchandise" block and tile), per style, like cards.
   Master list: Google Sheet "Kayou Merchandise List" (one tab per IP). Item IDs (last column) must match the site.
 - Trade list ("Make a trade list"): needs + extras (+ merch), follows filters and hidden sections, adds public profile link.
+
+## KPop Demon Hunters background (Nov 2026)
+- Day: pastel stage with colour-changing rainbow lines (richer colours, thin lines). No sparkles.
+- Every 30–90 s it fades into a dark sparkly night for 10–25 s (sparkles + shooting stars), then back. Lines keep changing colour.
+- At night in light mode, text sitting straight on the background turns light; panels, cards and buttons keep their colours.
+- Profile pages (/profile, /u/name) use this background too. Winx keeps its always-on sparkles.
+- Reduced-motion users stay on day. Demon-marking experiments were dropped.
