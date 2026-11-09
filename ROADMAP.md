@@ -55,3 +55,9 @@
 - Converted to cards/<number>-s.webp (560px) and -l.webp (1260px max); ◇CR uses "crp" in the file name. Holo Rare GIFs stay animated (K_ANIM, no extra shine).
 - Done: all 389 set cards (Series 1, Mini Edition, Series 2). Promos have no pictures on KAYOU's pages yet.
 - Laser Tickets: real styles (8 Regular, 8 Special, 2 Secret Saja Boys, 2 Super Secret HUNTR/X) with pictures cut from KAYOU's page.
+
+## KPop card effects (Nov 2026)
+- Series 1 Rare (KPDH01-R): holo on the round "story" pictures and LIVE badges; purple (HUNTR/X) frames also holo on the top/bottom bands; pink (Saja Boys) frames' bands are shine only. Masks: cards/<key>-m.webp (holo) and -m2.webp (pink shine), made by tools/kpdh-rare-masks.py.
+- QR (both series): whole card rainbow holo + sparkles.
+- A card effect's mask can now be a named file: ["shine","m2"] uses cards/<key>-m2.webp.
+- Still to describe: every other KPop rarity (Kinsey is going through them).
