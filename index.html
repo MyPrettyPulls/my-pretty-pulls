@@ -1366,7 +1366,7 @@ function renderCards(){
   if(!list.length&&!mlist.length){navList=[];$("#cards").innerHTML=`<p class="empty">Nothing matches. ${view==="need"?"You might have them all!":"Try another filter."}</p>`;return}
   // Merchandise: one block, a section per product
   const merchBlock=()=>{if(!mlist.length)return"";const key=`${F.id}|S|merch`, hid=HIDE.has(key); shownKeys.push(key);
-    const prods=(F.products||[]).filter(p=>mlist.some(m=>m.prod===p.id));
+    const prods=(F.products||[]).filter(p=>mlist.some(m=>m.prod===p.id)).sort((a,b)=>(a.group==="merch"?0:1)-(b.group==="merch"?0:1));
     const secs=prods.map(p=>{const ms=mlist.filter(m=>m.prod===p.id), k=`${F.id}|M|${p.id}`, h=HIDE.has(k); shownKeys.push(k);
       return `<section class="rsec${h?" folded":""}"><div class="section-h"><h2>${p.name}</h2><span>${p.series} · ${ms.filter(m=>has(m.uid)).length}/${ms.length}</span>${hideBtn(k,h,p.name)}</div>${h?"":`<div class="grid">${ms.map(merchHTML).join("")}</div>`}</section>`}).join("");
     return `<div class="sblock${hid?" folded":""}"><div class="set-h"><span class="code">MERCH</span><h2>Merchandise</h2><span class="sh-r"><span class="sown">${mlist.filter(m=>has(m.uid)).length}/${mlist.length} owned</span>${hideBtn(key,hid,"Merchandise")}</span><span class="ct">Albums, holders and display pieces · tap a picture for the product details</span></div>${hid?"":secs}</div>`};
@@ -1451,7 +1451,7 @@ const PROD_IMGS=new Set(["daily-1","magic-1","winx-mini-1","classic-1","energy-1
  "costco","acrylic-holder","photo-frame","wear-mini","embroidered-holder","laser-ticket","lenticular-album","mini-album","plush-album","plush-holder"]);
 // Pictures of individual merch styles: products/<product id>-<style number>.webp
 const STYLE_IMGS=new Set([...["acrylic-holder","wear-mini","embroidered-holder","plush-holder"].flatMap(p=>[1,2,3,4,5,6,7].map(n=>`${p}-${n}`)),
- "photo-frame-1","photo-frame-2","photo-frame-3","mini-album-1","mini-album-2","lenticular-album-1","plush-album-1"]);
+ "photo-frame-1","photo-frame-2","photo-frame-3","mini-album-1","mini-album-2","lenticular-album-1","plush-album-1","costco-1","costco-2"]);
 const KAYOU_SERIES="https://www.kayouofficial.com/en-US/series/";
 const KAYOU_STORE="https://shop.kayouofficial.com/";
 const styles=(n,secret=1,word="Style")=>[...Array(n)].map((_,i)=>`${word} ${i+1}`).concat(secret>1?[...Array(secret)].map((_,i)=>`Secret style ${i+1}`):secret?["Secret style"]:[]);
@@ -1522,12 +1522,13 @@ const K_PRODUCTS=[
    ["Box and case",["12 packs per box","16 boxes per case"]],
    ["Only in Energy",["Scenario-E (SE)","Brush Rare (BP)","◇CR","Special Picture (SP)","Legacy Rare (LR)","Holo Rare (HR)","A few extra SR and SSR cards"]],
    ["Good to know",["Brand new: card numbers follow KAYOU's list and aren't confirmed yet"]]]},
- {id:"costco",ed:"e1",kind:"costco",name:"Costco Collector Box",series:"Energy Edition",when:"Fall 2026",code:"Costco only",col:["#ffd27a","#c43c5a"],url:"https://www.costco.com/p/-/kayou-k-pop-demon-hunters-huntrix-energy-edition-trading-cards-and-holder/4201032698",urlName:"Costco",
+ {id:"costco",ed:"e1",kind:"costco",abbr:"CCB",name:"Costco Collector Box",series:"Energy Edition",when:"Fall 2026",code:"Costco only",col:["#ffd27a","#c43c5a"],url:"https://www.costco.com/p/-/kayou-k-pop-demon-hunters-huntrix-energy-edition-trading-cards-and-holder/4201032698",urlName:"Costco",
   gallery:[["costco-huntrx","HUNTR/X version"],["costco-saja","Saja Boys version"]],
+  items:[["HUNTR/X Costco frame",K6],["Saja Boys Costco frame",K_SAJA]],
   intro:"A Costco members-only Premium Collector Box (Energy Edition) in two versions: HUNTR/X and Saja Boys.",
   sections:[
    ["What's inside",["10 Energy Edition Series 1 packs (8 cards each, 80 cards)","1 promo card","1 three-layer Acrylic Card Photo Frame that matches the version"]],
-   ["Versions",["HUNTR/X version: comes with the HUNTR/X frame","Saja Boys version: comes with the Saja Boys frame"]],
+   ["Versions",["HUNTR/X version: comes with the HUNTR/X frame","Saja Boys version: comes with the Saja Boys frame","These frames only come in the Costco box, so they’re tracked here and not with the regular Acrylic Card Photo Frames"]],
    ["Product specs",["Box: 15.75 × 3.58 × 9.84 in","Weight: 1.89 lb","The box front says “Premium Collector Box · Energy Edition · Pearl”"]],
    ["Buying",["$53.99 at Costco","Members only, up to 2 per membership every 24 hours"]]]},
  {id:"promos",ed:"promo",kind:"promo",name:"Promo cards",series:"Not in packs",when:"2026",code:"PR",col:["#ffe7a6","#c98a2a"],
@@ -1546,7 +1547,7 @@ const K_PRODUCTS=[
   sections:[["What it is",["Three-layer acrylic frame with chibi characters around the card","Holds one standard-size card","Each style is sold on its own (not a blind box)"]],
    ["Styles",["HUNTR/X","Saja Boys","Demons"]],
    ["Product specs",["Models KPDH-KZ-CJ-HUNTR/X, -SAJA BOYS and -DEMONS","Box: 4.61 × 6.14 × 0.98 in","Released September 2026"]],
-   ["Good to know",["The HUNTR/X and Saja Boys frames also come in the Costco Collector Boxes"]]]},
+   ["Good to know",["The Costco Collector Boxes come with their own Costco-only frames. Track those under Costco Collector Box."]]]},
  {id:"wear-mini",group:"merch",kind:"merch",abbr:"WMH",icon:"📿",name:"Wearable Mini Card Holder",series:"Series 1",when:"Sept 2026",code:"Merchandise · mini cards",col:["#ffd0e6","#d9568f"],url:KAYOU_SERIES+"series-h95clggx",
   items:[["Demon Jinu",["Jinu"]],["Saja Boys",K_SAJA],["Zoey",["Zoey"]],["Jinu",["Jinu"]],["Rumi",["Rumi"]],["Mira",["Mira"]],["Derpy",["Derpy"],1]],
   intro:"A mini-card sleeve on a beaded chain you can wear or clip to a bag.",
@@ -1616,7 +1617,7 @@ function guideHTML(){
   const P=F.products||[];
   const tile=p=>{let sub;
     if(p.kind==="merch"){const its=merchOf(F.id,p.id),h=its.filter(m=>has(m.uid)).length;sub=`${p.series} · ${h} / ${its.length} owned`}
-    else if(p.kind==="costco")sub=`${p.series} · ${p.when}`;
+    else if(p.kind==="costco"){const its=merchOf(F.id,p.id),h=its.filter(m=>has(m.uid)).length;sub=`${p.series} · ${p.when}<br>${h} / ${its.length} frames owned`}
     else if(p.cardsSoon)sub=`${p.series.replace("Mini Collectible Cards · ","")} · ${p.when}<br>Cards coming soon`;
     else{const cs=prodCards(p),h=cs.filter(c=>has(c.uid)).length;sub=`${p.series.replace("Fairy Diary · ","")} · ${p.when}<br>${h} / ${cs.length} cards`}
     return `<button class="ptile" data-prod="${p.id}">${prodArt(p)}<span class="pt-n">${p.name}</span><span class="pt-s">${sub}</span></button>`};
@@ -1643,8 +1644,8 @@ function renderProd(){
   const sec=p.sections.map(([h,items])=>`<section class="psec"><h3>${h}</h3><ul>${items.map(t=>`<li>${esc(t.replace("%SHARED%",shared))}</li>`).join("")}</ul></section>`).join("");
   const promoList=p.kind==="promo"?`<section class="psec wide"><h3>Every promo card</h3><ul class="plist">${cs.map(c=>`<li><button class="plink" data-open="${c.uid}"><b>${c.num}</b> ${esc(label(c))}</button><span>${esc(promoHow(c))}</span></li>`).join("")}</ul>
     <p class="hint">KAYOU also hands out convention promos at its booths. Know one that's missing? <a href="/contact" data-nav="/contact?topic=${encodeURIComponent("Suggestion")}">Tell me</a>.</p></section>`:"";
-  const its=merch?merchOf(F.id,p.id):[];
-  const track=merch?`<section class="psec wide"><h3>Your collection <span class="hint">· ${its.filter(m=>has(m.uid)).length} / ${its.length} styles</span></h3><ul class="mtrack${its.some(m=>m.img)?" pics":""}">${its.map(m=>`<li class="${has(m.uid)?"got":""}">${m.img?`<img src="products/${m.img}.webp" alt="" loading="lazy">`:""}<span>${esc(m.name)}</span>${stepHTML(m)}</li>`).join("")}</ul></section>`:"";
+  const its=merchOf(F.id,p.id);
+  const track=its.length?`<section class="psec wide"><h3>Your collection <span class="hint">· ${its.filter(m=>has(m.uid)).length} / ${its.length} ${merch?"styles":"items"}</span></h3><ul class="mtrack${its.some(m=>m.img)?" pics":""}">${its.map(m=>`<li class="${has(m.uid)?"got":""}">${m.img?`<img src="products/${m.img}.webp" alt="" loading="lazy">`:""}<span>${esc(m.name)}</span>${stepHTML(m)}</li>`).join("")}</ul></section>`:"";
   const owned=cs.filter(c=>has(c.uid)).length;
   el.innerHTML=`<div class="psheet" role="dialog" aria-modal="true" aria-labelledby="pTitle">
     <button class="close" id="pClose" aria-label="Close">✕</button>
