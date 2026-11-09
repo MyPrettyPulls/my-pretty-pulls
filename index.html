@@ -42,6 +42,11 @@
   --accent:#ec6a9c; --accent-ink:#1b161e; --accent-soft:#3b2232; --gold:#e0b44c; --good:#5cc08b;
   --scrim:rgb(0 0 0 / .65); --empty-card:#2f2734; --shadow:0 1px 2px rgb(0 0 0 / .4); color-scheme:dark}
 *{box-sizing:border-box}
+.frstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 14px}
+.frstats>div{background:var(--sunk);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.frstats .label{font-size:.68rem}.frstats b{font-family:var(--font-display);font-size:1.35rem}.frstats b small{font-size:.8rem;color:var(--muted);font-weight:600}
+.frstats .bar{height:5px;border-radius:9px;background:var(--line);overflow:hidden;margin-top:4px}.frstats .bar i{display:block;height:100%;background:var(--accent)}
+@media (max-width:640px){.frstats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 html{color-scheme:light}
 body{margin:0}
 [hidden]{display:none!important}
@@ -1794,7 +1799,7 @@ const notOk=t=>{const s=(t||"").toLowerCase().replace(/[013457@$!|]/g,ch=>({"0":
   const joined=s.replace(/[^a-z]/g,""); if(BLOCK_ANY.some(w=>joined.includes(w)))return true;
   return s.split(/[^a-z]+/).some(w=>BLOCK_WORD.has(w))};
 const ls={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
-const CHAR_COLOR=n=>(HUE[n]||["#c2366f"])[0];
+const CHAR_COLOR=n=>(HUE[n]||K_HUE[n]||["#c2366f"])[0];
 
 // Birthday pickers: neutral, no default answer
 function fillDob(mSel,ySel){
@@ -1840,11 +1845,23 @@ document.addEventListener("click",e=>{
 });
 fillDob($("#dobM"),$("#dobY"));
 
+// Profile numbers, per collection (Winx Club, KPop Demon Hunters, …) and all together
+function frStats(cnt,fid){
+  const F2=FRANCH[fid], cards=F2.cards, merch=merchOf(fid), got=x=>(cnt[x.uid]||0)>0;
+  const own=cards.filter(got), mOwn=merch.filter(got);
+  const eds=F2.editions.filter(e=>e.id!=="promo"||cards.some(c=>c.editions.includes("promo"))).map(e=>{const cs=cards.filter(c=>c.editions.includes(e.id));const hv=cs.filter(got).length;return{e,have:hv,total:cs.length,done:cs.length>0&&hv===cs.length}});
+  const copies=[...own,...mOwn].reduce((a,c)=>a+cnt[c.uid],0);
+  return{fid,f:F2,cards:{have:own.length,total:cards.length},merch:{have:mOwn.length,total:merch.length},
+    unique:own.length+mOwn.length,possible:cards.length+merch.length,total:copies,extras:copies-own.length-mOwn.length,
+    pct:Math.round((own.length+mOwn.length)/Math.max(1,cards.length+merch.length)*100),
+    eds,done:eds.filter(x=>x.done&&x.e.id!=="promo").length,boxes:eds.filter(x=>x.e.id!=="promo").length,started:own.length+mOwn.length>0};
+}
+// The collections someone has started (at least one card or merch item). Nothing yet → Winx Club, like before.
 function statsFor(cnt){
-  const own=CARDS.filter(c=>(cnt[c.uid]||0)>0);
-  const eds=EDITIONS.map(e=>{const cs=CARDS.filter(c=>c.editions.includes(e.id));const hv=cs.filter(c=>(cnt[c.uid]||0)>0).length;return{e,have:hv,total:cs.length,done:hv===cs.length}});
-  return{unique:own.length,total:own.reduce((a,c)=>a+cnt[c.uid],0),extras:own.reduce((a,c)=>a+cnt[c.uid]-1,0),
-    pct:Math.round(own.length/CARDS.length*100),eds,done:eds.filter(x=>x.done&&x.e.id!=="promo").length,boxes:eds.filter(x=>x.e.id!=="promo").length};
+  const all=Object.keys(FRANCH).map(id=>frStats(cnt,id)), list=all.filter(x=>x.started);
+  if(!list.length)list.push(all[0]);
+  const sum=k=>list.reduce((a,x)=>a+x[k],0), unique=sum("unique"), possible=sum("possible");
+  return{list,multi:list.length>1,unique,possible,total:sum("total"),extras:sum("extras"),pct:Math.round(unique/Math.max(1,possible)*100),done:sum("done"),boxes:sum("boxes")};
 }
 function avatarHTML(prof,cls=""){
   const c=prof&&prof.avatar_card&&BYUID[prof.avatar_card], k=c&&imgKey(c);
@@ -1865,8 +1882,10 @@ function profCollectionHTML(v){
   const fav=p.fav_char?ALLCARDS.filter(c=>c.appears.includes(p.fav_char)):[];
   const favHave=fav.filter(c=>(v.counts[c.uid]||0)>0).length;
   if(profTab==="fav"&&!p.fav_char)profTab="all";
-  const tabs=`<div class="tabs" role="tablist"><button role="tab" data-ptab="all" aria-selected="${profTab==="all"}">All cards · ${owned.length}</button>${p.fav_char?`<button role="tab" data-ptab="fav" aria-selected="${profTab==="fav"}">${esc(p.fav_char)} · ${favHave}</button>`:""}</div>`;
-  const list=profTab==="fav"?owned.filter(c=>c.appears.includes(p.fav_char)):owned;
+  const frs=Object.values(FRANCH).filter(f=>owned.some(c=>c.fr===f.id));
+  if(profTab.startsWith("fr:")&&!frs.some(f=>"fr:"+f.id===profTab))profTab="all";
+  const tabs=`<div class="tabs" role="tablist"><button role="tab" data-ptab="all" aria-selected="${profTab==="all"}">All cards · ${owned.length}</button>${frs.length>1?frs.map(f=>`<button role="tab" data-ptab="fr:${f.id}" aria-selected="${profTab==="fr:"+f.id}">${esc(f.name)} · ${owned.filter(c=>c.fr===f.id).length}</button>`).join(""):""}${p.fav_char?`<button role="tab" data-ptab="fav" aria-selected="${profTab==="fav"}">${esc(p.fav_char)} · ${favHave}</button>`:""}</div>`;
+  const list=profTab==="fav"?owned.filter(c=>c.appears.includes(p.fav_char)):profTab.startsWith("fr:")?owned.filter(c=>"fr:"+c.fr===profTab):owned;
   const PREVIEW=12, shown=profOpen?list:list.slice(0,PREVIEW);
   let grid;
   if(!list.length)grid=profTab==="fav"?`<p class="hint">${own?"You don't":"They don't"} have any ${esc(p.fav_char)} cards yet.</p>`:`<p class="hint">${own?"You haven't added any cards yet.":"No cards added yet."}</p>`;
@@ -1916,6 +1935,19 @@ function profileBackground(counts){
   if(has.kpdh){H.dataset.brand="kpdh"; if(has.winx)H.dataset.sparkle="always"; else delete H.dataset.sparkle}
   else{H.dataset.brand="winx"; delete H.dataset.sparkle}
 }
+function profFrHTML(x,own){
+  const m=x.merch.total?`${x.merch.have}<small> / ${x.merch.total}</small>`:`<span style="font-size:1rem">Coming soon</span>`;
+  return `<section class="panel frpanel">
+    <div class="panel-h"><h2>${esc(x.f.name)}</h2><span class="qrow"><span class="hint">${x.done} of ${x.boxes} editions complete</span>${own?`<button class="ghost" data-nav="${x.f.path}">Open collection</button>`:""}</span></div>
+    <div class="frstats">
+      <div><span class="label">Everything</span><b>${x.unique}<small> / ${x.possible}</small></b><span class="bar"><i style="width:${x.pct}%"></i></span></div>
+      <div><span class="label">Cards</span><b>${x.cards.have}<small> / ${x.cards.total}</small></b></div>
+      <div><span class="label">Merchandise</span><b>${m}</b></div>
+      <div><span class="label">Extras</span><b>${x.extras}</b></div>
+    </div>
+    <div class="edtiles">${x.eds.map(y=>`<div class="edtile${y.done?" done":""}"><div class="row"><span class="code" style="font-family:var(--font-mono);font-size:.72rem;color:var(--muted)">${y.e.code}</span>${y.done?`<span class="donebadge">Complete</span>`:""}</div><b>${y.e.name}</b><span class="big">${y.have}<small> / ${y.total}</small></span><span class="bar"><i style="width:${y.total?Math.round(y.have/y.total*100):0}%;${y.done?"background:var(--gold)":""}"></i></span></div>`).join("")}</div>
+  </section>`;
+}
 function renderProfile(){
   const el=$("#viewProfile"); const v=viewing;
   if(!v){el.innerHTML="";return}
@@ -1929,7 +1961,7 @@ function renderProfile(){
   const url=`${location.origin}/u/${p.username}`;
   const fav=p.fav_char?`<span class="chip-char"><span class="sw" style="background:${CHAR_COLOR(p.fav_char)}"></span>Favorite: ${esc(p.fav_char)}</span>`:"";
   const show=(p.showcase||[]).map(u=>BYUID[u]).filter(c=>c&&(v.counts[c.uid]||0)>0);
-  const favCards=p.fav_char?CARDS.filter(c=>c.appears.includes(p.fav_char)):[];
+  const favCards=p.fav_char?ALLCARDS.filter(c=>c.appears.includes(p.fav_char)):[];
   const favHave=favCards.filter(c=>(v.counts[c.uid]||0)>0).length;
   el.innerHTML=`<section class="prof">
     ${own&&!p.is_public?`<div class="banner"><span><b>Your profile is private.</b> Only you can see it. Make it public to share your link.</span><button class="primary" data-public="1">Make public</button></div>`:""}
@@ -1951,9 +1983,9 @@ function renderProfile(){
       </div>
     </div>
     <section class="stats" aria-label="Collection summary">
-      <div class="stat lead"><span class="label">Collection</span><span class="v">${st.unique}<small> / ${CARDS.length}</small></span><span class="bar"><i style="width:${st.pct}%"></i></span><span class="s">${st.pct}% complete</span></div>
-      <div class="stat"><span class="label">Total cards</span><span class="v">${st.total}</span><span class="s">Including duplicates</span></div>
-      <div class="stat"><span class="label">Editions completed</span><span class="v">${st.done}<small> / ${st.boxes}</small></span><span class="s">Daily and Magic</span></div>
+      <div class="stat lead"><span class="label">${st.multi?"Total collection":esc(st.list[0].f.name)}</span><span class="v">${st.unique}<small> / ${st.possible}</small></span><span class="bar"><i style="width:${st.pct}%"></i></span><span class="s">${st.multi?`${st.pct}% of everything across ${st.list.length} collections`:`${st.pct}% complete`}</span></div>
+      <div class="stat"><span class="label">Total items</span><span class="v">${st.total}</span><span class="s">Cards and merch, including duplicates</span></div>
+      <div class="stat"><span class="label">Editions completed</span><span class="v">${st.done}<small> / ${st.boxes}</small></span><span class="s">${st.multi?"Across all collections":st.list[0].eds.filter(x=>x.e.id!=="promo").map(x=>x.e.short).join(" · ")}</span></div>
       <div class="stat"><span class="label">Extras to trade</span><span class="v">${st.extras}</span><span class="s">Copies beyond the first</span></div>
       <div class="stat spark"><span class="label">Sparkles</span><span class="v">✨ ${v.game?v.game.total||0:0}</span><span class="s">💫 ${v.game?v.game.shimmer||0:0} Shimmer · ${v.game?v.game.streak||0:0} day streak</span>${own?STORE_BTN:""}</div>
     </section>
@@ -1971,15 +2003,12 @@ function renderProfile(){
     </div>
     ${profBadgesHTML(v)}
     ${profCollectionHTML(v)}
-    <section class="panel">
-      <div class="panel-h"><h2>Set progress</h2><span class="hint">${st.done} of ${st.boxes} editions complete</span></div>
-      <div class="edtiles">${st.eds.map(x=>`<div class="edtile${x.done?" done":""}"><div class="row"><span class="code" style="font-family:var(--font-mono);font-size:.72rem;color:var(--muted)">${x.e.code}</span>${x.done?`<span class="donebadge">Complete</span>`:""}</div><b>${x.e.name}</b><span class="big">${x.have}<small> / ${x.total}</small></span><span class="bar"><i style="width:${Math.round(x.have/x.total*100)}%;${x.done?"background:var(--gold)":""}"></i></span></div>`).join("")}</div>
-    </section>
+    ${st.list.map(x=>profFrHTML(x,own)).join("")}
     <section class="panel teaser">
       <div><h2>Guess the Secret Pull</h2><p class="hint" style="margin:4px 0 0">${v.game?`${v.game.solved||0} Secret Pulls solved · ${v.game.trivia_perfect||0} perfect trivia days · ✨ ${v.game.total||0} Sparkles · 💫 ${v.game.shimmer||0} Shimmer · ${v.game.streak||0} day streak`:"One hidden card a day, 8 questions to find it."}</p></div>
       <span class="qrow">${own?`<button class="primary" data-nav="/play">Play today's card</button>`:""}<button class="ghost" data-nav="/leaderboard">Leaderboard</button></span>
     </section>
-    ${!own&&!user?`<div class="banner"><span>Track your own Winx cards and make a profile like this one.</span><button class="primary" data-nav="/">Start your collection</button></div>`:""}
+    ${!own&&!user?`<div class="banner"><span>Track your own Winx Club and KPop Demon Hunters collections and make a profile like this one.</span><button class="primary" data-nav="/">Start your collection</button></div>`:""}
     ${own?accountPanelHTML():`<p style="text-align:center;margin:0"><button class="report-link" data-nav="/contact?topic=${encodeURIComponent("Report a profile")}&about=${encodeURIComponent(p.username)}">Report this profile</button></p>`}
   </section>`;
 }
@@ -2607,9 +2636,9 @@ function openEdit(){
   if(!user)return;
   const p=myProfile||{};
   const ap=avPos(p); draft={avatar:p.avatar_card||null,showcase:[...(p.showcase||[])],unameOk:!!p.username,x:ap.x,y:ap.y,z:ap.z};
-  const owned=CARDS.filter(c=>has(c.uid)>0&&imgKey(c));
+  const owned=ALLCARDS.filter(c=>has(c.uid)>0&&imgKey(c));
   const needAge=!myProfile&&ls.get(AGE_OK)!=="1";
-  const chars=GROUPS.map(g=>`<optgroup label="${g.name}">${g.chars.map(n=>`<option${p.fav_char===n?" selected":""}>${n}</option>`).join("")}</optgroup>`).join("");
+  const chars=Object.values(FRANCH).flatMap(f=>f.groups.map(g=>`<optgroup label="${f.name} · ${g.label||g.name}">${g.chars.map(n=>`<option${p.fav_char===n?" selected":""}>${n}</option>`).join("")}</optgroup>`)).join("");
   $("#editProf").innerHTML=`<div class="sheet form-sheet" role="dialog" aria-modal="true" aria-labelledby="epTitle">
     <button class="close" data-closeedit aria-label="Close">✕</button>
     <form class="form" id="epForm" novalidate>
@@ -2735,7 +2764,7 @@ async function shareImage(){
   g.fillStyle="#f3c6dc"; g.font=`600 30px ${body}`; g.fillText(`myprettypulls.com/u/${p.username}`,300,215);
   if(p.fav_char){g.fillStyle="#ffffffcc";g.font=`700 28px ${body}`;g.fillText(`Favorite: ${p.fav_char}`,300,258)}
   // stats
-  const boxes=[[`${st.unique}/${CARDS.length}`,"Collected"],[`${st.pct}%`,"Complete"],[`${st.done}/${st.boxes}`,"Editions done"],[`${st.extras}`,"Extras to trade"]];
+  const boxes=[[`${st.unique}/${st.possible}`,"Collected"],[`${st.pct}%`,"Complete"],[`${st.done}/${st.boxes}`,"Editions done"],[`${st.extras}`,"Extras to trade"]];
   boxes.forEach(([n,l],i)=>{const x=60+i*245,y=320;g.fillStyle="#ffffff18";g.beginPath();g.roundRect(x,y,225,130,22);g.fill();
     g.fillStyle="#fff";g.font=`800 48px ${disp}`;g.fillText(n,x+22,y+68);g.fillStyle="#f3c6dc";g.font=`700 24px ${body}`;g.fillText(l,x+22,y+106)});
   // showcase

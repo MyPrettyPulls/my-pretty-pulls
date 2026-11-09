@@ -41,3 +41,10 @@
 - At night in light mode, text sitting straight on the background turns light; panels, cards and buttons keep their colours.
 - Profile pages (/profile, /u/name) follow what the person collects: Winx only = Winx sparkles; KPop only = KPop day/night; both = KPop day/night with sparkles always on. Winx collection page keeps its always-on sparkles.
 - Reduced-motion users stay on day. Demon-marking experiments were dropped.
+
+## Profiles with more than one collection (Nov 2026)
+- Top counters: "Total collection" across every collection the person has started (cards + merch), total items, editions completed, extras. With only one collection the first counter is named after it.
+- One panel per started collection (Everything / Cards / Merchandise / Extras + edition tiles + "Open collection"). Collections they haven't started stay hidden. New IPs show up automatically once added to FRANCH.
+- "Your collection" grid gets a tab per collection when there's more than one, plus the favourite-character tab.
+- Favourite character, profile picture and showcase can come from any collection. Share image uses the combined numbers.
+- Still Winx-only: badges.
