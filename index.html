@@ -1449,6 +1449,7 @@ const PROD_IMGS=new Set(["daily-1","magic-1","winx-mini-1","classic-1","energy-1
 const STYLE_IMGS=new Set([...["acrylic-holder","wear-mini","embroidered-holder","plush-holder"].flatMap(p=>[1,2,3,4,5,6,7].map(n=>`${p}-${n}`)),
  "photo-frame-1","photo-frame-2","photo-frame-3","mini-album-1","mini-album-2","lenticular-album-1","plush-album-1"]);
 const KAYOU_SERIES="https://www.kayouofficial.com/en-US/series/";
+const KAYOU_STORE="https://shop.kayouofficial.com/";
 const styles=(n,secret=1,word="Style")=>[...Array(n)].map((_,i)=>`${word} ${i+1}`).concat(secret>1?[...Array(secret)].map((_,i)=>`Secret style ${i+1}`):secret?["Secret style"]:[]);
 const W_PRODUCTS=[
  {id:"daily-1",ed:"daily",kind:"box",brand:"Winx Club",name:"Daily Edition",series:"Fairy Diary · Series 1",when:"Oct 2026",code:"WFD01",col:["#ffd6ea","#e0679f"],url:KAYOU_SERIES+"series-mgbg0z6k",
@@ -1620,7 +1621,7 @@ function guideHTML(){
       <h3 class="pgh">Cards</h3><div class="ptiles">${cardsP.map(tile).join("")}</div>
       <h3 class="pgh">Merchandise <span>· albums, holders and display pieces${mi.length?` · ${mh} / ${mi.length} styles owned`:""}</span></h3>
       ${merchP.length?`<div class="ptiles">${merchP.map(tile).join("")}</div>`:`<p class="hint" style="margin:0">${F.merchSoon||"No merchandise yet."}</p>`}
-      <p class="credit">Product details come from <a href="${F.kayou}" target="_blank" rel="noopener">KAYOU's official website</a>, plus a few shops and collector reviews. Tap a product for its own KAYOU page.</p>
+      <p class="credit">Product details come from <a href="${F.kayou}" target="_blank" rel="noopener">KAYOU's official website</a>, plus a few shops and collector reviews. Tap a product for its own KAYOU page. Shop KAYOU products at the <a href="${KAYOU_STORE}" target="_blank" rel="noopener">KAYOU US Official Store</a>.</p>
     </div></details>`;
 }
 function renderGuide(){const g=$("#frGuide"); if(!g)return; g.hidden=!(F.products&&F.products.length); if(!g.hidden)g.innerHTML=guideHTML()}
@@ -1644,9 +1645,10 @@ function renderProd(){
     <div class="ps-head">${prodArt(p,true)}<div class="ps-txt"><span class="label">${p.code} · ${p.when}</span><h2 id="pTitle">${p.name} <span>${p.series}</span></h2><p>${p.intro}</p>
       ${p.kind==="costco"||merch||p.cardsSoon?"":`<p class="ps-own"><b>${owned} / ${cs.length}</b> cards collected</p>`}
       <div class="qrow">${merch||p.cardsSoon?"":`<button class="primary" data-prodcards="${p.ed}">${p.kind==="costco"?"Show Energy Edition cards":"Show these cards"}</button>`}
-      <a class="ghost small-btn" href="${p.url||F.kayou}" target="_blank" rel="noopener">${p.url?`See it on ${p.urlName||"KAYOU's site"}`:"KAYOU's website"} ↗</a></div></div></div>
+      <a class="ghost small-btn" href="${p.url||F.kayou}" target="_blank" rel="noopener">${p.url?`See it on ${p.urlName||"KAYOU's site"}`:"KAYOU's website"} ↗</a>
+      ${p.url&&p.url.startsWith(KAYOU_STORE)?"":`<a class="ghost small-btn" href="${KAYOU_STORE}" target="_blank" rel="noopener">KAYOU US Official Store ↗</a>`}</div></div></div>
     <div class="ps-body">${track}${sec}${rars?`<section class="psec"><h3>Rarities</h3><ul class="rlist">${rars}</ul></section>`:""}${promoList}</div>
-    <p class="credit">Source: ${p.url?`<a href="${p.url}" target="_blank" rel="noopener">${p.urlName||"KAYOU"} product page</a>`:`<a href="${F.kayou}" target="_blank" rel="noopener">KAYOU</a>`}, shops and collector reviews.</p>
+    <p class="credit">Source: ${p.url?`<a href="${p.url}" target="_blank" rel="noopener">${p.urlName||"KAYOU"} product page</a>`:`<a href="${F.kayou}" target="_blank" rel="noopener">KAYOU</a>`}, shops and collector reviews. Buy it at the <a href="${KAYOU_STORE}" target="_blank" rel="noopener">KAYOU US Official Store</a>.</p>
   </div>`;
   el.hidden=false;
 }
