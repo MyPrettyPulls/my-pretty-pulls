@@ -65,4 +65,8 @@
   ZR holo on background lines (-m) + demon markings (-m2, ZR-006/008); CR shifting silver shine over the whole card.
 - Energy Edition Series 1: QR, SR, SSR, UR, ◇CR, HR same as Classic. New (tools/kpdh-e1-masks.py): SE raised gold shine on frame/lettering (-m) + sparkle in the glow behind the girls (-m2);
   BP shiny shimmer all over; SP rich, saturated colourful foil (shine kept low) on every colour except black/white and dark flat purples (-m); LR sparkly patterned black background (-m) + holo silver details (-m2) + shiny red chains (-m3); TR plain shine.
-- Still to describe: Special Mini Edition, Series 2. Until then those cards get a plain shine.
+- Series 2 (Classic + Energy), masks by tools/kpdh-s2-masks.py: SE silver version of GOLDEN (chrome frame -m, sparkle in blue glow -m2); BP silver holo + shine + tiny holo glitter;
+  ◇CR holo + fine coloured shine; SP vivid colours + holo (-m); LR holo letters (-m) + sparkles; UR holo/silver on letters, background lines and silver (-m); QR/TR same as Series 1;
+  SSR vivid + soft bright foil; SR holo lines + fine sparkles; R holo on the black/silver clapperboard only (-m); ZR fine shimmer + holo silver HUNTR/X lettering (-m); CR fine shimmer + very fine glitter.
+  HR (Series 2) not described yet.
+- Still to describe: Special Mini Edition. Until then those cards get a plain shine.

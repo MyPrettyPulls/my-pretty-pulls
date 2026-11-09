@@ -647,6 +647,7 @@ input[type=search]{border:1px solid var(--line);background:var(--surface);color:
 .fx-glitter-holo{background-image:url(fx/glitter-gray.webp),repeating-linear-gradient(110deg,#ff5f9e 0%,#ffb35c 7%,#fff27a 14%,#7dffb0 21%,#6fd7ff 28%,#9a8cff 35%,#ff5f9e 42%);background-size:150px 150px,400% 400%;background-position:calc(var(--mx) * .2) calc(var(--my) * .2),var(--mx) var(--my);background-blend-mode:multiply;mix-blend-mode:color-dodge;animation:twinkle 1.6s ease-in-out infinite alternate;--fxo:.9;--fxi:.4}
 .fx-foil-bright{background:repeating-linear-gradient(105deg,#3a3a3a 0%,#ffffff 6%,#7a7a7a 12%,#f0f0f0 18%,#3a3a3a 24%) var(--mx) var(--my)/280% 280%,radial-gradient(circle at var(--mx) var(--my),#fff,transparent 45%);mix-blend-mode:color-dodge;--fxo:.75;--fxi:.35}
 .fx-vivid{-webkit-backdrop-filter:saturate(1.75) contrast(1.06);backdrop-filter:saturate(1.75) contrast(1.06);--fxo:1;--fxi:1}
+.fx-glitter-fine{background-image:url(fx/glitter-gray.webp),repeating-linear-gradient(110deg,#ff5f9e 0%,#ffb35c 7%,#fff27a 14%,#7dffb0 21%,#6fd7ff 28%,#9a8cff 35%,#ff5f9e 42%);background-size:70px 70px,400% 400%;background-position:calc(var(--mx) * .2) calc(var(--my) * .2),var(--mx) var(--my);background-blend-mode:multiply;mix-blend-mode:color-dodge;animation:twinkle 1.4s ease-in-out infinite alternate;--fxo:.7;--fxi:.3}
 .fx-pastel{background:linear-gradient(120deg,#ffc6e5,#c9e8ff,#e4d1ff,#fff1c4,#ffc6e5) var(--mx) var(--my)/300% 300%;mix-blend-mode:soft-light;--fxo:.85}
 .fx-rainbow,.fx-holo,.fx-holo-dark{background:repeating-linear-gradient(110deg,#ff5f9e 0%,#ffb35c 7%,#fff27a 14%,#7dffb0 21%,#6fd7ff 28%,#9a8cff 35%,#ff5f9e 42%) var(--mx) var(--my)/420% 420%,radial-gradient(circle at var(--mx) var(--my),rgb(255 255 255 / .35),transparent 40%);mix-blend-mode:color-dodge}
 .fx-rainbow{--fxo:.45;--fxi:.16}
@@ -1272,6 +1273,22 @@ function fxFor(c){
       case "SP": return [["vivid","m"],["foil-bright","m",.45],["shine","m",.6]];  // rich colourful foil on every colour, not black or white
       case "LR": return [["glitter-dark","m"],["stars","m",.6],["iris","m2"],["holo","m2"],["shine","m2"],["silver","m3"],["shine","m3"]]; // sparkly black background, holo details, shiny chains
       // TR: plain shine (Kinsey: fine as it is)
+    }
+    // Series 2 finishes, Classic and Energy Edition (Kinsey's descriptions)
+    if(c.set==="KPDH02")switch(c.rar){
+      case "SE": return [["silver","m"],["shine","m"],["glitter-cc","m2"],["stars","m2",.7]];   // like GOLDEN, in silver
+      case "BP": return [["silver",0],["holo",0],["shine",0],["glitter-fine",0]];               // silver-outlined holo, shiny lines, tiny holo glitter
+      case "CRP":return [["holo",0],["finesheen",0],["shine",0]];                               // shiny holo lettering, fine coloured shine
+      case "SP": return [["vivid","m"],["holo","m"],["shine","m",.6]];                          // colours shiny with holo reflection
+      case "LR": return [["holo","m"],["silver","m"],["shine","m"],["glitter-cc",0,.6]];        // holo letters, sparkle in the card's colours
+      case "UR": return [["holo","m"],["silver","m"],["shine","m"]];                            // shiny letters and background lines, silver areas holo
+      case "QR": return [["silver",0],["shine",0],["glitter-holo",0]];                          // same as Series 1
+      case "SSR":return [["vivid",0],["foil-bright",0,.5],["shine",0]];                         // super shiny in the card's colours
+      case "SR": return [["holo",0],["shine",0],["glitter-fine",0,.7]];                         // shiny holographic lines, fine sparkles
+      case "R":  return [["holo-strong","m"],["silver","m"],["shine","m"]];                     // holo on the black and silver frame, not the movie scene
+      case "ZR": return [["finesheen",0],["holo","m"],["silver","m"],["shine","m"]];            // holo silver lettering, fine shimmer
+      case "CR": return [["finesheen",0],["glitter-fine",0,.6]];                                // fine shimmer, very fine glitter
+      // TR: plain shine, same as Series 1. HR: not described yet
     }
     return [["shine",0,["R","SR"].includes(c.rar)?.6:1]]}
   const k=imgKey(c)||"", daily=c.editions.includes("daily"), magic=c.editions.includes("magic");
