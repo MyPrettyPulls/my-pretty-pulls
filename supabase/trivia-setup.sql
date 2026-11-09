@@ -37,7 +37,7 @@ create or replace function public.tr_build(d date, i int) returns json
 language plpgsql stable security definer set search_path = public as $$
 declare n int := d - date '2026-11-05'; seed text := (select seed from game_config); pool text[]; qn trivia_questions;
   c game_cards; kind text; opts text[]; ans text; prompt text; fact text; diff text; k int; h1 int; h2 int; extra json;
-  hs int := ('x' || substr(md5(seed || d::text || 'slots'), 1, 6))::bit(24)::int; w1 int; w2 int;
+  hs int := ('x' || substr(md5(seed || d::text || 'slots'), 1, 6))::bit(24)::int; w1 int; w2 int; j int;
 begin
   if i not between 0 and 4 then raise exception 'Bad question'; end if;
   -- which 2 of the 5 spots are written questions today
@@ -50,18 +50,26 @@ begin
     prompt := qn.question; ans := qn.answer; fact := qn.fact; diff := qn.difficulty; kind := 'q';
     opts := array_append(qn.wrong, qn.answer);
   else
+    -- which card question this is today (0, 1 or 2)
+    j := (select count(*) from generate_series(0, i - 1) x where x not in (w1, w2));
+    -- the 3 card questions each get a different kind: shuffle the 6 kinds for the day and take the first 3
+    kind := (select kk from unnest(array['rar','char','box','zoom','odd','trans']) kk
+              order by md5(kk || seed || d::text || 'kinds') offset j limit 1);
+    -- then pick a card that suits that kind (who's-on-it needs a solo card; transformations need a transformed Winx fairy)
     select g.* into c from game_cards g
       where exists (select 1 from game_mosaics m where m.uid = g.uid) and g.uid <> sp_card_for(d)
-      order by md5(g.uid || seed || d::text || 'tc')
-      offset ((select count(*) from generate_series(0, i - 1) x where x not in (w1, w2))) limit 1;
+        and (kind <> 'char' or (g.main is not null and cardinality(g.appears) = 1))
+        and (kind <> 'trans' or (g.transformation is not null and g.transformation not like 'No transformation%'
+             and g.appears && array['Bloom','Stella','Flora','Musa','Tecna','Aisha']))
+      order by md5(g.uid || seed || d::text || 'tc' || j::text) limit 1;
+    -- just in case nothing fits (should not happen), fall back to a box question on any card
+    if c.uid is null then
+      kind := 'box';
+      select g.* into c from game_cards g where exists (select 1 from game_mosaics m where m.uid = g.uid) and g.uid <> sp_card_for(d)
+        order by md5(g.uid || seed || d::text || 'tc' || j::text) limit 1;
+    end if;
     h1 := ('x' || substr(md5(c.uid || seed || d::text || 'h1'), 1, 6))::bit(24)::int;
     h2 := ('x' || substr(md5(c.uid || seed || d::text || 'h2'), 1, 6))::bit(24)::int;
-    k := ('x' || substr(md5(c.uid || seed || d::text || 'kind'), 1, 6))::bit(24)::int % 6;
-    kind := (array['rar','char','box','zoom','odd','trans'])[k + 1];
-    -- only ask about transformations on cards where a Winx fairy is transformed (not everyday clothes, pets, witches or Specialists)
-    if kind = 'trans' and (c.transformation is null or c.transformation like 'No transformation%'
-        or not c.appears && array['Bloom','Stella','Flora','Musa','Tecna','Aisha']) then kind := 'box'; end if;
-    if kind = 'char' and not (c.main is not null and cardinality(c.appears) = 1) then kind := 'rar'; end if;
     diff := 'Card'; fact := c.num;
     if kind = 'rar' then
       prompt := 'What rarity is this card?'; ans := c.rar;
