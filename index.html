@@ -1256,15 +1256,20 @@ const TINT={"wfd01-ur-001": "#f2883c", "wfd01-ur-002": "#f2e33c", "wfd01-ur-003"
 // Each entry: [finish, only in the card's highlighted areas?]
 function fxFor(c){
   if(c.fr==="kpdh"){const k=imgKey(c); if(K_ANIM.has(k))return [];
-    // Classic Edition Series 1 finishes (Kinsey's descriptions). Masks: -m, -m2, -m3 picture files per card.
-    if(c.set==="KPDH01"&&c.editions.includes("c1"))switch(c.rar){
+    // Series 1 finishes, Classic and Energy Edition (Kinsey's descriptions). Masks: -m, -m2, -m3 picture files per card.
+    if(c.set==="KPDH01"&&(c.editions.includes("c1")||c.editions.includes("e1")))switch(c.rar){
       case "R":  if(REGION.has(k))return K_R_PINK.has(k)?[["holo","m"],["shine","m2"]]:[["holo","m"],["shine","m"]]; break;
       case "QR": return [["silver",0],["shine",0],["glitter-holo",0]];           // foil in the card's own colours, holographic glitter
       case "SR": return [["silver","m"],["shine","m"],["silverfoil","m2"],["shine","m2"],["edge","m3"]]; // pop-outs shiny, top-right square silver, black edges shiny
       case "SSR":return [["finesheen","m"],["holo","m"]];                         // fine holo shimmer on the character's ticket
       case "UR": return [["shatter",0,.7],["gold","m2"],["silverfoil","m3"],["iris","m3"],["shine","m3"]]; // shattered background, gold name, silver+holo outlines
       case "ZR": return K_MARK.has(k)?[["holo-strong","m"],["shine","m"],["holo-strong","m2"],["glitter-violet","m2"]]:[["holo-strong","m"],["shine","m"]];
-      case "CR": return [["silver",0],["shine",0]];                               // shifting shine over the character and background
+      case "CR": case "CRP": return [["silver",0],["shine",0]];                   // shifting shine over the character and background
+      case "SE": return [["gold","m"],["shine","m"],["glitter-cc","m2"],["stars","m2",.7]]; // raised gold shine, sparkle in the colour of the glow behind
+      case "BP": return [["silver",0],["finesheen",0],["shine",0]];               // shiny shimmer all over, in the card's own colours
+      case "SP": return [["glitter-strong","m"],["glitter-cc","m"],["shine","m"]]; // super glittery on every colour, not black or white
+      case "LR": return [["glitter-dark","m"],["stars","m",.6],["iris","m2"],["holo","m2"],["shine","m2"]]; // sparkly black background, holo details
+      // TR: plain shine (Kinsey: fine as it is)
     }
     return [["shine",0,["R","SR"].includes(c.rar)?.6:1]]}
   const k=imgKey(c)||"", daily=c.editions.includes("daily"), magic=c.editions.includes("magic");
