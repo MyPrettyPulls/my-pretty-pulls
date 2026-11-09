@@ -64,5 +64,5 @@
   SSR fine holo shimmer over the whole card; HR as is (animated); UR shattered background, gold signature (-m2), silver+holo white outlines (-m3);
   ZR holo on background lines (-m) + demon markings (-m2, ZR-006/008); CR shifting silver shine over the whole card.
 - Energy Edition Series 1: QR, SR, SSR, UR, ◇CR, HR same as Classic. New (tools/kpdh-e1-masks.py): SE raised gold shine on frame/lettering (-m) + sparkle in the glow behind the girls (-m2);
-  BP shiny shimmer all over; SP super bright colourful foil on every colour except black/white and dark flat purples (-m); LR sparkly patterned black background (-m) + holo silver details (-m2) + shiny red chains (-m3); TR plain shine.
+  BP shiny shimmer all over; SP rich, saturated colourful foil (shine kept low) on every colour except black/white and dark flat purples (-m); LR sparkly patterned black background (-m) + holo silver details (-m2) + shiny red chains (-m3); TR plain shine.
 - Still to describe: Special Mini Edition, Series 2. Until then those cards get a plain shine.
