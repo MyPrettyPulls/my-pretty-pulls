@@ -640,6 +640,11 @@ input[type=search]{border:1px solid var(--line);background:var(--surface);color:
 /* clear acetate window: faint glass tint, a soft edge, and reflections gliding across */
 .fx-glass{background:linear-gradient(105deg,transparent 38%,rgb(255 255 255 / .75) 46%,rgb(255 255 255 / .15) 50%,transparent 56%) var(--mx) 50%/300% 300% no-repeat,linear-gradient(105deg,transparent 58%,rgb(255 255 255 / .4) 61%,transparent 64%) calc(var(--mx) * .7) 50%/300% 300% no-repeat,linear-gradient(160deg,rgb(214 232 245 / .55),rgb(240 246 252 / .35) 45%,rgb(205 222 238 / .5));mix-blend-mode:normal;--fxo:1;--fxi:1}
 .fx-glitter-strong{background-image:radial-gradient(circle at var(--mx) var(--my),#fff,#d0d0d0 45%,#8a8a8a 90%),url(fx/glitter-gray.webp),url(fx/glitter-gray.webp);background-size:auto,140px 140px,95px 95px;background-position:0 0,calc(var(--mx) * .2) calc(var(--my) * .2),calc(var(--mx) * -.15 + 40px) calc(var(--my) * -.15 + 20px);background-blend-mode:multiply;mix-blend-mode:color-dodge;animation:twinkle 1.4s ease-in-out infinite alternate;--fxo:1;--fxi:.75}
+/* KPop finishes: silver foil and holo that show on white, a shine for black edges, and holographic glitter */
+.fx-silverfoil{background:repeating-linear-gradient(100deg,#aab0bc 0%,#ffffff 7%,#8f96a3 14%,#eef1f6 21%,#aab0bc 28%) var(--mx) var(--my)/300% 300%;mix-blend-mode:multiply;--fxo:.85;--fxi:.45}
+.fx-iris{background:repeating-linear-gradient(110deg,#ffc2dc 0%,#ffe2b0 7%,#fff7b5 14%,#c4f7d6 21%,#bfe6ff 28%,#d8ccff 35%,#ffc2dc 42%) var(--mx) var(--my)/360% 360%;mix-blend-mode:multiply;--fxo:.8;--fxi:.35}
+.fx-edge{background:linear-gradient(115deg,transparent 35%,rgb(255 255 255 / .55) 48%,rgb(200 220 255 / .2) 55%,transparent 66%) var(--mx) 50%/300% 300% no-repeat;mix-blend-mode:screen;--fxo:.9;--fxi:.25}
+.fx-glitter-holo{background-image:url(fx/glitter-gray.webp),repeating-linear-gradient(110deg,#ff5f9e 0%,#ffb35c 7%,#fff27a 14%,#7dffb0 21%,#6fd7ff 28%,#9a8cff 35%,#ff5f9e 42%);background-size:150px 150px,400% 400%;background-position:calc(var(--mx) * .2) calc(var(--my) * .2),var(--mx) var(--my);background-blend-mode:multiply;mix-blend-mode:color-dodge;animation:twinkle 1.6s ease-in-out infinite alternate;--fxo:.9;--fxi:.4}
 .fx-pastel{background:linear-gradient(120deg,#ffc6e5,#c9e8ff,#e4d1ff,#fff1c4,#ffc6e5) var(--mx) var(--my)/300% 300%;mix-blend-mode:soft-light;--fxo:.85}
 .fx-rainbow,.fx-holo,.fx-holo-dark{background:repeating-linear-gradient(110deg,#ff5f9e 0%,#ffb35c 7%,#fff27a 14%,#7dffb0 21%,#6fd7ff 28%,#9a8cff 35%,#ff5f9e 42%) var(--mx) var(--my)/420% 420%,radial-gradient(circle at var(--mx) var(--my),rgb(255 255 255 / .35),transparent 40%);mix-blend-mode:color-dodge}
 .fx-rainbow{--fxo:.45;--fxi:.16}
@@ -1237,6 +1242,7 @@ K_IMGS.forEach(k=>IMGS.add(k));
 ["kpdh01-hr-001", "kpdh01-hr-002", "kpdh01-hr-003", "kpdh01-hr-004", "kpdh01-hr-005", "kpdh01-hr-006", "kpdh01-hr-007", "kpdh01-hr-008", "kpdh01-hr-009", "kpdh01-hr-010", "kpdh01-hr-011", "kpdh01-hr-012", "kpdh01-hr-013", "kpdh01-hr-014", "kpdh01-hr-015", "kpdh01-hr-016", "kpdh01-hr-017", "kpdh01-hr-018", "kpdh01-hr-019", "kpdh01-hr-020", "kpdh01-hr-021", "kpdh01-hr-022", "kpdh01-hr-023", "kpdh01-hr-024", "kpdh01-lr-006", "kpdh01-se-004", "kpdh01-zr-001", "kpdh01-zr-002", "kpdh01-zr-003", "kpdh01-zr-004", "kpdh01-zr-005", "kpdh01-zr-006", "kpdh01-zr-007", "kpdh01-zr-008", "kpdh02-hr-001", "kpdh02-hr-002", "kpdh02-hr-003", "kpdh02-hr-004", "kpdh02-hr-005", "kpdh02-hr-006", "kpdh02-hr-007", "kpdh02-hr-008", "kpdh02-hr-009", "kpdh02-hr-010", "kpdh02-hr-011", "kpdh02-hr-012", "kpdh02-hr-013", "kpdh02-hr-014", "kpdh02-hr-015", "kpdh02-hr-016", "kpdh02-hr-017", "kpdh02-hr-018", "kpdh02-hr-019", "kpdh02-hr-020", "kpdh02-hr-021", "kpdh02-hr-022", "kpdh02-hr-023", "kpdh02-hr-024", "kpdh02-qr-001", "kpdh02-qr-002", "kpdh02-qr-003", "kpdh02-qr-004", "kpdh02-qr-005", "kpdh02-qr-006", "kpdh02-qr-007", "kpdh02-qr-008", "kpdh02-qr-009", "kpdh02-qr-010", "kpdh02-qr-011", "kpdh02-qr-012", "kpdh02-qr-013", "kpdh02-qr-014", "kpdh02-qr-015", "kpdh02-qr-016", "kpdh02-qr-017", "kpdh02-qr-018", "kpdh02-qr-019", "kpdh02-r-001", "kpdh02-r-002", "kpdh02-r-003", "kpdh02-r-004", "kpdh02-r-005", "kpdh02-r-006", "kpdh02-r-007", "kpdh02-r-008", "kpdh02-r-009", "kpdh02-r-010", "kpdh02-r-011", "kpdh02-r-012", "kpdh02-r-013", "kpdh02-r-014", "kpdh02-r-015", "kpdh02-r-016", "kpdh02-r-017", "kpdh02-r-018", "kpdh02-r-019", "kpdh02-r-020", "kpdh02-r-021", "kpdh02-r-022", "kpdh02-r-023", "kpdh02-r-024", "kpdh02-ssr-015", "kpdh02-ssr-016", "kpdhm01-ssr-001", "kpdhm01-ssr-002", "kpdhm01-ssr-003", "kpdhm01-ssr-004", "kpdhm01-ssr-005", "kpdhm01-ssr-006", "kpdhm01-ssr-007", "kpdhm01-ssr-008", "kpdhm01-ssr-009", "kpdhm01-ssr-010", "kpdhm01-ssr-011", "kpdhm01-ssr-012", "kpdhm01-ssr-013", "kpdhm01-ssr-014", "kpdhm01-ssr-015"].forEach(k=>LAND.add(k));
 // Series 1 Rare: which cards have the pink (Saja Boys) frame; the others are purple (HUNTR/X)
 const K_R_PINK=new Set(["kpdh01-r-003", "kpdh01-r-004", "kpdh01-r-013", "kpdh01-r-015", "kpdh01-r-020", "kpdh01-r-021"]);
+const K_MARK=new Set(["kpdh01-zr-006","kpdh01-zr-008"]); // ZR cards with demon markings
 const K_ANIM=new Set(["kpdh01-hr-001", "kpdh01-hr-002", "kpdh01-hr-003", "kpdh01-hr-004", "kpdh01-hr-005", "kpdh01-hr-006", "kpdh01-hr-007", "kpdh01-hr-008", "kpdh01-hr-009", "kpdh01-hr-010", "kpdh01-hr-011", "kpdh01-hr-012", "kpdh01-hr-013", "kpdh01-hr-014", "kpdh01-hr-015", "kpdh01-hr-016", "kpdh01-hr-017", "kpdh01-hr-018", "kpdh01-hr-019", "kpdh01-hr-020", "kpdh01-hr-021", "kpdh01-hr-022", "kpdh01-hr-023", "kpdh01-hr-024", "kpdhm01-hr-001", "kpdhm01-hr-002", "kpdhm01-hr-003", "kpdhm01-hr-004", "kpdhm01-hr-005", "kpdhm01-hr-006", "kpdhm01-hr-007", "kpdhm01-hr-008", "kpdhm01-hr-009"]);
 // Finish for each rarity (one or two layers)
 const FX={R:["shine"],QR:["pixel"],SR:["shine","stars"],SRP:["shine","glitter-pink"],FR:["rainbow"],HR:["holo"],TR:["lightbar"],
@@ -1250,10 +1256,16 @@ const TINT={"wfd01-ur-001": "#f2883c", "wfd01-ur-002": "#f2e33c", "wfd01-ur-003"
 // Each entry: [finish, only in the card's highlighted areas?]
 function fxFor(c){
   if(c.fr==="kpdh"){const k=imgKey(c); if(K_ANIM.has(k))return [];
-    // Series 1 Rare: holo on the round story pictures (and the purple bands); pink bands are just shiny
-    if(c.set==="KPDH01"&&c.rar==="R"&&REGION.has(k))return K_R_PINK.has(k)?[["holo",1],["shine","m2"]]:[["holo",1],["shine",1]];
-    // QR: the whole card is foil with rainbow holo sparkles
-    if(c.rar==="QR")return [["rainbow",0],["glitter-cc",0],["stars",0,.7]];
+    // Classic Edition Series 1 finishes (Kinsey's descriptions). Masks: -m, -m2, -m3 picture files per card.
+    if(c.set==="KPDH01"&&c.editions.includes("c1"))switch(c.rar){
+      case "R":  if(REGION.has(k))return K_R_PINK.has(k)?[["holo","m"],["shine","m2"]]:[["holo","m"],["shine","m"]]; break;
+      case "QR": return [["silver",0],["shine",0],["glitter-holo",0]];           // foil in the card's own colours, holographic glitter
+      case "SR": return [["silver","m"],["shine","m"],["silverfoil","m2"],["shine","m2"],["edge","m3"]]; // pop-outs shiny, top-right square silver, black edges shiny
+      case "SSR":return [["finesheen","m"],["holo","m"]];                         // fine holo shimmer on the character's ticket
+      case "UR": return [["shatter",0,.7],["gold","m2"],["silverfoil","m3"],["iris","m3"],["shine","m3"]]; // shattered background, gold name, silver+holo outlines
+      case "ZR": return K_MARK.has(k)?[["holo-strong","m"],["shine","m"],["holo-strong","m2"],["glitter-violet","m2"]]:[["holo-strong","m"],["shine","m"]];
+      case "CR": return [["silver",0],["shine",0]];                               // shifting shine over the character and background
+    }
     return [["shine",0,["R","SR"].includes(c.rar)?.6:1]]}
   const k=imgKey(c)||"", daily=c.editions.includes("daily"), magic=c.editions.includes("magic");
   if(c.num.startsWith("WFD02-PR")||c.num==="WFD01-PRX-001")return [["finesheen",0],["sheen",0]];

@@ -58,6 +58,9 @@
 
 ## KPop card effects (Nov 2026)
 - Series 1 Rare (KPDH01-R): holo on the round "story" pictures and LIVE badges; purple (HUNTR/X) frames also holo on the top/bottom bands; pink (Saja Boys) frames' bands are shine only. Masks: cards/<key>-m.webp (holo) and -m2.webp (pink shine), made by tools/kpdh-rare-masks.py.
-- QR (both series): whole card rainbow holo + sparkles.
 - A card effect's mask can now be a named file: ["shine","m2"] uses cards/<key>-m2.webp.
-- Still to describe: every other KPop rarity (Kinsey is going through them).
+- Classic Edition Series 1 (only cards in C1; Kinsey does each collection separately), masks made by tools/kpdh-c1-masks.py:
+  QR foil in the card's colours + holographic glitter; SR shiny pop-outs (-m), silver foil top-right square (-m2), shiny black edges (-m3);
+  SSR fine holo shimmer on the character's ticket (-m); HR as is (animated); UR shattered background, gold signature (-m2), silver+holo white outlines (-m3);
+  ZR holo on background lines (-m) + demon markings (-m2, ZR-006/008); CR shifting silver shine over the whole card.
+- Still to describe: Energy Edition Series 1, Special Mini Edition, Series 2. Until then those cards get a plain shine.
