@@ -152,6 +152,9 @@ html[data-brand="kpdh"] .bg-glitter{opacity:calc(var(--bg-g,.34) * .5)}
 .linkbtn{border:0;background:none;padding:0;color:var(--accent);font-weight:700;font-size:.85rem;text-decoration:underline}
 .mtrack{list-style:none!important;padding:0!important;display:grid!important;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px!important}
 .mtrack li{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 8px 6px 12px;background:var(--bg)}
+.mtrack.pics{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.mtrack.pics li{flex-direction:column;align-items:center;text-align:center;padding:10px;gap:6px}
+.mtrack li img{width:90px;height:110px;object-fit:contain}
 .mtrack li.got{border-color:var(--accent);background:var(--accent-soft)}
 .psheet>.credit{margin:-6px 0 0}
 .pgh{margin:6px 0 0;font-family:var(--font-display);font-size:1.05rem}
@@ -1356,7 +1359,10 @@ function renderDetail(){
 // ================= Products guide: the standard for every collection page =================
 // Each franchise lists its KAYOU products. Card products link to their cards; merchandise has styles you can track.
 // Real product photos: put a file at products/<id>.webp and add the id to PROD_IMGS. Until then a drawn picture shows.
-const PROD_IMGS=new Set(["energy-1","energy-2"]);
+const PROD_IMGS=new Set(["daily-1","magic-1","winx-mini-1","classic-1","energy-1","mini-1","classic-2","energy-2",
+ "acrylic-holder","photo-frame","wear-mini","embroidered-holder","lenticular-album","mini-album","plush-album","plush-holder"]);
+// Pictures of individual merch styles: products/<product id>-<style number>.webp
+const STYLE_IMGS=new Set(["photo-frame-1","photo-frame-2","photo-frame-3","mini-album-1","mini-album-2"]);
 const KAYOU_SERIES="https://www.kayouofficial.com/en-US/series/";
 const styles=(n,secret=1,word="Style")=>[...Array(n)].map((_,i)=>`${word} ${i+1}`).concat(secret>1?[...Array(secret)].map((_,i)=>`Secret style ${i+1}`):secret?["Secret style"]:[]);
 const W_PRODUCTS=[
@@ -1374,6 +1380,14 @@ const W_PRODUCTS=[
    ["Box and case",["12 packs per box","16 boxes per case"]],
    ["Only in Magic",["Scenario-E (SE): the 20th Anniversary card","Brush Rare (BP)","Creative Rare (CR)","Zenith Rare (ZR)","Super Rare Parallel (◇SR)","Holo Rare (HR)","The fairy Cute Rares (QR), plus Magic versions of FR and AR"]],
    ["Good to know",["Shares one numbered set (WFD01) with the Daily Edition","A full 12-pack box comes with a bonus promo card"]]]},
+ {id:"winx-mini-1",kind:"mini",brand:"Winx Club",name:"Costume Party",series:"Mini Collectible Cards · Series 1",when:"Nov 11, 2026",code:"WX-KP-CP-001",col:["#ffc6e4","#e0559c"],cardsSoon:true,
+  url:"https://shop.kayouofficial.com/products/winx-club-mini-collectible-cards-costume-party-001",urlName:"KAYOU's shop",
+  intro:"A mini-card set all about the Winx fairies' fashion, with a costume-party look for each girl.",
+  sections:[
+   ["Every pack",["3 mini cards"]],
+   ["Ways to buy",["Single pack: $2.99","4-pack collector box: $11.99 (12 mini cards)","36-pack display: $107.64, comes with 1 promo card"]],
+   ["The cards",["KAYOU has posted the card list on its shop","The cards will be added here once KAYOU puts the official card pictures on its website"]],
+   ["Good to know",["Mini-size cards, smaller than the Fairy Diary cards","Shops also list a “Midnight Sun Version” 4-pack collector box for January 2027"]]]},
  {id:"promos",ed:"promo",kind:"promo",brand:"Winx Club",name:"Promo cards",series:"Not in packs",when:"2026",code:"PR",col:["#ffe7a6","#c98a2a"],
   intro:"Box bonus cards, the San Diego Comic-Con Bloom and the Zara Larsson collab.",sections:[]}
 ];
@@ -1457,10 +1471,10 @@ const K_PRODUCTS=[
   sections:[["What it is",["Card album with a lenticular cover that changes as you tilt it","Pages hold 4 cards each"]],
    ["Style",["HUNTR/X"]],
    ["Buying",["List price $24.99"]]]},
- {id:"mini-album",group:"merch",kind:"merch",icon:"✈️",name:"Mini Card Album",series:"Series 1",when:"Sept 2026",code:"Merchandise · mini cards",col:["#bfe8ff","#3a8fd0"],url:KAYOU_SERIES+"series-7cn07mak",items:["HUNTR/X"],
+ {id:"mini-album",group:"merch",kind:"merch",icon:"✈️",name:"Mini Card Album",series:"Series 1",when:"Sept 2026",code:"Merchandise · mini cards",col:["#bfe8ff","#3a8fd0"],url:KAYOU_SERIES+"series-7cn07mak",items:["HUNTR/X","Saja Boys"],
   intro:"A pocket album for Special Mini Edition cards that doubles as a bag charm.",
   sections:[["What it is",["22 pages, one mini card per page","Airplane-shaped window on the cover: slide in your favorite mini card to show it off","Magnetic closure","Small enough to hang on a bag","Made of PVC, acrylic and magnets"]],
-   ["Style",["HUNTR/X (a Saja Boys version has also been shown)"]],
+   ["Styles",["HUNTR/X","Saja Boys"]],
    ["Size",["Box: 3.62 × 3.74 × 1.06 in"]]]},
  {id:"plush-album",group:"merch",kind:"merch",icon:"🐯",name:"Plush Card Album",series:"Series 1",when:"2026",code:"Merchandise",col:["#bcd8ff","#3d63c4"],items:["Derpy"],
   intro:"A soft plush card album themed after Derpy.",
@@ -1471,12 +1485,12 @@ const K_PRODUCTS=[
    ["Styles",["6 regular styles","1 secret style","Designs include Derpy and HUNTR/X"]]]}
 ];
 FRANCH.winx.products=W_PRODUCTS; FRANCH.winx.kayou="https://www.kayouofficial.com/en-US/ip-collections";
-FRANCH.winx.merchSoon="KAYOU says more Winx Club collectibles are on the way. They'll show up here.";
+FRANCH.winx.merchSoon="More Winx Club collectibles are on the way: KAYOU's shop lists a Winx Club Card Album, and shops list an Acrylic Card Frame and Mini Card Album for early 2027. They'll show up here once KAYOU posts the details.";
 FRANCH.kpdh.products=K_PRODUCTS; FRANCH.kpdh.kayou="https://www.kayouofficial.com/en-US/ip-collections";
 // Merchandise you can track: one item per style
 const MERCH=[];
 Object.values(FRANCH).forEach(ff=>(ff.products||[]).forEach(pr=>{pr.fr=ff.id;(pr.items||[]).forEach((nm,i)=>{
-  const it={kind:"merch",fr:ff.id,prod:pr.id,uid:`${ff.id.toUpperCase()}-M|${pr.id}|${i+1}`,name:nm,num:`${pr.name} · ${nm}`,editions:[],appears:[]};
+  const it={kind:"merch",fr:ff.id,prod:pr.id,uid:`${ff.id.toUpperCase()}-M|${pr.id}|${i+1}`,name:nm,num:`${pr.name} · ${nm}`,editions:[],appears:[],img:STYLE_IMGS.has(`${pr.id}-${i+1}`)?`${pr.id}-${i+1}`:null};
   MERCH.push(it);BYUID[it.uid]=it})}));
 const merchOf=(fid,pid)=>MERCH.filter(m=>m.fr===fid&&(!pid||m.prod===pid));
 const prodCards=pr=>{const cs=FRANCH[pr.fr].cards;return pr.kind==="promo"?cs.filter(c=>c.rar==="PR"):pr.kind==="merch"?[]:cs.filter(c=>c.editions.includes(pr.ed))};
@@ -1496,6 +1510,7 @@ function guideHTML(){
   const tile=p=>{let sub;
     if(p.kind==="merch"){const its=merchOf(F.id,p.id),h=its.filter(m=>has(m.uid)).length;sub=`${p.series} · ${h} / ${its.length} owned`}
     else if(p.kind==="costco")sub=`${p.series} · ${p.when}`;
+    else if(p.cardsSoon)sub=`${p.series.replace("Mini Collectible Cards · ","")} · ${p.when}<br>Cards coming soon`;
     else{const cs=prodCards(p),h=cs.filter(c=>has(c.uid)).length;sub=`${p.series.replace("Fairy Diary · ","")} · ${p.when}<br>${h} / ${cs.length} cards`}
     return `<button class="ptile" data-prod="${p.id}">${prodArt(p)}<span class="pt-n">${p.name}</span><span class="pt-s">${sub}</span></button>`};
   const cardsP=P.filter(p=>p.group!=="merch"), merchP=P.filter(p=>p.group==="merch");
@@ -1522,13 +1537,13 @@ function renderProd(){
   const promoList=p.kind==="promo"?`<section class="psec wide"><h3>Every promo card</h3><ul class="plist">${cs.map(c=>`<li><button class="plink" data-open="${c.uid}"><b>${c.num}</b> ${esc(label(c))}</button><span>${esc(promoHow(c))}</span></li>`).join("")}</ul>
     <p class="hint">KAYOU also hands out convention promos at its booths. Know one that's missing? <a href="/contact" data-nav="/contact?topic=${encodeURIComponent("Suggestion")}">Tell me</a>.</p></section>`:"";
   const its=merch?merchOf(F.id,p.id):[];
-  const track=merch?`<section class="psec wide"><h3>Your collection <span class="hint">· ${its.filter(m=>has(m.uid)).length} / ${its.length} styles</span></h3><ul class="mtrack">${its.map(m=>`<li class="${has(m.uid)?"got":""}"><span>${esc(m.name)}</span>${stepHTML(m)}</li>`).join("")}</ul></section>`:"";
+  const track=merch?`<section class="psec wide"><h3>Your collection <span class="hint">· ${its.filter(m=>has(m.uid)).length} / ${its.length} styles</span></h3><ul class="mtrack${its.some(m=>m.img)?" pics":""}">${its.map(m=>`<li class="${has(m.uid)?"got":""}">${m.img?`<img src="products/${m.img}.webp" alt="" loading="lazy">`:""}<span>${esc(m.name)}</span>${stepHTML(m)}</li>`).join("")}</ul></section>`:"";
   const owned=cs.filter(c=>has(c.uid)).length;
   el.innerHTML=`<div class="psheet" role="dialog" aria-modal="true" aria-labelledby="pTitle">
     <button class="close" id="pClose" aria-label="Close">✕</button>
     <div class="ps-head">${prodArt(p,true)}<div class="ps-txt"><span class="label">${p.code} · ${p.when}</span><h2 id="pTitle">${p.name} <span>${p.series}</span></h2><p>${p.intro}</p>
-      ${p.kind==="costco"||merch?"":`<p class="ps-own"><b>${owned} / ${cs.length}</b> cards collected</p>`}
-      <div class="qrow">${merch?"":`<button class="primary" data-prodcards="${p.ed}">${p.kind==="costco"?"Show Energy Edition cards":"Show these cards"}</button>`}
+      ${p.kind==="costco"||merch||p.cardsSoon?"":`<p class="ps-own"><b>${owned} / ${cs.length}</b> cards collected</p>`}
+      <div class="qrow">${merch||p.cardsSoon?"":`<button class="primary" data-prodcards="${p.ed}">${p.kind==="costco"?"Show Energy Edition cards":"Show these cards"}</button>`}
       <a class="ghost small-btn" href="${p.url||F.kayou}" target="_blank" rel="noopener">${p.url?`See it on ${p.urlName||"KAYOU's site"}`:"KAYOU's website"} ↗</a></div></div></div>
     <div class="ps-body">${track}${sec}${rars?`<section class="psec"><h3>Rarities</h3><ul class="rlist">${rars}</ul></section>`:""}${promoList}</div>
     <p class="credit">Source: ${p.url?`<a href="${p.url}" target="_blank" rel="noopener">${p.urlName||"KAYOU"} product page</a>`:`<a href="${F.kayou}" target="_blank" rel="noopener">KAYOU</a>`}, shops and collector reviews.</p>
