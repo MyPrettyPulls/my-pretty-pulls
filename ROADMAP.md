@@ -70,3 +70,7 @@
   SSR vivid + soft bright foil; SR holo lines + fine sparkles; R holo on the black/silver clapperboard only (-m); ZR fine shimmer + holo silver HUNTR/X lettering (-m); CR fine shimmer + very fine glitter.
   HR (Series 2) not described yet.
 - Still to describe: Special Mini Edition. Until then those cards get a plain shine.
+
+## Serial numbers (Nov 2026)
+- Serialized cards get a "Serial number" box per copy owned in the card window: KPDH01 SE (/366, birthday numbering), KPDH01 BP (/999), KPDH02 SE, BP, ◇CR (print run not announced, so no "/ out of").
+- Saved on the device (localStorage mpp.serials) and, once supabase/card-serials.sql has been run, to the account (table card_serials, private to each person).

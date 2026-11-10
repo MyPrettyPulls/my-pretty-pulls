@@ -26,7 +26,14 @@ for k in ks('SE'):
     blue=(h>190)&(h<270)&(s>.2)&~ndimage.binary_dilation(chrome,iterations=3)
     save(k,ndimage.binary_opening(chrome,iterations=1),'m'); save(k,ndimage.binary_opening(blue,iterations=2),'m2',2)
 for k in ks('SP'):
-    a,h,s,v,l=load(k); save(k,ndimage.binary_opening((s>.28)&(l>.30)&(v>.35),iterations=1),'m',.8)
+    a,h,s,v,l=load(k)
+    m=ndimage.binary_opening((s>.28)&(l>.30)&(v>.35),iterations=1)
+    if m.mean()<.12:   # softer cream/pastel versions (like SP-004): every tinted colour, still not black or white
+        m=ndimage.binary_opening((s>.12)&(l>.25)&(l<.93),iterations=1)
+    save(k,m,'m',.8)
+for k in ks('BP'):
+    a,h,s,v,l=load(k)
+    save(k,ndimage.binary_opening((s<.08)&(l>.82),iterations=1),"m",1)   # the silver / white outlines and lines
 for k in ks('LR'):
     a,h,s,v,l=load(k); H,W=l.shape
     top=box(H,W,0,0,1,.17)&(h>12)&(h<70)&(s>.4)&(v>.7)
