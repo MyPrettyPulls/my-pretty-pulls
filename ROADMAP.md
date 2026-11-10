@@ -74,3 +74,11 @@
 ## Serial numbers (Nov 2026)
 - Serialized cards get a "Serial number" box per copy owned in the card window: KPDH01 SE (/366, birthday numbering), KPDH01 BP (/999), KPDH02 SE, BP, ◇CR (print run not announced, so no "/ out of").
 - Saved on the device (localStorage mpp.serials) and, once supabase/card-serials.sql has been run, to the account (table card_serials, private to each person).
+
+## KPop Demon Hunters games (Nov 2026)
+- /play and /trivia open a page to pick the Winx Club or KPop Demon Hunters version; /play/winx, /play/kpop-demon-hunters, /trivia/winx, /trivia/kpop-demon-hunters are the games (Winx/KPop switch at the top of each).
+- Database: supabase/kpop-games.sql (run after trivia-no-repeat-kinds.sql). Adds fr ('winx'/'kpdh') to game_cards, trivia_questions, secret_pull_plays, trivia_plays; KPop cards + blurry previews; *_for(f) functions; old function names stay as the Winx version so the live site keeps working. Winx puzzles are unchanged (checked).
+- Sparkles and the leaderboard are shared across all games. Streaks: per game on the game page; overall (either game) on profiles/leaderboard.
+- KPop Secret Pull only uses cards with pictures. KPop card trivia kinds: rarity, who's on it, box, close-up, what's wrong (no transformations).
+- Trivia questions come from the "Winx Trivia" and "Kpop Trivia" tabs of the card sheet (no fun facts). To update: regenerate with tools/games (trivia_qs.py) and rerun kpop-games.sql.
+- KPop puzzle numbers start at #1 on Nov 10, 2026.

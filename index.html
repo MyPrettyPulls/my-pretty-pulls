@@ -474,6 +474,25 @@ a.brand{color:var(--fg);text-decoration:none}
 
 /* ---------- Guess the Secret Pull ---------- */
 .game{display:flex;flex-direction:column;gap:18px}
+.vtabs{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:var(--sunk);margin-bottom:6px}
+.vtabs button{font:inherit;font-size:.85rem;font-weight:700;border:0;border-radius:999px;padding:6px 14px;background:transparent;color:var(--muted);cursor:pointer}
+.vtabs button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 4px rgb(0 0 0 / .1)}
+.gsub{display:block;font-size:.45em;letter-spacing:.02em;color:var(--muted);margin-top:4px}
+.gchoices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:820px;margin:0 auto;width:100%}
+.gchoice{display:flex;flex-direction:column;gap:12px;padding:18px;border-radius:22px;background:var(--surface);color:var(--fg);text-decoration:none;box-shadow:0 4px 20px rgb(60 20 80 / .08);border:2px solid transparent;transition:transform .15s,border-color .15s}
+.gchoice:hover{transform:translateY(-2px);border-color:var(--accent)}
+.gchoice.winx{background:linear-gradient(160deg,#fff0f8,#f3e8ff)}
+.gchoice.kpdh{background:linear-gradient(160deg,#efe9ff,#e3f1ff)}
+.gchoice .gart{display:flex;justify-content:center;gap:10px;height:170px}
+.gchoice .gart img{height:100%;border-radius:10px;box-shadow:0 6px 16px rgb(0 0 0 / .18)}
+.gchoice .gart img:nth-child(1){transform:rotate(-5deg)}.gchoice .gart img:nth-child(2){transform:rotate(5deg)}
+.gchoice .gtxt{display:flex;flex-direction:column;gap:2px;text-align:center}
+.gchoice .gtxt b{font-family:var(--font-display);font-size:1.3rem}
+.gchoice .gtxt>span{color:var(--muted);font-size:.9rem}
+.gchoice .gstat{margin-top:6px;font-weight:700;color:var(--fg)!important}.gchoice .gstat.done{color:#2e8b57!important}
+.gchoice .gplay{align-self:center;font-weight:800;padding:9px 28px;border-radius:999px;background:var(--accent);color:#fff}
+@media (prefers-color-scheme:dark){.gchoice.winx,.gchoice.kpdh{background:var(--surface)}}
+@media (max-width:600px){.gchoices{grid-template-columns:1fr}.gchoice .gart{height:130px}}
 .game-head{text-align:center;display:flex;flex-direction:column;gap:4px;align-items:center}
 .game-head h1{font-size:clamp(1.9rem,5vw,2.8rem)}
 .howto{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 14px}
@@ -2167,8 +2186,43 @@ async function fetchCounts(uid){
     if(!on&&timer){clearTimeout(timer);timer=null;delete H.dataset.scene}};
   new MutationObserver(sync).observe(H,{attributes:true,attributeFilter:["data-brand"]}); sync();
 })();
+// ---------- The games come in a Winx Club and a KPop Demon Hunters version ----------
+let GAME="winx";
+const GSLUG={winx:"winx",kpdh:"kpop-demon-hunters"}, GBYSLUG={winx:"winx","kpop-demon-hunters":"kpdh"};
+const GNAME={winx:"Winx Club",kpdh:"KPop Demon Hunters"};
+const gCards=()=>GAME==="kpdh"?KCARDS.filter(c=>imgKey(c)):CARDS;      // KPop puzzles only use cards with pictures
+const gGroups=()=>GAME==="kpdh"?K_GROUPS:GROUPS;
+const gEds=()=>GAME==="kpdh"?[["c1","Classic Edition · Series 1"],["e1","Energy Edition · Series 1"],["m1","Special Mini Edition"],["c2","Classic Edition · Series 2"],["e2","Energy Edition · Series 2"]]
+  :[["daily","Daily Edition"],["magic","Magic Edition"],["promo","Promo"]];
+// Winx keeps the original function names (they work before and after the KPop database update)
+const gRpc=(name,args={})=>GAME==="winx"?sb.rpc(name,args):sb.rpc(name+"_for",{...args,f:"kpdh"});
+const gKey=(k,d)=>GAME==="winx"?`mpp.${k}.${d}`:`mpp.${k}.kpdh.${d}`;
+const VERSION_TABS=g=>`<div class="vtabs" role="group" aria-label="Version">${["winx","kpdh"].map(v=>`<button data-nav="/${g}/${GSLUG[v]}" aria-pressed="${GAME===v}">${GNAME[v]}</button>`).join("")}</div>`;
+// The page that opens first: pick the Winx Club or KPop Demon Hunters version
+let gToday=null;
+async function gLoadToday(){ gToday=null; if(!sb)return; try{const {data,error}=await sb.rpc("games_today");if(!error)gToday=data}catch(e){} }
+function renderChoose(g){
+  const el=$("#viewPlay"), isSp=g==="play";
+  const title=isSp?"Guess the Secret Pull":"Daily Trivia";
+  const blurb=isSp?"One hidden card a day. 8 questions to find it.":"5 questions a day. 20 seconds each.";
+  const status=v=>{ if(!user)return "";
+    const st=gToday&&(isSp?gToday.sp:gToday.tr)&&(isSp?gToday.sp:gToday.tr)[v];
+    if(!st)return `<span class="gstat">Not played yet today</span>`;
+    if(isSp)return st.finished?`<span class="gstat done">${st.solved?`Solved in ${st.used} · ✨ ${st.points}`:"Played today"}</span>`:`<span class="gstat">In progress · ${8-st.used} tries left</span>`;
+    return st.finished?`<span class="gstat done">${st.score}/5 · ✨ ${st.sparkles}</span>`:`<span class="gstat">In progress · question ${st.answered+1} of 5</span>`;
+  };
+  const art={winx:["wfd01-ur-001","wfd01-ssr-002"],kpdh:["kpdh01-ssr-001","kpdh01-ur-004"]};
+  const tile=v=>`<a class="gchoice ${v}" href="/${g}/${GSLUG[v]}" data-nav="/${g}/${GSLUG[v]}">
+      <span class="gart">${art[v].filter(k=>IMGS.has(k)).map(k=>`<img src="cards/${k}-s.webp" alt="" loading="lazy">`).join("")}</span>
+      <span class="gtxt"><b>${GNAME[v]}</b><span>${v==="winx"?(isSp?"Fairy Diary cards":"Questions about the show and the cards"):(isSp?"World Tour cards":"Questions about the movie and the cards")}</span>${status(v)}</span>
+      <span class="gplay">Play</span></a>`;
+  el.innerHTML=`<section class="game">${GAME_TABS(isSp?"sp":"trivia",true)}<div class="game-head"><h1>${title}</h1><p class="hint" style="margin:0">${blurb} Pick a version. You can play both every day, and both count toward your Sparkles.</p></div>
+    <div class="gchoices">${tile("winx")}${tile("kpdh")}</div>
+    ${user?(gToday?`<p class="hint" style="text-align:center;margin:0">✨ ${gToday.total||0} Sparkles · ${gToday.streak||0} day Secret Pull streak · New ${isSp?"cards":"questions"} in ${spCountdown()}</p>`:""):`<div class="banner"><span>Sign in to save your Sparkles and get on the leaderboard.</span><button class="primary" id="openSignin">Sign in</button></div>`}
+  </section>`;
+}
 // ---------- Guess the Secret Pull ----------
-const SP_GROUPS=Object.fromEntries(GROUPS.map(g=>[g.name,g.chars]));
+const SP_GROUPS=Object.fromEntries([...GROUPS,...K_GROUPS.map(g=>({name:"k:"+g.name,chars:g.chars}))].map(g=>[g.name,g.chars]));
 const SP_HITLESS=new Set(["R","QR","SR","PR"]);
 function spCheck(c,q){
   const [k,v]=q.split(":");
@@ -2178,36 +2232,36 @@ function spCheck(c,q){
     case "hit": return !SP_HITLESS.has(c.rar);
     case "solo": return !!c.main&&c.appears.length===1;
     case "char": return c.appears.includes(v);
-    case "grp": return c.appears.some(a=>(SP_GROUPS[v]||[]).includes(a));
+    case "grp": return c.appears.some(a=>(SP_GROUPS[(c.fr==="kpdh"?"k:":"")+v]||[]).includes(a));
     case "gt": return +c.n>+v;
   }
   return false;
 }
 function spLabel(q){
   const [k,v]=q.split(":");
-  return {ed:{daily:"Is it in Daily Edition boxes?",magic:"Is it in Magic Edition boxes?",promo:"Is it a promo card?"}[v],
+  return {ed:{daily:"Is it in Daily Edition boxes?",magic:"Is it in Magic Edition boxes?",promo:"Is it a promo card?",c1:"Is it in Classic Edition Series 1?",e1:"Is it in Energy Edition Series 1?",m1:"Is it in the Special Mini Edition?",c2:"Is it in Classic Edition Series 2?",e2:"Is it in Energy Edition Series 2?"}[v],
     rar:`Is it ${/^[AEIOU]/.test(RINFO[v]?.name||"")?"an":"a"} ${RINFO[v]?.name||v} (${RINFO[v]?.code||v})?`,hit:"Is it a hit card (rarer than SR)?",
     solo:"Is it a solo card?",char:`Is ${v} on it?`,grp:`Is one of the ${v} on it?`,gt:`Is its number above ${v}?`}[k];
 }
 let sp=null, spSel=null, spBusy=false, spMsg="", spPeek=null;
-const spLocalKey=d=>"mpp.sp."+d;
+const spLocalKey=d=>gKey("sp",d);
 function spPoints(used,solved){return solved?Math.max(2,10-used):0}
 function spCands(){
-  let cs=CARDS;
+  let cs=gCards();
   for(const e of sp.log){ if(e.q)cs=cs.filter(c=>spCheck(c,e.q)===e.a); else if(e.g&&!e.a)cs=cs.filter(c=>c.uid!==e.g) }
   return cs;
 }
 function spSaveLocal(){ if(!user&&sp)ls.set(spLocalKey(sp.day),JSON.stringify({log:sp.log,used:sp.used,finished:sp.finished,solved:sp.solved,points:sp.points,card:sp.card})) }
 async function spLoad(){
   if(!sb){sp={error:true};return}
-  const {data,error}=await sb.rpc("sp_state"); if(error){sp={error:true};return}
+  const {data,error}=await gRpc("sp_state"); if(error){sp={error:true};return}
   sp=data;
   if(!user){try{const l=JSON.parse(ls.get(spLocalKey(sp.day))||"null");if(l)Object.assign(sp,l)}catch(e){}}
   await spLoadPeek();
 }
 async function spLoadPeek(){
   spPeek=null; if(!sp||sp.finished)return;
-  const {data}=await sb.rpc("sp_peek",{used_count:sp.used}); spPeek=data||null;
+  const {data}=await gRpc("sp_peek",{used_count:sp.used}); spPeek=data||null;
 }
 function spCountdown(){
   const now=new Date(), et=new Date(now.toLocaleString("en-US",{timeZone:"America/New_York"})), nx=new Date(et); nx.setHours(24,0,0,0);
@@ -2215,7 +2269,7 @@ function spCountdown(){
 }
 function spShareText(){
   const marks=sp.log.map(e=>e.q?"❔":e.a?"💖":"❌").join("");
-  return `Guess the Secret Pull #${sp.number} ✨\n${marks}${sp.solved?"":"💔"} ${sp.solved?`${sp.used}/8 · +${sp.points} Sparkles`:"X/8"}\n${location.origin}/play`;
+  return `Guess the Secret Pull${GAME==="kpdh"?" · KPop Demon Hunters":""} #${sp.number} ✨\n${marks}${sp.solved?"":"💔"} ${sp.solved?`${sp.used}/8 · +${sp.points} Sparkles`:"X/8"}\n${location.origin}/play/${GSLUG[GAME]}`;
 }
 function drawPeek(){
   const cv=$("#peekCv"); if(!cv||!spPeek)return;
@@ -2223,24 +2277,24 @@ function drawPeek(){
   for(let i=0;i<spPeek.w*spPeek.h;i++){const o=i*6;im.data[i*4]=parseInt(spPeek.px.substr(o,2),16);im.data[i*4+1]=parseInt(spPeek.px.substr(o+2,2),16);im.data[i*4+2]=parseInt(spPeek.px.substr(o+4,2),16);im.data[i*4+3]=255}
   g.putImageData(im,0,0);
 }
-const GAME_TABS=on=>`<nav class="gametabs" aria-label="Games"><div class="tabs"><button data-nav="/play" aria-selected="${on==="sp"}">Secret Pull</button><button data-nav="/trivia" aria-selected="${on==="trivia"}">Daily Trivia</button><button data-nav="/leaderboard" aria-selected="false">Leaderboard</button></div></nav>`;
+const GAME_TABS=(on,choose)=>`<nav class="gametabs" aria-label="Games"><div class="tabs"><button data-nav="/play${choose?"":"/"+GSLUG[GAME]}" aria-selected="${on==="sp"}">Secret Pull</button><button data-nav="/trivia${choose?"":"/"+GSLUG[GAME]}" aria-selected="${on==="trivia"}">Daily Trivia</button><button data-nav="/leaderboard" aria-selected="false">Leaderboard</button></div></nav>`;
 // ---------- Daily Trivia ----------
 let tr=null, trQ=null, trRes=null, trBusy=false, trTimer=0, trLeft=20, trStarted=false;
-const trLocalKey=d=>"mpp.tr."+d;
+const trLocalKey=d=>gKey("tr",d);
 function trStop(){ if(trTimer){clearInterval(trTimer);trTimer=0} }
 function trSaveLocal(){ if(!user&&tr)ls.set(trLocalKey(tr.day),JSON.stringify({answers:tr.answers,finished:tr.finished,score:tr.score,sparkles:tr.sparkles})) }
-function trOpt(q,o){ if(q.kind==="zoom"){const c=BYUID[o];if(!c)return o;const dup=CARDS.some(x=>x!==c&&x.num===c.num);return `${label(c)} · ${c.num.replace("WFD01-","")}${dup?` · ${c.editions.includes("daily")?"Daily":"Magic"}`:""}`} return q.kind==="rar"?`${RINFO[o]?.name||o} (${RINFO[o]?.code||o})`:o }
+function trOpt(q,o){ if(q.kind==="zoom"){const c=BYUID[o];if(!c)return o;if(c.fr==="kpdh")return `${label(c)} · ${c.num}`;const dup=CARDS.some(x=>x!==c&&x.num===c.num);return `${label(c)} · ${c.num.replace("WFD01-","")}${dup?` · ${c.editions.includes("daily")?"Daily":"Magic"}`:""}`} return q.kind==="rar"?`${RINFO[o]?.name||o} (${RINFO[o]?.code||o})`:o }
 async function trLoad(){
   trStop(); trQ=null; trRes=null; trStarted=false;
   if(!sb){tr={error:true};return}
-  const {data,error}=await sb.rpc("tr_state"); if(error){tr={error:true};return}
+  const {data,error}=await gRpc("tr_state"); if(error){tr={error:true};return}
   tr=data;
   if(!user){try{const l=JSON.parse(ls.get(trLocalKey(tr.day))||"null");if(l)Object.assign(tr,l)}catch(e){}}
 }
 async function trNext(){
   if(trBusy||!tr||tr.finished)return;
   trBusy=true; trRes=null; trStarted=true; tr.err=""; renderTrivia();
-  const i=tr.answers.length, {data,error}=await sb.rpc("tr_get",{i});
+  const i=tr.answers.length, {data,error}=await gRpc("tr_get",{i});
   trBusy=false;
   if(error||data?.error){const m=error?.message||data.error;console.error("tr_get",m);await trLoad();tr.err=/no questions/i.test(m)?"Today's questions haven't been loaded yet.":`Couldn't start: ${m}`;renderTrivia();return}
   trQ=data; trLeft=Math.max(0,+data.seconds||0); renderTrivia();
@@ -2251,7 +2305,7 @@ async function trNext(){
 async function trAnswer(choice){
   if(trBusy||!trQ||trRes)return;
   trStop(); trBusy=true; renderTrivia();
-  const {data,error}=await sb.rpc("tr_answer",{i:trQ.i,choice});
+  const {data,error}=await gRpc("tr_answer",{i:trQ.i,choice});
   trBusy=false;
   if(error||data?.error){await trLoad();renderTrivia();return}
   trRes={...data,choice};
@@ -2261,11 +2315,11 @@ async function trAnswer(choice){
   trSaveLocal(); renderTrivia(); if(tr.finished)checkBadges(800);
 }
 function trShareText(){
-  return `Winx Trivia #${tr.number} ✨\n${tr.answers.map(a=>a.ok?"🟩":"🟥").join("")} ${tr.score}/5${user?` · +${tr.sparkles} Sparkles`:""}\n${location.origin}/trivia`;
+  return `${GAME==="kpdh"?"KPop Demon Hunters":"Winx"} Trivia #${tr.number} ✨\n${tr.answers.map(a=>a.ok?"🟩":"🟥").join("")} ${tr.score}/5${user?` · +${tr.sparkles} Sparkles`:""}\n${location.origin}/trivia/${GSLUG[GAME]}`;
 }
 function renderTrivia(){
   const el=$("#viewPlay");
-  const head=GAME_TABS("trivia")+`<div class="game-head"><div class="label">${tr&&!tr.error?new Date(tr.day+"T12:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})+" · #"+tr.number:"Daily Trivia"}</div><h1>Daily Trivia</h1></div>`;
+  const head=GAME_TABS("trivia")+`<div class="game-head">${VERSION_TABS("trivia")}<div class="label">${tr&&!tr.error?new Date(tr.day+"T12:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})+" · #"+tr.number:"Daily Trivia"}</div><h1>${GAME==="kpdh"?"KPop Demon Hunters Trivia":"Daily Trivia"}</h1></div>`;
   if(!tr){el.innerHTML=`<section class="game">${head}<div class="empty-state">Loading today's questions…</div></section>`;return}
   if(tr.error){el.innerHTML=`<section class="game">${head}<div class="empty-state"><h2 style="font-family:var(--font-display)">Couldn't load today's trivia</h2><p>Check your connection and refresh the page.</p></div></section>`;return}
   const dots=`<div class="trdots" aria-label="Progress">${Array.from({length:5},(_,i)=>{const a=tr.answers[i];return `<span class="trdot${a?(a.ok?" ok":" no"):""}${trQ&&trQ.i===i&&!trRes?" cur":""}"></span>`}).join("")}</div>`;
@@ -2276,7 +2330,7 @@ function renderTrivia(){
       <h2>${perfect?"Perfect score!":tr.score>=3?"Nice job!":"Thanks for playing!"}</h2>
       <p class="hint" style="margin:0">You got ${tr.score} of 5 right${perfect?", plus a 2 Sparkle bonus":""}.</p>
       <div class="nums"><div class="stat"><span class="label">Sparkles today</span><span class="v">✨ ${tr.sparkles}</span></div>${user?`<div class="stat"><span class="label">All-time Sparkles</span><span class="v">✨ ${tr.total||0}</span></div>`:""}</div>
-      <div class="qrow" style="justify-content:center"><button class="primary" data-trshare>Copy my result</button><button class="ghost" data-nav="/play">Play Secret Pull</button><button class="ghost" data-nav="/leaderboard">Leaderboard</button></div>
+      <div class="qrow" style="justify-content:center"><button class="primary" data-trshare>Copy my result</button><button class="ghost" data-nav="/play/${GSLUG[GAME]}">Play Secret Pull</button><button class="ghost" data-nav="/trivia/${GSLUG[GAME==="kpdh"?"winx":"kpdh"]}">${GAME==="kpdh"?"Winx":"KPop"} Trivia</button><button class="ghost" data-nav="/leaderboard">Leaderboard</button></div>
       <p class="hint">New questions in ${spCountdown()}.</p>
       ${user?STORE_BTN:`<div class="banner"><span>Sign in to save your Sparkles and get on the leaderboard.</span><button class="primary" id="openSignin">Sign in</button></div>`}
     </div></section>`;
@@ -2285,9 +2339,9 @@ function renderTrivia(){
   if(!trQ){
     const resume=tr.answers.length>0;
     el.innerHTML=`<section class="game">${head}<div class="trcard">
-      <p style="font-size:2.6rem;margin:0">🧚</p>
+      <p style="font-size:2.6rem;margin:0">${GAME==="kpdh"?"🎤":"🧚"}</p>
       <h2>${resume?`You're on question ${tr.answers.length+1} of 5`:"5 questions. 20 seconds each."}</h2>
-      <ul class="trrules"><li>Everyone gets the same 5 questions today: 2 about the show and 3 about the cards.</li><li>Each right answer wins ✨ 1 Sparkle. Get all 5 for 2 bonus Sparkles.</li><li>One try per day, and the clock starts when a question appears.</li></ul>
+      <ul class="trrules"><li>Everyone gets the same 5 questions today: 2 about the ${GAME==="kpdh"?"movie":"show"} and 3 about the cards.</li><li>Each right answer wins ✨ 1 Sparkle. Get all 5 for 2 bonus Sparkles.</li><li>One try per day, and the clock starts when a question appears.</li></ul>
       ${resume?dots:""}
       ${tr.err?`<p class="trerr" role="alert">${esc(tr.err)}</p>`:""}
       <button class="primary big" data-trgo${trBusy?" disabled":""}>${resume?"Keep going":"Start today's trivia"}</button>
@@ -2328,7 +2382,7 @@ function renderPlay(){
   if(!sp){el.innerHTML=`<div class="empty-state">Loading today's card…</div>`;return}
   if(sp.error){el.innerHTML=`<div class="empty-state"><h1 style="font-size:2rem">Couldn't load today's card</h1><p>Check your connection and refresh the page.</p></div>`;return}
   const left=8-sp.used, cands=spCands();
-  const head=GAME_TABS("sp")+`<div class="game-head"><div class="label">${new Date(sp.day+"T12:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})} · #${sp.number}</div><h1>Guess the Secret Pull</h1><p class="hint" style="margin:0">One hidden card. Everyone gets the same one. 8 questions to find it.</p></div>`;
+  const head=GAME_TABS("sp")+`<div class="game-head">${VERSION_TABS("play")}<div class="label">${new Date(sp.day+"T12:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})} · #${sp.number}</div><h1>Guess the Secret Pull${GAME==="kpdh"?`<span class="gsub">KPop Demon Hunters</span>`:""}</h1><p class="hint" style="margin:0">One hidden ${GAME==="kpdh"?"World Tour":"Fairy Diary"} card. Everyone gets the same one. 8 questions to find it.</p></div>`;
   const howto=`<details class="howto"${sp.used||sp.finished?"":" open"}><summary>How to play</summary><ul>
     <li>Tap a question to ask it. Each question uses one of your 8 tries.</li>
     <li>Every answer narrows down the binder below automatically.</li>
@@ -2346,7 +2400,7 @@ function renderPlay(){
         <div class="stat"><span class="label">Sparkles today</span><span class="v">✨ ${sp.points}</span></div>
         ${user?`<div class="stat"><span class="label">Day streak</span><span class="v">${sp.streak||0}</span></div><div class="stat"><span class="label">All-time Sparkles</span><span class="v">✨ ${sp.total||0}</span></div>`:""}
       </div>
-      <div class="qrow" style="justify-content:center"><button class="primary" data-spshare>Copy my result</button>${c?`<button class="ghost" data-open="${c.uid}">View card</button>`:""}<button class="ghost" data-nav="/leaderboard">Leaderboard</button></div>
+      <div class="qrow" style="justify-content:center"><button class="primary" data-spshare>Copy my result</button>${c?`<button class="ghost" data-open="${c.uid}">View card</button>`:""}<button class="ghost" data-nav="/play/${GSLUG[GAME==="kpdh"?"winx":"kpdh"]}">Play the ${GAME==="kpdh"?"Winx":"KPop"} card</button><button class="ghost" data-nav="/leaderboard">Leaderboard</button></div>
       ${user?STORE_BTN:""}
       <p class="hint">Next Secret Pull in ${spCountdown()}.</p>
       ${user?"":`<div class="banner"><span>Sign in to save your Sparkles and start a daily streak.</span><button class="primary" id="openSignin">Sign in</button></div>`}
@@ -2354,9 +2408,9 @@ function renderPlay(){
     return;
   }
   const opt=(arr,ph)=>`<option value="">${ph}</option>`+arr.map(([v,t])=>`<option value="${esc(v)}">${esc(t)}</option>`).join("");
-  const rars=RORDER.filter(r=>CARDS.some(c=>c.rar===r)).map(r=>[r,`${RINFO[r].code} · ${RINFO[r].name}`]);
-  const chars=GROUPS.flatMap(g=>g.chars).map(n=>[n,n]);
-  const nums=Array.from({length:23},(_,i)=>[String(i+1),String(i+1)]);
+  const pool=gCards(), rars=RORDER.filter(r=>pool.some(c=>c.rar===r)).map(r=>[r,`${RINFO[r].code} · ${RINFO[r].name}`]);
+  const chars=gGroups().flatMap(g=>g.chars).map(n=>[n,n]);
+  const maxN=Math.max(...pool.map(c=>+c.num.split("-").pop()||0)), nums=Array.from({length:maxN-1},(_,i)=>[String(i+1),String(i+1)]);
   const known=q=>{const ans=cands.map(c=>spCheck(c,q));return ans.every(a=>a)||ans.every(a=>!a)};
   const qb=(q,t)=>`<button class="qbtn${known(q)?" known":""}" data-spq="${esc(q)}"${spBusy||(left<=0)?" disabled":""}>${t}</button>`;
   const sel=spSel&&BYUID[spSel];
@@ -2369,16 +2423,16 @@ function renderPlay(){
       </div>
       <div class="qpanel">
         <div class="answer-flash" role="status">${spMsg}</div>
-        <div class="qgroup"><span class="label">Which box?</span><div class="qrow">${qb("ed:daily","Daily Edition?")}${qb("ed:magic","Magic Edition?")}${qb("ed:promo","Promo?")}</div></div>
+        <div class="qgroup"><span class="label">Which box?</span><div class="qrow">${gEds().map(([e,n])=>qb("ed:"+e,n+"?")).join("")}</div></div>
         <div class="qgroup"><span class="label">Rarity</span><div class="qrow">${qb("hit","Rarer than SR?")}<select id="spRar" aria-label="Rarity">${opt(rars,"Pick a rarity")}</select><button class="qbtn" data-spsel="spRar:rar"${spBusy||left<=0?" disabled":""}>Ask</button></div></div>
-        <div class="qgroup"><span class="label">Who's on it?</span><div class="qrow">${GROUPS.map(g=>qb("grp:"+g.name,g.name+"?")).join("")}${qb("solo","Solo card?")}</div>
+        <div class="qgroup"><span class="label">Who's on it?</span><div class="qrow">${gGroups().map(g=>qb("grp:"+g.name,esc(g.name)+"?")).join("")}${qb("solo","Solo card?")}</div>
           <div class="qrow"><select id="spChar" aria-label="Character">${opt(chars,"Pick a character")}</select><button class="qbtn" data-spsel="spChar:char"${spBusy||left<=0?" disabled":""}>Ask</button></div></div>
         <div class="qgroup"><span class="label">Card number</span><div class="qrow"><span>Is the number above</span><select id="spNum" aria-label="Number">${opt(nums,"…")}</select><button class="qbtn" data-spsel="spNum:gt"${spBusy||left<=0?" disabled":""}>Ask</button></div></div>
         ${sp.log.length?`<div class="qgroup"><span class="label">Your questions</span><ol class="qlog">${sp.log.map(e=>e.q?`<li><span>${esc(spLabel(e.q))}</span><span class="${e.a?"yes":"no"}">${e.a?"Yes":"No"}</span></li>`:`<li><span>Guessed ${esc(label(BYUID[e.g]||{name:"a card"}))} <span class="num">${BYUID[e.g]?.num||""}</span></span><span class="no">Not it</span></li>`).join("")}</ol></div>`:""}
       </div>
     </div>
     <section class="panel">
-      <div class="cands-h"><h2 style="font-family:var(--font-display);font-size:1.15rem;margin:0">Possible cards</h2><span class="hint">${cands.length} of ${CARDS.length} left · tap one to guess</span></div>
+      <div class="cands-h"><h2 style="font-family:var(--font-display);font-size:1.15rem;margin:0">Possible cards</h2><span class="hint">${cands.length} of ${pool.length} left · tap one to guess</span></div>
       <div class="cands">${cands.map(c=>{const k=imgKey(c);return `<button class="cand" data-spc="${c.uid}" aria-pressed="${spSel===c.uid}" aria-label="${esc(label(c))} ${c.num}">${k?`<img src="cards/${k}-s.webp" alt="" loading="lazy">`:esc(label(c))}<span class="cn">${shortNum(c)}</span></button>`}).join("")}</div>
     </section>
     ${sel?`<div class="guessbar"><span>Guess <b>${esc(label(sel))}</b> · ${sel.num}?</span><span class="qrow"><button class="ghost" data-spcancel>Cancel</button><button class="primary" data-spguess${spBusy?" disabled":""}>Guess this card</button></span></div>`:""}
@@ -2392,7 +2446,7 @@ async function spAsk(q){
   if(ans.every(a=>a)||ans.every(a=>!a)){spMsg=`You already know that one: ${ans[0]?"Yes":"No"}. No try used.`;renderPlay();return}
   if(sp.used>=8){spMsg="No tries left. Make your final guess.";renderPlay();return}
   spBusy=true; spMsg="Asking…"; renderPlay();
-  const {data,error}=await sb.rpc("sp_ask",{q});
+  const {data,error}=await gRpc("sp_ask",{q});
   spBusy=false;
   if(error||data?.error){spMsg=data?.error==="finished"?"You've already finished today's card.":"Couldn't ask that. Try again.";await spLoad();renderPlay();return}
   sp.log.push({q,a:data.answer}); sp.used++; spSaveLocal();
@@ -2404,13 +2458,13 @@ async function spAsk(q){
 async function spGuess(){
   if(spBusy||!spSel||sp.finished)return;
   spBusy=true; renderPlay();
-  const g=spSel, {data,error}=await sb.rpc("sp_guess",{guess:g});
+  const g=spSel, {data,error}=await gRpc("sp_guess",{guess:g});
   spBusy=false;
   if(error||data?.error){spMsg="Couldn't send that guess. Try again.";await spLoad();renderPlay();return}
   const last=sp.used>=8;
   sp.log.push({g,a:data.correct}); spSel=null;
   if(data.correct){sp.finished=true;sp.solved=true;sp.card=data.card||g;sp.points=user?data.points:spPoints(sp.used,true)}
-  else if(last){sp.finished=true;sp.card=data.card||(user?null:(await sb.rpc("sp_reveal")).data)}
+  else if(last){sp.finished=true;sp.card=data.card||(user?null:(await gRpc("sp_reveal")).data)}
   else{sp.used++;spMsg="Not that one. Keep going!"; if([2,4,6].includes(sp.used))await spLoadPeek()}
   spSaveLocal();
   if(sp.finished&&user){await spLoad();checkBadges(800)}
@@ -2713,10 +2767,16 @@ async function route(){ arranging=false; profOpen=false; badgesOpen=false; if(!l
     if(!sessionChecked){lb=null;renderBoard();return}
     await lbLoad(); return;
   }
-  if(path==="/trivia"){ setView("play"); document.title="Daily Trivia · My Pretty Pulls";
-    tr=null; renderTrivia(); if(!sessionChecked)return; await trLoad(); renderTrivia(); return; }
-  if(path==="/play"){
-    setView("play"); document.title="Guess the Secret Pull · My Pretty Pulls";
+  // Game pages: /play and /trivia let you pick a version; /play/<version> and /trivia/<version> are the games
+  const gm=path.match(/^\/(play|trivia)(?:\/(winx|kpop-demon-hunters))?$/);
+  if(gm){
+    setView("play"); const g=gm[1], ver=gm[2];
+    if(!ver){ document.title=(g==="play"?"Guess the Secret Pull":"Daily Trivia")+" · My Pretty Pulls";
+      renderChoose(g); if(!sessionChecked)return; await gLoadToday(); if(location.pathname.replace(/\/+$/,"")===path)renderChoose(g); return; }
+    GAME=GBYSLUG[ver]; document.documentElement.dataset.brand=GAME; delete document.documentElement.dataset.sparkle;
+    if(g==="trivia"){ document.title=`${GAME==="kpdh"?"KPop Demon Hunters Trivia":"Daily Trivia"} · My Pretty Pulls`;
+      tr=null; renderTrivia(); if(!sessionChecked)return; await trLoad(); renderTrivia(); return; }
+    document.title=`Guess the Secret Pull${GAME==="kpdh"?" · KPop Demon Hunters":""} · My Pretty Pulls`;
     if(!sessionChecked){sp=null;renderPlay();return}
     sp=null; spSel=null; spMsg=""; renderPlay(); await spLoad(); renderPlay(); return;
   }

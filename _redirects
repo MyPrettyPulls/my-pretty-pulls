@@ -1,7 +1,9 @@
 /u/*         /index.html  200
 /profile     /index.html  200
 /play        /index.html  200
+/play/*      /index.html  200
 /trivia      /index.html  200
+/trivia/*    /index.html  200
 /leaderboard /index.html  200
 /about       /index.html  200
 /privacy     /index.html  200
