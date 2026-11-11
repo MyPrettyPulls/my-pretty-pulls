@@ -82,3 +82,10 @@
 - KPop Secret Pull only uses cards with pictures. KPop card trivia kinds: rarity, who's on it, box, close-up, what's wrong (no transformations).
 - Trivia questions come from the "Winx Trivia" and "Kpop Trivia" tabs of the card sheet (no fun facts). To update: regenerate with tools/games (trivia_qs.py) and rerun the trivia part (part 6).
 - KPop puzzle numbers start at #1 on Nov 10, 2026.
+
+## Profile: favourites per collection, tidier edit window (preview)
+- One favourite character per IP (Winx Club, KPop Demon Hunters…). Header shows a chip for each; the favourites panel shows each one's name, have/total bar in their colour, up to 6 owned cards, and "See all" (opens a tab of just that character).
+- Edit profile window: About you / Favorites / Avatar / Showcase are fold-up sections; the open ones are remembered. Avatar and showcase pickers can filter by IP.
+- Showcase tray at the top of the picker: the 5 chosen cards in order, drag (or arrows) to rearrange, ✕ to remove.
+- Needs supabase/profile-favorites.sql (adds profiles.fav_chars). Until it's run, saving still works with one favourite and shows a note.
+- Night mode: panels, docs (badges/about/legal), store buttons, chips and footer pills keep dark text; text sitting on the background turns light.

@@ -118,7 +118,7 @@ html[data-brand="kpdh"]:not([data-scene="night"]) .bg-lines{opacity:1;filter:sat
 /* at night in light mode, words sitting straight on the background turn light; panels, cards and buttons keep their usual colours */
 @media (prefers-color-scheme: light){
   html[data-scene="night"]:not([data-theme="dark"]) .wrap{--fg:#f3ecff;--muted:#cbbde6;--line:rgb(255 255 255 / .28);color:var(--fg)}
-  html[data-scene="night"]:not([data-theme="dark"]) .wrap :is(.panel,.stat,.notice,.banner,.seg,.tabs,.setb,.face,.step,.sheet,.menu-panel,.signin,.empty-state,.prof-head,.lb,select,input,textarea,code,button:not(.addbtn):not(.linkbtn):not(.report-link)){--fg:#2a2230;--muted:#6f6577;--line:#e2d8e1;color:var(--fg)}
+  html[data-scene="night"]:not([data-theme="dark"]) .wrap :is(.panel,.stat,.notice,.banner,.seg,.tabs,.setb,.face,.step,.sheet,.menu-panel,.signin,.empty-state,.lb,.doc,.way,.ptile,.storebtn,.gchoice,.trcard,.result,.howto,.foot-social a,.chip-char,select,input,textarea,code,button:not(.addbtn):not(.linkbtn):not(.report-link):not(.primary)){--fg:#2a2230;--muted:#6f6577;--line:#e2d8e1;color:var(--fg)}
 }
 .wrap{transition:color 2.5s}
 
@@ -461,6 +461,39 @@ a.brand{color:var(--fg);text-decoration:none}
 .uname input{border:0!important;border-radius:0!important;padding-left:2px!important;flex:1;min-width:0}
 .form textarea{min-height:70px;resize:vertical}
 .msg-ok{color:var(--good);font-weight:700}.msg-bad{color:var(--accent);font-weight:700}
+.epsec{border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.epsec>summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.epsec>summary::-webkit-details-marker{display:none}
+.epsec>summary::after{content:"Show";font-size:.8rem;font-weight:700;color:var(--accent);padding:4px 12px;border-radius:999px;background:var(--sunk)}
+.epsec[open]>summary::after{content:"Hide"}
+.epsec>summary .st{display:flex;flex-direction:column;gap:2px}.epsec>summary b{font-size:1.02rem}
+.epsec .epbody{display:flex;flex-direction:column;gap:12px;padding:0 16px 16px}
+.favsel{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.pfilter{display:flex;flex-wrap:wrap;gap:6px}
+.pfilter button{font:inherit;font-size:.8rem;font-weight:700;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.pfilter button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.sctray{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;padding:12px;border-radius:14px;background:var(--sunk)}
+.tslot{position:relative;border-radius:10px;aspect-ratio:63/88;display:flex;align-items:center;justify-content:center;background:var(--surface);cursor:grab;touch-action:none}
+.tslot img{width:100%;height:100%;object-fit:contain;border-radius:8px;pointer-events:none}
+.tslot.empty{border:2px dashed var(--line);background:transparent;cursor:default;color:var(--muted);font-weight:800}
+.tslot.dragging{opacity:.45}.tslot.over{outline:3px solid var(--accent);outline-offset:2px}
+.tslot .tn{position:absolute;top:-6px;left:-6px;background:var(--accent);color:var(--accent-ink);font-size:.72rem;font-weight:800;border-radius:999px;min-width:20px;height:20px;display:grid;place-items:center;z-index:1}
+.tslot .tx{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:999px;border:0;background:#2a2230;color:#fff;font-size:.7rem;cursor:pointer;z-index:1}
+.tslot .tmv{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);display:flex;gap:4px}
+.tslot .tmv button{width:24px;height:24px;border-radius:999px;border:0;background:rgb(255 255 255 / .92);font-weight:800;cursor:pointer;box-shadow:0 1px 4px rgb(0 0 0 / .2)}
+.tslot .tmv button:disabled{opacity:.35;cursor:default}
+.favchips{display:flex;flex-wrap:wrap;gap:6px}
+.favs{display:flex;flex-direction:column;gap:16px}
+.favrow{display:flex;flex-direction:column;gap:8px}
+.favrow+.favrow{border-top:1px solid var(--line);padding-top:14px}
+.favtop{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.favtop b{display:block;font-family:var(--font-display);font-size:1.25rem}
+.favtop .big{font-family:var(--font-display);font-weight:800;font-size:1.6rem}.favtop .big small{font-size:.9rem;color:var(--muted)}
+.favrow .bar{height:7px;border-radius:9px;background:var(--line);overflow:hidden}.favrow .bar i{display:block;height:100%}
+.favstrip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.favstrip button{border:0;padding:0;background:none;cursor:pointer}
+.favstrip img{width:100%;aspect-ratio:63/88;object-fit:contain;border-radius:6px;display:block}
+@media (max-width:560px){.sctray{gap:6px;padding:8px}.tslot .tmv button{width:20px;height:20px}}
 .pickgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(62px,1fr));gap:8px;max-height:250px;overflow:auto;padding:4px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
 .pick{border:2px solid transparent;border-radius:8px;padding:0;background:none;position:relative;display:block}
 .pick[aria-pressed="true"]{border-color:var(--accent)}
@@ -1995,6 +2028,16 @@ function avatarHTML(prof,cls=""){
 }
 function avPos(p){return{x:p&&p.avatar_x!=null?p.avatar_x:50,y:p&&p.avatar_y!=null?p.avatar_y:30,z:p&&p.avatar_zoom!=null?p.avatar_zoom:100}}
 function avStyle(k,p,size="s"){const a=avPos(p);return `background-image:url(cards/${k}-${size}.webp);background-size:${a.z}% auto;background-position:${a.x}% ${a.y}%`}
+// Favourite character for each collection someone collects ({winx:"Bloom",kpdh:"Rumi"}).
+// Older profiles only have one favourite (fav_char); work out which collection it belongs to.
+function frOfChar(n){for(const f of Object.values(FRANCH))if(f.groups.some(g=>g.chars.includes(n)))return f.id;return null}
+function favMap(p){
+  const m={}; const fc=p&&p.fav_chars;
+  if(fc&&typeof fc==="object")for(const [k,v] of Object.entries(fc))if(FRANCH[k]&&v)m[k]=v;
+  if(!Object.keys(m).length&&p&&p.fav_char){const f=frOfChar(p.fav_char);if(f)m[f]=p.fav_char}
+  return m;
+}
+const favList=p=>{const m=favMap(p);return Object.keys(FRANCH).filter(k=>m[k]).map(k=>[k,m[k]])};
 function miniCard(c){return `<div class="card"><div class="face${imgKey(c)?" has-img":""}${LAND.has(imgKey(c))?" land":""}" title="${esc(label(c))} · ${c.num}">${artHTML(c)}</div></div>`}
 
 
@@ -2004,23 +2047,24 @@ function profCollectionHTML(v){
   const p=v.prof, own=v.own, who=own?"You":esc(p.display_name||p.username);
   const byRar=(a,b)=>RORDER.indexOf(a.rar)-RORDER.indexOf(b.rar)||(+a.n)-(+b.n)||a.uid.localeCompare(b.uid);
   const owned=ALLCARDS.filter(c=>(v.counts[c.uid]||0)>0).sort(byRar);
-  const fav=p.fav_char?ALLCARDS.filter(c=>c.appears.includes(p.fav_char)):[];
-  const favHave=fav.filter(c=>(v.counts[c.uid]||0)>0).length;
-  if(profTab==="fav"&&!p.fav_char)profTab="all";
+  const favs=favList(p);
+  if(profTab==="fav")profTab=favs.length?"fav:"+favs[0][1]:"all";
+  if(profTab.startsWith("fav:")&&!favs.some(([,n])=>"fav:"+n===profTab))profTab="all";
+  const favName=profTab.startsWith("fav:")?profTab.slice(4):null;
   const frs=Object.values(FRANCH).filter(f=>owned.some(c=>c.fr===f.id));
   if(profTab.startsWith("fr:")&&!frs.some(f=>"fr:"+f.id===profTab))profTab="all";
-  const tabs=`<div class="tabs" role="tablist"><button role="tab" data-ptab="all" aria-selected="${profTab==="all"}">All cards · ${owned.length}</button>${frs.length>1?frs.map(f=>`<button role="tab" data-ptab="fr:${f.id}" aria-selected="${profTab==="fr:"+f.id}">${esc(f.name)} · ${owned.filter(c=>c.fr===f.id).length}</button>`).join(""):""}${p.fav_char?`<button role="tab" data-ptab="fav" aria-selected="${profTab==="fav"}">${esc(p.fav_char)} · ${favHave}</button>`:""}</div>`;
-  const list=profTab==="fav"?owned.filter(c=>c.appears.includes(p.fav_char)):profTab.startsWith("fr:")?owned.filter(c=>"fr:"+c.fr===profTab):owned;
+  const tabs=`<div class="tabs" role="tablist"><button role="tab" data-ptab="all" aria-selected="${profTab==="all"}">All cards · ${owned.length}</button>${frs.length>1?frs.map(f=>`<button role="tab" data-ptab="fr:${f.id}" aria-selected="${profTab==="fr:"+f.id}">${esc(f.name)} · ${owned.filter(c=>c.fr===f.id).length}</button>`).join(""):""}${favs.map(([f,n])=>`<button role="tab" data-ptab="fav:${esc(n)}" aria-selected="${profTab==="fav:"+n}">${esc(n)} · ${owned.filter(c=>c.fr===f&&c.appears.includes(n)).length}</button>`).join("")}</div>`;
+  const list=favName?owned.filter(c=>c.appears.includes(favName)):profTab.startsWith("fr:")?owned.filter(c=>"fr:"+c.fr===profTab):owned;
   const PREVIEW=12, shown=profOpen?list:list.slice(0,PREVIEW);
   let grid;
-  if(!list.length)grid=profTab==="fav"?`<p class="hint">${own?"You don't":"They don't"} have any ${esc(p.fav_char)} cards yet.</p>`:`<p class="hint">${own?"You haven't added any cards yet.":"No cards added yet."}</p>`;
+  if(!list.length)grid=favName?`<p class="hint">${own?"You don't":"They don't"} have any ${esc(favName)} cards yet.</p>`:`<p class="hint">${own?"You haven't added any cards yet.":"No cards added yet."}</p>`;
   else grid=`<p class="hint" style="margin:0">Rarest first.</p><div class="pcards">${shown.map(c=>pcardHTML(c,false)).join("")}</div>${list.length>PREVIEW?`<div style="display:flex;justify-content:center"><button class="ghost" data-popen>${profOpen?"Hide full collection":`Show full collection (${list.length})`}</button></div>`:""}`;
   return `<section class="panel" id="profCards"><div class="panel-h" style="flex-wrap:wrap;gap:10px"><h2>${own?"Your":esc(p.display_name||p.username)+"'s"} collection</h2>${tabs}</div>${grid}</section>`;
 }
 document.addEventListener("click",e=>{
   if(e.target.closest("[data-popen]")){profOpen=!profOpen;renderProfile();if(!profOpen)$("#profCards")?.scrollIntoView({block:"start"});return}
   const t=e.target.closest("[data-ptab]"); if(t){profTab=t.dataset.ptab;const y=window.scrollY;renderProfile();window.scrollTo(0,y);return}
-  if(e.target.closest("[data-favjump]")){profTab="fav";renderProfile();$("#profCards")?.scrollIntoView({behavior:"smooth",block:"start"});return}
+  const fj=e.target.closest("[data-favjump]"); if(fj){profTab="fav:"+fj.dataset.favjump;renderProfile();$("#profCards")?.scrollIntoView({behavior:"smooth",block:"start"});return}
 });
 
 let arranging=false, arrOrder=null, dragI=null;
@@ -2084,10 +2128,9 @@ function renderProfile(){
   profileBackground(v.counts);
   const p=v.prof, st=statsFor(v.counts), own=v.own;
   const url=`${location.origin}/u/${p.username}`;
-  const fav=p.fav_char?`<span class="chip-char"><span class="sw" style="background:${CHAR_COLOR(p.fav_char)}"></span>Favorite: ${esc(p.fav_char)}</span>`:"";
+  const favs=favList(p);
+  const fav=favs.length?`<div class="favchips">${favs.map(([f,n])=>`<span class="chip-char" title="${esc(FRANCH[f].name)}"><span class="sw" style="background:${CHAR_COLOR(n)}"></span>${favs.length>1?`${esc(FRANCH[f].name)}: `:"Favorite: "}${esc(n)}</span>`).join("")}</div>`:"";
   const show=(p.showcase||[]).map(u=>BYUID[u]).filter(c=>c&&(v.counts[c.uid]||0)>0);
-  const favCards=p.fav_char?ALLCARDS.filter(c=>c.appears.includes(p.fav_char)):[];
-  const favHave=favCards.filter(c=>(v.counts[c.uid]||0)>0).length;
   el.innerHTML=`<section class="prof">
     ${own&&!p.is_public?`<div class="banner"><span><b>Your profile is private.</b> Only you can see it. Make it public to share your link.</span><button class="primary" data-public="1">Make public</button></div>`:""}
     <div class="prof-head">
@@ -2121,9 +2164,14 @@ function renderProfile(){
         ${!own&&!show.length?`<p class="hint">No showcase picked yet.</p>`:`<div class="showcase${arranging?" arranging":""}" id="scGrid">${show.map((c,i)=>arranging?`<div class="sc" draggable="true" data-sci="${i}"><span class="sc-n">${i+1}</span>${miniCard(c)}<div class="sc-move"><button type="button" data-scmv="${i}:-1" aria-label="Move left"${i===0?" disabled":""}>‹</button><button type="button" data-scmv="${i}:1" aria-label="Move right"${i===show.length-1?" disabled":""}>›</button></div></div>`:miniCard(c)).join("")}${arranging?"":Array.from({length:Math.max(0,5-show.length)},()=>`<div class="slot">${own?"Pick a favorite pull":""}</div>`).join("")}</div>`}
       </section>
       <section class="panel">
-        <div class="panel-h"><h2>${p.fav_char?esc(p.fav_char)+" collection":"Favorite character"}</h2></div>
-        ${p.fav_char?`<div class="edtile" style="border:0;padding:0;background:none"><span class="big">${favHave}<small> / ${favCards.length}</small></span><span class="bar"><i style="width:${favCards.length?Math.round(favHave/favCards.length*100):0}%;background:${CHAR_COLOR(p.fav_char)}"></i></span><span class="hint">Every card ${esc(p.fav_char)} appears on</span><button class="ghost" style="align-self:flex-start;margin-top:4px" data-favjump>See ${esc(p.fav_char)} cards</button></div>`
-          :`<p class="hint">${own?"Pick a favorite character to track every card they appear on.":"No favorite picked yet."}</p>`}
+        <div class="panel-h"><h2>${favs.length>1?"Favorite characters":favs.length?esc(favs[0][1])+" collection":"Favorite character"}</h2>${own?`<button class="ghost" data-edit="fav">${favs.length?"Change":"Pick"}</button>`:""}</div>
+        ${favs.length?`<div class="favs">${favs.map(([f,n])=>{const all=FRANCH[f].cards.filter(c=>c.appears.includes(n)),got=all.filter(c=>(v.counts[c.uid]||0)>0),pct=all.length?Math.round(got.length/all.length*100):0;
+          const strip=got.filter(c=>imgKey(c)).sort((a,b)=>RORDER.indexOf(a.rar)-RORDER.indexOf(b.rar)).slice(0,6);
+          return `<div class="favrow"><div class="favtop"><div><span class="label">${esc(FRANCH[f].name)}</span><b>${esc(n)}</b></div><span class="big">${got.length}<small> / ${all.length}</small></span></div>
+            <span class="bar"><i style="width:${pct}%;background:${CHAR_COLOR(n)}"></i></span>
+            ${strip.length?`<div class="favstrip">${strip.map(c=>`<button type="button" data-open="${c.uid}" aria-label="${esc(label(c))} ${c.num}"><img src="cards/${imgKey(c)}-s.webp" alt="" loading="lazy"></button>`).join("")}</div>`:`<span class="hint">No ${esc(n)} cards collected yet.</span>`}
+            <button class="ghost" style="align-self:flex-start" data-favjump="${esc(n)}">See all ${esc(n)} cards</button></div>`}).join("")}</div>`
+          :`<p class="hint">${own?"Pick a favorite character from each collection to track every card they appear on.":"No favorite picked yet."}</p>`}
       </section>
     </div>
     ${profBadgesHTML(v)}
@@ -2805,25 +2853,36 @@ if(new URLSearchParams(location.search).has("deleted")){history.replaceState(nul
 
 // ---------- Edit profile ----------
 let draft=null, unameT=null;
-function openEdit(){
-  if(!user)return;
+let focusSec=null;
+function openEdit(which){
+  if(!user)return; focusSec=typeof which==="string"?which:null;
   const p=myProfile||{};
-  const ap=avPos(p); draft={avatar:p.avatar_card||null,showcase:[...(p.showcase||[])],unameOk:!!p.username,x:ap.x,y:ap.y,z:ap.z};
+  const ap=avPos(p); draft={avatar:p.avatar_card||null,showcase:[...(p.showcase||[])].filter(u=>BYUID[u]&&has(u)>0&&imgKey(BYUID[u])),unameOk:!!p.username,x:ap.x,y:ap.y,z:ap.z};
   const owned=ALLCARDS.filter(c=>has(c.uid)>0&&imgKey(c));
+  const ownFr=Object.values(FRANCH).filter(f=>owned.some(c=>c.fr===f.id));
+  const fm=favMap(p);
+  // which sections are open: the first time just "About you"; after that, however you left them
+  let openSecs; try{openSecs=JSON.parse(localStorage.getItem("mpp.epOpen")||"null")}catch(e){}
+  if(!Array.isArray(openSecs))openSecs=["about"];
+  if(focusSec&&!openSecs.includes(focusSec))openSecs=[...openSecs,focusSec];
+  const sec=(id,title,sub,body)=>`<details class="epsec" data-sec="${id}"${!myProfile||openSecs.includes(id)?" open":""}><summary><span class="st"><b>${title}</b>${sub?`<span class="hint">${sub}</span>`:""}</span></summary><div class="epbody">${body}</div></details>`;
+  const pf=id=>ownFr.length>1?`<div class="pfilter" role="group" aria-label="Show cards from"><button type="button" data-pf="${id}:all" aria-pressed="true">All</button>${ownFr.map(f=>`<button type="button" data-pf="${id}:${f.id}" aria-pressed="false">${esc(f.name)}</button>`).join("")}</div>`:"";
+  const pickBtn=(attr,c,on)=>`<button type="button" class="pick" data-${attr}="${c.uid}" data-fr="${c.fr}" aria-pressed="${on}" aria-label="${esc(label(c))} ${c.num}"><img src="cards/${imgKey(c)}-s.webp" alt="" loading="lazy">${attr==="sc"&&on?`<span class="ord">${draft.showcase.indexOf(c.uid)+1}</span>`:""}</button>`;
   const needAge=!myProfile&&ls.get(AGE_OK)!=="1";
-  const chars=Object.values(FRANCH).flatMap(f=>f.groups.map(g=>`<optgroup label="${f.name} · ${g.label||g.name}">${g.chars.map(n=>`<option${p.fav_char===n?" selected":""}>${n}</option>`).join("")}</optgroup>`)).join("");
+  const favSelects=Object.values(FRANCH).map(f=>`<div class="field"><label for="epFav-${f.id}">${esc(f.name)}</label><select id="epFav-${f.id}" data-favfr="${f.id}"><option value="">None</option>${f.groups.map(g=>`<optgroup label="${esc(g.label||g.name)}">${g.chars.map(n=>`<option${fm[f.id]===n?" selected":""}>${esc(n)}</option>`).join("")}</optgroup>`).join("")}</select></div>`).join("");
   $("#editProf").innerHTML=`<div class="sheet form-sheet" role="dialog" aria-modal="true" aria-labelledby="epTitle">
     <button class="close" data-closeedit aria-label="Close">✕</button>
     <form class="form" id="epForm" novalidate>
       <div><div class="label">${myProfile?"Edit profile":"Welcome"}</div><h2 id="epTitle" style="font-family:var(--font-display);font-size:1.8rem;margin:2px 0 0">${myProfile?"Your profile":"Create your profile"}</h2></div>
       ${needAge?`<fieldset class="dob field" id="epDob"><legend class="lbl">Your birthday</legend><div class="signin-row"><select id="epM" aria-label="Birth month"></select><select id="epY" aria-label="Birth year"></select></div><p class="hint">Accounts are for ages 13 and up. We only use this to check your age; it isn't saved.</p></fieldset>`:""}
-      <div class="field"><label for="epUser">Username</label>
+      ${sec("about","About you","Username, display name and about me",`      <div class="field"><label for="epUser">Username</label>
         <div class="uname"><span>myprettypulls.com/u/</span><input type="text" id="epUser" maxlength="20" autocomplete="off" spellcheck="false" value="${esc(p.username||"")}"></div>
         <p class="hint" id="epUserMsg">3 to 20 lowercase letters, numbers or underscores.</p></div>
       <div class="field"><label for="epName">Display name</label><input type="text" id="epName" maxlength="30" value="${esc(p.display_name||"")}" placeholder="Shown at the top of your profile"></div>
       <div class="field"><label for="epAbout">About me</label><textarea id="epAbout" maxlength="160" placeholder="What do you collect? Who are you hunting for?">${esc(p.about||"")}</textarea><p class="hint"><span id="epCount">${(p.about||"").length}</span>/160</p></div>
-      <div class="field"><label for="epFav">Favorite character</label><select id="epFav"><option value="">None yet</option>${chars}</select></div>
-      <div class="field"><span class="lbl">Profile picture</span><p class="hint">Pick any card you own, then drag it in the circle to choose what shows.</p>
+`)}
+      ${sec("fav","Favorite characters","One from each collection. Each gets its own spot on your profile.",`<div class="favsel">${favSelects}</div>`)}
+      ${sec("avatar","Profile picture","Pick any card you own, then drag it in the circle",`
         <div class="avcrop" id="avCrop"${draft.avatar?"":" hidden"}>
           <span class="avatar" id="avPrev" tabindex="0" role="img" aria-label="Profile picture preview. Drag to move."></span>
           <div class="ctl">
@@ -2832,16 +2891,19 @@ function openEdit(){
             <div class="signin-row"><button type="button" class="ghost" data-avfit>Fit whole card</button><button type="button" class="ghost" data-avface>Focus on face</button></div>
           </div>
         </div>
-        ${owned.length?`<div class="pickgrid" id="pickAv">${owned.map(c=>`<button type="button" class="pick" data-av="${c.uid}" aria-pressed="${draft.avatar===c.uid}" aria-label="${esc(label(c))} ${c.num}"><img src="cards/${imgKey(c)}-s.webp" alt="" loading="lazy"></button>`).join("")}</div>`:`<p class="hint">Add cards to your collection first, then pick one here.</p>`}</div>
-      <div class="field"><span class="lbl">Collection showcase</span><p class="hint">Pick up to 5 cards to show off, in the order you tap them.</p>
-        ${owned.length?`<div class="pickgrid" id="pickSc">${owned.map(c=>`<button type="button" class="pick" data-sc="${c.uid}" aria-pressed="${draft.showcase.includes(c.uid)}" aria-label="${esc(label(c))} ${c.num}"><img src="cards/${imgKey(c)}-s.webp" alt="" loading="lazy">${draft.showcase.includes(c.uid)?`<span class="ord">${draft.showcase.indexOf(c.uid)+1}</span>`:""}</button>`).join("")}</div>`:`<p class="hint">Add cards to your collection first.</p>`}</div>
+        ${owned.length?`${pf("av")}<div class="pickgrid" id="pickAv">${owned.map(c=>pickBtn("av",c,draft.avatar===c.uid)).join("")}</div>`:`<p class="hint">Add cards to your collection first.</p>`}`)}
+      ${sec("showcase","Collection showcase","Up to 5 cards shown at the top of your profile",`
+        <div class="sctray" id="scTray" aria-live="polite"></div>
+        <p class="hint" style="margin:0">Tap cards below to add them. Drag them in the box above, or use the arrows, to change the order. Tap ✕ to take one out.</p>
+        ${owned.length?`${pf("sc")}<div class="pickgrid" id="pickSc">${owned.map(c=>pickBtn("sc",c,draft.showcase.includes(c.uid))).join("")}</div>`:`<p class="hint">Add cards to your collection first.</p>`}`)}
       <label class="switch"><input type="checkbox" id="epPublic"${p.is_public?" checked":""}><span><b>Public profile</b><br><span class="hint">Anyone with your link can see your profile and collection. Your email is never shown.</span></span></label>
       <p class="msg-bad" id="epErr" role="alert"></p>
       <div class="formfoot"><button type="button" class="ghost" data-closeedit>Cancel</button><button type="submit" class="primary" id="epSave">${myProfile?"Save":"Create profile"}</button></div>
     </form></div>`;
   if(needAge)fillDob($("#epM"),$("#epY"));
-  drawAvPrev();
-  $("#editProf").hidden=false; $("#epUser").focus();
+  drawAvPrev(); drawTray();
+  if(focusSec){const d=document.querySelector(`.epsec[data-sec="${focusSec}"]`);if(d){d.open=true;setTimeout(()=>d.scrollIntoView({block:"start",behavior:"smooth"}),50)}}
+  $("#editProf").hidden=false; if(!focusSec)$("#epUser").focus();
   if(p.username)$("#epUserMsg").textContent="This is your link. You can change it.";
 }
 function closeEdit(){$("#editProf").hidden=true;$("#editProf").innerHTML=""}
@@ -2870,10 +2932,37 @@ document.addEventListener("keydown",e=>{ // arrow keys nudge the picture when th
   const m={ArrowLeft:[2,0],ArrowRight:[-2,0],ArrowUp:[0,2],ArrowDown:[0,-2]}[e.key]; if(!m)return; e.preventDefault();
   draft.x=Math.min(100,Math.max(0,draft.x+m[0])); draft.y=Math.min(100,Math.max(0,draft.y+m[1])); drawAvPrev();
 });
+// The showcase box: your picks in order, with arrows, ✕ and drag to reorder
+function drawTray(){
+  const el=$("#scTray"); if(!el)return;
+  el.innerHTML=[0,1,2,3,4].map(i=>{const c=BYUID[draft.showcase[i]];
+    if(!c)return `<div class="tslot empty"><span>${i+1}</span></div>`;
+    return `<div class="tslot" draggable="true" data-ti="${i}"><span class="tn">${i+1}</span><img src="cards/${imgKey(c)}-s.webp" alt="${esc(label(c))}" draggable="false">
+      <button type="button" class="tx" data-trx="${i}" aria-label="Take ${esc(label(c))} out">✕</button>
+      <div class="tmv"><button type="button" data-trmv="${i}:-1" aria-label="Move left"${i===0?" disabled":""}>‹</button><button type="button" data-trmv="${i}:1" aria-label="Move right"${i===draft.showcase.length-1?" disabled":""}>›</button></div></div>`}).join("");
+}
+function trayMove(f,t){ if(t<0||t>=draft.showcase.length||f===t)return; const [x]=draft.showcase.splice(f,1); draft.showcase.splice(t,0,x); refreshPick(); }
+let trDrag=null;
+document.addEventListener("dragstart",e=>{const s=e.target.closest?.("#scTray .tslot[data-ti]");if(!s)return;trDrag=+s.dataset.ti;s.classList.add("dragging");try{e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",String(trDrag))}catch(err){}});
+document.addEventListener("dragover",e=>{const s=e.target.closest?.("#scTray .tslot[data-ti]");if(!s||trDrag===null)return;e.preventDefault();document.querySelectorAll("#scTray .over").forEach(x=>x.classList.remove("over"));s.classList.add("over")});
+document.addEventListener("drop",e=>{const s=e.target.closest?.("#scTray .tslot[data-ti]");if(!s||trDrag===null)return;e.preventDefault();const f=trDrag;trDrag=null;trayMove(f,+s.dataset.ti)});
+document.addEventListener("dragend",()=>{if(trDrag!==null){trDrag=null;drawTray()}});
+let trTouch=null;  // touch: press a card in the box and slide it onto another spot
+document.addEventListener("pointerdown",e=>{if(e.pointerType==="mouse")return;const s=e.target.closest("#scTray .tslot[data-ti]");if(!s||e.target.closest("button"))return;trTouch={from:+s.dataset.ti};s.classList.add("dragging")});
+document.addEventListener("pointerup",e=>{if(!trTouch)return;const o=document.elementFromPoint(e.clientX,e.clientY)?.closest("#scTray .tslot[data-ti]");const f=trTouch.from;trTouch=null;if(o)trayMove(f,+o.dataset.ti);else drawTray()});
+document.addEventListener("click",e=>{
+  const m=e.target.closest("[data-trmv]"); if(m){const [i,d]=m.dataset.trmv.split(":").map(Number);trayMove(i,i+d);return}
+  const x=e.target.closest("[data-trx]"); if(x){draft.showcase.splice(+x.dataset.trx,1);refreshPick();return}
+  const f=e.target.closest("[data-pf]"); if(f){const [id,fr]=f.dataset.pf.split(":");f.parentElement.querySelectorAll("[data-pf]").forEach(b=>b.setAttribute("aria-pressed",b===f));
+    document.querySelectorAll(`#${id==="av"?"pickAv":"pickSc"} .pick`).forEach(b=>b.hidden=fr!=="all"&&b.dataset.fr!==fr);return}
+});
+document.addEventListener("toggle",e=>{const d=e.target; if(!d.classList||!d.classList.contains("epsec"))return;
+  try{localStorage.setItem("mpp.epOpen",JSON.stringify([...document.querySelectorAll(".epsec[open]")].map(x=>x.dataset.sec)))}catch(err){}},true);
 function refreshPick(){
   document.querySelectorAll("#pickAv .pick").forEach(b=>b.setAttribute("aria-pressed",b.dataset.av===draft.avatar));
   drawAvPrev();
   document.querySelectorAll("#pickSc .pick").forEach(b=>{const i=draft.showcase.indexOf(b.dataset.sc);b.setAttribute("aria-pressed",i>=0);b.querySelector(".ord")?.remove();if(i>=0)b.insertAdjacentHTML("beforeend",`<span class="ord">${i+1}</span>`)});
+  drawTray();
 }
 async function checkUsername(){
   const el=$("#epUser"), msg=$("#epUserMsg"); if(!el)return false;
@@ -2898,10 +2987,16 @@ async function saveProfile(e){
   if(!(await checkUsername())){err.textContent="Please pick a different username.";return}
   const name=$("#epName").value.trim(), about=$("#epAbout").value.trim();
   if(notOk(name)||notOk(about)){err.textContent="Please remove inappropriate words from your name or about me.";return}
-  const row={id:user.id,username:$("#epUser").value.trim().toLowerCase(),display_name:name||null,about:about||null,fav_char:$("#epFav").value||null,
+  const favs={}; document.querySelectorAll("[data-favfr]").forEach(sel=>{if(sel.value)favs[sel.dataset.favfr]=sel.value});
+  const firstFav=Object.keys(FRANCH).map(k=>favs[k]).find(Boolean)||null;
+  const row={id:user.id,username:$("#epUser").value.trim().toLowerCase(),display_name:name||null,about:about||null,fav_char:firstFav,fav_chars:favs,
     avatar_card:draft.avatar,avatar_x:draft.x,avatar_y:draft.y,avatar_zoom:draft.z,showcase:draft.showcase,is_public:$("#epPublic").checked,age_confirmed:true,updated_at:new Date().toISOString()};
   $("#epSave").disabled=true;
   let {data,error}=await sb.from("profiles").upsert(row).select().single();
+  if(error&&/fav_chars/.test(error.message||"")){ // the favourites column isn't added yet: keep the first favourite
+    delete row.fav_chars; ({data,error}=await sb.from("profiles").upsert(row).select().single());
+    if(!error)toast("Saved. A favorite for each collection needs one more database step.");
+  }
   if(error&&/avatar_(x|y|zoom)/.test(error.message||"")){ // position columns not added yet
     delete row.avatar_x;delete row.avatar_y;delete row.avatar_zoom;
     ({data,error}=await sb.from("profiles").upsert(row).select().single());
@@ -2935,7 +3030,7 @@ async function shareImage(){
   g.restore(); g.strokeStyle="#ec6a9c"; g.lineWidth=8; g.beginPath(); g.arc(160,170,100,0,7); g.stroke();
   g.fillStyle="#fff"; g.font=`800 64px ${disp}`; g.fillText((p.display_name||p.username).slice(0,22),300,165);
   g.fillStyle="#f3c6dc"; g.font=`600 30px ${body}`; g.fillText(`myprettypulls.com/u/${p.username}`,300,215);
-  if(p.fav_char){g.fillStyle="#ffffffcc";g.font=`700 28px ${body}`;g.fillText(`Favorite: ${p.fav_char}`,300,258)}
+  {const fl=favList(p);if(fl.length){g.fillStyle="#ffffffcc";g.font=`700 28px ${body}`;g.fillText(`${fl.length>1?"Favorites":"Favorite"}: ${fl.map(x=>x[1]).join(" · ")}`.slice(0,48),300,258)}}
   // stats
   const boxes=[[`${st.unique}/${st.possible}`,"Collected"],[`${st.pct}%`,"Complete"],[`${st.done}/${st.boxes}`,"Editions done"],[`${st.extras}`,"Extras to trade"]];
   boxes.forEach(([n,l],i)=>{const x=60+i*245,y=320;g.fillStyle="#ffffff18";g.beginPath();g.roundRect(x,y,225,130,22);g.fill();
@@ -2969,7 +3064,7 @@ document.addEventListener("click",async e=>{
   if(fz&&draft){if(fz.hasAttribute("data-avfit")){const land=LAND.has(imgKey(BYUID[draft.avatar]));draft.z=land?100:72;draft.x=50;draft.y=50}else{draft.z=170;draft.x=50;draft.y=28}drawAvPrev();return}
   const t=e.target.closest("[data-nav],[data-edit],[data-closeedit],[data-av],[data-sc],[data-public],[data-copylink],[data-shareimg]"); if(!t)return;
   if(t.dataset.nav!==undefined){e.preventDefault();go(t.dataset.nav);return}
-  if(t.hasAttribute("data-edit")){openEdit();return}
+  if(t.hasAttribute("data-edit")){openEdit(t.dataset.edit||null);return}
   if(t.hasAttribute("data-closeedit")){closeEdit();return}
   if(t.dataset.av){const same=draft.avatar===t.dataset.av;draft.avatar=same?null:t.dataset.av;if(!same){draft.x=50;draft.y=30;draft.z=100}refreshPick();return}
   if(t.dataset.sc){const u=t.dataset.sc,i=draft.showcase.indexOf(u);if(i>=0)draft.showcase.splice(i,1);else if(draft.showcase.length<5)draft.showcase.push(u);else toast("You can pick up to 5 cards");refreshPick();return}
