@@ -118,4 +118,4 @@
 - News tags: winx, kpdh (one filter per collection, always shown), tcg (Trading card world), potw (Pretty Pull of the Week). The newest potw post is featured at the top; with none, an invite to tag @myprettypulls shows instead.
   potw fields: {handle, platform (tiktok/instagram/youtube), url, photo (content/news/<file>.webp), card}. Get the fan's OK before using their photo.
 - Body text: ## heading, - list, **bold**, *italic*, [link](/path or https://), ![caption](image). In updates, "## You asked, we built" and "## Behind the scenes" become callouts; the number of "You asked" items shows as "💬 N ideas from you".
-- Drafted history (needs Kinsey's review): Hello (Nov 5, when the site was started), Badges (Nov 7), KPop arrives (Nov 9), KPop games + card shine (Nov 10), Profiles + 100 badges (Nov 11). Two draft news posts: Costume Party, KPop Series 2.
+- Drafted history (needs Kinsey's review): Hello (Nov 5, when the site was started), Daily games + Badges (Nov 7), KPop arrives (Nov 9), KPop games + card shine (Nov 10), Profiles + 100 badges (Nov 11). Two draft news posts: Costume Party, KPop Series 2.

@@ -28,10 +28,10 @@
   {
    "slug": "badges-and-sparkles",
    "date": "2026-11-07",
-   "title": "Badges, Sparkles and Shimmer",
+   "title": "Daily games, badges and Sparkles",
    "draft": true,
-   "summary": "Earn badges for collecting and playing, and see them on your profile.",
-   "body": "## New\n- **Badges.** Earn them for collecting (like finishing a rarity set or half a collection), for the daily games, and for following My Pretty Pulls.\n- **Two kinds of rewards.** Sparkles come from playing and are what you'll spend in the Sparkle Store. Shimmer comes from collection badges and is for fun extras on your profile.\n- **Badges on your profile**, plus how long you've been collecting.\n- **The Badges & Sparkles page** lists every badge and how to earn it.\n\n## Behind the scenes\n- Collection badges follow your binder: if you take cards out and no longer qualify, the badge goes away until you earn it back. That keeps the badges honest."
+   "summary": "Play Guess the Secret Pull and Daily Trivia every day, earn Sparkles and badges, and climb the leaderboard.",
+   "body": "## New\n- **Guess the Secret Pull.** A new mystery card every day. Ask questions to narrow down your binder, watch the card get clearer, and guess it in 8 tries.\n- **Daily Trivia.** 5 questions a day about the show and the cards.\n- **A leaderboard** for the Sparkles you win playing.\n- **Badges.** Earn them for collecting (like finishing a rarity set or half a collection), for the daily games, and for following My Pretty Pulls.\n- **Two kinds of rewards.** Sparkles come from playing and are what you'll spend in the Sparkle Store. Shimmer comes from collection badges and is for fun extras on your profile.\n- **Badges on your profile**, plus how long you've been collecting.\n- **The Badges & Sparkles page** lists every badge and how to earn it.\n\n## Behind the scenes\n- Collection badges follow your binder: if you take cards out and no longer qualify, the badge goes away until you earn it back. That keeps the badges honest."
   },
   {
    "slug": "hello",
@@ -39,7 +39,7 @@
    "title": "Hello, My Pretty Pulls",
    "draft": true,
    "summary": "The first version of My Pretty Pulls: a home for your Winx Club Fairy Diary collection.",
-   "body": "## New\n- **Every Winx Club Fairy Diary card**, Daily and Magic Editions plus promos, with your progress by edition, rarity and character.\n- **Accounts** so your collection is saved on every device.\n- **Profiles** you can share with a link or as an image.\n- **Guess the Secret Pull and Daily Trivia**, with Sparkles and a leaderboard.\n\n## Behind the scenes\n- My Pretty Pulls started as one collector's spreadsheet of Winx cards. It's made by a collector, for collectors."
+   "body": "## New\n- **Every Winx Club Fairy Diary card**, Daily and Magic Editions plus promos, with your progress by edition, rarity and character.\n- **Accounts** so your collection is saved on every device.\n- **Profiles** you can share with a link or as an image.\n\n## Behind the scenes\n- My Pretty Pulls started as one collector's spreadsheet of Winx cards. It's made by a collector, for collectors."
   }
  ]
 }
