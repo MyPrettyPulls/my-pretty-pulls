@@ -1,5 +1,5 @@
 {
- "_how": "News posts. tags: winx, kpdh, tcg (trading card world), potw (Pretty Pull of the Week; add potw:{handle,platform,url,photo,card}). 'draft': true shows only on the preview site.",
+ "_how": "News posts. tags: winx, kpdh, tcg (trading card world), potw (Pretty Pull of the Week; add potw:{handle,platform,url,photo,card}). 'draft': true shows only on the preview site. 'thumb' = picture on the news card only; 'cover' = picture at the top of the post (also used on the card if there's no thumb).",
  "posts": [
   {
    "slug": "winx-costume-party",
@@ -10,7 +10,8 @@
    ],
    "draft": true,
    "summary": "KAYOU's new Winx Club mini set has 45 cards in 8 rarities, plus 3 promos. It's already on My Pretty Pulls, ready to track.",
-   "body": "Winx Club **Costume Party** is KAYOU's first Winx Club mini series, and it comes out on November 11, 2026.\n\n## What's in the set\n- 45 cards in 8 rarities, numbered WCP01\n- ZR, GP, AR, UGR, UR and SR: one of each Winx fairy\n- FR: each fairy with her Specialist\n- SSR: the Trix (Stormy, Icy and Darcy)\n- 3 promo cards\n\n## Track it\nThe whole set is already in your Winx Club binder. Card pictures will be added as soon as KAYOU posts them. [Open the Winx Club collection](/)"
+   "body": "Winx Club **Costume Party** is KAYOU's first Winx Club mini series, and it comes out on November 11, 2026.\n\n## What's in the set\n- 45 cards in 8 rarities, numbered WCP01\n- ZR, GP, AR, UGR, UR and SR: one of each Winx fairy\n- FR: each fairy with her Specialist\n- SSR: the Trix (Stormy, Icy and Darcy)\n- 3 promo cards: buy 1 box and get 1 PR card free\n\n!![KAYOU's product sheet for Winx Club Costume Party. Tap to see it full size.](/content/news/winx-costume-party-info.webp)\n\n## Track it\nThe whole set is already in your Winx Club binder. Card pictures will be added as soon as KAYOU posts them. [Open the Winx Club collection](/)",
+   "thumb": "/content/news/winx-costume-party-thumb.webp"
   },
   {
    "slug": "kpop-series-2",

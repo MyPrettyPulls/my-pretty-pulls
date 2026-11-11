@@ -440,7 +440,10 @@ a.brand{color:var(--fg);text-decoration:none}
 .backlink{display:inline-block;font-size:.85rem;margin-bottom:10px;text-decoration:none}
 .post h1{margin-top:8px}
 .ncover{width:100%;border-radius:14px;margin:8px 0 4px}
-.nimg{margin:14px 0}.nimg img{width:100%;border-radius:14px}.nimg figcaption{font-size:.8rem;color:var(--muted);margin-top:4px;text-align:center}
+.nimg{margin:14px 0}.nimg img{width:100%;border-radius:14px}
+.nimg.tall a{position:relative;display:block;max-height:560px;overflow:hidden;border-radius:14px}
+.nimg.tall img{display:block;border-radius:0}
+.nimg.tall .more{display:block;position:absolute;left:0;right:0;bottom:0;padding:70px 0 14px;text-align:center;font-weight:800;color:#fff;background:linear-gradient(transparent,rgb(60 20 70 / .85))}.nimg figcaption{font-size:.8rem;color:var(--muted);margin-top:4px;text-align:center}
 .lede{font-size:1.05rem;color:var(--muted);margin:4px 0 10px}
 .pbody h2{margin-top:20px}
 .callout{border-radius:14px;padding:4px 16px 8px;margin:18px 0}
@@ -2887,6 +2890,8 @@ function mdLite(src){
     const h=l.match(/^##\s+(.+)$/);
     if(h){flush();close();const t=h[1].trim(),k=/^you asked/i.test(t)?"ask":/^behind the scenes/i.test(t)?"bts":null;
       if(k){html+=`<div class="callout ${k}"><h2>${k==="ask"?"💬 ":"🎬 "}${inl(t)}</h2>`;open=k}else html+=`<h2>${inl(t)}</h2>`;return}
+    const tall=l.match(/^!!\[([^\]]*)\]\(([^)\s]+)\)$/);   // a long image (like a product sheet): shows the top, tap for full size
+    if(tall){flush();html+=`<figure class="nimg tall"><a href="${esc(tall[2])}" target="_blank" rel="noopener"><img src="${esc(tall[2])}" alt="${esc(tall[1])}" loading="lazy"><span class="more">Tap to see the full sheet</span></a>${tall[1]?`<figcaption>${esc(tall[1])}</figcaption>`:""}</figure>`;return}
     const img=l.match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
     if(img){flush();html+=`<figure class="nimg"><img src="${esc(img[2])}" alt="${esc(img[1])}" loading="lazy">${img[1]?`<figcaption>${esc(img[1])}</figcaption>`:""}</figure>`;return}
     const li=l.match(/^-\s+(.+)$/);
@@ -2940,7 +2945,7 @@ async function renderNews(slug){
     ${potw?potwBox(potw):POTW_INVITE}
     <div class="seg nchips" role="group" aria-label="News sections">${chips.map(t=>`<button type="button" data-ntag="${t}" aria-pressed="${t===newsTag}">${t==="all"?"All news":esc(NEWS_TAGS[t].name)}</button>`).join("")}</div>
     ${list.length?`<div class="nlist">${list.map(p=>{const t=(p.tags||[])[0]||"tcg";return `<a class="ncard" href="/news/${esc(p.slug)}" data-nav="/news/${esc(p.slug)}">
-      ${p.cover||(p.potw&&p.potw.photo)?`<img class="ncard-img" src="${esc(p.cover||p.potw.photo)}" alt="" loading="lazy">`:`<span class="ncard-img ph ${NEWS_TAGS[t]?NEWS_TAGS[t].cls:"t-tcg"}" aria-hidden="true">${t==="winx"?"🧚":t==="kpdh"?"🎤":t==="potw"?"💖":"🃏"}</span>`}
+      ${p.thumb||p.cover||(p.potw&&p.potw.photo)?`<img class="ncard-img" src="${esc(p.thumb||p.cover||p.potw.photo)}" alt="" loading="lazy">`:`<span class="ncard-img ph ${NEWS_TAGS[t]?NEWS_TAGS[t].cls:"t-tcg"}" aria-hidden="true">${t==="winx"?"🧚":t==="kpdh"?"🎤":t==="potw"?"💖":"🃏"}</span>`}
       <span class="ncard-txt"><span class="ntags">${draftPill(p)}${(p.tags||[]).map(tagPill).join("")}</span><b>${esc(p.title)}</b><span class="ndate">${postDate(p.date)}</span><span class="nsum">${esc(p.summary||"")}</span></span></a>`}).join("")}</div>`
       :`<p class="hint" style="margin-top:14px">${newsTag==="all"?"No news yet. Check back soon!":`No ${esc(NEWS_TAGS[newsTag].name)} news yet. Check back soon!`}</p>`}
   </article>`;
