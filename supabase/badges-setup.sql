@@ -1,5 +1,6 @@
 -- My Pretty Pulls: badges, Sparkles and Shimmer
 -- Run in Supabase: SQL Editor > New query > paste > Run. Needs every earlier setup file. Safe to run again.
+-- NOTE: badges-v2.sql builds on this file. If you ever run this one again, run badges-v2.sql again right after it.
 --
 -- Two currencies:
 --   Sparkles (✨): from the daily games, game badges, follow/share/creator badges. Can't be faked; will buy real things.

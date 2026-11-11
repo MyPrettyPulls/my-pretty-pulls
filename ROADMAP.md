@@ -98,3 +98,14 @@
 - Share image mixes cards from each collection (5 total).
 - Stored in the same profiles.showcase list. Needs supabase/showcase-per-collection.sql (raises the 5-card limit). Until it's run, saving keeps the first 5 and shows a note.
 - KPop Series 2 card numbers checked against printed cards: "not confirmed" notes removed.
+
+## Badges v2: every collection, bigger Shimmer (preview)
+- 112 automatic badges (+6 social). Run supabase/badges-v2.sql after the KPop games parts. If badges-setup.sql is ever rerun, rerun badges-v2.sql after it.
+- Built by tools/badges/make_badges.py from the site's card list (dump_cards.py → /tmp/carddata.json). Rerun both when cards/merch are added, then rerun the SQL.
+- badge_cards = every card + merch item; badge_rules = what each collection badge needs (filters + need_frac/need_count, groups per character or collection). Database awards from it; the Badges page reads it for "You have X / Y".
+- Rarity sets per series: Winx Fairy Diary, Costume Party, KPop S1, Special Mini, S2. Shimmer = cards × rarity weight (R/SR/QR/HR 2, SSR/FR/SRP/UR 4, TR/UGR/GP/AR 8, ZR/LR/SP/CR/CRP 15, serialized KPop SE/BP + S2 CRP 60, PR 10), rounded to 5, min 25; old Winx values never lowered.
+- Collection %: 50/100/200/500. Editions 150. Costume Party Complete 250.
+- General: cards 50/100/250/500, Double Feature, First Merch, On Display, Secret Style (any secret merch), Biggest Fan / Superfan (scaled by the character's card count: 1.5×, 25–150 / 3×, 50–300), Curator, All About Me, time milestones 25/75/200.
+- KPop fun: HUNTR/X Forever, Saja Boys Stan, Derpy & Sussie, Costco Haul, Numbered Pull (needs card-serials.sql). Winx: All Six Fairies.
+- Games (Sparkles) count either game; new: Hunter's Instinct, Double Duty, Double Perfect, Trivia Champion.
+- Existing earners are topped up to the new amounts when the file runs.

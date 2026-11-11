@@ -1574,7 +1574,8 @@ async function flushSerials(){
   const ups=ids.filter(u=>SERIALS[u]).map(u=>({user_id:user.id,card_uid:u,serials:SERIALS[u],updated_at:new Date().toISOString()}));
   const dels=ids.filter(u=>!SERIALS[u]);
   try{ if(ups.length){const {error}=await sb.from("card_serials").upsert(ups);if(error)throw error}
-       if(dels.length){const {error}=await sb.from("card_serials").delete().eq("user_id",user.id).in("card_uid",dels);if(error)throw error} }
+       if(dels.length){const {error}=await sb.from("card_serials").delete().eq("user_id",user.id).in("card_uid",dels);if(error)throw error}
+       checkBadges(); }
   catch(e){ /* table not set up yet or offline: the numbers stay saved on this device */ }
 }
 async function loadSerials(){
@@ -2088,7 +2089,7 @@ async function saveShowcaseOrder(){
   const sc=viewing.prof.showcase;
   const {error}=await sb.from("profiles").update({showcase:sc,updated_at:new Date().toISOString()}).eq("id",user.id);
   if(error){toast(/showcase/.test(error.message||"")?"A showcase for each collection needs one more database step.":"Couldn't save the new order");return}
-  if(myProfile)myProfile.showcase=[...sc]; toast("Showcase order saved");
+  if(myProfile)myProfile.showcase=[...sc]; toast("Showcase order saved"); checkBadges();
 }
 const scPos=el=>{const [f,i]=el.dataset.sci.split(":");return{f,i:+i}};
 document.addEventListener("dragstart",e=>{const s=e.target.closest?.(".showcase.arranging .sc");if(!s)return;dragI=scPos(s);s.classList.add("dragging");try{e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",String(dragI))}catch(err){}});
@@ -2719,14 +2720,35 @@ document.addEventListener("input",e=>{ if(e.target.id==="delConfirm"){$("#delGo"
 
 
 // ---------- Badges ----------
-let BADGES=null, myBadges=null, badgesOpen=false;
-async function loadBadgeCatalog(){ if(BADGES||!sb)return BADGES; const {data}=await sb.from("badge_catalog").select("*").order("sort"); BADGES=data||[]; return BADGES }
+let BADGES=null, BRULES={}, myBadges=null, badgesOpen=false;
+async function loadBadgeCatalog(){ if(BADGES||!sb)return BADGES;
+  const [{data},r]=await Promise.all([sb.from("badge_catalog").select("*").order("sort"),sb.from("badge_rules").select("*")]);
+  BADGES=data||[]; (r&&r.data||[]).forEach(x=>BRULES[x.badge]=x); return BADGES }
+// What a collection badge needs, worked out the same way as the database does (supabase/badges-v2.sql)
+let BITEMS=null;
+function badgeItems(){ return BITEMS||(BITEMS=[...ALLCARDS.map(c=>({uid:c.uid,fr:c.fr,kind:"card",cset:c.set,rar:c.rar,eds:c.editions,ap:c.appears,secret:false})),
+  ...MERCH.map(m=>({uid:m.uid,fr:m.fr,kind:"merch",cset:null,rar:null,eds:[],ap:[],secret:m.secret}))]) }
+const FAN_AMT={"fan-half":[1.5,25,150],"fan-all":[3,50,300]};
+function badgeProgress(b){
+  if(FAN_AMT[b.id]){const half=b.id==="fan-half",fl=favList(myProfile||{});if(!fl.length)return "Pick a favorite character first";
+    const best=fl.map(([f,n])=>{const cs=FRANCH[f].cards.filter(c=>c.appears.includes(n)),h=cs.filter(c=>has(c.uid)>0).length,need=half?Math.ceil(cs.length/2):cs.length;return{n,h,need,r:h/Math.max(1,need)}}).sort((a,b)=>b.r-a.r)[0];
+    return `${Math.min(best.h,best.need)} / ${best.need} ${esc(best.n)} cards`}
+  const ru=BRULES[b.id]; if(!ru||(ru.kind!=="card"&&ru.kind!=="merch"))return "";
+  const items=badgeItems().filter(c=>c.kind===ru.kind&&(!ru.fr||c.fr===ru.fr)&&(!ru.csets||ru.csets.includes(c.cset))&&(!ru.rar||c.rar===ru.rar)&&(!ru.ed||c.eds.includes(ru.ed))
+    &&(!ru.uids||ru.uids.includes(c.uid))&&(!ru.secret||c.secret)&&(!ru.anychar||c.ap.some(a=>ru.anychar.includes(a))));
+  const groups=ru.chars?ru.chars.map(ch=>items.filter(c=>c.ap.includes(ch))):ru.by_fr?Object.keys(FRANCH).map(f=>items.filter(c=>c.fr===f)):[items];
+  const st=groups.filter(g=>g.length).map(g=>{const h=g.filter(c=>has(c.uid)>0).length,need=ru.need_count??Math.ceil(ru.need_frac*g.length);return{h,need,ok:h>=need}});
+  const what=(ru.kind==="merch"?"item":"card")+(st[0]&&st[0].need===1?"":"s");
+  if(st.length===1)return `${Math.min(st[0].h,st[0].need)} / ${st[0].need} ${what}`;
+  const ok=st.filter(x=>x.ok).length, need=ru.groups_needed??st.length;
+  return `${Math.min(ok,need)} / ${need} ${ru.chars?"characters":"collections"}`;
+}
 const badgeById=id=>(BADGES||[]).find(b=>b.id===id);
 const CUR={sparkles:"✨",shimmer:"💫"}, CURN={sparkles:"Sparkles",shimmer:"Shimmer"};
-const reward=b=>`${CUR[b.currency]||"✨"} ${b.sparkles??b.amount}`;
+const reward=b=>`${CUR[b.currency]||"✨"} ${FAN_AMT[b.id]&&b.amount==null?`${FAN_AMT[b.id][1]}–${FAN_AMT[b.id][2]}`:b.sparkles??b.amount}`;
 function badgeIcon(b,locked){
-  const m=b.id.match(/^winx-rar-(.+)$/);
-  if(m){const key=m[1]==="srp"?"SRP":m[1].toUpperCase(),r=RINFO[key];if(r)return `<span class="bdg-ic rar${locked?" locked":""}" style="--c:${r.color}">${esc(r.code)}</span>`}
+  const ru=BRULES[b.id], key=ru&&ru.rar;
+  if(key){const r=RINFO[key];if(r)return `<span class="bdg-ic rar${locked?" locked":""}" style="--c:${r.color}">${esc(r.code)}</span>`}
   return `<span class="bdg-ic${locked?" locked":""}">${b.icon}</span>`;
 }
 function badgeTile(b,earned,extra=""){
@@ -2775,15 +2797,7 @@ async function renderBadgesPage(){
   await loadBadgeCatalog();
   let mine=new Map();
   if(user&&myProfile){const g=await sb.rpc("profile_badges",{uname:myProfile.username});(g.data||[]).forEach(x=>mine.set(x.id,x.earned_at))}
-  const own=n=>CARDS.filter(c=>(counts[c.uid]||0)>0&&n(c)).length, all=n=>CARDS.filter(n).length;
-  const prog=b=>{
-    if(!user)return "";
-    let m;
-    if(/^winx-col|^cards-|^first-card/.test(b.id))return `${own(()=>true)} / ${b.id==="first-card"?1:b.id==="cards-50"?50:b.id==="cards-100"?100:Math.ceil(CARDS.length*{ "winx-col25":.25,"winx-col50":.5,"winx-col75":.75,"winx-col100":1}[b.id])} cards`;
-    if((m=b.id.match(/^winx-ed-(.+)$/)))return `${own(c=>c.editions.includes(m[1]))} / ${all(c=>c.editions.includes(m[1]))} cards`;
-    if((m=b.id.match(/^winx-rar-(.+)$/))){const k=m[1]==="srp"?"SRP":m[1].toUpperCase();return `${own(c=>c.rar===k)} / ${all(c=>c.rar===k)} cards`}
-    return "";
-  };
+  const prog=b=>user?badgeProgress(b):"";
   const cats=[...new Set(BADGES.map(b=>b.category))];
   const got=BADGES.filter(b=>mine.has(b.id)), earned=got.length, spark=got.filter(b=>b.currency==="sparkles").reduce((s,b)=>s+b.sparkles,0), shim=got.filter(b=>b.currency==="shimmer").reduce((s,b)=>s+b.sparkles,0);
   el.innerHTML=`<article class="doc wide">
