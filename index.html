@@ -408,6 +408,20 @@ a.brand{color:var(--fg);text-decoration:none}
 .way{display:flex;gap:12px;align-items:center;background:var(--sunk);border-radius:14px;padding:10px 12px}
 .way div{display:flex;flex-direction:column}.way span{color:var(--muted);font-size:.9rem}
 .bdg-list{display:flex;flex-direction:column;gap:8px}
+.bnav{position:sticky;top:0;z-index:5;margin:18px -10px 4px;padding:10px;background:var(--surface);border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.bnav-chips{display:flex;flex-wrap:wrap;gap:6px}
+.bnav-chips a{font-size:.8rem;font-weight:700;padding:5px 10px;border-radius:999px;background:var(--sunk);color:var(--fg);text-decoration:none;white-space:nowrap}
+.bnav-chips a:hover{background:var(--accent-soft)}
+.bnav-chips small{color:var(--muted);font-weight:600}
+.bnav-all{display:flex;gap:14px;justify-content:flex-end;font-size:.8rem}
+@media (max-width:640px){.bnav-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.bnav-chips::-webkit-scrollbar{display:none}}
+details.bcat{border-top:1px solid var(--line);padding-top:4px}
+details.bcat>summary{list-style:none;display:flex;align-items:center;gap:10px;cursor:pointer;padding:8px 0;scroll-margin-top:90px}
+details.bcat>summary::-webkit-details-marker{display:none}
+details.bcat>summary h2{margin:0;flex:1}
+details.bcat>summary::after{content:"Show";font-size:.78rem;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:4px 12px;border-radius:999px}
+details.bcat[open]>summary::after{content:"Hide"}
+details.bcat[open]>.bdg-list{margin-bottom:14px}
 .bdg-row{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:10px 12px}
 .bdg-row.got{background:var(--accent-soft);border-color:transparent}
 .bdg-txt{display:flex;flex-direction:column;min-width:0;flex:1}.bdg-txt span{color:var(--muted);font-size:.88rem}
@@ -2791,6 +2805,17 @@ document.addEventListener("click",async e=>{
 });
 document.addEventListener("click",e=>{ if(e.target.closest("[data-bopen]")){badgesOpen=!badgesOpen;renderProfile();if(!badgesOpen)$("#profBadges")?.scrollIntoView({block:"start"})} });
 // the Badges & Sparkles page
+// categories you've folded away stay folded next time
+const BCAT_KEY="mpp.badgeCatsClosed";
+function badgeCatsClosed(){try{const v=JSON.parse(localStorage.getItem(BCAT_KEY)||"[]");return Array.isArray(v)?v:[]}catch(e){return []}}
+function saveBadgeCats(){try{localStorage.setItem(BCAT_KEY,JSON.stringify([...document.querySelectorAll("details.bcat:not([open])")].map(d=>d.dataset.cat)))}catch(e){}}
+const shortCat=c=>c.replace("KPop Demon Hunters · ","KPop · ").replace("Winx Club · ","Winx · ").replace(" rarity sets"," rarities").replace("Guess the Secret Pull","Secret Pull");
+document.addEventListener("toggle",e=>{if(e.target.classList&&e.target.classList.contains("bcat"))saveBadgeCats()},true);
+document.addEventListener("click",e=>{
+  const j=e.target.closest("[data-bjump]"); if(j){e.preventDefault();const d=document.getElementById("bcat-"+j.dataset.bjump);if(!d)return;d.open=true;
+    const nav=document.querySelector(".bnav"),off=(nav?nav.offsetHeight:0)+12;scrollTo({top:d.getBoundingClientRect().top+scrollY-off,behavior:"smooth"});return}
+  const a=e.target.closest("[data-ball]"); if(a){document.querySelectorAll("details.bcat").forEach(d=>d.open=a.dataset.ball==="1");saveBadgeCats();return}
+});
 async function renderBadgesPage(){
   const el=$("#viewPage");
   el.innerHTML=`<article class="doc"><h1>Badges &amp; Sparkles</h1><p class="updated">Loading…</p></article>`;
@@ -2799,6 +2824,8 @@ async function renderBadgesPage(){
   if(user&&myProfile){const g=await sb.rpc("profile_badges",{uname:myProfile.username});(g.data||[]).forEach(x=>mine.set(x.id,x.earned_at))}
   const prog=b=>user?badgeProgress(b):"";
   const cats=[...new Set(BADGES.map(b=>b.category))];
+  const catAll=cat=>BADGES.filter(b=>b.category===cat).length, catGot=cat=>BADGES.filter(b=>b.category===cat&&mine.has(b.id)).length;
+  const closedCats=new Set(badgeCatsClosed());
   const got=BADGES.filter(b=>mine.has(b.id)), earned=got.length, spark=got.filter(b=>b.currency==="sparkles").reduce((s,b)=>s+b.sparkles,0), shim=got.filter(b=>b.currency==="shimmer").reduce((s,b)=>s+b.sparkles,0);
   el.innerHTML=`<article class="doc wide">
     <h1>Badges &amp; Sparkles</h1>
@@ -2810,9 +2837,13 @@ async function renderBadgesPage(){
       <div class="way"><span class="bdg-ic">💫</span><div><b>Shimmer</b><span>Earned from collection badges, like completing a rarity set or reaching 50% of a collection. Shimmer is for fun extras that make your profile sparkle. Collection badges follow your binder: if you remove cards and no longer qualify, the badge and its Shimmer go away until you earn them back.</span></div></div>
     </div>
     <p class="hint">Sparkles and Shimmer have no cash value. Something fun is coming to the ✨ Sparkle Store soon.</p>
-    ${cats.map(cat=>`<h2>${esc(cat)}</h2><div class="bdg-list">${BADGES.filter(b=>b.category===cat).map(b=>{const e=mine.get(b.id),pg=e?"":prog(b);
+    <nav class="bnav" aria-label="Badge categories">
+      <div class="bnav-chips">${cats.map((cat,i)=>`<a href="#bcat-${i}" data-bjump="${i}">${esc(shortCat(cat))}${user?` <small>${catGot(cat)}/${catAll(cat)}</small>`:""}</a>`).join("")}</div>
+      <div class="bnav-all"><button type="button" class="linkbtn" data-ball="1">Show all</button><button type="button" class="linkbtn" data-ball="0">Hide all</button></div>
+    </nav>
+    ${cats.map((cat,i)=>`<details class="bcat" id="bcat-${i}" data-cat="${esc(cat)}"${closedCats.has(cat)?"":" open"}><summary><h2>${esc(cat)}</h2><span class="hint">${user?`${catGot(cat)} of ${catAll(cat)} earned`:`${catAll(cat)} badges`}</span></summary><div class="bdg-list">${BADGES.filter(b=>b.category===cat).map(b=>{const e=mine.get(b.id),pg=e?"":prog(b);
       const follow=b.kind==="claim"&&b.url&&!e?`<a class="primary small-btn" href="${esc(b.url)}" target="_blank" rel="noopener" data-follow="${esc(b.id)}">Follow</a>`:"";
-      return `<div class="bdg-row${e?" got":""}">${badgeIcon(b,!e)}<div class="bdg-txt"><b>${esc(b.name)}</b><span>${esc(b.description)}</span>${pg?`<span class="bdg-prog">You have ${pg}</span>`:""}${b.id==="creator"&&!e?`<a href="/contact" data-nav="/contact?topic=${encodeURIComponent("Claim a badge")}" class="bdg-prog">Claim this badge</a>`:""}</div>${follow}<span class="bdg-pts">${e?"✓ Earned":`+${reward(b)}`}</span></div>`}).join("")}</div>`).join("")}
+      return `<div class="bdg-row${e?" got":""}">${badgeIcon(b,!e)}<div class="bdg-txt"><b>${esc(b.name)}</b><span>${esc(b.description)}</span>${pg?`<span class="bdg-prog">You have ${pg}</span>`:""}${b.id==="creator"&&!e?`<a href="/contact" data-nav="/contact?topic=${encodeURIComponent("Claim a badge")}" class="bdg-prog">Claim this badge</a>`:""}</div>${follow}<span class="bdg-pts">${e?"✓ Earned":`+${reward(b)}`}</span></div>`}).join("")}</div></details>`).join("")}
   </article>`;
 }
 

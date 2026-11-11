@@ -109,3 +109,4 @@
 - KPop fun: HUNTR/X Forever, Saja Boys Stan, Derpy & Sussie, Costco Haul, Numbered Pull (needs card-serials.sql). Winx: All Six Fairies.
 - Games (Sparkles) count either game; new: Hunter's Instinct, Double Duty, Double Perfect, Trivia Champion.
 - Existing earners are topped up to the new amounts when the file runs.
+- Badges page: each category folds up (Show/Hide, remembered per device in localStorage "mpp.badgeCatsClosed"); a sticky bar of category chips (with earned counts) jumps to a section and opens it; Show all / Hide all. Chips scroll sideways on phones.
