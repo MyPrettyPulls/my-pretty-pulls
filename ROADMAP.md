@@ -77,8 +77,8 @@
 
 ## KPop Demon Hunters games (Nov 2026)
 - /play and /trivia open a page to pick the Winx Club or KPop Demon Hunters version; /play/winx, /play/kpop-demon-hunters, /trivia/winx, /trivia/kpop-demon-hunters are the games (Winx/KPop switch at the top of each).
-- Database: supabase/kpop-games.sql (run after trivia-no-repeat-kinds.sql). Adds fr ('winx'/'kpdh') to game_cards, trivia_questions, secret_pull_plays, trivia_plays; KPop cards + blurry previews; *_for(f) functions; old function names stay as the Winx version so the live site keeps working. Winx puzzles are unchanged (checked).
+- Database: supabase/kpop-games/kpop-games-part1..6.sql, run in order after trivia-no-repeat-kinds.sql (split because the Supabase editor rejects one big file). Adds fr ('winx'/'kpdh') to game_cards, trivia_questions, secret_pull_plays, trivia_plays; KPop cards + blurry previews; *_for(f) functions; old function names stay as the Winx version so the live site keeps working. Winx puzzles are unchanged (checked).
 - Sparkles and the leaderboard are shared across all games. Streaks: per game on the game page; overall (either game) on profiles/leaderboard.
 - KPop Secret Pull only uses cards with pictures. KPop card trivia kinds: rarity, who's on it, box, close-up, what's wrong (no transformations).
-- Trivia questions come from the "Winx Trivia" and "Kpop Trivia" tabs of the card sheet (no fun facts). To update: regenerate with tools/games (trivia_qs.py) and rerun kpop-games.sql.
+- Trivia questions come from the "Winx Trivia" and "Kpop Trivia" tabs of the card sheet (no fun facts). To update: regenerate with tools/games (trivia_qs.py) and rerun the trivia part (part 6).
 - KPop puzzle numbers start at #1 on Nov 10, 2026.
