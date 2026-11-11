@@ -110,3 +110,12 @@
 - Games (Sparkles) count either game; new: Hunter's Instinct, Double Duty, Double Perfect, Trivia Champion.
 - Existing earners are topped up to the new amounts when the file runs.
 - Badges page: each category folds up (Show/Hide, remembered per device in localStorage "mpp.badgeCatsClosed"); a sticky bar of category chips (with earned counts) jumps to a section and opens it; Show all / Hide all. Chips scroll sideways on phones.
+
+## News and Pretty Pull Updates (preview)
+- /news (+ /news/<slug>) and /updates (+ /updates/<slug>); menu section "What's new" and footer links. _redirects updated.
+- Posts live in content/news.json and content/updates.json (Kinsey sends posts; Claude adds them). Newest first automatically.
+- "draft": true posts only show on the preview site (preview.*, localhost) with a Draft label. Remove it to publish.
+- News tags: winx, kpdh (one filter per collection, always shown), tcg (Trading card world), potw (Pretty Pull of the Week). The newest potw post is featured at the top; with none, an invite to tag @myprettypulls shows instead.
+  potw fields: {handle, platform (tiktok/instagram/youtube), url, photo (content/news/<file>.webp), card}. Get the fan's OK before using their photo.
+- Body text: ## heading, - list, **bold**, *italic*, [link](/path or https://), ![caption](image). In updates, "## You asked, we built" and "## Behind the scenes" become callouts; the number of "You asked" items shows as "💬 N ideas from you".
+- Drafted history (needs Kinsey's review): Hello (date is a guess: Oct 1), Badges (Nov 7), KPop arrives (Nov 9), KPop games + card shine (Nov 10), Profiles + 100 badges (Nov 11). Two draft news posts: Costume Party, KPop Series 2.

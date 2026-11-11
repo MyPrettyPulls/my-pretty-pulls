@@ -1,0 +1,45 @@
+{
+ "_how": "Updates page posts. Newest first is automatic. 'draft': true shows only on the preview site.",
+ "posts": [
+  {
+   "slug": "profiles-and-badges",
+   "date": "2026-11-11",
+   "title": "Profiles for every collection, and 100+ new badges",
+   "draft": true,
+   "summary": "Your profile now has a showcase and a favorite character for each collection you own, and badges cover every set, series and rarity.",
+   "body": "## New\n- **A favorite character for each collection.** Pick one for Winx Club and one for KPop Demon Hunters. Each one gets its own spot on your profile, with a progress bar in their colour and the cards of theirs you own.\n- **A showcase for each collection.** Show off up to 5 cards from each collection you collect, and drag them into the order you like.\n- **Over 100 new badges.** Rarity sets for every series (Fairy Diary, Costume Party, KPop Series 1, Special Mini and Series 2), edition badges, KPop badges like HUNTR/X Forever and Saja Boys Stan, merch badges and more.\n- **Bigger Shimmer rewards.** Harder sets pay more: the rarer the cards and the bigger the set, the more Shimmer you get. Everyone who already earned a badge was topped up to the new amounts.\n\n## Improved\n- **Edit profile is tidier.** Each part folds up, and your chosen showcase cards sit in a box at the top, so you can see how they'll look, rearrange them and take one out without searching your whole binder.\n- **The Badges page folds up too.** Hide the categories you don't need, or jump straight to one from the bar at the top. It also shows how close you are to each badge.\n- **Easier to read at night.** When the KPop background turns to night, panels and badges keep their normal text.\n\n## Behind the scenes\n- Every KPop Demon Hunters Series 2 card number was checked against the printed cards before we took the \"not confirmed\" labels off.\n- Badge rewards are worked out card by card, so a 20-card Titan Rare set pays more than an 8-card one."
+  },
+  {
+   "slug": "kpop-games-and-card-shine",
+   "date": "2026-11-10",
+   "title": "KPop Demon Hunters games, real card pictures and card shine",
+   "draft": true,
+   "summary": "Play Guess the Secret Pull and Daily Trivia with KPop Demon Hunters cards, and see every KPop card with its real picture and foil.",
+   "body": "## New\n- **KPop Demon Hunters games.** Guess the Secret Pull and Daily Trivia now come in a Winx Club and a KPop Demon Hunters version. Sparkles from both go into the same total and the same leaderboard.\n- **Real pictures for every KPop card.** All 389 cards from Series 1, the Special Mini Edition and Series 2 now show their real picture.\n- **Card shine.** Cards shimmer the way they do in your hand: foil, holo, glitter and shine are matched to each rarity, card by card.\n- **Serial numbers.** Serialized cards (like Scenario-E and Brush Rare) get a box to write the number printed on your copy.\n\n## Behind the scenes\n- The KPop Demon Hunters background went through a lot of demon-marking designs that didn't make the cut. It ended up as a pastel stage with moving rainbow lines that fades into a sparkly night every so often.\n- The Laser Tickets were matched style by style: 8 Regular, 8 Special, 2 secret Saja Boys and 2 super secret HUNTR/X."
+  },
+  {
+   "slug": "kpop-demon-hunters-arrives",
+   "date": "2026-11-09",
+   "title": "KPop Demon Hunters has arrived",
+   "draft": true,
+   "summary": "Track every KAYOU KPop Demon Hunters card and piece of merch, plus the new Winx Club Costume Party set.",
+   "body": "## New\n- **A KPop Demon Hunters collection.** Every KAYOU KPop Demon Hunters card: Classic and Energy Editions for Series 1 and 2, the Special Mini Edition and promos.\n- **Merch tracking.** Albums, card holders, Laser Tickets and the Costco Collector Boxes can be added to your collection style by style, just like cards.\n- **A products guide on each collection page.** Tap any KAYOU product to see what's in it, with a link to KAYOU's page.\n- **Winx Club Costume Party.** The new mini set is ready to track: 45 cards in 8 rarities plus 3 promos.\n- **Trade lists.** Make a list of the cards you need and your extras to share with other collectors.\n\n## Improved\n- **Search by group**, like Winx, Specialists, Trix, Pixie Pets, HUNTR/X or Saja Boys.\n- **Hide and show** any edition or rarity in your binder, and the site remembers what you hid.\n\n## Behind the scenes\n- Every product photo comes from KAYOU, and the merch styles are kept in a master list so the site matches what's really in the boxes."
+  },
+  {
+   "slug": "badges-and-sparkles",
+   "date": "2026-11-07",
+   "title": "Badges, Sparkles and Shimmer",
+   "draft": true,
+   "summary": "Earn badges for collecting and playing, and see them on your profile.",
+   "body": "## New\n- **Badges.** Earn them for collecting (like finishing a rarity set or half a collection), for the daily games, and for following My Pretty Pulls.\n- **Two kinds of rewards.** Sparkles come from playing and are what you'll spend in the Sparkle Store. Shimmer comes from collection badges and is for fun extras on your profile.\n- **Badges on your profile**, plus how long you've been collecting.\n- **The Badges & Sparkles page** lists every badge and how to earn it.\n\n## Behind the scenes\n- Collection badges follow your binder: if you take cards out and no longer qualify, the badge goes away until you earn it back. That keeps the badges honest."
+  },
+  {
+   "slug": "hello",
+   "date": "2026-10-01",
+   "title": "Hello, My Pretty Pulls",
+   "draft": true,
+   "summary": "The first version of My Pretty Pulls: a home for your Winx Club Fairy Diary collection.",
+   "body": "## New\n- **Every Winx Club Fairy Diary card**, Daily and Magic Editions plus promos, with your progress by edition, rarity and character.\n- **Accounts** so your collection is saved on every device.\n- **Profiles** you can share with a link or as an image.\n- **Guess the Secret Pull and Daily Trivia**, with Sparkles and a leaderboard.\n\n## Behind the scenes\n- My Pretty Pulls started as one collector's spreadsheet of Winx cards. It's made by a collector, for collectors."
+  }
+ ]
+}

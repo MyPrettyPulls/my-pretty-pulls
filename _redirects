@@ -11,3 +11,7 @@
 /contact     /index.html  200
 /badges      /index.html  200
 /kpop-demon-hunters /index.html  200
+/news        /index.html  200
+/news/*      /index.html  200
+/updates     /index.html  200
+/updates/*   /index.html  200

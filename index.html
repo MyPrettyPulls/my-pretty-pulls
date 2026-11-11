@@ -408,6 +408,61 @@ a.brand{color:var(--fg);text-decoration:none}
 .way{display:flex;gap:12px;align-items:center;background:var(--sunk);border-radius:14px;padding:10px 12px}
 .way div{display:flex;flex-direction:column}.way span{color:var(--muted);font-size:.9rem}
 .bdg-list{display:flex;flex-direction:column;gap:8px}
+/* News and Pretty Pull Updates */
+.ntags{display:flex;flex-wrap:wrap;gap:6px}
+.ntag{font-size:.7rem;font-weight:800;letter-spacing:.03em;padding:3px 9px;border-radius:999px;background:var(--sunk);color:var(--fg);text-transform:uppercase}
+.ntag.t-winx{background:#fde3ef;color:#a3245d}.ntag.t-kpdh{background:#ece3ff;color:#5a2fb0}.ntag.t-tcg{background:#dff3f1;color:#1f6b63}.ntag.t-potw{background:#fff0cf;color:#8a5a00}
+.ntag.draft{background:#fff3c4;color:#7a5a00;border:1px dashed #d9b440}.ntag.new{background:var(--accent);color:#fff}
+.btnlink{display:inline-flex;align-items:center;text-decoration:none!important}
+.doc a.primary.btnlink{color:#fff}
+.potw{display:grid;grid-template-columns:minmax(0,200px) 1fr;gap:18px;align-items:center;margin:18px 0;padding:16px;border-radius:18px;background:linear-gradient(135deg,#fff4d8,#fde3ef);border:1px solid #f1d7a8}
+.potw.full{grid-template-columns:minmax(0,280px) 1fr;margin-top:8px}
+.potw-img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:14px;background:#fff;box-shadow:var(--shadow)}
+.potw-img.ph{display:grid;place-items:center;font-size:3rem;background:#ffffffb0}
+.potw-txt{display:flex;flex-direction:column;gap:6px;min-width:0;color:#2a2230}
+.potw-txt .label{color:#8a5a00}
+.potw-txt h2{margin:0;font-family:var(--font-display);font-size:1.4rem}
+.potw-txt h2 a{color:inherit;text-decoration:none}
+.potw-txt p{margin:0}
+.potw-who{font-weight:700;color:#a3245d}
+.potw.invite{grid-template-columns:90px 1fr}.potw.invite .potw-img{aspect-ratio:1}
+@media (max-width:560px){.potw,.potw.full{grid-template-columns:1fr}.potw.invite{grid-template-columns:64px 1fr}.potw-img{max-width:260px}}
+.nchips{margin:6px 0 14px;flex-wrap:wrap}
+.nlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.ncard{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:16px;overflow:hidden;text-decoration:none;color:var(--fg)!important;font-weight:400!important;background:var(--surface);transition:transform .15s,box-shadow .15s}
+.ncard:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.ncard-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:grid;place-items:center;font-size:2.4rem}
+.ncard-img.t-winx{background:linear-gradient(135deg,#ffd6e8,#d9c8ff)}.ncard-img.t-kpdh{background:linear-gradient(135deg,#d9c8ff,#a9dcff)}.ncard-img.t-tcg{background:linear-gradient(135deg,#c9f0ea,#fff1c9)}.ncard-img.t-potw{background:linear-gradient(135deg,#fff1c9,#ffd6e8)}
+.ncard-txt{display:flex;flex-direction:column;gap:6px;padding:12px 14px 16px}
+.ncard-txt b{font-size:1.05rem;line-height:1.3}
+.ndate{font-size:.78rem;color:var(--muted)}
+.nsum{font-size:.9rem;color:var(--muted);line-height:1.45}
+.backlink{display:inline-block;font-size:.85rem;margin-bottom:10px;text-decoration:none}
+.post h1{margin-top:8px}
+.ncover{width:100%;border-radius:14px;margin:8px 0 4px}
+.nimg{margin:14px 0}.nimg img{width:100%;border-radius:14px}.nimg figcaption{font-size:.8rem;color:var(--muted);margin-top:4px;text-align:center}
+.lede{font-size:1.05rem;color:var(--muted);margin:4px 0 10px}
+.pbody h2{margin-top:20px}
+.callout{border-radius:14px;padding:4px 16px 8px;margin:18px 0}
+.callout h2{margin-top:12px!important}
+.callout.ask{background:var(--accent-soft)}
+.callout.bts{background:var(--sunk);border:1px dashed var(--line)}
+.postfoot{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;padding-top:14px;border-top:1px solid var(--line)}
+.asked{color:var(--accent);font-weight:700}
+.updpage .banner{margin:14px 0 18px}
+.updlist{position:relative;display:flex;flex-direction:column;gap:12px}
+.updlist::before{content:"";position:absolute;left:9px;top:14px;bottom:14px;width:2px;background:var(--line)}
+details.upd>summary{list-style:none;display:flex;gap:14px;cursor:pointer;padding:6px 0}
+details.upd>summary::-webkit-details-marker{display:none}
+.upd-dot{flex:0 0 20px;height:20px;border-radius:50%;background:var(--surface);border:3px solid var(--accent);margin-top:4px;position:relative;z-index:1}
+details.upd:not(:first-child) .upd-dot{border-color:var(--line)}
+.upd-h{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+.upd-h b{font-family:var(--font-display);font-size:1.2rem}
+.upd-h .updated{margin:0}
+details.upd>summary .upd-h::after{content:"Read the full update";font-size:.8rem;font-weight:700;color:var(--accent)}
+details.upd[open]>summary .upd-h::after{content:"Hide details"}
+details.upd .pbody{margin-left:34px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+
 .bnav{position:sticky;top:0;z-index:5;margin:18px -10px 4px;padding:10px;background:var(--surface);border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
 .bnav-chips{display:flex;flex-wrap:wrap;gap:6px}
 .bnav-chips a{font-size:.8rem;font-weight:700;padding:5px 10px;border-radius:999px;background:var(--sunk);color:var(--fg);text-decoration:none;white-space:nowrap}
@@ -982,7 +1037,7 @@ body>.wrap{flex:1;width:100%}
   <div class="badge-pop" id="badgePop" role="status" hidden></div>
 
   <footer class="site-foot">
-    <nav class="foot-nav" aria-label="About this site"><a href="/about" data-nav="/about">About</a><a href="/contact" data-nav="/contact">Suggestions &amp; contact</a><a href="/privacy" data-nav="/privacy">Privacy</a><a href="/terms" data-nav="/terms">Terms</a></nav>
+    <nav class="foot-nav" aria-label="About this site"><a href="/news" data-nav="/news">News</a><a href="/updates" data-nav="/updates">Updates</a><a href="/about" data-nav="/about">About</a><a href="/contact" data-nav="/contact">Suggestions &amp; contact</a><a href="/privacy" data-nav="/privacy">Privacy</a><a href="/terms" data-nav="/terms">Terms</a></nav>
     <nav class="foot-social" aria-label="Follow My Pretty Pulls"><a href="https://www.tiktok.com/@myprettypulls" target="_blank" rel="noopener">TikTok</a><a href="https://www.instagram.com/myprettypulls/" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/@MyPrettyPulls" target="_blank" rel="noopener">YouTube</a><a href="https://discord.gg/X2d9BKh5d" target="_blank" rel="noopener">Discord</a></nav>
     <p>My Pretty Pulls is an unofficial fan project. It isn't affiliated with, sponsored by or endorsed by KAYOU, Rainbow S.p.A. or Netflix.</p>
     <p>Winx Club® and its characters © Rainbow S.p.A. KPop Demon Hunters and its characters © Netflix. Card images © KAYOU and their respective owners. Card details come from collector checklists and may contain mistakes.</p>
@@ -2804,6 +2859,116 @@ document.addEventListener("click",async e=>{
   if(data?.earned){await loadBadgeCatalog();celebrate(data.earned)} if(location.pathname==="/badges")setTimeout(renderBadgesPage,600);
 });
 document.addEventListener("click",e=>{ if(e.target.closest("[data-bopen]")){badgesOpen=!badgesOpen;renderProfile();if(!badgesOpen)$("#profBadges")?.scrollIntoView({block:"start"})} });
+
+// ---------- News and Pretty Pull Updates ----------
+// Posts live in content/news.json and content/updates.json. "draft": true posts only show on the preview site.
+const POSTS={}, isPreviewHost=()=>/^(preview\.|localhost$|127\.)/.test(location.hostname);
+async function loadPosts(kind){
+  if(POSTS[kind])return POSTS[kind];
+  try{const r=await fetch(`/content/${kind}.json`,{cache:"no-cache"});const j=await r.json();
+    POSTS[kind]=(j.posts||[]).filter(p=>p&&p.slug&&p.title&&(!p.draft||isPreviewHost())).sort((a,b)=>b.date.localeCompare(a.date))}
+  catch(e){POSTS[kind]=[]}
+  return POSTS[kind];
+}
+const postDate=d=>new Date(d+"T12:00:00Z").toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric",timeZone:"UTC"});
+const NEWS_TAGS={winx:{name:"Winx Club",cls:"t-winx"},kpdh:{name:"KPop Demon Hunters",cls:"t-kpdh"},tcg:{name:"Trading card world",cls:"t-tcg"},potw:{name:"Pretty Pull of the Week",cls:"t-potw"}};
+const tagPill=t=>NEWS_TAGS[t]?`<span class="ntag ${NEWS_TAGS[t].cls}">${esc(NEWS_TAGS[t].name)}</span>`:"";
+const draftPill=p=>p.draft?`<span class="ntag draft">Draft</span>`:"";
+// A little markdown: ## headings, - lists, **bold**, *italic*, [link](url), ![photo](url). "You asked…" and "Behind the scenes" headings become callouts.
+function mdLite(src){
+  const inl=t=>esc(t).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/\*(.+?)\*/g,"<i>$1</i>")
+    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,(m,a,u)=>u.startsWith("/")?`<a href="${u}" data-nav="${u}">${a}</a>`:/^https?:\/\//.test(u)?`<a href="${u}" target="_blank" rel="noopener">${a}</a>`:a);
+  let html="", open=null, para=[], list=[];
+  const close=()=>{if(open){html+="</div>";open=null}};
+  const flush=()=>{if(para.length){html+=`<p>${inl(para.join(" "))}</p>`;para=[]}if(list.length){html+=`<ul>${list.map(l=>`<li>${inl(l)}</li>`).join("")}</ul>`;list=[]}};
+  (src||"").split("\n").forEach(raw=>{
+    const l=raw.trim();
+    if(!l){flush();return}
+    const h=l.match(/^##\s+(.+)$/);
+    if(h){flush();close();const t=h[1].trim(),k=/^you asked/i.test(t)?"ask":/^behind the scenes/i.test(t)?"bts":null;
+      if(k){html+=`<div class="callout ${k}"><h2>${k==="ask"?"💬 ":"🎬 "}${inl(t)}</h2>`;open=k}else html+=`<h2>${inl(t)}</h2>`;return}
+    const img=l.match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
+    if(img){flush();html+=`<figure class="nimg"><img src="${esc(img[2])}" alt="${esc(img[1])}" loading="lazy">${img[1]?`<figcaption>${esc(img[1])}</figcaption>`:""}</figure>`;return}
+    const li=l.match(/^-\s+(.+)$/);
+    if(li){if(para.length)flush();list.push(li[1]);return}
+    if(list.length)flush(); para.push(l);
+  });
+  flush();
+  close(); return html;
+}
+const POTW_ICON={tiktok:"TikTok",instagram:"Instagram",youtube:"YouTube"};
+function potwBox(p,full){
+  const w=p.potw||{}, plat=POTW_ICON[(w.platform||"").toLowerCase()]||w.platform||"";
+  return `<div class="potw${full?" full":""}">
+    ${w.photo?`<img class="potw-img" src="${esc(w.photo)}" alt="${esc((w.handle||"A fan")+"'s pull")}" loading="lazy">`:`<div class="potw-img ph" aria-hidden="true">💖</div>`}
+    <div class="potw-txt"><span class="label">💖 Pretty Pull of the Week · ${postDate(p.date)}</span>
+      <h2>${full?esc(p.title):`<a href="/news/${esc(p.slug)}" data-nav="/news/${esc(p.slug)}">${esc(p.title)}</a>`}</h2>
+      ${w.handle?`<p class="potw-who">${esc(w.handle)}${plat?` on ${esc(plat)}`:""}${w.card?` · ${esc(w.card)}`:""}</p>`:""}
+      ${full?"":`<p>${esc(p.summary||"")}</p>`}
+      <div class="qrow">${full?"":`<a class="ghost btnlink" href="/news/${esc(p.slug)}" data-nav="/news/${esc(p.slug)}">Read more</a>`}${w.url?`<a class="primary btnlink" href="${esc(w.url)}" target="_blank" rel="noopener">See their post</a>`:""}</div>
+    </div></div>`;
+}
+const POTW_INVITE=`<div class="potw invite"><div class="potw-img ph" aria-hidden="true">💖</div><div class="potw-txt"><span class="label">Pretty Pull of the Week</span>
+  <h2>Your pull could be next</h2><p>Post your favorite pull and tag <b>@myprettypulls</b> on TikTok or Instagram. Each week we feature one collector here.</p>
+  <div class="qrow"><a class="ghost btnlink" href="https://www.tiktok.com/@myprettypulls" target="_blank" rel="noopener">TikTok</a><a class="ghost btnlink" href="https://www.instagram.com/myprettypulls/" target="_blank" rel="noopener">Instagram</a></div></div></div>`;
+let newsTag="all";
+async function renderNews(slug){
+  const el=$("#viewPage"); el.innerHTML=`<article class="doc wide"><h1>News</h1><p class="updated">Loading…</p></article>`;
+  const posts=await loadPosts("news");
+  if(slug){
+    const p=posts.find(x=>x.slug===slug);
+    if(!p){el.innerHTML=`<article class="doc"><h1>Post not found</h1><p>That post may have moved. <a href="/news" data-nav="/news">See all news</a></p></article>`;document.title="News · My Pretty Pulls";return}
+    document.title=`${p.title} · My Pretty Pulls`;
+    el.innerHTML=`<article class="doc post">
+      <a class="backlink" href="/news" data-nav="/news">‹ All news</a>
+      <div class="ntags">${draftPill(p)}${(p.tags||[]).map(tagPill).join("")}</div>
+      ${(p.tags||[]).includes("potw")?potwBox(p,true):`<h1>${esc(p.title)}</h1><p class="updated">${postDate(p.date)}</p>${p.cover?`<img class="ncover" src="${esc(p.cover)}" alt="" loading="lazy">`:""}`}
+      <div class="pbody">${mdLite(p.body)}</div>
+      <div class="postfoot"><button class="ghost" data-copylink="${esc(location.origin+"/news/"+p.slug)}">Copy link</button><a class="ghost btnlink" href="/news" data-nav="/news">More news</a></div>
+    </article>`;
+    return;
+  }
+  document.title="News · My Pretty Pulls";
+  const potw=posts.find(p=>(p.tags||[]).includes("potw"));
+  const used=[...new Set(posts.flatMap(p=>p.tags||[]))];
+  const chips=["all",...Object.keys(NEWS_TAGS).filter(t=>used.includes(t)||FRANCH[t])];
+  if(!chips.includes(newsTag))newsTag="all";
+  const list=posts.filter(p=>newsTag==="all"||(p.tags||[]).includes(newsTag));
+  el.innerHTML=`<article class="doc wide newspage">
+    <h1>News</h1>
+    <p class="updated">What's new in KAYOU cards and the trading card world, plus our Pretty Pull of the Week.</p>
+    ${potw?potwBox(potw):POTW_INVITE}
+    <div class="seg nchips" role="group" aria-label="News sections">${chips.map(t=>`<button type="button" data-ntag="${t}" aria-pressed="${t===newsTag}">${t==="all"?"All news":esc(NEWS_TAGS[t].name)}</button>`).join("")}</div>
+    ${list.length?`<div class="nlist">${list.map(p=>{const t=(p.tags||[])[0]||"tcg";return `<a class="ncard" href="/news/${esc(p.slug)}" data-nav="/news/${esc(p.slug)}">
+      ${p.cover||(p.potw&&p.potw.photo)?`<img class="ncard-img" src="${esc(p.cover||p.potw.photo)}" alt="" loading="lazy">`:`<span class="ncard-img ph ${NEWS_TAGS[t]?NEWS_TAGS[t].cls:"t-tcg"}" aria-hidden="true">${t==="winx"?"🧚":t==="kpdh"?"🎤":t==="potw"?"💖":"🃏"}</span>`}
+      <span class="ncard-txt"><span class="ntags">${draftPill(p)}${(p.tags||[]).map(tagPill).join("")}</span><b>${esc(p.title)}</b><span class="ndate">${postDate(p.date)}</span><span class="nsum">${esc(p.summary||"")}</span></span></a>`}).join("")}</div>`
+      :`<p class="hint" style="margin-top:14px">${newsTag==="all"?"No news yet. Check back soon!":`No ${esc(NEWS_TAGS[newsTag].name)} news yet. Check back soon!`}</p>`}
+  </article>`;
+}
+async function renderUpdates(slug){
+  const el=$("#viewPage"); el.innerHTML=`<article class="doc wide"><h1>Pretty Pull Updates</h1><p class="updated">Loading…</p></article>`;
+  const posts=await loadPosts("updates");
+  const askN=p=>{const m=(p.body||"").split(/\n(?=##\s)/).find(x=>/^##\s+you asked/i.test(x));return m?(m.match(/^\s*-\s+/gm)||[]).length:0};
+  const meta=p=>`<p class="updated">${postDate(p.date)}${askN(p)?` · <span class="asked">💬 ${askN(p)} idea${askN(p)>1?"s":""} from you</span>`:""}</p>`;
+  if(slug){
+    const p=posts.find(x=>x.slug===slug);
+    if(!p){el.innerHTML=`<article class="doc"><h1>Update not found</h1><p><a href="/updates" data-nav="/updates">See every update</a></p></article>`;return}
+    document.title=`${p.title} · Pretty Pull Updates`;
+    el.innerHTML=`<article class="doc post"><a class="backlink" href="/updates" data-nav="/updates">‹ Every update</a><div class="ntags">${draftPill(p)}</div><h1>${esc(p.title)}</h1>${meta(p)}<p class="lede">${esc(p.summary||"")}</p><div class="pbody">${mdLite(p.body)}</div>
+      <div class="postfoot"><button class="ghost" data-copylink="${esc(location.origin+"/updates/"+p.slug)}">Copy link</button><a class="ghost btnlink" href="/contact" data-nav="/contact?topic=Suggestion">Suggest an idea</a></div></article>`;
+    return;
+  }
+  document.title="Pretty Pull Updates · My Pretty Pulls";
+  el.innerHTML=`<article class="doc wide updpage">
+    <h1>Pretty Pull Updates</h1>
+    <p class="updated">Every time we publish an update, it's written up here: what changed, which ideas came from you, and a peek behind the scenes.</p>
+    <div class="banner"><span><b>Have an idea?</b> Lots of updates start as a suggestion from a collector.</span><a class="primary btnlink" href="/contact" data-nav="/contact?topic=Suggestion">Send a suggestion</a></div>
+    ${posts.length?`<div class="updlist">${posts.map((p,i)=>`<details class="upd"${i===0?" open":""}><summary><span class="upd-dot" aria-hidden="true"></span><span class="upd-h"><span class="ntags">${draftPill(p)}${i===0?`<span class="ntag new">Latest</span>`:""}</span><b>${esc(p.title)}</b>${meta(p)}<span class="nsum">${esc(p.summary||"")}</span></span></summary>
+      <div class="pbody">${mdLite(p.body)}<p><a href="/updates/${esc(p.slug)}" data-nav="/updates/${esc(p.slug)}">Link to this update</a></p></div></details>`).join("")}</div>`
+      :`<p class="hint">The first update is on its way.</p>`}
+  </article>`;
+}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-ntag]");if(t){newsTag=t.dataset.ntag;renderNews()}});
 // the Badges & Sparkles page
 // categories you've folded away stay folded next time
 const BCAT_KEY="mpp.badgeCatsClosed";
@@ -2868,6 +3033,8 @@ async function route(){ arranging=false; profOpen=false; badgesOpen=false; if(!l
     renderProfile(); document.title=`${data.display_name||data.username} · My Pretty Pulls`; return;
   }
   if(path==="/badges"){ setView("page"); document.title="Badges & Sparkles · My Pretty Pulls"; await renderBadgesPage(); return; }
+  {const nm=path.match(/^\/(news|updates)(?:\/([a-z0-9-]+))?\/?$/);
+   if(nm){ setView("page"); if(nm[1]==="news")await renderNews(nm[2]); else await renderUpdates(nm[2]); return; }}
   if(["/about","/privacy","/terms","/contact"].includes(path)){
     setView("page"); const k=path.slice(1);
     document.title={about:"About",privacy:"Privacy Policy",terms:"Terms of Use",contact:"Suggestions & contact"}[k]+" · My Pretty Pulls";
@@ -3223,6 +3390,10 @@ function renderMenu(){
     <a class="mi" href="/kpop-demon-hunters" data-nav="/kpop-demon-hunters"${cur("/kpop-demon-hunters")}><span class="ic">🎤</span>KPop Demon Hunters${frTag("kpdh")}</a>
     <button class="mi soon" data-soon><span class="ic">🦄</span>My Little Pony<span class="tag">Soon</span></button>
     <a class="mi more" href="/contact" data-nav="/contact?topic=${encodeURIComponent("Add a card collection")}"><span class="ic">✨</span><span>More coming soon. <b>Suggest one</b></span></a>
+    <hr>
+    <h3>What's new</h3>
+    <a class="mi" href="/news" data-nav="/news"${cur("/news")}><span class="ic">📰</span>News &amp; Pull of the Week</a>
+    <a class="mi" href="/updates" data-nav="/updates"${cur("/updates")}><span class="ic">🛠️</span>Pretty Pull Updates</a>
     <hr>
     <h3>Play</h3>
     <a class="mi" href="/play" data-nav="/play"${cur("/play")}><span class="ic">🃏</span>Guess the Secret Pull</a>
