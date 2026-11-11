@@ -89,3 +89,12 @@
 - Showcase tray at the top of the picker: the 5 chosen cards in order, drag (or arrows) to rearrange, ✕ to remove.
 - Needs supabase/profile-favorites.sql (adds profiles.fav_chars). Until it's run, saving still works with one favourite and shows a note.
 - Night mode: panels, docs (badges/about/legal), store buttons, chips and footer pills keep dark text; text sitting on the background turns light with a soft dark glow so it stays readable while the background fades.
+
+## Showcase for each collection (preview)
+- Profile showcase has a row for each collection (up to 5 cards each), stacked like the favourites panel, so the two columns line up. Single-IP collectors see one row with no label.
+- Empty slots say "Pick a favorite pull" and open the showcase section of Edit profile.
+- Edit profile: one box per collection with drag / arrows / ✕; the picker numbers cards within their own collection and stops at 5 per collection.
+- Arrange mode on the profile works per row (cards can't be dragged between collections).
+- Share image mixes cards from each collection (5 total).
+- Stored in the same profiles.showcase list. Needs supabase/showcase-per-collection.sql (raises the 5-card limit). Until it's run, saving keeps the first 5 and shows a note.
+- KPop Series 2 card numbers checked against printed cards: "not confirmed" notes removed.

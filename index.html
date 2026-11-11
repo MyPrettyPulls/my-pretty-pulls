@@ -340,6 +340,12 @@ a.brand{color:var(--fg);text-decoration:none}
 @media (max-width:860px){.prof-grid{grid-template-columns:1fr}}
 .panel h2{font-family:var(--font-display);font-size:1.15rem;margin:0}
 .showcase{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.scfrs{display:flex;flex-direction:column;gap:18px}
+.scfr{display:flex;flex-direction:column;gap:8px}
+.scfr+.scfr{padding-top:16px;border-top:1px solid var(--line)}
+.showcase .slot .linkbtn{font-size:.75rem;color:var(--muted);font-weight:600}
+#scTrays{display:flex;flex-direction:column;gap:12px}
+.trayfr{display:flex;flex-direction:column;gap:6px}
 @media (max-width:520px){.showcase{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .showcase .slot{aspect-ratio:63/88;border:1.5px dashed var(--line);border-radius:10px;display:grid;place-items:center;color:var(--muted);font-size:.75rem;text-align:center;padding:6px}
 .showcase .sc{position:relative;display:flex;flex-direction:column;gap:6px}
@@ -1177,23 +1183,23 @@ const K_BLOCKS=[
  ["KPDHM01","LR",["m1"],["Rumi","Mira","Zoey","Jinu","Abby","Romance","Mystery","Baby"],true],
  ["KPDHM01","SP",["m1"],["Rumi","Mira","Zoey","Rumi","Mira","Zoey"],true],
  ["KPDHM01","CR",["m1"],["Rumi","Mira","Zoey"],true],
- // ---- Series 2 (KPDH02): Classic Edition (C2) and Energy Edition (E2), Nov 2026. Numbers follow Kayou's list order, not yet confirmed ----
- ["KPDH02","R",["c2"],["Mira","Zoey","Fans","Rumi","Zoey & Mira","HUNTR/X","Zoey, Mira & Bobby","HUNTR/X","Zoey","Rumi","Golden Outfits","HUNTR/X","HUNTR/X","Healer Han & Rumi","HUNTR/X & Healer Han","Saja Boys","Jinu","Saja Boys","HUNTR/X","Zoey","Jinu","Derpy","HUNTR/X","Jinu & Rumi"],false],
- ["KPDH02","SR",["c2","e2"],["Jinu","Romance","Mystery","Baby","Abby","Rumi","Zoey","Mira","Bobby","Celine","Dokkaebi Demon","Dokkaebi Demon","Dokkaebi Demon","Dokkaebi Demon","Dokkaebi Demon"],false],
- ["KPDH02","SR",["e2"],["Jinu","Rumi","Derpy","Sussie","RuJinu"],false],
- ["KPDH02","SSR",["c2","e2"],["Jinu","Romance","Mystery","Baby","Abby","Rumi","Zoey","Mira","Jinu","Romance","Mystery","Baby","Abby"],false],
- ["KPDH02","SSR",["e2"],["Derpy & Sussie","Saja Boys","HUNTR/X"],false],
- ["KPDH02","HR",["e2"],Array(24).fill("Screenshot"),false],
- ["KPDH02","QR",["c2","e2"],[...Array(5).fill("Soda Pop"),...Array(3).fill("How It's Done"),...Array(5).fill("Your Idol"),...Array(3).fill("Golden"),...Array(3).fill("What It Sounds Like")],false],
- ["KPDH02","UR",["c2","e2"],["Jinu","Romance","Mystery","Abby","Baby","Rumi","Zoey","Mira"],false],
- ["KPDH02","TR",["c2","e2"],["Rumi","Mira","Zoey","Doctor Han","Doctor Han","Mira","Jinu","Romance","Mystery","Abby","Baby","Rumi","Mira","Mira","Zoey","Grandma","Grandma","Grandma","Bobby","Derpy"],false],
- ["KPDH02","ZR",["c2"],["Rumi","Zoey","Mira","Rumi","Zoey","Mira"],false],
- ["KPDH02","LR",["e2"],["Rumi","Zoey","Mira","Rumi","Zoey","Mira"],false],
- ["KPDH02","SP",["e2"],["Rumi","Zoey","Mira","Rumi","Zoey","Mira"],false],
- ["KPDH02","CR",["c2"],["Zoey","Rumi","Mira","Zoey","Rumi","Mira"],false],
- ["KPDH02","CRP",["e2"],["Rumi","Zoey","Mira","Rumi","Zoey","Mira","Rumi","Zoey","Mira"],false],
- ["KPDH02","BP",["e2"],["Rumi","Zoey","Mira","Jinu","Romance","Mystery","Baby","Abby"],false],
- ["KPDH02","SE",["e2"],["Rumi","Zoey","Mira","Rumi","Zoey","Mira"],false]
+ // ---- Series 2 (KPDH02): Classic Edition (C2) and Energy Edition (E2), Nov 2026. Numbers checked against the printed cards ----
+ ["KPDH02","R",["c2"],["Mira","Zoey","Fans","Rumi","Zoey & Mira","HUNTR/X","Zoey, Mira & Bobby","HUNTR/X","Zoey","Rumi","Golden Outfits","HUNTR/X","HUNTR/X","Healer Han & Rumi","HUNTR/X & Healer Han","Saja Boys","Jinu","Saja Boys","HUNTR/X","Zoey","Jinu","Derpy","HUNTR/X","Jinu & Rumi"],true],
+ ["KPDH02","SR",["c2","e2"],["Jinu","Romance","Mystery","Baby","Abby","Rumi","Zoey","Mira","Bobby","Celine","Dokkaebi Demon","Dokkaebi Demon","Dokkaebi Demon","Dokkaebi Demon","Dokkaebi Demon"],true],
+ ["KPDH02","SR",["e2"],["Jinu","Rumi","Derpy","Sussie","RuJinu"],true],
+ ["KPDH02","SSR",["c2","e2"],["Jinu","Romance","Mystery","Baby","Abby","Rumi","Zoey","Mira","Jinu","Romance","Mystery","Baby","Abby"],true],
+ ["KPDH02","SSR",["e2"],["Derpy & Sussie","Saja Boys","HUNTR/X"],true],
+ ["KPDH02","HR",["e2"],Array(24).fill("Screenshot"),true],
+ ["KPDH02","QR",["c2","e2"],[...Array(5).fill("Soda Pop"),...Array(3).fill("How It's Done"),...Array(5).fill("Your Idol"),...Array(3).fill("Golden"),...Array(3).fill("What It Sounds Like")],true],
+ ["KPDH02","UR",["c2","e2"],["Jinu","Romance","Mystery","Abby","Baby","Rumi","Zoey","Mira"],true],
+ ["KPDH02","TR",["c2","e2"],["Rumi","Mira","Zoey","Doctor Han","Doctor Han","Mira","Jinu","Romance","Mystery","Abby","Baby","Rumi","Mira","Mira","Zoey","Grandma","Grandma","Grandma","Bobby","Derpy"],true],
+ ["KPDH02","ZR",["c2"],["Rumi","Zoey","Mira","Rumi","Zoey","Mira"],true],
+ ["KPDH02","LR",["e2"],["Rumi","Zoey","Mira","Rumi","Zoey","Mira"],true],
+ ["KPDH02","SP",["e2"],["Rumi","Zoey","Mira","Rumi","Zoey","Mira"],true],
+ ["KPDH02","CR",["c2"],["Zoey","Rumi","Mira","Zoey","Rumi","Mira"],true],
+ ["KPDH02","CRP",["e2"],["Rumi","Zoey","Mira","Rumi","Zoey","Mira","Rumi","Zoey","Mira"],true],
+ ["KPDH02","BP",["e2"],["Rumi","Zoey","Mira","Jinu","Romance","Mystery","Baby","Abby"],true],
+ ["KPDH02","SE",["e2"],["Rumi","Zoey","Mira","Rumi","Zoey","Mira"],true]
 ];
 // Promo cards: [number, name, short note, how to get it]
 const K_PROMOS=[
@@ -1250,7 +1256,7 @@ const FRANCH={
    setName:c=>({KPDH01:"World Tour Series 1",KPDHM01:"Special Mini Edition Series 1",KPDH02:"World Tour Series 2",PROMO:"Promo cards"})[c.set]+" · KPop Demon Hunters",
    series:[{set:"KPDH01",code:"KPDH01",name:"Series 1 · Classic + Energy",ct:"C1 = Classic Edition · E1 = Energy Edition · C1+E1 = pulls from both"},
      {set:"KPDHM01",code:"KPDHM01",name:"Special Mini Edition · Series 1",ct:"Half-size mini cards, 62 × 44 mm"},
-     {set:"KPDH02",code:"KPDH02",name:"Series 2 · Classic + Energy",ct:"C2 = Classic · E2 = Energy · New in Nov 2026: card numbers follow KAYOU's list and aren't confirmed yet"},
+     {set:"KPDH02",code:"KPDH02",name:"Series 2 · Classic + Energy",ct:"C2 = Classic · E2 = Energy"},
      {set:"PROMO",code:"PR",name:"Promo cards",ct:"Not found in booster packs"}],
    hint:`Try <code>Rumi</code>, <code>HUNTR/X</code>, <code>Saja Boys</code>, <code>SR-004</code>, <code>Energy</code>, <code>Mini</code> or <code>SE</code>. Combine words to narrow it down, like <code>Saja Boys UR Classic</code>.`}
 };
@@ -1693,15 +1699,13 @@ const K_PRODUCTS=[
    ["Box and case",["20 packs per box","24 boxes per case"]],
    ["Ways to buy",["Single booster packs","Boxes","10-pack collector boxes"]],
    ["Only in Classic",["Rare (R)","Zenith Rare (ZR)","Creative Rare (CR)"]],
-   ["New looks",["Retro pixel art","Holographic fashion","Double-sided tarot cards","Mini-CD cards","Titan Rare (TR) comes to Classic for the first time"]],
-   ["Good to know",["Brand new: card numbers follow KAYOU's list and aren't confirmed yet"]]]},
+   ["New looks",["Retro pixel art","Holographic fashion","Double-sided tarot cards","Mini-CD cards","Titan Rare (TR) comes to Classic for the first time"]]]},
  {id:"energy-2",ed:"e2",kind:"box",name:"Energy Edition",series:"Series 2",when:"Nov 2026",code:"KPDH02",col:["#a9dcff","#2f5fc0"],url:KAYOU_SERIES+"series-41jmupca",
   intro:"Series 2 of the chase set.",
   sections:[
    ["Every pack",["8 cards","3 × Super Rare (SR)","2 × Super Spark Rare (SSR)","1 × Holo Rare or Titan Rare (HR or TR)","1 × Cute Rare (QR)","1 more card. In 8 of 12 packs: SSR, UR or SE","In the other 4 packs: QR, LR, SP, ◇CR or BP"]],
    ["Box and case",["12 packs per box","16 boxes per case"]],
-   ["Only in Energy",["Scenario-E (SE)","Brush Rare (BP)","◇CR","Special Picture (SP)","Legacy Rare (LR)","Holo Rare (HR)","A few extra SR and SSR cards"]],
-   ["Good to know",["Brand new: card numbers follow KAYOU's list and aren't confirmed yet"]]]},
+   ["Only in Energy",["Scenario-E (SE)","Brush Rare (BP)","◇CR","Special Picture (SP)","Legacy Rare (LR)","Holo Rare (HR)","A few extra SR and SSR cards"]]]},
  {id:"costco",ed:"e1",kind:"costco",abbr:"CCB",name:"Costco Collector Box",series:"Energy Edition",when:"Fall 2026",code:"Costco only",col:["#ffd27a","#c43c5a"],url:"https://www.costco.com/p/-/kayou-k-pop-demon-hunters-huntrix-energy-edition-trading-cards-and-holder/4201032698",urlName:"Costco",
   gallery:[["costco-huntrx","HUNTR/X version"],["costco-saja","Saja Boys version"]],
   items:[["HUNTR/X Collector Box",K6],["Saja Boys Collector Box",K_SAJA]],
@@ -2068,33 +2072,38 @@ document.addEventListener("click",e=>{
 });
 
 let arranging=false, arrOrder=null, dragI=null;
-function shownShowcase(){const v=viewing;return (v.prof.showcase||[]).filter(u=>BYUID[u]&&(v.counts[u]||0)>0)}
-function moveShowcase(from,to){
-  const s=shownShowcase(); if(to<0||to>=s.length||from===to)return;
+// The showcase is one list of card ids; each collection gets up to 5 of them, shown in its own row.
+const SC_PER=5;
+function scSplit(list){const o={};Object.keys(FRANCH).forEach(f=>o[f]=[]);(list||[]).forEach(u=>{const c=BYUID[u];if(c&&o[c.fr])o[c.fr].push(u)});return o}
+function scJoin(o){return Object.keys(FRANCH).flatMap(f=>o[f]||[])}
+function shownShowcase(fr){const v=viewing;return scSplit(v.prof.showcase)[fr].filter(u=>(v.counts[u]||0)>0)}
+function moveShowcase(fr,from,to){
+  const s=shownShowcase(fr); if(to<0||to>=s.length||from===to)return;
   const [x]=s.splice(from,1); s.splice(to,0,x);
-  const hidden=(viewing.prof.showcase||[]).filter(u=>!s.includes(u));
-  viewing.prof.showcase=[...s,...hidden]; renderProfile();
+  const o=scSplit(viewing.prof.showcase), hidden=o[fr].filter(u=>!s.includes(u)); o[fr]=[...s,...hidden];
+  viewing.prof.showcase=scJoin(o); renderProfile();
 }
 async function saveShowcaseOrder(){
   arranging=false; renderProfile();
   const sc=viewing.prof.showcase;
   const {error}=await sb.from("profiles").update({showcase:sc,updated_at:new Date().toISOString()}).eq("id",user.id);
-  if(error){toast("Couldn't save the new order");return}
+  if(error){toast(/showcase/.test(error.message||"")?"A showcase for each collection needs one more database step.":"Couldn't save the new order");return}
   if(myProfile)myProfile.showcase=[...sc]; toast("Showcase order saved");
 }
-document.addEventListener("dragstart",e=>{const s=e.target.closest?.(".showcase.arranging .sc");if(!s)return;dragI=+s.dataset.sci;s.classList.add("dragging");try{e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",String(dragI))}catch(err){}});
-document.addEventListener("dragover",e=>{const s=e.target.closest?.(".showcase.arranging .sc");if(!s||dragI===null)return;e.preventDefault();document.querySelectorAll(".sc.over").forEach(x=>x.classList.remove("over"));s.classList.add("over")});
-document.addEventListener("drop",e=>{const s=e.target.closest?.(".showcase.arranging .sc");if(!s||dragI===null)return;e.preventDefault();const to=+s.dataset.sci,f=dragI;dragI=null;moveShowcase(f,to)});
+const scPos=el=>{const [f,i]=el.dataset.sci.split(":");return{f,i:+i}};
+document.addEventListener("dragstart",e=>{const s=e.target.closest?.(".showcase.arranging .sc");if(!s)return;dragI=scPos(s);s.classList.add("dragging");try{e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",String(dragI))}catch(err){}});
+document.addEventListener("dragover",e=>{const s=e.target.closest?.(".showcase.arranging .sc");if(!s||dragI===null||scPos(s).f!==dragI.f)return;e.preventDefault();document.querySelectorAll(".sc.over").forEach(x=>x.classList.remove("over"));s.classList.add("over")});
+document.addEventListener("drop",e=>{const s=e.target.closest?.(".showcase.arranging .sc");if(!s||dragI===null)return;e.preventDefault();const to=scPos(s),f=dragI;dragI=null;if(to.f===f.f)moveShowcase(f.f,f.i,to.i)});
 document.addEventListener("dragend",()=>{dragI=null;document.querySelectorAll(".sc.dragging,.sc.over").forEach(x=>x.classList.remove("dragging","over"))});
 // touch drag for phones
 let tDrag=null;
-document.addEventListener("pointerdown",e=>{if(e.pointerType==="mouse")return;const s=e.target.closest(".showcase.arranging .sc");if(!s||e.target.closest("button"))return;tDrag={from:+s.dataset.sci,el:s};s.classList.add("dragging")});
+document.addEventListener("pointerdown",e=>{if(e.pointerType==="mouse")return;const s=e.target.closest(".showcase.arranging .sc");if(!s||e.target.closest("button"))return;tDrag={from:scPos(s),el:s};s.classList.add("dragging")});
 document.addEventListener("pointermove",e=>{if(!tDrag)return;const o=document.elementFromPoint(e.clientX,e.clientY)?.closest(".showcase.arranging .sc");document.querySelectorAll(".sc.over").forEach(x=>x.classList.remove("over"));if(o&&o!==tDrag.el)o.classList.add("over")});
-document.addEventListener("pointerup",e=>{if(!tDrag)return;const o=document.elementFromPoint(e.clientX,e.clientY)?.closest(".showcase.arranging .sc");const f=tDrag.from;tDrag.el.classList.remove("dragging");tDrag=null;if(o)moveShowcase(f,+o.dataset.sci);else document.querySelectorAll(".sc.over").forEach(x=>x.classList.remove("over"))});
+document.addEventListener("pointerup",e=>{if(!tDrag)return;const o=document.elementFromPoint(e.clientX,e.clientY)?.closest(".showcase.arranging .sc");const f=tDrag.from;tDrag.el.classList.remove("dragging");tDrag=null;if(o&&scPos(o).f===f.f)moveShowcase(f.f,f.i,scPos(o).i);else document.querySelectorAll(".sc.over").forEach(x=>x.classList.remove("over"))});
 document.addEventListener("click",e=>{
   if(e.target.closest("[data-arrange]")){arranging=true;renderProfile();return}
   if(e.target.closest("[data-arrdone]")){saveShowcaseOrder();return}
-  const m=e.target.closest("[data-scmv]"); if(m){const [i,d]=m.dataset.scmv.split(":").map(Number);moveShowcase(i,i+d);return}
+  const m=e.target.closest("[data-scmv]"); if(m){const [f,i,d]=m.dataset.scmv.split(":");moveShowcase(f,+i,+i+ +d);return}
 });
 // A profile's background follows what that person collects: Winx only → Winx sparkles,
 // KPop Demon Hunters only → the KPop day and night, both → the KPop day and night with the sparkles always on.
@@ -2130,7 +2139,10 @@ function renderProfile(){
   const url=`${location.origin}/u/${p.username}`;
   const favs=favList(p);
   const fav=favs.length?`<div class="favchips">${favs.map(([f,n])=>`<span class="chip-char" title="${esc(FRANCH[f].name)}"><span class="sw" style="background:${CHAR_COLOR(n)}"></span>${favs.length>1?`${esc(FRANCH[f].name)}: `:"Favorite: "}${esc(n)}</span>`).join("")}</div>`:"";
-  const show=(p.showcase||[]).map(u=>BYUID[u]).filter(c=>c&&(v.counts[c.uid]||0)>0);
+  const scBy=scSplit(p.showcase), scFr=Object.keys(FRANCH).map(f=>({f,show:scBy[f].map(u=>BYUID[u]).filter(c=>(v.counts[c.uid]||0)>0)}))
+    .filter(x=>x.show.length||(own&&st.list.some(y=>y.started&&y.f.id===x.f)));
+  const canArr=scFr.some(x=>x.show.length>1);
+  const scRow=({f,show})=>`<div class="scfr">${scFr.length>1?`<span class="label">${esc(FRANCH[f].name)}</span>`:""}<div class="showcase${arranging?" arranging":""}">${show.map((c,i)=>arranging?`<div class="sc" draggable="true" data-sci="${f}:${i}"><span class="sc-n">${i+1}</span>${miniCard(c)}<div class="sc-move"><button type="button" data-scmv="${f}:${i}:-1" aria-label="Move left"${i===0?" disabled":""}>‹</button><button type="button" data-scmv="${f}:${i}:1" aria-label="Move right"${i===show.length-1?" disabled":""}>›</button></div></div>`:miniCard(c)).join("")}${arranging?"":Array.from({length:Math.max(0,SC_PER-show.length)},()=>`<div class="slot">${own?`<button type="button" class="linkbtn" data-edit="showcase">Pick a favorite pull</button>`:""}</div>`).join("")}</div></div>`;
   el.innerHTML=`<section class="prof">
     ${own&&!p.is_public?`<div class="banner"><span><b>Your profile is private.</b> Only you can see it. Make it public to share your link.</span><button class="primary" data-public="1">Make public</button></div>`:""}
     <div class="prof-head">
@@ -2159,9 +2171,9 @@ function renderProfile(){
     </section>
     <div class="prof-grid">
       <section class="panel">
-        <div class="panel-h"><h2>Collection showcase</h2>${own?`<span class="qrow">${arranging?`<button class="primary" data-arrdone>Done</button>`:`${show.length>1?`<button class="ghost" data-arrange>Arrange</button>`:""}<button class="ghost" data-edit>Choose cards</button>`}</span>`:""}</div>
+        <div class="panel-h"><h2>Collection showcase</h2>${own?`<span class="qrow">${arranging?`<button class="primary" data-arrdone>Done</button>`:`${canArr?`<button class="ghost" data-arrange>Arrange</button>`:""}<button class="ghost" data-edit="showcase">Choose cards</button>`}</span>`:""}</div>
         ${arranging?`<p class="hint" style="margin:0 0 10px">Drag cards into the order you want, or use the arrows.</p>`:""}
-        ${!own&&!show.length?`<p class="hint">No showcase picked yet.</p>`:`<div class="showcase${arranging?" arranging":""}" id="scGrid">${show.map((c,i)=>arranging?`<div class="sc" draggable="true" data-sci="${i}"><span class="sc-n">${i+1}</span>${miniCard(c)}<div class="sc-move"><button type="button" data-scmv="${i}:-1" aria-label="Move left"${i===0?" disabled":""}>‹</button><button type="button" data-scmv="${i}:1" aria-label="Move right"${i===show.length-1?" disabled":""}>›</button></div></div>`:miniCard(c)).join("")}${arranging?"":Array.from({length:Math.max(0,5-show.length)},()=>`<div class="slot">${own?"Pick a favorite pull":""}</div>`).join("")}</div>`}
+        ${!scFr.length?`<p class="hint">No showcase picked yet.</p>`:`<div class="scfrs">${scFr.map(scRow).join("")}</div>`}
       </section>
       <section class="panel">
         <div class="panel-h"><h2>${favs.length>1?"Favorite characters":favs.length?esc(favs[0][1])+" collection":"Favorite character"}</h2>${own?`<button class="ghost" data-edit="fav">${favs.length?"Change":"Pick"}</button>`:""}</div>
@@ -2857,7 +2869,7 @@ let focusSec=null;
 function openEdit(which){
   if(!user)return; focusSec=typeof which==="string"?which:null;
   const p=myProfile||{};
-  const ap=avPos(p); draft={avatar:p.avatar_card||null,showcase:[...(p.showcase||[])].filter(u=>BYUID[u]&&has(u)>0&&imgKey(BYUID[u])),unameOk:!!p.username,x:ap.x,y:ap.y,z:ap.z};
+  const ap=avPos(p); draft={avatar:p.avatar_card||null,showcase:scJoin(scSplit((p.showcase||[]).filter(u=>BYUID[u]&&has(u)>0&&imgKey(BYUID[u])))),unameOk:!!p.username,x:ap.x,y:ap.y,z:ap.z};
   const owned=ALLCARDS.filter(c=>has(c.uid)>0&&imgKey(c));
   const ownFr=Object.values(FRANCH).filter(f=>owned.some(c=>c.fr===f.id));
   const fm=favMap(p);
@@ -2867,7 +2879,7 @@ function openEdit(which){
   if(focusSec&&!openSecs.includes(focusSec))openSecs=[...openSecs,focusSec];
   const sec=(id,title,sub,body)=>`<details class="epsec" data-sec="${id}"${!myProfile||openSecs.includes(id)?" open":""}><summary><span class="st"><b>${title}</b>${sub?`<span class="hint">${sub}</span>`:""}</span></summary><div class="epbody">${body}</div></details>`;
   const pf=id=>ownFr.length>1?`<div class="pfilter" role="group" aria-label="Show cards from"><button type="button" data-pf="${id}:all" aria-pressed="true">All</button>${ownFr.map(f=>`<button type="button" data-pf="${id}:${f.id}" aria-pressed="false">${esc(f.name)}</button>`).join("")}</div>`:"";
-  const pickBtn=(attr,c,on)=>`<button type="button" class="pick" data-${attr}="${c.uid}" data-fr="${c.fr}" aria-pressed="${on}" aria-label="${esc(label(c))} ${c.num}"><img src="cards/${imgKey(c)}-s.webp" alt="" loading="lazy">${attr==="sc"&&on?`<span class="ord">${draft.showcase.indexOf(c.uid)+1}</span>`:""}</button>`;
+  const pickBtn=(attr,c,on)=>`<button type="button" class="pick" data-${attr}="${c.uid}" data-fr="${c.fr}" aria-pressed="${on}" aria-label="${esc(label(c))} ${c.num}"><img src="cards/${imgKey(c)}-s.webp" alt="" loading="lazy">${attr==="sc"&&on?`<span class="ord">${scSplit(draft.showcase)[c.fr].indexOf(c.uid)+1}</span>`:""}</button>`;
   const needAge=!myProfile&&ls.get(AGE_OK)!=="1";
   const favSelects=Object.values(FRANCH).map(f=>`<div class="field"><label for="epFav-${f.id}">${esc(f.name)}</label><select id="epFav-${f.id}" data-favfr="${f.id}"><option value="">None</option>${f.groups.map(g=>`<optgroup label="${esc(g.label||g.name)}">${g.chars.map(n=>`<option${fm[f.id]===n?" selected":""}>${esc(n)}</option>`).join("")}</optgroup>`).join("")}</select></div>`).join("");
   $("#editProf").innerHTML=`<div class="sheet form-sheet" role="dialog" aria-modal="true" aria-labelledby="epTitle">
@@ -2892,9 +2904,9 @@ function openEdit(which){
           </div>
         </div>
         ${owned.length?`${pf("av")}<div class="pickgrid" id="pickAv">${owned.map(c=>pickBtn("av",c,draft.avatar===c.uid)).join("")}</div>`:`<p class="hint">Add cards to your collection first.</p>`}`)}
-      ${sec("showcase","Collection showcase","Up to 5 cards shown at the top of your profile",`
-        <div class="sctray" id="scTray" aria-live="polite"></div>
-        <p class="hint" style="margin:0">Tap cards below to add them. Drag them in the box above, or use the arrows, to change the order. Tap ✕ to take one out.</p>
+      ${sec("showcase","Collection showcase",ownFr.length>1?"Up to 5 cards from each collection, shown on your profile":"Up to 5 cards shown on your profile",`
+        <div id="scTrays" aria-live="polite">${(ownFr.length?ownFr:[]).map(f=>`<div class="trayfr">${ownFr.length>1?`<span class="label">${esc(f.name)}</span>`:""}<div class="sctray" data-tray="${f.id}"></div></div>`).join("")}</div>
+        <p class="hint" style="margin:0">Tap cards below to add them. Drag them in the box${ownFr.length>1?"es":""} above, or use the arrows, to change the order. Tap ✕ to take one out.</p>
         ${owned.length?`${pf("sc")}<div class="pickgrid" id="pickSc">${owned.map(c=>pickBtn("sc",c,draft.showcase.includes(c.uid))).join("")}</div>`:`<p class="hint">Add cards to your collection first.</p>`}`)}
       <label class="switch"><input type="checkbox" id="epPublic"${p.is_public?" checked":""}><span><b>Public profile</b><br><span class="hint">Anyone with your link can see your profile and collection. Your email is never shown.</span></span></label>
       <p class="msg-bad" id="epErr" role="alert"></p>
@@ -2934,25 +2946,28 @@ document.addEventListener("keydown",e=>{ // arrow keys nudge the picture when th
 });
 // The showcase box: your picks in order, with arrows, ✕ and drag to reorder
 function drawTray(){
-  const el=$("#scTray"); if(!el)return;
-  el.innerHTML=[0,1,2,3,4].map(i=>{const c=BYUID[draft.showcase[i]];
-    if(!c)return `<div class="tslot empty"><span>${i+1}</span></div>`;
-    return `<div class="tslot" draggable="true" data-ti="${i}"><span class="tn">${i+1}</span><img src="cards/${imgKey(c)}-s.webp" alt="${esc(label(c))}" draggable="false">
-      <button type="button" class="tx" data-trx="${i}" aria-label="Take ${esc(label(c))} out">✕</button>
-      <div class="tmv"><button type="button" data-trmv="${i}:-1" aria-label="Move left"${i===0?" disabled":""}>‹</button><button type="button" data-trmv="${i}:1" aria-label="Move right"${i===draft.showcase.length-1?" disabled":""}>›</button></div></div>`}).join("");
+  const o=scSplit(draft.showcase);
+  document.querySelectorAll("#scTrays .sctray").forEach(el=>{const f=el.dataset.tray,list=o[f];
+    el.innerHTML=Array.from({length:SC_PER},(_,i)=>{const c=BYUID[list[i]];
+      if(!c)return `<div class="tslot empty"><span>${i+1}</span></div>`;
+      const id=`${f}:${i}`;
+      return `<div class="tslot" draggable="true" data-ti="${id}"><span class="tn">${i+1}</span><img src="cards/${imgKey(c)}-s.webp" alt="${esc(label(c))}" draggable="false">
+        <button type="button" class="tx" data-trx="${id}" aria-label="Take ${esc(label(c))} out">✕</button>
+        <div class="tmv"><button type="button" data-trmv="${id}:-1" aria-label="Move left"${i===0?" disabled":""}>‹</button><button type="button" data-trmv="${id}:1" aria-label="Move right"${i===list.length-1?" disabled":""}>›</button></div></div>`}).join("")});
 }
-function trayMove(f,t){ if(t<0||t>=draft.showcase.length||f===t)return; const [x]=draft.showcase.splice(f,1); draft.showcase.splice(t,0,x); refreshPick(); }
+const tiPos=el=>{const [f,i]=(el.dataset.ti||el.dataset.trx).split(":");return{f,i:+i}};
+function trayMove(fr,f,t){ const o=scSplit(draft.showcase),l=o[fr]; if(t<0||t>=l.length||f===t)return; const [x]=l.splice(f,1); l.splice(t,0,x); draft.showcase=scJoin(o); refreshPick(); }
 let trDrag=null;
-document.addEventListener("dragstart",e=>{const s=e.target.closest?.("#scTray .tslot[data-ti]");if(!s)return;trDrag=+s.dataset.ti;s.classList.add("dragging");try{e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",String(trDrag))}catch(err){}});
-document.addEventListener("dragover",e=>{const s=e.target.closest?.("#scTray .tslot[data-ti]");if(!s||trDrag===null)return;e.preventDefault();document.querySelectorAll("#scTray .over").forEach(x=>x.classList.remove("over"));s.classList.add("over")});
-document.addEventListener("drop",e=>{const s=e.target.closest?.("#scTray .tslot[data-ti]");if(!s||trDrag===null)return;e.preventDefault();const f=trDrag;trDrag=null;trayMove(f,+s.dataset.ti)});
+document.addEventListener("dragstart",e=>{const s=e.target.closest?.("#scTrays .tslot[data-ti]");if(!s)return;trDrag=tiPos(s);s.classList.add("dragging");try{e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",String(trDrag))}catch(err){}});
+document.addEventListener("dragover",e=>{const s=e.target.closest?.("#scTrays .tslot[data-ti]");if(!s||trDrag===null||tiPos(s).f!==trDrag.f)return;e.preventDefault();document.querySelectorAll("#scTrays .over").forEach(x=>x.classList.remove("over"));s.classList.add("over")});
+document.addEventListener("drop",e=>{const s=e.target.closest?.("#scTrays .tslot[data-ti]");if(!s||trDrag===null)return;e.preventDefault();const f=trDrag,t=tiPos(s);trDrag=null;if(t.f===f.f)trayMove(f.f,f.i,t.i);else drawTray()});
 document.addEventListener("dragend",()=>{if(trDrag!==null){trDrag=null;drawTray()}});
 let trTouch=null;  // touch: press a card in the box and slide it onto another spot
-document.addEventListener("pointerdown",e=>{if(e.pointerType==="mouse")return;const s=e.target.closest("#scTray .tslot[data-ti]");if(!s||e.target.closest("button"))return;trTouch={from:+s.dataset.ti};s.classList.add("dragging")});
-document.addEventListener("pointerup",e=>{if(!trTouch)return;const o=document.elementFromPoint(e.clientX,e.clientY)?.closest("#scTray .tslot[data-ti]");const f=trTouch.from;trTouch=null;if(o)trayMove(f,+o.dataset.ti);else drawTray()});
+document.addEventListener("pointerdown",e=>{if(e.pointerType==="mouse")return;const s=e.target.closest("#scTrays .tslot[data-ti]");if(!s||e.target.closest("button"))return;trTouch={from:tiPos(s)};s.classList.add("dragging")});
+document.addEventListener("pointerup",e=>{if(!trTouch)return;const o=document.elementFromPoint(e.clientX,e.clientY)?.closest("#scTrays .tslot[data-ti]");const f=trTouch.from;trTouch=null;if(o&&tiPos(o).f===f.f)trayMove(f.f,f.i,tiPos(o).i);else drawTray()});
 document.addEventListener("click",e=>{
-  const m=e.target.closest("[data-trmv]"); if(m){const [i,d]=m.dataset.trmv.split(":").map(Number);trayMove(i,i+d);return}
-  const x=e.target.closest("[data-trx]"); if(x){draft.showcase.splice(+x.dataset.trx,1);refreshPick();return}
+  const m=e.target.closest("[data-trmv]"); if(m){const [f,i,d]=m.dataset.trmv.split(":");trayMove(f,+i,+i+ +d);return}
+  const x=e.target.closest("[data-trx]"); if(x){const p=tiPos(x),o=scSplit(draft.showcase);o[p.f].splice(p.i,1);draft.showcase=scJoin(o);refreshPick();return}
   const f=e.target.closest("[data-pf]"); if(f){const [id,fr]=f.dataset.pf.split(":");f.parentElement.querySelectorAll("[data-pf]").forEach(b=>b.setAttribute("aria-pressed",b===f));
     document.querySelectorAll(`#${id==="av"?"pickAv":"pickSc"} .pick`).forEach(b=>b.hidden=fr!=="all"&&b.dataset.fr!==fr);return}
 });
@@ -2961,7 +2976,8 @@ document.addEventListener("toggle",e=>{const d=e.target; if(!d.classList||!d.cla
 function refreshPick(){
   document.querySelectorAll("#pickAv .pick").forEach(b=>b.setAttribute("aria-pressed",b.dataset.av===draft.avatar));
   drawAvPrev();
-  document.querySelectorAll("#pickSc .pick").forEach(b=>{const i=draft.showcase.indexOf(b.dataset.sc);b.setAttribute("aria-pressed",i>=0);b.querySelector(".ord")?.remove();if(i>=0)b.insertAdjacentHTML("beforeend",`<span class="ord">${i+1}</span>`)});
+  const so=scSplit(draft.showcase);
+  document.querySelectorAll("#pickSc .pick").forEach(b=>{const i=so[b.dataset.fr].indexOf(b.dataset.sc);b.setAttribute("aria-pressed",i>=0);b.querySelector(".ord")?.remove();if(i>=0)b.insertAdjacentHTML("beforeend",`<span class="ord">${i+1}</span>`)});
   drawTray();
 }
 async function checkUsername(){
@@ -2996,6 +3012,10 @@ async function saveProfile(e){
   if(error&&/fav_chars/.test(error.message||"")){ // the favourites column isn't added yet: keep the first favourite
     delete row.fav_chars; ({data,error}=await sb.from("profiles").upsert(row).select().single());
     if(!error)toast("Saved. A favorite for each collection needs one more database step.");
+  }
+  if(error&&/showcase/.test(error.message||"")&&row.showcase.length>SC_PER){ // database still allows only 5 showcase cards
+    row.showcase=row.showcase.slice(0,SC_PER); ({data,error}=await sb.from("profiles").upsert(row).select().single());
+    if(!error)toast("Saved the first 5 showcase cards. A showcase for each collection needs one more database step.");
   }
   if(error&&/avatar_(x|y|zoom)/.test(error.message||"")){ // position columns not added yet
     delete row.avatar_x;delete row.avatar_y;delete row.avatar_zoom;
@@ -3037,7 +3057,8 @@ async function shareImage(){
     g.fillStyle="#fff";g.font=`800 48px ${disp}`;g.fillText(n,x+22,y+68);g.fillStyle="#f3c6dc";g.font=`700 24px ${body}`;g.fillText(l,x+22,y+106)});
   // showcase
   g.fillStyle="#fff"; g.font=`800 36px ${disp}`; g.fillText("Collection showcase",60,520);
-  const show=(p.showcase||[]).map(u=>BYUID[u]).filter(c=>c&&(v.counts[c.uid]||0)>0&&imgKey(c)).slice(0,5);
+  const show=[];{const o=scSplit(p.showcase),ls=Object.keys(FRANCH).map(f=>o[f].map(u=>BYUID[u]).filter(c=>(v.counts[c.uid]||0)>0&&imgKey(c))).filter(l=>l.length);
+    for(let i=0;show.length<5&&ls.some(l=>l[i]);i++)ls.forEach(l=>{if(l[i]&&show.length<5)show.push(l[i])})}
   const cw=180,ch=252,gap=(W-120-cw*5)/4;
   for(let i=0;i<5;i++){const x=60+i*(cw+gap),y=550;g.save();g.beginPath();g.roundRect(x,y,cw,ch,14);g.clip();
     if(show[i]){const im=await load(`cards/${imgKey(show[i])}-l.webp`);if(im){const s=Math.min(cw/im.width,ch/im.height);const w=im.width*s,h=im.height*s;g.drawImage(im,x+(cw-w)/2,y+(ch-h)/2,w,h)}}
@@ -3067,7 +3088,9 @@ document.addEventListener("click",async e=>{
   if(t.hasAttribute("data-edit")){openEdit(t.dataset.edit||null);return}
   if(t.hasAttribute("data-closeedit")){closeEdit();return}
   if(t.dataset.av){const same=draft.avatar===t.dataset.av;draft.avatar=same?null:t.dataset.av;if(!same){draft.x=50;draft.y=30;draft.z=100}refreshPick();return}
-  if(t.dataset.sc){const u=t.dataset.sc,i=draft.showcase.indexOf(u);if(i>=0)draft.showcase.splice(i,1);else if(draft.showcase.length<5)draft.showcase.push(u);else toast("You can pick up to 5 cards");refreshPick();return}
+  if(t.dataset.sc){const u=t.dataset.sc,fr=BYUID[u].fr,o=scSplit(draft.showcase),l=o[fr],i=l.indexOf(u);
+    if(i>=0)l.splice(i,1);else if(l.length<SC_PER)l.push(u);else{toast(`You can pick up to ${SC_PER} ${FRANCH[fr].name} cards`);return}
+    draft.showcase=scJoin(o);refreshPick();return}
   if(t.dataset.public!==undefined){setPublic(t.dataset.public==="1");return}
   if(t.dataset.copylink){if(viewing&&viewing.own&&!viewing.prof.is_public)toast("Your profile is private. Make it public so others can open your link.");
     try{await navigator.clipboard.writeText(t.dataset.copylink);if(!(viewing&&viewing.own&&!viewing.prof.is_public))toast("Link copied")}catch(err){prompt?.("Copy your link",t.dataset.copylink)}return}
