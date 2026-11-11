@@ -441,6 +441,7 @@ a.brand{color:var(--fg);text-decoration:none}
 .post h1{margin-top:8px}
 .ncover{width:100%;border-radius:14px;margin:8px 0 4px}
 .nimg{margin:14px 0}.nimg img{width:100%;border-radius:14px}
+.nimg+.nimg{margin-top:-4px}
 .nimg.tall a{position:relative;display:block;max-height:560px;overflow:hidden;border-radius:14px}
 .nimg.tall img{display:block;border-radius:0}
 .nimg.tall .more{display:block;position:absolute;left:0;right:0;bottom:0;padding:70px 0 14px;text-align:center;font-weight:800;color:#fff;background:linear-gradient(transparent,rgb(60 20 70 / .85))}.nimg figcaption{font-size:.8rem;color:var(--muted);margin-top:4px;text-align:center}
@@ -2893,7 +2894,7 @@ function mdLite(src){
     const tall=l.match(/^!!\[([^\]]*)\]\(([^)\s]+)\)$/);   // a long image (like a product sheet): shows the top, tap for full size
     if(tall){flush();html+=`<figure class="nimg tall"><a href="${esc(tall[2])}" target="_blank" rel="noopener"><img src="${esc(tall[2])}" alt="${esc(tall[1])}" loading="lazy"><span class="more">Tap to see the full sheet</span></a>${tall[1]?`<figcaption>${esc(tall[1])}</figcaption>`:""}</figure>`;return}
     const img=l.match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
-    if(img){flush();html+=`<figure class="nimg"><img src="${esc(img[2])}" alt="${esc(img[1])}" loading="lazy">${img[1]?`<figcaption>${esc(img[1])}</figcaption>`:""}</figure>`;return}
+    if(img){flush();html+=`<figure class="nimg"><img src="${esc(img[2])}" alt="${esc(img[1])}" loading="lazy"></figure>`;return}
     const li=l.match(/^-\s+(.+)$/);
     if(li){if(para.length)flush();list.push(li[1]);return}
     if(list.length)flush(); para.push(l);
