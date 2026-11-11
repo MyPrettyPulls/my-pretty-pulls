@@ -20,6 +20,9 @@ begin
   select * into c from game_cards where uid = card;
   case parts[1]
     when 'ed'   then return parts[2] = any(c.editions);
+    -- KPop: which series, and which line (Classic or Energy), without naming one exact box
+    when 'ser'  then return c.editions && (case parts[2] when '1' then array['c1','e1','m1'] when '2' then array['c2','e2'] else array[]::text[] end);
+    when 'line' then return c.editions && (case parts[2] when 'classic' then array['c1','c2'] when 'energy' then array['e1','e2'] else array[]::text[] end);
     when 'rar'  then return c.rar = parts[2];
     when 'hit'  then return c.rar not in ('R','QR','SR','PR');
     when 'solo' then return c.main is not null and cardinality(c.appears) = 1;
@@ -91,7 +94,7 @@ create or replace function public.sp_ask_for(q text, f text) returns json langua
 declare d date := sp_today(); card text; uid uuid := auth.uid(); p secret_pull_plays; ans boolean;
 begin
   if f not in ('winx','kpdh') then raise exception 'Unknown game'; end if;
-  if q !~ '^(ed:(daily|magic|promo|c1|e1|m1|c2|e2)|rar:[A-Z]{1,4}|hit|solo|char:[A-Za-z .''-]{2,30}|grp:[A-Za-z /&]{2,30}|gt:[0-9]{1,3})$' then raise exception 'Unknown question'; end if;
+  if q !~ '^(ed:(daily|magic|promo|c1|e1|m1|c2|e2)|ser:[12]|line:(classic|energy)|rar:[A-Z]{1,4}|hit|solo|char:[A-Za-z .''-]{2,30}|grp:[A-Za-z /&]{2,30}|gt:[0-9]{1,3})$' then raise exception 'Unknown question'; end if;
   card := sp_card_for(d, f);
   ans := sp_check(card, q);
   if uid is not null then

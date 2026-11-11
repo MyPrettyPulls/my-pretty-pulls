@@ -2228,6 +2228,8 @@ function spCheck(c,q){
   const [k,v]=q.split(":");
   switch(k){
     case "ed": return c.editions.includes(v);
+    case "ser": return c.editions.some(e=>(v==="1"?["c1","e1","m1"]:["c2","e2"]).includes(e));
+    case "line": return c.editions.some(e=>(v==="classic"?["c1","c2"]:["e1","e2"]).includes(e));
     case "rar": return c.rar===v;
     case "hit": return !SP_HITLESS.has(c.rar);
     case "solo": return !!c.main&&c.appears.length===1;
@@ -2239,6 +2241,8 @@ function spCheck(c,q){
 }
 function spLabel(q){
   const [k,v]=q.split(":");
+  if(k==="ser")return `Is it from Series ${v}?`;
+  if(k==="line")return `Is it in ${v==="classic"?"Classic":"Energy"} Edition boxes?`;
   return {ed:{daily:"Is it in Daily Edition boxes?",magic:"Is it in Magic Edition boxes?",promo:"Is it a promo card?",c1:"Is it in Classic Edition Series 1?",e1:"Is it in Energy Edition Series 1?",m1:"Is it in the Special Mini Edition?",c2:"Is it in Classic Edition Series 2?",e2:"Is it in Energy Edition Series 2?"}[v],
     rar:`Is it ${/^[AEIOU]/.test(RINFO[v]?.name||"")?"an":"a"} ${RINFO[v]?.name||v} (${RINFO[v]?.code||v})?`,hit:"Is it a hit card (rarer than SR)?",
     solo:"Is it a solo card?",char:`Is ${v} on it?`,grp:`Is one of the ${v} on it?`,gt:`Is its number above ${v}?`}[k];
@@ -2423,7 +2427,10 @@ function renderPlay(){
       </div>
       <div class="qpanel">
         <div class="answer-flash" role="status">${spMsg}</div>
-        <div class="qgroup"><span class="label">Which box?</span><div class="qrow">${gEds().map(([e,n])=>qb("ed:"+e,n+"?")).join("")}</div></div>
+        ${GAME==="kpdh"?`<div class="qgroup"><span class="label">Which series?</span><div class="qrow">${qb("ser:1","Series 1?")}${qb("ser:2","Series 2?")}</div></div>
+        <div class="qgroup"><span class="label">Which box?</span><div class="qrow">${qb("line:classic","Classic Edition?")}${qb("line:energy","Energy Edition?")}${qb("ed:m1","Special Mini Edition?")}</div>
+          <div class="qrow"><select id="spEd" aria-label="Exact box">${opt(gEds(),"Or pick an exact box")}</select><button class="qbtn" data-spsel="spEd:ed"${spBusy||left<=0?" disabled":""}>Ask</button></div></div>`
+        :`<div class="qgroup"><span class="label">Which box?</span><div class="qrow">${gEds().map(([e,n])=>qb("ed:"+e,n+"?")).join("")}</div></div>`}
         <div class="qgroup"><span class="label">Rarity</span><div class="qrow">${qb("hit","Rarer than SR?")}<select id="spRar" aria-label="Rarity">${opt(rars,"Pick a rarity")}</select><button class="qbtn" data-spsel="spRar:rar"${spBusy||left<=0?" disabled":""}>Ask</button></div></div>
         <div class="qgroup"><span class="label">Who's on it?</span><div class="qrow">${gGroups().map(g=>qb("grp:"+g.name,esc(g.name)+"?")).join("")}${qb("solo","Solo card?")}</div>
           <div class="qrow"><select id="spChar" aria-label="Character">${opt(chars,"Pick a character")}</select><button class="qbtn" data-spsel="spChar:char"${spBusy||left<=0?" disabled":""}>Ask</button></div></div>
