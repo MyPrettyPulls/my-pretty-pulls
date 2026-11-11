@@ -117,8 +117,8 @@ html[data-brand="kpdh"][data-scene="night"] .bg-lines{opacity:1;filter:saturate(
 html[data-brand="kpdh"]:not([data-scene="night"]) .bg-lines{opacity:1;filter:saturate(1.5) brightness(.93) drop-shadow(0 0 1.5px rgb(90 40 160 / .32))}
 /* at night in light mode, words sitting straight on the background turn light; panels, cards and buttons keep their usual colours */
 @media (prefers-color-scheme: light){
-  html[data-scene="night"]:not([data-theme="dark"]) .wrap{--fg:#f3ecff;--muted:#cbbde6;--line:rgb(255 255 255 / .28);color:var(--fg)}
-  html[data-scene="night"]:not([data-theme="dark"]) .wrap :is(.panel,.stat,.notice,.banner,.seg,.tabs,.setb,.face,.step,.sheet,.menu-panel,.signin,.empty-state,.lb,.doc,.way,.ptile,.storebtn,.gchoice,.trcard,.result,.howto,.foot-social a,.chip-char,select,input,textarea,code,button:not(.addbtn):not(.linkbtn):not(.report-link):not(.primary)){--fg:#2a2230;--muted:#6f6577;--line:#e2d8e1;color:var(--fg)}
+  html[data-scene="night"]:not([data-theme="dark"]) .wrap{--fg:#f3ecff;--muted:#cbbde6;--line:rgb(255 255 255 / .28);color:var(--fg);text-shadow:0 1px 2px rgb(30 12 60 / .8),0 0 10px rgb(30 12 60 / .55)}
+  html[data-scene="night"]:not([data-theme="dark"]) .wrap :is(.panel,.stat,.notice,.banner,.seg,.tabs,.setb,.face,.step,.sheet,.menu-panel,.signin,.empty-state,.lb,.doc,.way,.ptile,.storebtn,.gchoice,.trcard,.result,.howto,.foot-social a,.chip-char,select,input,textarea,code,button:not(.addbtn):not(.linkbtn):not(.report-link):not(.primary)){--fg:#2a2230;--muted:#6f6577;--line:#e2d8e1;color:var(--fg);text-shadow:none}
 }
 .wrap{transition:color 2.5s}
 

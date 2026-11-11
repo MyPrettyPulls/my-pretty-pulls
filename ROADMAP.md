@@ -88,4 +88,4 @@
 - Edit profile window: About you / Favorites / Avatar / Showcase are fold-up sections; the open ones are remembered. Avatar and showcase pickers can filter by IP.
 - Showcase tray at the top of the picker: the 5 chosen cards in order, drag (or arrows) to rearrange, ✕ to remove.
 - Needs supabase/profile-favorites.sql (adds profiles.fav_chars). Until it's run, saving still works with one favourite and shows a note.
-- Night mode: panels, docs (badges/about/legal), store buttons, chips and footer pills keep dark text; text sitting on the background turns light.
+- Night mode: panels, docs (badges/about/legal), store buttons, chips and footer pills keep dark text; text sitting on the background turns light with a soft dark glow so it stays readable while the background fades.
