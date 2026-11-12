@@ -16,8 +16,8 @@ update public.game_cards set appears=array['Rumi','Mira','Zoey']::text[], main=n
 update public.badge_cards set ap=array['Rumi','Mira','Zoey']::text[] where split_part(uid,'|',1)='KPDH01-HR-009';
 update public.game_cards set appears=array['Jinu','Abby','Baby','Mystery','Romance']::text[], main=null where split_part(uid,'|',1)='KPDH01-HR-010';
 update public.badge_cards set ap=array['Jinu','Abby','Baby','Mystery','Romance']::text[] where split_part(uid,'|',1)='KPDH01-HR-010';
-update public.game_cards set appears=array['Demons']::text[], main=null where split_part(uid,'|',1)='KPDH01-HR-011';
-update public.badge_cards set ap=array['Demons']::text[] where split_part(uid,'|',1)='KPDH01-HR-011';
+update public.game_cards set appears=array['Rumi']::text[], main='Rumi' where split_part(uid,'|',1)='KPDH01-HR-011';
+update public.badge_cards set ap=array['Rumi']::text[] where split_part(uid,'|',1)='KPDH01-HR-011';
 update public.game_cards set appears=array['Rumi','Mira','Zoey']::text[], main=null where split_part(uid,'|',1)='KPDH01-HR-012';
 update public.badge_cards set ap=array['Rumi','Mira','Zoey']::text[] where split_part(uid,'|',1)='KPDH01-HR-012';
 update public.game_cards set appears=array['Mira','Zoey']::text[], main=null where split_part(uid,'|',1)='KPDH01-HR-013';

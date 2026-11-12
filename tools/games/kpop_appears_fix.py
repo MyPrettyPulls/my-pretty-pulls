@@ -11,7 +11,7 @@ A={
  "KPDH01-SR-016":["Demons"],"KPDH01-SR-017":["Demons"],"KPDH01-SR-018":["Demons"],
  # Series 1 HR (movie moments)
  "KPDH01-HR-001":["Mira","Zoey"],"KPDH01-HR-002":["Rumi"],"KPDH01-HR-003":["Zoey"],"KPDH01-HR-004":["Mira"],"KPDH01-HR-006":T,
- "KPDH01-HR-007":["Fans"],"KPDH01-HR-009":T,"KPDH01-HR-010":S,"KPDH01-HR-011":["Demons"],"KPDH01-HR-012":T,"KPDH01-HR-013":["Mira","Zoey"],
+ "KPDH01-HR-007":["Fans"],"KPDH01-HR-009":T,"KPDH01-HR-010":S,"KPDH01-HR-011":["Rumi"],"KPDH01-HR-012":T,"KPDH01-HR-013":["Mira","Zoey"],
  "KPDH01-HR-019":["Rumi","Demons"],"KPDH01-HR-023":["Mira"],"KPDH01-HR-024":["Zoey"],
  # Series 1 QR demon charms
  "KPDH01-QR-016":["Demons"],"KPDH01-QR-019":["Demons"],
@@ -31,8 +31,8 @@ A={
  "KPDH02-QR-014":["Rumi"],"KPDH02-QR-015":["Mira"],"KPDH02-QR-016":["Zoey"],"KPDH02-QR-017":["Rumi"],"KPDH02-QR-018":["Mira"],"KPDH02-QR-019":["Zoey"],
  "KPDH02-TR-016":["Fans"],"KPDH02-TR-017":["Fans"],"KPDH02-TR-018":["Fans"],
 }
-# Not sure from the picture: Kinsey to check
-UNSURE=["KPDH01-R-007","KPDH01-R-008","KPDH01-R-022","KPDH01-HR-001","KPDH01-HR-011","KPDH02-HR-021"]
+# The cards that were hard to tell from the picture were checked by Kinsey (sheet tab "KPop Characters to Check", Nov 2026)
+UNSURE=[]
 OTHER=["Celine","Bobby","Healer Han","Derpy","Sussie","Demons","Fans"]
 if __name__=="__main__":
   d=json.load(open('/tmp/carddata.json'))
