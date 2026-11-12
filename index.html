@@ -913,6 +913,10 @@ body>.wrap{flex:1;width:100%}
 .okbox{background:#dff3e8;color:#1f5a3c;border-radius:12px;padding:14px;font-weight:600}
 .danger{border:1.5px solid #d64060;color:#b3263f;background:transparent;border-radius:999px;padding:7px 14px;font-weight:700}
 .danger.solid{background:#d64060;color:#fff}
+.rsbtn{color:#b3263f;border-color:#e6b3c0}
+.rsbtn:hover{background:#fdf0f3}
+[data-theme="dark"] .rsbtn{color:#ff9db2;border-color:#7a3a4c}[data-theme="dark"] .rsbtn:hover{background:#3a1f28}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rsbtn{color:#ff9db2;border-color:#7a3a4c}:root:not([data-theme="light"]) .rsbtn:hover{background:#3a1f28}}
 .rsopts{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
 .rsopt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer}
 .rsopt:has(input:checked){border-color:#d64060;background:#fdf0f3}
@@ -998,6 +1002,7 @@ body>.wrap{flex:1;width:100%}
               <button data-size="l" aria-pressed="false" aria-label="Large cards">L</button>
             </div>
             <button class="ghost" id="tradeOpen">⇄ Make a trade list</button>
+            <button class="ghost rsbtn" data-reset>Reset collection</button>
           </div>
         </div>
         <div class="searchrow">
