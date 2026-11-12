@@ -913,6 +913,10 @@ body>.wrap{flex:1;width:100%}
 .okbox{background:#dff3e8;color:#1f5a3c;border-radius:12px;padding:14px;font-weight:600}
 .danger{border:1.5px solid #d64060;color:#b3263f;background:transparent;border-radius:999px;padding:7px 14px;font-weight:700}
 .danger.solid{background:#d64060;color:#fff}
+.rsopts{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.rsopt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer}
+.rsopt:has(input:checked){border-color:#d64060;background:#fdf0f3}
+.rsopt span{display:flex;flex-direction:column}.rsopt small{color:var(--muted)}
 .danger:disabled{opacity:.5;cursor:default}
 .acct-panel .delbox{margin-top:10px;display:flex;flex-direction:column;gap:10px;border:1px solid #f0b6c3;background:#fff3f6;border-radius:12px;padding:14px;color:#5a1f2c}
 .acct-panel .delbox input{border:1px solid var(--line);border-radius:10px;padding:8px 12px;font:inherit;max-width:220px}
@@ -1053,6 +1057,7 @@ body>.wrap{flex:1;width:100%}
 <div class="scrim" id="prodSheet" hidden></div>
 <div class="scrim" id="tradeSheet" hidden></div>
 <div class="scrim" id="editProf" hidden></div>
+<div class="scrim" id="resetBox" hidden></div>
 <div class="toast" id="toast" hidden></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -3394,6 +3399,54 @@ async function onSignedIn(u){
   route();
 }
 function onSignedOut(){ user=null; myProfile=null; pending.clear(); setSave(""); loadLocal(); render(); route(); }
+
+// ---------- Reset my collection (from the menu): pick a collection or everything, type RESET to confirm ----------
+const resetItems=fid=>(fid==="all"?Object.keys(FRANCH):[fid]).flatMap(f=>[...FRANCH[f].cards,...merchOf(f)]).filter(c=>has(c.uid)>0).map(c=>c.uid);
+function openReset(){
+  const opts=Object.values(FRANCH).map(f=>({id:f.id,name:f.name,n:resetItems(f.id).length})).filter(o=>o.n);
+  const all=resetItems("all").length;
+  if(!all){toast("Your collection is already empty");return}
+  const pick=opts.some(o=>o.id===F.id)?F.id:(opts.length===1?opts[0].id:"all");
+  const choice=o=>`<label class="rsopt"><input type="radio" name="rsScope" value="${o.id}"${o.id===pick?" checked":""}> <span><b>${esc(o.name)}</b><small>${o.n} item${o.n===1?"":"s"} in your binder</small></span></label>`;
+  $("#resetBox").innerHTML=`<div class="sheet form-sheet" role="alertdialog" aria-modal="true" aria-labelledby="rsTitle" aria-describedby="rsWhat">
+    <button class="close" data-rsclose aria-label="Close">✕</button>
+    <form class="form" id="rsForm" novalidate>
+      <div><div class="label">Reset my collection</div><h2 id="rsTitle" style="font-family:var(--font-display);font-size:1.6rem;margin:2px 0 0">Are you sure?</h2></div>
+      <fieldset class="rsopts"><legend class="label">What to reset</legend>
+        ${opts.map(choice).join("")}${opts.length>1?choice({id:"all",name:"Everything",n:all}):""}
+      </fieldset>
+      <p id="rsWhat" class="hint" style="margin:0">This takes every card and merch item in that collection out of your binder, including extras and saved serial numbers. Your profile, Sparkles and game streaks stay. Badges for those cards go until you collect them again. <b>This can't be undone.</b></p>
+      <div class="field"><label for="rsType">Type <b>RESET</b> to confirm</label><input id="rsType" autocomplete="off" autocapitalize="characters" spellcheck="false"></div>
+      <div class="qrow" style="justify-content:flex-end"><button type="button" class="ghost" data-rsclose>Cancel</button><button type="submit" class="danger solid" id="rsGo" disabled>Reset collection</button></div>
+    </form></div>`;
+  $("#resetBox").hidden=false; $("#rsType").focus();
+}
+function closeReset(){$("#resetBox").hidden=true;$("#resetBox").innerHTML=""}
+async function doReset(scope){
+  const uids=resetItems(scope); if(!uids.length){closeReset();return}
+  const btn=$("#rsGo"); btn.disabled=true; btn.textContent="Resetting…";
+  try{
+    if(user){
+      uids.forEach(u=>pending.delete(u));
+      for(let i=0;i<uids.length;i+=150){const part=uids.slice(i,i+150);
+        const {error}=await sb.from("collection_items").delete().eq("user_id",user.id).in("card_uid",part); if(error)throw error;
+        const sv=part.filter(u=>SERIALS[u]); if(sv.length){await sb.from("card_serials").delete().eq("user_id",user.id).in("card_uid",sv)}}
+    }
+  }catch(e){btn.disabled=false;btn.textContent="Reset collection";toast("Couldn't reset. Check your connection and try again.");return}
+  uids.forEach(u=>{delete counts[u];delete SERIALS[u]}); try{localStorage.setItem("mpp.serials",JSON.stringify(SERIALS))}catch(e){}
+  isSample=false; if(!user)save();
+  closeReset(); render(); renderAcct(); checkBadges(300);
+  toast(scope==="all"?"Your collection has been reset":`${FRANCH[scope].name} has been reset`);
+}
+document.addEventListener("click",e=>{
+  if(e.target.closest("[data-reset]")){setMenu(false);openReset();return}
+  if(e.target.closest("[data-rsclose]")||e.target.id==="resetBox"){closeReset();return}
+});
+document.addEventListener("input",e=>{if(e.target.id==="rsType")$("#rsGo").disabled=e.target.value.trim().toUpperCase()!=="RESET"});
+document.addEventListener("submit",e=>{if(e.target.id!=="rsForm")return;e.preventDefault();
+  if($("#rsType").value.trim().toUpperCase()!=="RESET")return;
+  doReset(document.querySelector('input[name="rsScope"]:checked').value)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#resetBox").hidden)closeReset()});
 let menuOpen=false;
 function renderAcct(){
   const el=$("#acct");
@@ -3430,9 +3483,11 @@ function renderMenu(){
     <h3>Account</h3>
     ${user?`<a class="mi" href="/profile" data-nav="/profile"${mine?' aria-current="page"':""}><span class="ic">${avatarHTML(myProfile,"sm")}</span>${myProfile?"@"+esc(myProfile.username):"Make my profile"}</a>
       <button class="mi" data-setpw><span class="ic">🔑</span>Change password</button>
+      <button class="mi" data-reset><span class="ic">🧹</span>Reset my collection</button>
       <button class="mi" id="signOut"><span class="ic">👋</span>Sign out</button>`
     :`<p class="hint" style="margin:2px 10px 6px">Save your collection on every device and get on the leaderboard.</p>
-      <div class="signin-cta"><button class="primary" id="openSignin">Sign in</button><button class="ghost" id="openSignup">Create account</button></div>`}
+      <div class="signin-cta"><button class="primary" id="openSignin">Sign in</button><button class="ghost" id="openSignup">Create account</button></div>
+      <button class="mi" data-reset><span class="ic">🧹</span>Reset my collection</button>`}
     <hr>
     <div class="small">
       <a class="mi" href="https://www.tiktok.com/@myprettypulls" target="_blank" rel="noopener">TikTok</a><a class="mi" href="https://www.instagram.com/myprettypulls/" target="_blank" rel="noopener">Instagram</a><a class="mi" href="https://www.youtube.com/@MyPrettyPulls" target="_blank" rel="noopener">YouTube</a><a class="mi" href="https://discord.gg/X2d9BKh5d" target="_blank" rel="noopener">Discord</a>

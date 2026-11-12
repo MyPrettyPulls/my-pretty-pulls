@@ -129,3 +129,4 @@
 ## Fixes from first user feedback (preview)
 - BUG: signed-in binders loaded every public profile's cards too (loadRemote had no user filter; RLS lets anyone read public profiles' cards). New users saw Kinsey's binder and couldn't remove those cards. loadRemote now filters .eq("user_id", uid); loadSerials too (RLS already limited it).
 - Freezing: +/− re-rendered the whole page per tap. Now quickCard() updates just that tile (and the detail sheet), and the full render runs once, 700 ms after the last tap (renderSoon). ~98 → 8 ms per tap at 4× CPU slowdown.
+- Menu > Account: "Reset my collection" (signed in or not). Choose one collection or Everything; type RESET to enable the button. Deletes collection_items (and saved serials) for those cards from the database first, then clears the binder; badges follow via checkBadges.
