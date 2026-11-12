@@ -47,8 +47,7 @@ begin
         return c.appears && (case parts[2]
           when 'HUNTR/X' then array['Rumi','Mira','Zoey']
           when 'Saja Boys' then array['Jinu','Abby','Baby','Mystery','Romance']
-          when 'Friends & family' then array['Celine','Bobby','Healer Han']
-          when 'Pets' then array['Derpy','Sussie']
+          when 'Other' then array['Celine','Bobby','Healer Han','Derpy','Sussie','Demons','Fans']
           else array[]::text[] end);
       end if;
       return c.appears && (case parts[2]

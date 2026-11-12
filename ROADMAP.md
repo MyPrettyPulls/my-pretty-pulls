@@ -120,3 +120,8 @@
 - Body text: ## heading, - list, **bold**, *italic*, [link](/path or https://), ![caption](image), !![caption](image) for a long sheet (shows the top, tap for full size). "thumb" = news-card picture only; "cover" = top of the post. In updates, "## You asked, we built" and "## Behind the scenes" become callouts; the number of "You asked" items shows as "💬 N ideas from you".
 - Drafted history (needs Kinsey's review): Hello (Nov 5, when the site was started), Daily games + Badges (Nov 7), KPop arrives (Nov 9), KPop games + card shine (Nov 10), Profiles + 100 badges (Nov 11). Two draft news posts: Costume Party, KPop Series 2.
 - KAYOU product sheets in posts are cut into one picture per section (info, promo, each rarity) in content/news/<post>-<part>.webp, stacked in the post, instead of one long image. Plain ![alt](src) images have no caption.
+
+## KPop characters fix (preview)
+- 95 KPop cards (scene/screenshot/album cards whose name isn't a character) had no characters, so the game answered "No" to HUNTR/X etc. K_APPEARS_NUM (by card number) in index.html now lists who's on each; source: tools/games/kpop_appears_fix.py (UNSURE list = for Kinsey to check).
+- KPop groups are now HUNTR/X, Saja Boys, Other (Celine, Bobby, Healer Han, Derpy, Sussie + labels "Demons"/"Fans"). K_TAGS keeps the labels out of favorites and "Is ___ on it?".
+- Needs supabase/kpop-characters.sql (updates game_cards + badge_cards, new sp_check). kpop-games-part1.sql updated to match.

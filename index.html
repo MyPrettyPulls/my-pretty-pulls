@@ -1215,9 +1215,10 @@ const K6=["Rumi","Mira","Zoey"], K_SAJA=["Jinu","Baby","Abby","Mystery","Romance
 const K_GROUPS=[
  {name:"HUNTR/X",chars:["Rumi","Mira","Zoey"]},
  {name:"Saja Boys",chars:["Jinu","Abby","Baby","Mystery","Romance"]},
- {name:"Friends & family",chars:["Celine","Bobby","Healer Han"]},
- {name:"Pets",chars:["Derpy","Sussie"]}
+ {name:"Other",chars:["Celine","Bobby","Healer Han","Derpy","Sussie","Demons","Fans"]}
 ];
+// "Demons" and "Fans" only answer the "Other" question: they're not picked as favorites or asked about by name
+const K_TAGS=["Demons","Fans"];
 const K_ALLCHARS=K_GROUPS.flatMap(g=>g.chars);
 // Who is on cards whose name isn't just one character
 const K_APPEARS={"HUNTR/X":K6,"Saja Boys":K_SAJA,"Rumi & Jinu":["Rumi","Jinu"],"Jinu & Rumi":["Jinu","Rumi"],"RuJinu":["Rumi","Jinu"],
@@ -1287,14 +1288,16 @@ const K_PROMOS=[
  ["KPDHM01-PR-01","Takedown Rumi","Special Mini Edition promo","Special Mini Edition promo card, not in the mini packs"],
  ["KPDHM01-PR-02","How It's Done","Special Mini Edition promo","Special Mini Edition promo card, not in the mini packs"]
 ];
+// Who is on each card whose name doesn't say (scene cards, screenshots, album cards). From tools/games/kpop_appears_fix.py
+const K_APPEARS_NUM={"KPDH01-R-001":["Rumi","Mira","Zoey"],"KPDH01-R-002":["Rumi","Derpy"],"KPDH01-R-003":["Rumi","Jinu"],"KPDH01-R-006":["Rumi","Mira","Zoey"],"KPDH01-R-007":["Rumi","Mira","Zoey","Fans"],"KPDH01-R-008":["Rumi","Mira","Zoey"],"KPDH01-R-009":["Rumi","Mira","Zoey"],"KPDH01-R-010":["Rumi","Mira","Zoey","Demons"],"KPDH01-R-011":["Rumi","Mira","Zoey"],"KPDH01-R-013":["Jinu","Abby","Baby","Mystery","Romance"],"KPDH01-R-016":["Rumi","Mira","Zoey"],"KPDH01-R-017":["Rumi","Mira","Zoey"],"KPDH01-R-019":["Fans"],"KPDH01-R-020":["Jinu","Abby","Baby","Mystery","Romance"],"KPDH01-R-021":["Demons"],"KPDH01-R-022":["Rumi","Mira","Zoey"],"KPDH01-R-023":["Rumi","Mira","Zoey"],"KPDH01-R-024":["Rumi"],"KPDH01-SR-016":["Demons"],"KPDH01-SR-017":["Demons"],"KPDH01-SR-018":["Demons"],"KPDH01-HR-001":["Mira","Zoey"],"KPDH01-HR-002":["Rumi"],"KPDH01-HR-003":["Zoey"],"KPDH01-HR-004":["Mira"],"KPDH01-HR-006":["Rumi","Mira","Zoey"],"KPDH01-HR-007":["Fans"],"KPDH01-HR-009":["Rumi","Mira","Zoey"],"KPDH01-HR-010":["Jinu","Abby","Baby","Mystery","Romance"],"KPDH01-HR-011":["Demons"],"KPDH01-HR-012":["Rumi","Mira","Zoey"],"KPDH01-HR-013":["Mira","Zoey"],"KPDH01-HR-019":["Rumi","Demons"],"KPDH01-HR-023":["Mira"],"KPDH01-HR-024":["Zoey"],"KPDH01-QR-016":["Demons"],"KPDH01-QR-019":["Demons"],"KPDHM01-SSR-001":["Rumi","Mira","Zoey"],"KPDHM01-SSR-002":["Rumi","Mira","Zoey"],"KPDHM01-SSR-003":["Rumi","Mira","Zoey"],"KPDHM01-SSR-004":["Rumi"],"KPDHM01-SSR-005":["Zoey"],"KPDHM01-SSR-010":["Rumi","Mira","Zoey"],"KPDHM01-SSR-014":["Mira","Zoey"],"KPDHM01-SSR-015":["Mira","Zoey"],"KPDH02-R-003":["Fans"],"KPDH02-R-011":[],"KPDH02-SR-011":["Demons"],"KPDH02-SR-012":["Demons"],"KPDH02-SR-013":["Demons"],"KPDH02-SR-014":["Demons"],"KPDH02-SR-015":["Demons"],"KPDH02-HR-001":["Rumi"],"KPDH02-HR-002":["Jinu","Abby","Baby","Mystery","Romance"],"KPDH02-HR-003":["Zoey"],"KPDH02-HR-004":["Rumi","Mira","Zoey"],"KPDH02-HR-005":["Rumi","Mira","Zoey"],"KPDH02-HR-006":["Rumi"],"KPDH02-HR-007":["Mira"],"KPDH02-HR-008":["Zoey"],"KPDH02-HR-009":["Mira"],"KPDH02-HR-010":["Rumi"],"KPDH02-HR-011":["Rumi","Mira"],"KPDH02-HR-012":["Mira"],"KPDH02-HR-013":["Rumi"],"KPDH02-HR-014":["Zoey"],"KPDH02-HR-015":["Rumi"],"KPDH02-HR-016":["Rumi"],"KPDH02-HR-017":["Jinu"],"KPDH02-HR-018":["Rumi"],"KPDH02-HR-019":["Jinu"],"KPDH02-HR-020":["Jinu","Rumi"],"KPDH02-HR-021":["Mystery","Zoey"],"KPDH02-HR-022":["Romance","Mira","Abby"],"KPDH02-HR-023":["Rumi","Mira","Zoey"],"KPDH02-HR-024":["Rumi"],"KPDH02-QR-001":["Jinu"],"KPDH02-QR-002":["Baby"],"KPDH02-QR-003":["Mystery"],"KPDH02-QR-004":["Romance"],"KPDH02-QR-005":["Abby"],"KPDH02-QR-009":["Jinu"],"KPDH02-QR-010":["Abby"],"KPDH02-QR-011":["Baby"],"KPDH02-QR-012":["Romance"],"KPDH02-QR-013":["Mystery"],"KPDH02-QR-014":["Rumi"],"KPDH02-QR-015":["Mira"],"KPDH02-QR-016":["Zoey"],"KPDH02-QR-017":["Rumi"],"KPDH02-QR-018":["Mira"],"KPDH02-QR-019":["Zoey"],"KPDH02-TR-016":["Fans"],"KPDH02-TR-017":["Fans"],"KPDH02-TR-018":["Fans"]};
 const KCARDS=[]; {const kc={};
  K_BLOCKS.forEach(([set,rar,eds,names,conf])=>{const ck=set+"|"+rar; if(kc[ck]===undefined)kc[ck]=0;
   names.forEach(name=>{kc[ck]++;const n=String(kc[ck]).padStart(3,"0"),num=`${set}-${RINFO[rar].code}-${n}`;
    KCARDS.push({fr:"kpdh",set,uid:`${num}|${eds.join("+")}`,num,n,rar,name,editions:eds,confirmed:conf,main:null,appears:[]})})});
  K_PROMOS.forEach(([num,name,note,how],i)=>{const set=num.split("-")[0];
   KCARDS.push({fr:"kpdh",set:"PROMO",promoSet:set,uid:`${num}|promo`,num,n:String(i+1).padStart(3,"0"),rar:"PR",name,editions:["promo"],confirmed:true,promoNote:note,how,main:null,appears:[]})});
- KCARDS.forEach(c=>{const a=K_APPEARS[c.name];
-  if(a){c.appears=[...a];if(a.length===1)c.main=a[0]}else if(K_ALLCHARS.includes(c.name)){c.main=c.name;c.appears=[c.name]}});
+ KCARDS.forEach(c=>{const a=K_APPEARS_NUM[c.num]||K_APPEARS[c.name];
+  if(a){c.appears=[...a];if(a.length===1&&!K_TAGS.includes(a[0]))c.main=a[0]}else if(K_ALLCHARS.includes(c.name)){c.main=c.name;c.appears=[c.name]}});
  // Number repeats within a set + rarity (Rumi 1, Rumi 2...)
  KCARDS.forEach(c=>{const peers=KCARDS.filter(x=>x.set===c.set&&x.rar===c.rar&&x.name===c.name);c.variant=peers.length>1?peers.indexOf(c)+1:null});
 }
@@ -1339,7 +1342,7 @@ FRANCH.winx.groupAlias={winx:"Winx",winxgirls:"Winx",fairy:"Winx",fairies:"Winx"
   trix:"Trix",witch:"Trix",witches:"Trix",
   pets:"Pets",pet:"Pets",pixie:"Pets",pixies:"Pets",pixiepets:"Pets"};
 FRANCH.kpdh.groupAlias={huntrix:"HUNTR/X",girls:"HUNTR/X",sajaboys:"Saja Boys",saja:"Saja Boys",boys:"Saja Boys",
-  friends:"Friends & family",family:"Friends & family",pets:"Pets",pet:"Pets"};
+  other:"Other",others:"Other",friends:"Other",family:"Other",pets:"Other",pet:"Other",demons:"Other",fans:"Other"};
 let F=FRANCH.winx;
 const ALLCARDS=[...CARDS,...CPCARDS,...KCARDS];
 const FR_OF=c=>FRANCH[c.fr]||FRANCH.winx;
@@ -2547,7 +2550,7 @@ function renderPlay(){
   }
   const opt=(arr,ph)=>`<option value="">${ph}</option>`+arr.map(([v,t])=>`<option value="${esc(v)}">${esc(t)}</option>`).join("");
   const pool=gCards(), rars=RORDER.filter(r=>pool.some(c=>c.rar===r)).map(r=>[r,`${RINFO[r].code} · ${RINFO[r].name}`]);
-  const chars=gGroups().flatMap(g=>g.chars).map(n=>[n,n]);
+  const chars=gGroups().flatMap(g=>g.chars).filter(n=>!K_TAGS.includes(n)).map(n=>[n,n]);
   const maxN=Math.max(...pool.map(c=>+c.num.split("-").pop()||0)), nums=Array.from({length:maxN-1},(_,i)=>[String(i+1),String(i+1)]);
   const known=q=>{const ans=cands.map(c=>spCheck(c,q));return ans.every(a=>a)||ans.every(a=>!a)};
   const qb=(q,t)=>`<button class="qbtn${known(q)?" known":""}" data-spq="${esc(q)}"${spBusy||(left<=0)?" disabled":""}>${t}</button>`;
@@ -3099,7 +3102,7 @@ function openEdit(which){
   const pf=id=>ownFr.length>1?`<div class="pfilter" role="group" aria-label="Show cards from"><button type="button" data-pf="${id}:all" aria-pressed="true">All</button>${ownFr.map(f=>`<button type="button" data-pf="${id}:${f.id}" aria-pressed="false">${esc(f.name)}</button>`).join("")}</div>`:"";
   const pickBtn=(attr,c,on)=>`<button type="button" class="pick" data-${attr}="${c.uid}" data-fr="${c.fr}" aria-pressed="${on}" aria-label="${esc(label(c))} ${c.num}"><img src="cards/${imgKey(c)}-s.webp" alt="" loading="lazy">${attr==="sc"&&on?`<span class="ord">${scSplit(draft.showcase)[c.fr].indexOf(c.uid)+1}</span>`:""}</button>`;
   const needAge=!myProfile&&ls.get(AGE_OK)!=="1";
-  const favSelects=Object.values(FRANCH).map(f=>`<div class="field"><label for="epFav-${f.id}">${esc(f.name)}</label><select id="epFav-${f.id}" data-favfr="${f.id}"><option value="">None</option>${f.groups.map(g=>`<optgroup label="${esc(g.label||g.name)}">${g.chars.map(n=>`<option${fm[f.id]===n?" selected":""}>${esc(n)}</option>`).join("")}</optgroup>`).join("")}</select></div>`).join("");
+  const favSelects=Object.values(FRANCH).map(f=>`<div class="field"><label for="epFav-${f.id}">${esc(f.name)}</label><select id="epFav-${f.id}" data-favfr="${f.id}"><option value="">None</option>${f.groups.map(g=>`<optgroup label="${esc(g.label||g.name)}">${g.chars.filter(n=>!K_TAGS.includes(n)).map(n=>`<option${fm[f.id]===n?" selected":""}>${esc(n)}</option>`).join("")}</optgroup>`).join("")}</select></div>`).join("");
   $("#editProf").innerHTML=`<div class="sheet form-sheet" role="dialog" aria-modal="true" aria-labelledby="epTitle">
     <button class="close" data-closeedit aria-label="Close">✕</button>
     <form class="form" id="epForm" novalidate>
