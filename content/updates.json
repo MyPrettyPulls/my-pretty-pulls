@@ -2,6 +2,14 @@
  "_how": "Updates page posts. Newest first is automatic. 'draft': true shows only on the preview site.",
  "posts": [
   {
+   "slug": "home-page",
+   "date": "2026-11-12",
+   "draft": true,
+   "title": "A new Home page",
+   "summary": "The site now opens on Home, with your collections, the latest news, Pretty Pull of the Week and the daily games all in one place.",
+   "body": "## New\n- **A Home page.** The site now opens on Home instead of the Winx Club page. Everything is in one place: your collections and progress, the latest news, Pretty Pull of the Week, today's games, the top of the weekly leaderboard, badges and the Sparkle Store.\n- **My collections.** Find it on Home or in the menu. If you collect one series, it takes you straight there. If you collect more than one, you can pick which binder to open.\n\n## You asked, we built\n- **Open on what you collect.** The site always opened on Winx Club, even if you only collect KPop Demon Hunters. Now it opens on Home, and My collections takes you right to your binder.\n\n## Good to know\n- The Winx Club page has moved to [myprettypulls.com/winx-club](/winx-club). If you bookmarked the main address for Winx, it now opens Home, and Winx is one tap away."
+  },
+  {
    "slug": "feedback-fixes",
    "date": "2026-11-11",
    "title": "Fixes from your first feedback",
