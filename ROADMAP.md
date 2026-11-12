@@ -125,3 +125,7 @@
 - 95 KPop cards (scene/screenshot/album cards whose name isn't a character) had no characters, so the game answered "No" to HUNTR/X etc. K_APPEARS_NUM (by card number) in index.html now lists who's on each; source: tools/games/kpop_appears_fix.py (UNSURE list = for Kinsey to check).
 - KPop groups are now HUNTR/X, Saja Boys, Other (Celine, Bobby, Healer Han, Derpy, Sussie + labels "Demons"/"Fans"). K_TAGS keeps the labels out of favorites and "Is ___ on it?".
 - Needs supabase/kpop-characters.sql (updates game_cards + badge_cards, new sp_check). kpop-games-part1.sql updated to match.
+
+## Fixes from first user feedback (preview)
+- BUG: signed-in binders loaded every public profile's cards too (loadRemote had no user filter; RLS lets anyone read public profiles' cards). New users saw Kinsey's binder and couldn't remove those cards. loadRemote now filters .eq("user_id", uid); loadSerials too (RLS already limited it).
+- Freezing: +/− re-rendered the whole page per tap. Now quickCard() updates just that tile (and the detail sheet), and the full render runs once, 700 ms after the last tap (renderSoon). ~98 → 8 ms per tap at 4× CPU slowdown.

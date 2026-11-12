@@ -1656,7 +1656,7 @@ async function flushSerials(){
 }
 async function loadSerials(){
   if(!user||!sb)return;
-  try{const {data,error}=await sb.from("card_serials").select("card_uid,serials");if(error)throw error;
+  try{const {data,error}=await sb.from("card_serials").select("card_uid,serials").eq("user_id",user.id);if(error)throw error;
     if(data.length){SERIALS={};data.forEach(r=>{if(BYUID[r.card_uid])SERIALS[r.card_uid]=r.serials});try{localStorage.setItem("mpp.serials",JSON.stringify(SERIALS))}catch(e){}}
     else if(Object.keys(SERIALS).length){Object.keys(SERIALS).forEach(u=>serialPending.add(u));flushSerials()}
   }catch(e){}
@@ -1943,7 +1943,21 @@ function setFranchise(id){
   $("#frLabel").textContent=F.name; $("#setsLabel").textContent=F.setsLabel; $("#searchHint").innerHTML=F.hint;
   render();
 }
-function render(){$("#sample").hidden=!isSample;syncControls();renderStats();renderSets();renderGuide();renderSide();renderCards();renderDetail();if(prodOpen)renderProd()}
+// Tapping + or − updates just that card straight away; the rest of the page (stats, filters, side panels) redraws once tapping stops.
+// Redrawing everything on every tap froze phones when logging lots of cards.
+let renderT=null;
+function renderSoon(){clearTimeout(renderT);renderT=setTimeout(()=>{renderT=null;
+  const f=document.activeElement, fa=f&&f.dataset&&f.dataset.act, fi=f&&f.dataset&&f.dataset.id, inD=f&&f.closest&&f.closest("#detail");
+  render(); if(fi&&!inD){const sel=`#cards [data-id="${CSS.escape(fi)}"]`;(document.querySelector(`${sel}[data-act="${fa}"]`)||document.querySelector(sel))?.focus()}},700)}
+function quickCard(id,act){const c=BYUID[id]; if(!c)return; const n=has(id);
+  const cards=new Set([...document.querySelectorAll(`#cards [data-act][data-id="${CSS.escape(id)}"]`)].map(b=>b.closest(".card")).filter(Boolean));
+  cards.forEach(card=>{card.classList.toggle("missing",!n);
+    const st=card.querySelector(".step, .addbtn"); if(st)st.outerHTML=stepHTML(c);
+    const face=card.querySelector(".face"), q=face&&face.querySelector(".qty");
+    if(n){if(q)q.textContent=`×${n}`;else if(face)face.insertAdjacentHTML("beforeend",`<span class="qty">×${n}</span>`)}else if(q)q.remove();
+    if(act){(card.querySelector(`[data-act="${act}"]`)||card.querySelector("[data-act]"))?.focus()}});
+}
+function render(){clearTimeout(renderT);renderT=null;$("#sample").hidden=!isSample;syncControls();renderStats();renderSets();renderGuide();renderSide();renderCards();renderDetail();if(prodOpen)renderProd()}
 function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,1800)}
 let lastFocus=null;
 function open(id){if(!openId)lastFocus=document.activeElement;openId=id;renderDetail();$("#dClose")?.focus()}
@@ -1951,8 +1965,9 @@ function close(){openId=null;renderDetail();lastFocus?.focus?.()}
 
 document.addEventListener("click",e=>{
   const a=e.target.closest("[data-act]");
-  if(a){const id=a.dataset.id,n=has(id);counts[id]=a.dataset.act==="add"?n+1:Math.max(0,n-1);if(!counts[id])delete counts[id];commit(id);
-    const keep=openId;render();if(keep)$("#detail [data-act]")?.focus();return}
+  if(a){const id=a.dataset.id,n=has(id),act=a.dataset.act,inDetail=!!a.closest("#detail");counts[id]=act==="add"?n+1:Math.max(0,n-1);if(!counts[id])delete counts[id];commit(id);
+    quickCard(id,inDetail?null:act); if(openId){renderDetail(); if(inDetail)($(`#detail [data-act="${act}"]`)||$("#detail [data-act]"))?.focus()}
+    renderSoon(); return}
   const o=e.target.closest("[data-open]"); if(o){open(o.dataset.open);return}
   const g=e.target.closest("[data-go]"); if(g&&g.dataset.go){openId=g.dataset.go;renderDetail();return}
   if(e.target.id==="dClose"||e.target.id==="detail"){close();return}
@@ -3349,10 +3364,11 @@ async function flush(){
     setSave("error"); clearTimeout(flushT); flushT=setTimeout(flush,4000);
   }
 }
-async function loadRemote(){
+async function loadRemote(uid){
   const rows=[];
   for(let from=0;;from+=1000){
-    const {data,error}=await sb.from("collection_items").select("card_uid,qty").range(from,from+999);
+    // Only this person's cards: the database also lets anyone read public profiles' cards (for profile pages)
+    const {data,error}=await sb.from("collection_items").select("card_uid,qty").eq("user_id",uid).range(from,from+999);
     if(error)throw error; rows.push(...data); if(data.length<1000)break;
   }
   return rows;
@@ -3361,7 +3377,7 @@ async function onSignedIn(u){
   if(user&&user.id===u.id)return;
   user=u; setSave("loading");
   try{
-    const rows=await loadRemote();
+    const rows=await loadRemote(u.id);
     if(!rows.length&&!isSample&&Object.keys(counts).length){
       // First sign-in: move the cards logged on this device into the new account
       Object.keys(counts).forEach(k=>pending.set(k,counts[k])); await flush();
