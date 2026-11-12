@@ -118,7 +118,7 @@ html[data-brand="kpdh"]:not([data-scene="night"]) .bg-lines{opacity:1;filter:sat
 /* at night in light mode, words sitting straight on the background turn light; panels, cards and buttons keep their usual colours */
 @media (prefers-color-scheme: light){
   html[data-scene="night"]:not([data-theme="dark"]) .wrap{--fg:#f3ecff;--muted:#cbbde6;--line:rgb(255 255 255 / .28);color:var(--fg);text-shadow:0 1px 2px rgb(30 12 60 / .8),0 0 10px rgb(30 12 60 / .55)}
-  html[data-scene="night"]:not([data-theme="dark"]) .wrap :is(.panel,.stat,.notice,.banner,.seg,.tabs,.setb,.face,.step,.sheet,.menu-panel,.signin,.empty-state,.lb,.doc,.way,.ptile,.storebtn,.gchoice,.trcard,.result,.howto,.foot-social a,.chip-char,select,input,textarea,code,button:not(.addbtn):not(.linkbtn):not(.report-link):not(.primary)){--fg:#2a2230;--muted:#6f6577;--line:#e2d8e1;color:var(--fg);text-shadow:none}
+  html[data-scene="night"]:not([data-theme="dark"]) .wrap :is(.panel,.hcard,.hhero,.frtile,.stat,.notice,.banner,.seg,.tabs,.setb,.face,.step,.sheet,.menu-panel,.signin,.empty-state,.lb,.doc,.way,.ptile,.storebtn,.gchoice,.trcard,.result,.howto,.foot-social a,.chip-char,select,input,textarea,code,button:not(.addbtn):not(.linkbtn):not(.report-link):not(.primary)){--fg:#2a2230;--muted:#6f6577;--line:#e2d8e1;color:var(--fg);text-shadow:none}
 }
 .wrap{transition:color 2.5s}
 
@@ -408,6 +408,52 @@ a.brand{color:var(--fg);text-decoration:none}
 .way{display:flex;gap:12px;align-items:center;background:var(--sunk);border-radius:14px;padding:10px 12px}
 .way div{display:flex;flex-direction:column}.way span{color:var(--muted);font-size:.9rem}
 .bdg-list{display:flex;flex-direction:column;gap:8px}
+
+/* Home and My collections */
+.home a{color:var(--accent);text-decoration:none}.home a:hover{text-decoration:underline}
+.home a.ghost,.home a.btnlink.ghost{color:var(--fg)}.home a.primary{color:#fff}
+.home a.frtile:hover,.home a.hgame:hover,.home a.hlink:hover,.home a.hnews:hover,.home a.hupd:hover{text-decoration:none}
+.home{display:flex;flex-direction:column;gap:16px;max-width:1100px;margin:0 auto;padding:6px 0 30px}
+.hhero{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px 24px;box-shadow:var(--shadow)}
+.hhero h1{font-family:var(--font-display);font-size:clamp(1.7rem,4vw,2.4rem);line-height:1.05;margin:4px 0 6px;letter-spacing:-.02em}
+.hhero p{margin:0;color:var(--muted);max-width:560px}
+.hcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 18px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow);color:var(--fg);text-align:left;font:inherit}
+.hhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.hhead h2{font-family:var(--font-display);font-size:1.25rem;margin:0}
+.hhead a{font-size:.85rem;font-weight:700}
+.hcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.frgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.frtile{display:flex;gap:14px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:16px;background:var(--surface);text-decoration:none;color:var(--fg)!important;font-weight:400!important;transition:transform .15s,box-shadow .15s}
+a.frtile:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.frtile.big{padding:16px}
+.frtile.soon{opacity:.8}
+.frart{position:relative;flex:0 0 92px;height:96px}
+.frart img{position:absolute;top:8px;width:56px;border-radius:6px;box-shadow:0 4px 10px rgb(40 20 40 / .25)}
+.frart img:nth-child(1){left:0;transform:rotate(-10deg)}.frart img:nth-child(2){left:18px;top:2px;z-index:1}.frart img:nth-child(3){left:36px;transform:rotate(10deg)}
+.frart.ph{display:grid;place-items:center;font-size:2.2rem;background:var(--sunk);border-radius:12px}
+.frtxt{display:flex;flex-direction:column;gap:5px;min-width:0;flex:1}
+.frtxt b{font-family:var(--font-display);font-size:1.15rem}
+.frnum{font-size:.85rem;color:var(--muted)}
+.frgo{font-size:.85rem;font-weight:800;color:var(--accent)}
+.hgames{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.hgame,.hlink{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:14px;text-decoration:none;color:var(--fg)!important;font-weight:400!important;cursor:pointer}
+.hlink{border-radius:18px;padding:16px 18px;flex-direction:row}
+.hgame:hover,.hlink:hover{background:var(--accent-soft)}
+.hgame>span:last-child,.hlink>span:last-child{display:flex;flex-direction:column;gap:3px}
+.hgame b,.hlink b{font-size:1.02rem}
+.hgame span span,.hlink span span{font-size:.85rem;color:var(--muted)}
+.hgi{font-size:1.6rem;line-height:1}
+.hgame .gstat{color:var(--accent);font-weight:700}
+.hlbl{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.hlbl li{display:flex;align-items:center;gap:10px}
+.hlbl .who{flex:1;font-weight:700}.hlbl .pts{font-weight:700;color:var(--muted)}
+.hnews,.hupd{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--fg)!important;font-weight:400!important}
+.hnews img{width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:12px}
+.hnews b,.hupd b{font-size:1.08rem;line-height:1.3}
+#homePotw .potw{margin:0;grid-template-columns:minmax(0,150px) 1fr;padding:12px}
+#homePotw .potw.invite{grid-template-columns:70px 1fr}
+#homePotw .potw-txt h2{font-size:1.15rem}
+.home-sec .frgrid{margin-top:8px}
 /* News and Pretty Pull Updates */
 .ntags{display:flex;flex-wrap:wrap;gap:6px}
 .ntag{font-size:.7rem;font-weight:800;letter-spacing:.03em;padding:3px 9px;border-radius:999px;background:var(--sunk);color:var(--fg);text-transform:uppercase}
@@ -1332,7 +1378,7 @@ const CPCARDS=[];
 
 // ---------- Franchises: the collection page shows one at a time ----------
 const FRANCH={
- winx:{id:"winx",name:"Winx Club",path:"/",title:"My Pretty Pulls",cards:[...CARDS,...CPCARDS],editions:[...EDITIONS.filter(e=>e.id!=="promo"),CP_ED,EDBY.promo],odds:ODDS,groups:GROUPS,hue:HUE,scene:SCENE_HUE,
+ winx:{id:"winx",name:"Winx Club",path:"/winx-club",title:"Winx Club · My Pretty Pulls",cards:[...CARDS,...CPCARDS],editions:[...EDITIONS.filter(e=>e.id!=="promo"),CP_ED,EDBY.promo],odds:ODDS,groups:GROUPS,hue:HUE,scene:SCENE_HUE,
    allCode:"WINX",every:"every Winx Club card",setsLabel:"KAYOU Winx Club · every edition",setName:c=>c.set==="WCP01"?"Winx Club Costume Party":"Winx Club Fairy Diary",
    series:[{set:"WFD01",code:"WFD01",name:"Fairy Diary · every card",ct:"D = Daily Edition · M = Magic Edition · D+M = pulls from both"},
      {set:"WCP01",code:"WCP01",name:"Costume Party · Mini Series 1",ct:"Mini cards, out Nov 11, 2026 · 45 cards in 8 rarities plus 3 promos · card pictures come once KAYOU posts them"}],
@@ -2233,7 +2279,7 @@ function renderProfile(){
   if(!v){el.innerHTML="";return}
   if(v.state!=="ok")profileBackground({}); // while a profile loads, don't carry over the KPop day/night from the last page
   if(v.state==="loading"){el.innerHTML=`<div class="empty-state">Loading profile…</div>`;return}
-  if(v.state==="missing"){el.innerHTML=`<div class="empty-state"><h1 style="font-size:2rem">Profile not found</h1><p>This profile doesn't exist, or it's private.</p><button class="primary" data-nav="/">Browse the cards</button></div>`;return}
+  if(v.state==="missing"){el.innerHTML=`<div class="empty-state"><h1 style="font-size:2rem">Profile not found</h1><p>This profile doesn't exist, or it's private.</p><button class="primary" data-nav="/collection">Browse the cards</button></div>`;return}
   if(v.state==="signin"){el.innerHTML=`<div class="empty-state"><h1 style="font-size:2rem">Make your profile</h1><p>Sign in to pick a username, show off your favorite pulls and share your collection.</p><button class="primary" id="openSignin">Sign in</button></div>`;return}
   if(v.state==="setup"){el.innerHTML=`<div class="empty-state"><h1 style="font-size:2rem">Make your profile</h1><p>Pick a username and a profile card to get started.</p><button class="primary" data-edit>Create profile</button></div>`;return}
   profileBackground(v.counts);
@@ -2295,7 +2341,7 @@ function renderProfile(){
       <div><h2>Guess the Secret Pull</h2><p class="hint" style="margin:4px 0 0">${v.game?`${v.game.solved||0} Secret Pulls solved · ${v.game.trivia_perfect||0} perfect trivia days · ✨ ${v.game.total||0} Sparkles · 💫 ${v.game.shimmer||0} Shimmer · ${v.game.streak||0} day streak`:"One hidden card a day, 8 questions to find it."}</p></div>
       <span class="qrow">${own?`<button class="primary" data-nav="/play">Play today's card</button>`:""}<button class="ghost" data-nav="/leaderboard">Leaderboard</button></span>
     </section>
-    ${!own&&!user?`<div class="banner"><span>Track your own Winx Club and KPop Demon Hunters collections and make a profile like this one.</span><button class="primary" data-nav="/">Start your collection</button></div>`:""}
+    ${!own&&!user?`<div class="banner"><span>Track your own Winx Club and KPop Demon Hunters collections and make a profile like this one.</span><button class="primary" data-nav="/collection">Start your collection</button></div>`:""}
     ${own?accountPanelHTML():`<p style="text-align:center;margin:0"><button class="report-link" data-nav="/contact?topic=${encodeURIComponent("Report a profile")}&about=${encodeURIComponent(p.username)}">Report this profile</button></p>`}
   </section>`;
 }
@@ -2892,6 +2938,83 @@ document.addEventListener("click",async e=>{
 });
 document.addEventListener("click",e=>{ if(e.target.closest("[data-bopen]")){badgesOpen=!badgesOpen;renderProfile();if(!badgesOpen)$("#profBadges")?.scrollIntoView({block:"start"})} });
 
+
+// ---------- Home and My collections ----------
+// The collections you've added something to (the sample binder doesn't count)
+function frProgress(f){const cs=[...f.cards,...merchOf(f.id)], h=cs.filter(c=>has(c.uid)>0).length;return{h,t:cs.length,p:cs.length?Math.round(h/cs.length*100):0}}
+function myFrs(){if(isSample)return [];return Object.values(FRANCH).filter(f=>frProgress(f).h>0)}
+const FR_ART={winx:["wfd01-zr-001","wfd01-cr-001","wfd01-ugr-001"],kpdh:["kpdh01-sp-002","kpdh01-se-001","kpdh02-sp-001"]};
+function frTile(f,big){const pr=frProgress(f), mine=!isSample&&pr.h>0;
+  return `<a class="frtile${big?" big":""} fr-${f.id}" href="${f.path}" data-nav="${f.path}">
+    <span class="frart" aria-hidden="true">${FR_ART[f.id].filter(k=>IMGS.has(k)).map(k=>`<img src="cards/${k}-s.webp" alt="" loading="lazy">`).join("")}</span>
+    <span class="frtxt"><b>${esc(f.name)}</b>${mine?`<span class="frnum">${pr.h} / ${pr.t} · ${pr.p}%</span><span class="bar"><i style="width:${pr.p}%"></i></span>`:`<span class="frnum">${pr.t} cards and merch to collect</span>`}
+      <span class="frgo">${mine?"Open my collection":"Start collecting"}</span></span></a>`}
+const FR_SOON=`<div class="frtile soon" aria-disabled="true"><span class="frart ph" aria-hidden="true">🦄</span><span class="frtxt"><b>My Little Pony</b><span class="frnum">Coming soon</span><a class="linkbtn" href="/contact" data-nav="/contact?topic=${encodeURIComponent("Add a card collection")}">Suggest a collection</a></span></div>`;
+function renderMyCollections(){ setHomeBackground();
+  const mine=myFrs(), rest=Object.values(FRANCH).filter(f=>!mine.includes(f));
+  $("#viewPage").innerHTML=`<article class="doc wide home-sec">
+    <h1>My collections</h1>
+    <p class="updated">${mine.length?"Pick a collection to open your binder.":"You haven't added any cards yet. Pick a collection to start."}</p>
+    ${mine.length?`<div class="frgrid">${mine.map(f=>frTile(f,true)).join("")}</div>`:""}
+    ${rest.length?`${mine.length?`<h2>More to collect</h2>`:""}<div class="frgrid">${rest.map(f=>frTile(f,!mine.length)).join("")}${FR_SOON}</div>`:`<div class="frgrid">${FR_SOON}</div>`}
+  </article>`;
+}
+function setHomeBackground(){ if(isSample){const H=document.documentElement;H.dataset.brand="winx";delete H.dataset.sparkle}else profileBackground(counts) }
+let homeLb=null;
+async function renderHome(){ setHomeBackground();
+  const mine=myFrs(), name=myProfile?(myProfile.display_name||"@"+myProfile.username):null;
+  const owned=isSample?0:ALLCARDS.filter(c=>has(c.uid)>0).length;
+  const hero=user?`<div class="hhero"><div><div class="label">Welcome back</div><h1>${name?`Hi, ${esc(name)}!`:"Hi there!"}</h1>
+      <p>${owned?`${owned} card${owned===1?"":"s"} in your binder.`:"Your binder is empty. Pick a collection below to start."}${gToday?` ✨ ${gToday.total||0} Sparkles · ${gToday.streak||0} day streak.`:""}</p></div>
+      <a class="primary btnlink" href="/collection" data-nav="/collection">${mine.length>1?"My collections":mine.length?`Open ${esc(mine[0].name)}`:"Start collecting"}</a></div>`
+    :`<div class="hhero"><div><div class="label">My Pretty Pulls</div><h1>Track every KAYOU card you pull.</h1>
+      <p>Winx Club and KPop Demon Hunters, with the real card pictures. Free to use, and you can start without an account.</p></div>
+      <div class="qrow"><a class="primary btnlink" href="/collection" data-nav="/collection">Start collecting</a><button class="ghost" id="openSignup">Create account</button></div></div>`;
+  const games=`<section class="hcard"><div class="hhead"><h2>Play today</h2><a href="/leaderboard" data-nav="/leaderboard">Leaderboard</a></div>
+      <div class="hgames">
+        <a class="hgame" href="/play" data-nav="/play"><span class="hgi" aria-hidden="true">🃏</span><span><b>Guess the Secret Pull</b><span>One hidden card a day. 8 questions to find it.</span>${gStatus("sp")}</span></a>
+        <a class="hgame" href="/trivia" data-nav="/trivia"><span class="hgi" aria-hidden="true">💡</span><span><b>Daily Trivia</b><span>5 questions a day, 20 seconds each.</span>${gStatus("tr")}</span></a>
+      </div>
+      <div id="homeLb" class="hlb">${lbMini()}</div></section>`;
+  $("#viewPage").innerHTML=`<div class="home">
+    ${hero}
+    <section class="hcard"><div class="hhead"><h2>${mine.length?"My collections":"Collections"}</h2><a href="/collection" data-nav="/collection">See all</a></div>
+      <div class="frgrid">${(mine.length?mine:Object.values(FRANCH)).map(f=>frTile(f)).join("")}${mine.length?"":FR_SOON}</div></section>
+    <div class="hcols">
+      <section class="hcard" id="homeNews"><div class="hhead"><h2>Latest news</h2><a href="/news" data-nav="/news">All news</a></div><p class="hint">Loading…</p></section>
+      <section class="hcard" id="homePotw"><div class="hhead"><h2>Pretty Pull of the Week</h2></div><p class="hint">Loading…</p></section>
+    </div>
+    ${games}
+    <div class="hcols">
+      <a class="hcard hlink" href="/badges" data-nav="/badges"><span class="hgi" aria-hidden="true">🏅</span><span><b>Badges</b><span>Earn badges and Shimmer for collecting and playing.</span></span></a>
+      <button class="hcard hlink" data-store><span class="hgi" aria-hidden="true">💎</span><span><b>Sparkle Store</b><span>Spend your Sparkles and Shimmer on profile extras. Coming soon.</span></span></button>
+    </div>
+    <section class="hcard" id="homeUpd"></section>
+  </div>`;
+  const here=()=>location.pathname==="/"&&!$("#viewPage").hidden;
+  const [news,upd]=await Promise.all([loadPosts("news"),loadPosts("updates")]);
+  if(!here())return;
+  const latest=news.find(p=>!(p.tags||[]).includes("potw")), potw=news.find(p=>(p.tags||[]).includes("potw"));
+  $("#homeNews").innerHTML=`<div class="hhead"><h2>Latest news</h2><a href="/news" data-nav="/news">All news</a></div>`+(latest?`<a class="hnews" href="/news/${esc(latest.slug)}" data-nav="/news/${esc(latest.slug)}">
+      ${latest.thumb||latest.cover?`<img src="${esc(latest.thumb||latest.cover)}" alt="" loading="lazy">`:""}
+      <span class="ntags">${(latest.tags||[]).map(tagPill).join("")}</span><b>${esc(latest.title)}</b><span class="ndate">${postDate(latest.date)}</span><span class="nsum">${esc(latest.summary||"")}</span></a>`:`<p class="hint">No news yet. Check back soon!</p>`);
+  $("#homePotw").innerHTML=`<div class="hhead"><h2>Pretty Pull of the Week</h2>${potw?`<a href="/news" data-nav="/news">More</a>`:""}</div>`+(potw?potwBox(potw):POTW_INVITE);
+  const u=upd[0];
+  $("#homeUpd").innerHTML=u?`<div class="hhead"><h2>Latest update</h2><a href="/updates" data-nav="/updates">All updates</a></div>
+      <a class="hupd" href="/updates/${esc(u.slug)}" data-nav="/updates/${esc(u.slug)}"><b>${esc(u.title)}</b><span class="ndate">${postDate(u.date)}</span><span class="nsum">${esc(u.summary||"")}</span></a>`:"";
+  if(!u)$("#homeUpd").remove();
+  // games status and leaderboard come from the database
+  if(sb){const [g,l]=await Promise.all([user?sb.rpc("games_today"):Promise.resolve({data:null}),sb.rpc("sp_leaderboard",{period:"week"})]);
+    if(!here())return; if(g&&g.data)gToday=g.data; homeLb=(l&&!l.error)?l.data:null;
+    document.querySelectorAll(".hgame").forEach((a,i)=>{const old=a.querySelector(".gstat");if(old)old.remove();a.querySelector("span:last-child").insertAdjacentHTML("beforeend",gStatus(i?"tr":"sp"))});
+    const lbEl=$("#homeLb"); if(lbEl)lbEl.innerHTML=lbMini();}
+}
+function gStatus(k){ if(!user||!gToday)return ""; const d=gToday[k]||{}, parts=Object.entries(d).map(([v,st])=>{const n=GNAME[v]||v;
+    if(!st)return `${n}: not played`; if(k==="sp")return `${n}: ${st.finished?(st.solved?"solved":"played"):"in progress"}`; return `${n}: ${st.finished?`${st.score}/5`:"in progress"}`});
+  return parts.length?`<span class="gstat">${esc(parts.join(" · "))}</span>`:"" }
+function lbMini(){ if(!homeLb||!homeLb.top)return "";
+  const top=homeLb.top.slice(0,3); if(!top.length)return `<p class="hint" style="margin:0">Nobody on this week's leaderboard yet. Be the first!</p>`;
+  return `<div class="label">This week's top players</div><ol class="hlbl">${top.map(r=>`<li><span class="rk">${["🥇","🥈","🥉"][r.rank-1]||r.rank}</span>${avatarHTML(r)}<span class="who">${r.is_public?`<a href="/u/${esc(r.username)}" data-nav="/u/${esc(r.username)}">${esc(r.display_name||r.username)}</a>`:esc(r.display_name||"A collector")}</span><span class="pts">✨ ${r.sparkles}</span></li>`).join("")}</ol>`}
 // ---------- News and Pretty Pull Updates ----------
 // Posts live in content/news.json and content/updates.json. "draft": true posts only show on the preview site.
 const POSTS={}, isPreviewHost=()=>/^(preview\.|localhost$|127\.)/.test(location.hostname);
@@ -3102,8 +3225,15 @@ async function route(){ arranging=false; profOpen=false; badgesOpen=false; if(!l
     myBadges=bd.data||[]; if(viewing&&viewing.own){viewing.game=g.data||null;viewing.badges=myBadges;renderProfile()}
     return;
   }
-  const fr=Object.values(FRANCH).find(x=>x.path===path)||FRANCH.winx;
-  setView("collection"); setFranchise(fr.id); document.title=fr.title;
+  if(path==="/collection"){
+    const mine=myFrs();
+    if(mine.length===1){history.replaceState(null,"",mine[0].path);setView("collection");setFranchise(mine[0].id);document.title=mine[0].title;return}
+    setView("page"); document.title="My collections · My Pretty Pulls"; renderMyCollections(); return;
+  }
+  const fr=Object.values(FRANCH).find(x=>x.path===path);
+  if(fr){setView("collection"); setFranchise(fr.id); document.title=fr.title; return}
+  if(path!=="/")history.replaceState(null,"","/");
+  setView("page"); document.title="My Pretty Pulls · Track your KAYOU cards"; await renderHome();
 }
 function go(path){if(location.pathname!==path)history.pushState(null,"",path);route();window.scrollTo(0,0)}
 window.addEventListener("popstate",route);
@@ -3468,8 +3598,11 @@ function renderMenu(){
   const cur=p=>path===p?' aria-current="page"':"";
   const mine=myProfile&&(path==="/profile"||path==="/u/"+myProfile.username);
   $("#menuPanel").innerHTML=`<nav aria-label="Main menu">
+    <a class="mi" href="/" data-nav="/"${cur("/")}><span class="ic">🏠</span>Home</a>
+    <a class="mi" href="/collection" data-nav="/collection"${cur("/collection")}><span class="ic">📒</span>My collections</a>
+    <hr>
     <h3>Collections</h3>
-    <a class="mi" href="/" data-nav="/"${cur("/")}><span class="ic">🧚</span>Winx Club${frTag("winx")}</a>
+    <a class="mi" href="/winx-club" data-nav="/winx-club"${cur("/winx-club")}><span class="ic">🧚</span>Winx Club${frTag("winx")}</a>
     <a class="mi" href="/kpop-demon-hunters" data-nav="/kpop-demon-hunters"${cur("/kpop-demon-hunters")}><span class="ic">🎤</span>KPop Demon Hunters${frTag("kpdh")}</a>
     <button class="mi soon" data-soon><span class="ic">🦄</span>My Little Pony<span class="tag">Soon</span></button>
     <a class="mi more" href="/contact" data-nav="/contact?topic=${encodeURIComponent("Add a card collection")}"><span class="ic">✨</span><span>More coming soon. <b>Suggest one</b></span></a>

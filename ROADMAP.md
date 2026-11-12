@@ -130,3 +130,9 @@
 - BUG: signed-in binders loaded every public profile's cards too (loadRemote had no user filter; RLS lets anyone read public profiles' cards). New users saw Kinsey's binder and couldn't remove those cards. loadRemote now filters .eq("user_id", uid); loadSerials too (RLS already limited it).
 - Freezing: +/− re-rendered the whole page per tap. Now quickCard() updates just that tile (and the detail sheet), and the full render runs once, 700 ms after the last tap (renderSoon). ~98 → 8 ms per tap at 4× CPU slowdown.
 - "Reset collection" button in the card toolbar on every collection page (preselects that collection), plus Menu > Account "Reset my collection" (signed in or not). Choose one collection or Everything; type RESET to enable the button. Deletes collection_items (and saved serials) for those cards from the database first, then clears the binder; badges follow via checkBadges.
+
+## Home page (preview)
+- "/" is now Home: greeting (or visitor intro), My collections tiles with progress, Latest news preview, Pretty Pull of the Week (or the tag-us invite), Play today (Secret Pull + Trivia with today's status, top-3 weekly leaderboard), Badges + Sparkle Store tiles, Latest update.
+- Winx Club moved from "/" to /winx-club (KPop stays /kpop-demon-hunters). Old bookmarks to "/" now open Home.
+- /collection ("My collections" in the menu): collectors of one collection go straight to it; two or more (or none) see a picker. Sample/visitor binders count as none.
+- _redirects: /winx-club and /collection added. Unknown paths fall back to Home.

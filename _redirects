@@ -15,3 +15,5 @@
 /news/*      /index.html  200
 /updates     /index.html  200
 /updates/*   /index.html  200
+/winx-club   /index.html  200
+/collection  /index.html  200
