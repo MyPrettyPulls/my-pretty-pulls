@@ -463,7 +463,8 @@ a.frtile:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
 .doc a.primary.btnlink{color:#fff}
 .potw{display:grid;grid-template-columns:minmax(0,200px) 1fr;gap:18px;align-items:center;margin:18px 0;padding:16px;border-radius:18px;background:linear-gradient(135deg,#fff4d8,#fde3ef);border:1px solid #f1d7a8}
 .potw.full{grid-template-columns:minmax(0,280px) 1fr;margin-top:8px}
-.potw-img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:14px;background:#fff;box-shadow:var(--shadow)}
+.potw-img{width:100%;aspect-ratio:9/14;object-fit:cover;border-radius:14px;background:#fff;box-shadow:var(--shadow)}
+@media(max-width:600px){.potw:not(.invite),#homePotw .potw:not(.invite),.potw.full{grid-template-columns:1fr}.potw:not(.invite) .potw-img{max-width:260px;justify-self:center}}
 .potw-img.ph{display:grid;place-items:center;font-size:3rem;background:#ffffffb0}
 .potw-txt{display:flex;flex-direction:column;gap:6px;min-width:0;color:#2a2230}
 .potw-txt .label{color:#8a5a00}
@@ -3060,9 +3061,9 @@ function potwBox(p,full){
     ${w.photo?`<img class="potw-img" src="${esc(w.photo)}" alt="${esc((w.handle||"A fan")+"'s pull")}" loading="lazy">`:`<div class="potw-img ph" aria-hidden="true">💖</div>`}
     <div class="potw-txt"><span class="label">💖 Pretty Pull of the Week · ${postDate(p.date)}</span>
       <h2>${full?esc(p.title):`<a href="/news/${esc(p.slug)}" data-nav="/news/${esc(p.slug)}">${esc(p.title)}</a>`}</h2>
-      ${w.handle?`<p class="potw-who">${esc(w.handle)}${plat?` on ${esc(plat)}`:""}${w.card?` · ${esc(w.card)}`:""}</p>`:""}
+      ${w.handle?`<p class="potw-who">${w.profile?`<a href="${esc(w.profile)}" target="_blank" rel="noopener">${esc(w.handle)}</a>`:esc(w.handle)}${plat?` on ${esc(plat)}`:""}${w.card?` · ${esc(w.card)}`:""}</p>`:""}
       ${full?"":`<p>${esc(p.summary||"")}</p>`}
-      <div class="qrow">${full?"":`<a class="ghost btnlink" href="/news/${esc(p.slug)}" data-nav="/news/${esc(p.slug)}">Read more</a>`}${w.url?`<a class="primary btnlink" href="${esc(w.url)}" target="_blank" rel="noopener">See their post</a>`:""}</div>
+      <div class="qrow">${full?"":`<a class="ghost btnlink" href="/news/${esc(p.slug)}" data-nav="/news/${esc(p.slug)}">Read more</a>`}${w.url?`<a class="primary btnlink" href="${esc(w.url)}" target="_blank" rel="noopener">${esc(w.urlLabel||"See their post")}</a>`:""}${w.profile?`<a class="ghost btnlink" href="${esc(w.profile)}" target="_blank" rel="noopener">Follow ${esc(w.handle||"them")}</a>`:""}</div>
     </div></div>`;
 }
 const POTW_INVITE=`<div class="potw invite"><div class="potw-img ph" aria-hidden="true">💖</div><div class="potw-txt"><span class="label">Pretty Pull of the Week</span>
