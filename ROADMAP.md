@@ -156,3 +156,10 @@
 - Fixes from the pictures: ME3 HR-060 Trixie added (290 cards now); ME2 HR "045-052" are really HR-023 to 030; ME1 and ME2 SGR-004 is Rarity and SGR-005 Fluttershy (KAYOU's own labels have them swapped).
 - Download routine that worked: the built-in browser builds a zip of a series page's pictures (with manifest.json), Kinsey clicks the download button (the pane blocks downloads Claude starts), saves to OneDrive/Desktop/My Pretty Pulls; Claude stages the zip. Server HTML has full-size PNGs; swap .png for .webp to get the small versions.
 - ME1 pull rates from KAYOU's page: 20:24 packs 3R+1SR+1HR+1SSR+2 HR/SSR/UR/LSR; 4:24 3R+1SR+1HR+1SSR+2 LSR/SGR/SC. Released Sept 2025.
+
+## My Little Pony: Rainbow, Fun Moments and Star Editions (Nov 15 2026, preview)
+- Added RB1 (series-mjrrqnhj), RB2 (series-6j45wgxd), FM1 (uwn0xy7l), FM2 (bkh5xfg6), FM3 (rpfua4fi), FM4 (7nthr0lb, out Dec 2026), ST1 (nogr2a7b). Edition counts match KAYOU exactly (146/170/127/136/148/287/105). 1,669 MLP cards total.
+- Shared cards: one card per picture, keyed by its printed number; the card lists every box it comes in (editions) and counts once. Built by matching identical pictures across all 11 KAYOU pages plus OCR of the printed numbers (eyeballed where OCR failed).
+- Reprints: INT02-x-nnn = MLPME01-x-nnn and INT03 = MLPME02 (same picture, new number), and FME01-SR reprints of ME1 SRs: merged into the Moon card, shown as "Also printed as" and searchable. INT01 (shared by RB1 + FM1) is its own block "Shared cards (INT01)".
+- KAYOU's names on these pages are often shifted; names come from the Moon data or from the page where the card sits at its own number. Kinsey's research tab "MLP Cards to Check" in the card sheet is left as is.
+- New rarity keys: XR, USR, MTR, TGR, TPR (Transparent Rare, code TR), FUR (Fun Rare, code FR), ST, BASE, N, NP (◇N), SCR, ARP (◇AR), OR. Picture keys turn ◇X into Xp (fme04-crp-003). Pull rates per rarity come from KAYOU's pack lines (M_NEWODDS).
