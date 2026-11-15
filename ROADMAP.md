@@ -138,10 +138,11 @@
 - _redirects: /winx-club and /collection added. Unknown paths fall back to Home.
 
 ## My Little Pony (preview, Nov 14 2026)
+- Pull rates for ME3 (March 2026, 24 packs/box) and ME4 (Oct 2026, 12 packs/box) from KAYOU's product pages (Kinsey's screenshots).
 - Page: /my-little-pony (menu, home tiles and My collections link to it; _redirects updated). Starts with KAYOU's US Friendship Eternal Cards · Moon Edition Series 1–4: 826 cards (ME1 186, ME2 189, ME3 289 of 290, ME4 162).
 - Card numbers and names: collector checklist at data.mlpmerch.com (Kayou card database), checked against KAYOU's rarity counts. Printed numbers keep the level mark (MLPME01-SR-001L2); search also works without it (SR-001). Picture files will leave it off: cards/mlpme01-sr-001-s.webp, ◇ZR = "zrp".
 - Each Moon Edition series is its own edition (ME1–ME4), no shared cards. New rarities: ◇ZR Zenith Rare Parallel (ZRP), SC Secret Rare, SGR Super Golden Rare, LSR Limited Super Rare, and SR = Spark Rare for MLP (key SPR, shows as "SR").
 - Characters: groups Mane 6, Princesses & royals, Cutie Mark Crusaders, Friends & family, Wonderbolts, Student Six, Pillars of Equestria, Villains, Pets & creatures, Everypony else. "Princess Twilight Sparkle" counts as Twilight Sparkle. 100 scene cards (HR story cards, ZR/SGR/◇ZR scenes) have no characters tagged yet.
 - Products guide: Moon Edition 1–4 tiles + a "Trading Card Game · coming soon" group (Starter Decks, Boosters). The card list has a "My Little Pony Trading Card Game · Coming soon" block (Hide/Show) under the Moon Edition series.
 - Background: pastel sky, drifting puffy clouds, rainbow trails instead of shooting stars, sparkles on. Profiles: MLP only = MLP sky; KPop + anything = KPop day/night with sparkles.
-- To do: card pictures (from KAYOU's MLP series pages, same download routine as KPop); the 290th ME3 card; promo (PR) cards (every ME1 box has one; ME2 U.S. exclusive Andy Price PR; ME4 has 2 overseas PRs); pull rates for ME3/ME4; tag characters on scene cards; MLP merch; Rainbow, Fun Moments and Star Editions; the TCG; MLP badges (rerun dump_cards.py + make_badges.py + SQL); MLP games.
+- To do: card pictures (from KAYOU's MLP series pages, same download routine as KPop); the 290th ME3 card (a Holo Rare: KAYOU lists 60 HR, the checklist has 59); promo cards (KAYOU's pages show no box promos for Moon Edition, so none for now); tag characters on scene cards; MLP merch; Rainbow, Fun Moments and Star Editions; the TCG; MLP badges (rerun dump_cards.py + make_badges.py + SQL); MLP games.

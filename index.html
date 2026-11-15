@@ -1411,8 +1411,8 @@ const CPCARDS=[];
 const M_EDITIONS=[
  {id:"me1",short:"ME1",code:"MLPME01",name:"Moon Edition · Series 1",pack:"8 cards per pack · 24 packs per box · Oct 2025"},
  {id:"me2",short:"ME2",code:"MLPME02",name:"Moon Edition · Series 2",pack:"8 cards per pack · 24 packs per box · Feb 2026"},
- {id:"me3",short:"ME3",code:"MLPME03",name:"Moon Edition · Series 3",pack:"8 cards per pack · 24 packs per box · 2026"},
- {id:"me4",short:"ME4",code:"MLPME04",name:"Moon Edition · Series 4",pack:"8 cards per pack · Oct 2026"}
+ {id:"me3",short:"ME3",code:"MLPME03",name:"Moon Edition · Series 3",pack:"8 cards per pack · 24 packs per box · March 2026"},
+ {id:"me4",short:"ME4",code:"MLPME04",name:"Moon Edition · Series 4",pack:"8 cards per pack · 12 packs per box · Oct 2026"}
 ];
 M_EDITIONS.forEach(e=>{EDBY[e.id]=e});
 const M_SETED={MLPME01:"me1",MLPME02:"me2",MLPME03:"me3",MLPME04:"me4"};
@@ -1422,8 +1422,11 @@ const M_ODDS={
    SGR:"4 in 24 packs (SGR or SC top slot)",SC:"4 in 24 packs (SGR or SC top slot)"},
  me2:{R:"3 in every pack",SPR:"1 in every pack, plus a chance in the UR or SR slot",HR:"1 in every pack",SSR:"1 in every pack",UR:"1 in every pack (UR or SR slot), or in the top slot",
    LSR:"Top slot: UR, ZR, LSR, SGR, SC or ◇ZR",SGR:"Top slot: UR, ZR, LSR, SGR, SC or ◇ZR",ZR:"Top slot: UR, ZR, LSR, SGR, SC or ◇ZR",SC:"Top slot: UR, ZR, LSR, SGR, SC or ◇ZR",ZRP:"Top slot: UR, ZR, LSR, SGR, SC or ◇ZR · the rarest card in the set"},
- me3:{ZRP:"Half the packs have a top-slot card (◇ZR, SC, ZR or SGR)",SC:"Half the packs have a top-slot card (◇ZR, SC, ZR or SGR)",ZR:"Half the packs have a top-slot card (◇ZR, SC, ZR or SGR)",SGR:"Half the packs have a top-slot card (◇ZR, SC, ZR or SGR)"},
- me4:{}
+ me3:{R:"3 in every pack",SPR:"2 in every pack",SSR:"1 in every pack",HR:"1 in every pack",LSR:"12 in 24 packs (LSR slot)",
+   UR:"12 in 24 packs (UR, SGR, ZR, SC or ◇ZR slot)",SGR:"12 in 24 packs (UR, SGR, ZR, SC or ◇ZR slot)",ZR:"12 in 24 packs (UR, SGR, ZR, SC or ◇ZR slot)",SC:"12 in 24 packs (UR, SGR, ZR, SC or ◇ZR slot)",ZRP:"12 in 24 packs (UR, SGR, ZR, SC or ◇ZR slot)"},
+ me4:{R:"3 in every pack",SPR:"1 or 2 in every pack (plus the SR or LSR slot in 8 of 12 packs)",SSR:"1 in every pack",HR:"1 in every pack",
+   UR:"8 in 12 packs (UR or SGR slot) or 4 in 12 (UR, ZR, SC or ◇ZR slot)",SGR:"8 in 12 packs (UR or SGR slot)",LSR:"8 in 12 packs (SR or LSR slot)",
+   ZR:"4 in 12 packs (UR, ZR, SC or ◇ZR slot)",SC:"4 in 12 packs (UR, ZR, SC or ◇ZR slot)",ZRP:"4 in 12 packs (UR, ZR, SC or ◇ZR slot)"}
 };
 // What some rarities look like, from KAYOU's and Hasbro's announcements
 const M_STYLE={
@@ -1530,7 +1533,7 @@ const FRANCH={
    setName:c=>`Friendship Eternal Cards · Moon Edition Series ${c.set.slice(-1)}`,
    series:[{set:"MLPME01",code:"MLPME01",name:"Moon Edition · Series 1",ct:"8 rarities · numbers end in a level mark (L1 to L5)"},
      {set:"MLPME02",code:"MLPME02",name:"Moon Edition · Series 2",ct:"15th anniversary set · 10 rarities"},
-     {set:"MLPME03",code:"MLPME03",name:"Moon Edition · Series 3",ct:"10 rarities · 289 of 290 cards listed so far"},
+     {set:"MLPME03",code:"MLPME03",name:"Moon Edition · Series 3",ct:"10 rarities · 289 of 290 cards listed so far (one Holo Rare to come)"},
      {set:"MLPME04",code:"MLPME04",name:"Moon Edition · Series 4",ct:"10 rarities · out Oct 2026"}],
    tcg:{title:"My Little Pony Trading Card Game",ct:"Friendships Begin starter decks and booster packs",
      text:"Tracking for the playable TCG cards is coming soon. For now this page covers the collect-only Friendship Eternal cards."},
@@ -2067,7 +2070,7 @@ const M_PRODUCTS=[
   intro:"KAYOU's first My Little Pony set in the US. Foil-heavy art of the Mane 6 and friends across 8 rarities.",
   sections:[
    ["Every pack",["8 cards","3 × Rare (R)","1 × Spark Rare (SR)","1 × Holo Rare (HR)","1 × Super Spark Rare (SSR)","2 more cards from the higher rarities","Super Golden Rare or Secret Rare (SGR or SC) in about 4 of 24 packs"]],
-   ["Box",["24 packs per box","Every 24-pack box comes with 1 promo (PR) card"]],
+   ["Box",["24 packs per box"]],
    ["The cards",["186 cards in 8 rarities, numbered MLPME01","R 30 · SR 20 · HR 36 · SSR 54 · UR 16 · LSR 15 · SGR 8 · SC 7","Crystal Fantasy Secret Rares (SC) show the Mane 6 as Greek goddesses"]],
    ["Good to know",["Only Friendship is Magic characters","Sold at Target, GameStop, Barnes & Noble, Best Buy and Amazon"]]]},
  {id:"moon-2",ed:"me2",kind:"box",brand:"My Little Pony",name:"Moon Edition",series:"Series 2",when:"Feb 2026",code:"MLPME02",col:["#ffe0f0","#d0559c"],
@@ -2077,18 +2080,20 @@ const M_PRODUCTS=[
    ["Ways to buy",["Single packs","24-pack boxes","5-pack collector boxes"]],
    ["The cards",["189 cards in 10 rarities, numbered MLPME02","R 30 · SR 20 · HR 30 · SSR 54 · UR 16 · LSR 16 · SGR 8 · ZR 7 · SC 7 · ◇ZR 1","◇ZR Shining Celebration: the Mane 6 at a 15th anniversary party","SC Crystal Fantasy: ponies with sparkling gemstones","SGR Shimmering Goldflow: what each pony wore to the Grand Galloping Gala"]],
    ["Good to know",["A U.S. exclusive PR card recreates the artwork Andy Price painted live at New York Comic Con","20 cards carry Andy Price's autograph","Launched with KAYOU's “Chase the Magic” sweepstakes"]]]},
- {id:"moon-3",ed:"me3",kind:"box",brand:"My Little Pony",name:"Moon Edition",series:"Series 3",when:"2026",code:"MLPME03",col:["#e8f0d8","#5a9a6a"],
+ {id:"moon-3",ed:"me3",kind:"box",brand:"My Little Pony",name:"Moon Edition",series:"Series 3",when:"March 2026",code:"MLPME03",col:["#e8f0d8","#5a9a6a"],
   intro:"The biggest Moon Edition: 290 cards inspired by European classical art.",
   sections:[
-   ["Every pack",["8 cards","Half the packs have a top-slot card: ◇ZR, SC, ZR or SGR"]],
-   ["Ways to buy",["Single packs","24-pack boxes (some shops list 12-pack boxes)","5-pack collector boxes"]],
-   ["The cards",["290 cards in 10 rarities, numbered MLPME03","3 ◇ZR cards: Childhood Memory, Friends and Friendship Is Magic","1 Ultra Rare is an overseas exclusive","289 cards are listed here so far: one more will be added once collectors confirm it"]],
+   ["Every pack",["8 cards","3 × Rare (R)","2 × Spark Rare (SR)","1 × Super Spark Rare (SSR)","1 × Holo Rare (HR)","1 more card. In 12 of 24 packs: Limited Super Rare (LSR)","In the other 12: UR, SGR, ZR, SC or ◇ZR"]],
+   ["Box and case",["24 packs per box","8 boxes per case"]],
+   ["Ways to buy",["Single packs","24-pack boxes","5-pack collector boxes"]],
+   ["The cards",["290 cards in 10 rarities, numbered MLPME03","R 60 · SR 40 · HR 60 · SSR 40 · UR 18 · LSR 32 · SGR 16 · ZR 14 · SC 7 · ◇ZR 3","3 ◇ZR cards: Childhood Memory, Friends and Friendship Is Magic","1 Ultra Rare is an overseas exclusive","289 cards are listed here so far: the missing one is a Holo Rare (HR), added once collectors confirm it"]],
    ["Good to know",["First Print Limited Version: the first batch has a “1st Print” logo on the packs and on every card"]]]},
  {id:"moon-4",ed:"me4",kind:"box",brand:"My Little Pony",name:"Moon Edition",series:"Series 4",when:"Oct 2026",code:"MLPME04",col:["#f0dcff","#7a3fb0"],
   intro:"The newest Moon Edition, out early at New York Comic Con 2026 and in stores from October.",
   sections:[
-   ["Every pack",["8 cards","KAYOU hasn't published the full pack breakdown yet"]],
-   ["Ways to buy",["Single packs","5-pack collector boxes"]],
+   ["Every pack",["8 cards","3 × Rare (R)","1 × Super Spark Rare (SSR)","1 × Holo Rare (HR)","In 8 of 12 packs: 1 × Spark Rare (SR), 1 UR or SGR, and 1 SR or LSR","In the other 4: 2 × Spark Rare (SR) and 1 UR, ZR, SC or ◇ZR"]],
+   ["Box and case",["12 packs per box","16 boxes per case"]],
+   ["Ways to buy",["Single packs","12-pack boxes","5-pack collector boxes"]],
    ["The cards",["162 cards in 10 rarities, numbered MLPME04","R 30 · SR 20 · HR 30 · SSR 26 · UR 16 · LSR 16 · SGR 8 · ZR 7 · SC 7 · ◇ZR 2","◇ZR (Zenith Rare Parallel): a thorny rose theme. Line two cards up to reveal a hidden picture","SC (Secret Rare): the pony and “the other me”, with resin coating and hot stamping"]],
    ["Good to know",["1 Ultra Rare is an overseas exclusive","2 overseas exclusive promo (PR) cards"]]]},
  // Trading Card Game: tracking is coming soon
