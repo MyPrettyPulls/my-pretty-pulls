@@ -1,6 +1,27 @@
 {
- "_how": "News posts. tags: winx, kpdh, tcg (trading card world), potw (Pretty Pull of the Week; add potw:{handle,platform,url,photo,card}). 'draft': true shows only on the preview site. 'thumb' = picture on the news card only; 'cover' = picture at the top of the post (also used on the card if there's no thumb).",
+ "_how": "News posts. tags: winx, kpdh, tcg (trading card world), potw (Pretty Pull of the Week; add potw:{handle,platform,url,urlLabel,profile,photo,card}). 'draft': true shows only on the preview site. 'thumb' = picture on the news card only; 'cover' = picture at the top of the post (also used on the card if there's no thumb).",
  "posts": [
+  {
+   "slug": "potw-questwithamy",
+   "date": "2026-11-14",
+   "draft": true,
+   "tags": [
+    "potw",
+    "winx"
+   ],
+   "title": "Amy's Tecna UR pull",
+   "summary": "Our very first Pretty Pull of the Week is @questwithamy and her gorgeous Tecna UR from Winx Club Daily Edition!",
+   "potw": {
+    "handle": "@questwithamy",
+    "platform": "instagram",
+    "url": "https://www.instagram.com/p/DfKQ7Doxhg-/",
+    "urlLabel": "Watch her video",
+    "profile": "https://www.instagram.com/questwithamy/",
+    "photo": "/content/news/potw-questwithamy.webp",
+    "card": "Tecna · UR · Daily Edition"
+   },
+   "body": "Meet our very first Pretty Pull of the Week: **Amy** from [@questwithamy](https://www.instagram.com/questwithamy/)! ✨\n\nAmy is a Winx Club and Lorcana fan, and her reaction to pulling this **Tecna UR** says it all: \"Oh this is awesome.\" We agree! The \"Winx Style\" street-art look, the holo shine and Tecna's tag all make this one a real beauty.\n\n[Watch Amy's video on Instagram](https://www.instagram.com/p/DfKQ7Doxhg-/) and give her a follow for more Winx Club and Lorcana pulls. She's also on TikTok as **questwithamy**.\n\nThank you for sharing your pull with us, Amy! 💖\n\n## Want to be next?\nPost your favorite KAYOU pull and tag **@myprettypulls** on TikTok or Instagram. Each week we pick one collector to feature here."
+  },
   {
    "slug": "kayou-thanksgiving-sale",
    "date": "2026-11-11",
