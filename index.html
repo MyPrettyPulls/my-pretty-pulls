@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <base href="/">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Track your trading card collection, show off your pulls, and play daily card games. Starting with the KAYOU Winx Club Fairy Diary set.">
+<meta name="description" content="Track your trading card collection, show off your pulls, and play daily card games. KAYOU Winx Club, KPop Demon Hunters and My Little Pony cards.">
 <title>My Pretty Pulls</title>
 <link rel="icon" href="brand/icon.svg" type="image/svg+xml">
 <link rel="icon" href="brand/favicon-32.png" sizes="32x32" type="image/png">
@@ -82,6 +82,28 @@ html[data-brand="winx"] .bg-colors{background:
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg-o:.26;--bg-g:.14}}
 :root[data-theme="dark"]{--bg-o:.26;--bg-g:.14}
 @media (prefers-reduced-motion:reduce){.bg-colors{animation:none}.bg-sparkles{display:none}}
+/* My Little Pony: a soft Equestria sky, drifting clouds, and rainbow trails in place of shooting stars */
+html[data-brand="mlp"] .bg-colors{background:
+  radial-gradient(40% 34% at 8% 8%,#9fd8ff 0,transparent 70%),
+  radial-gradient(36% 30% at 50% 2%,#d4c2ff 0,transparent 70%),
+  radial-gradient(38% 34% at 94% 10%,#ffc3e1 0,transparent 70%),
+  radial-gradient(40% 36% at 86% 70%,#ffe0b8 0,transparent 72%),
+  radial-gradient(40% 36% at 12% 78%,#c4f0dc 0,transparent 70%),
+  radial-gradient(30% 26% at 48% 48%,#fff4fb 0,transparent 75%),
+  linear-gradient(180deg,#c4e6ff,#e2d8ff 42%,#ffd9ee 72%,#fff0da)}
+.bg-clouds{position:absolute;inset:0;display:none;pointer-events:none}
+.bg-clouds::before,.bg-clouds::after{content:"";position:absolute;inset:-4% -30% -4% -10%;will-change:transform;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 900'%3E%3Cg fill='%23fff' fill-opacity='.8'%3E%3Ccircle cx='110' cy='120' r='36'/%3E%3Ccircle cx='144' cy='102' r='42'/%3E%3Ccircle cx='185' cy='112' r='34'/%3E%3Ccircle cx='214' cy='128' r='26'/%3E%3Ccircle cx='79' cy='130' r='26'/%3E%3Crect x='58' y='125' width='182' height='31' rx='16'/%3E%3Ccircle cx='620' cy='230' r='48'/%3E%3Ccircle cx='664' cy='206' r='54'/%3E%3Ccircle cx='719' cy='220' r='44'/%3E%3Ccircle cx='756' cy='240' r='34'/%3E%3Ccircle cx='579' cy='244' r='34'/%3E%3Crect x='552' y='237' width='238' height='41' rx='20'/%3E%3Ccircle cx='1150' cy='110' r='31'/%3E%3Ccircle cx='1179' cy='95' r='35'/%3E%3Ccircle cx='1214' cy='103' r='29'/%3E%3Ccircle cx='1238' cy='117' r='22'/%3E%3Ccircle cx='1124' cy='119' r='22'/%3E%3Crect x='1106' y='114' width='154' height='26' rx='13'/%3E%3Ccircle cx='980' cy='600' r='42'/%3E%3Ccircle cx='1019' cy='579' r='48'/%3E%3Ccircle cx='1067' cy='591' r='39'/%3E%3Ccircle cx='1100' cy='609' r='30'/%3E%3Ccircle cx='944' cy='612' r='30'/%3E%3Crect x='920' y='606' width='210' height='36' rx='18'/%3E%3Ccircle cx='280' cy='700' r='34'/%3E%3Ccircle cx='311' cy='683' r='38'/%3E%3Ccircle cx='350' cy='693' r='31'/%3E%3Ccircle cx='376' cy='707' r='24'/%3E%3Ccircle cx='251' cy='710' r='24'/%3E%3Crect x='232' y='705' width='168' height='29' rx='14'/%3E%3C/g%3E%3C/svg%3E") center/cover no-repeat;filter:drop-shadow(0 4px 10px rgb(150 130 220 / .18));animation:mclouds 140s linear infinite alternate}
+.bg-clouds::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 900'%3E%3Cg fill='%23fff' fill-opacity='.6'%3E%3Ccircle cx='420' cy='90' r='22'/%3E%3Ccircle cx='441' cy='79' r='26'/%3E%3Ccircle cx='466' cy='85' r='21'/%3E%3Ccircle cx='484' cy='95' r='16'/%3E%3Ccircle cx='401' cy='96' r='16'/%3E%3Crect x='388' y='93' width='112' height='19' rx='10'/%3E%3Ccircle cx='1300' cy='380' r='25'/%3E%3Ccircle cx='1323' cy='367' r='29'/%3E%3Ccircle cx='1352' cy='375' r='23'/%3E%3Ccircle cx='1372' cy='385' r='18'/%3E%3Ccircle cx='1278' cy='387' r='18'/%3E%3Crect x='1264' y='384' width='126' height='22' rx='11'/%3E%3Ccircle cx='60' cy='430' r='25'/%3E%3Ccircle cx='83' cy='417' r='29'/%3E%3Ccircle cx='112' cy='425' r='23'/%3E%3Ccircle cx='132' cy='435' r='18'/%3E%3Ccircle cx='38' cy='437' r='18'/%3E%3Crect x='24' y='434' width='126' height='22' rx='11'/%3E%3Ccircle cx='700' cy='820' r='22'/%3E%3Ccircle cx='721' cy='809' r='26'/%3E%3Ccircle cx='746' cy='815' r='21'/%3E%3Ccircle cx='764' cy='825' r='16'/%3E%3Ccircle cx='681' cy='826' r='16'/%3E%3Crect x='668' y='823' width='112' height='19' rx='10'/%3E%3C/g%3E%3C/svg%3E");animation-duration:190s;animation-direction:alternate-reverse}
+@keyframes mclouds{0%{transform:translateX(-6%)}100%{transform:translateX(18%)}}
+html[data-brand="mlp"] .bg-clouds{display:block;opacity:var(--bg-c,.9)}
+html[data-brand="mlp"] .bg-glitter{opacity:calc(var(--bg-g,.34) * .6)}
+html[data-brand="mlp"] .bg-shoot{height:5px;border-radius:5px;background:linear-gradient(90deg,transparent,rgb(255 120 140 / .55) 22%,#ffb86b 38%,#fff07a 52%,#8fe3a0 66%,#7ac7ff 80%,#b99bff);filter:blur(.6px) drop-shadow(0 0 6px rgb(255 255 255 / .9))}
+html[data-brand="mlp"] .bg-shoot::after{background:radial-gradient(#fff,rgb(255 255 255 / .4) 50%,transparent 70%);width:10px;height:10px;top:-3px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg-c:.22}}
+:root[data-theme="dark"]{--bg-c:.22}
+@media (prefers-reduced-motion:reduce){.bg-clouds::before,.bg-clouds::after{animation:none}}
+.frart.ph.fr-ph-mlp{background:linear-gradient(150deg,#d4c2ff,#ffc3e1 55%,#ffe0b8)}
+.tcgnote{margin:4px 0 6px;color:var(--muted)}
 /* KPop Demon Hunters: night-sky stage glow with flowing, patterned light lines (inspired by the movie's style, not a copy of any character's markings) */
 html[data-brand="kpdh"] .bg-colors{background:
   radial-gradient(45% 40% at 10% 6%,#8f6bff 0,transparent 70%),
@@ -457,7 +479,7 @@ a.frtile:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
 /* News and Pretty Pull Updates */
 .ntags{display:flex;flex-wrap:wrap;gap:6px}
 .ntag{font-size:.7rem;font-weight:800;letter-spacing:.03em;padding:3px 9px;border-radius:999px;background:var(--sunk);color:var(--fg);text-transform:uppercase}
-.ntag.t-winx{background:#fde3ef;color:#a3245d}.ntag.t-kpdh{background:#ece3ff;color:#5a2fb0}.ntag.t-tcg{background:#dff3f1;color:#1f6b63}.ntag.t-potw{background:#fff0cf;color:#8a5a00}
+.ntag.t-winx{background:#fde3ef;color:#a3245d}.ntag.t-kpdh{background:#ece3ff;color:#5a2fb0}.ntag.t-mlp{background:#e3f0ff;color:#3a4fb0}.ntag.t-tcg{background:#dff3f1;color:#1f6b63}.ntag.t-potw{background:#fff0cf;color:#8a5a00}
 .ntag.draft{background:#fff3c4;color:#7a5a00;border:1px dashed #d9b440}.ntag.new{background:var(--accent);color:#fff}
 .btnlink{display:inline-flex;align-items:center;text-decoration:none!important}
 .doc a.primary.btnlink{color:#fff}
@@ -479,7 +501,7 @@ a.frtile:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
 .ncard{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:16px;overflow:hidden;text-decoration:none;color:var(--fg)!important;font-weight:400!important;background:var(--surface);transition:transform .15s,box-shadow .15s}
 .ncard:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
 .ncard-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:grid;place-items:center;font-size:2.4rem}
-.ncard-img.t-winx{background:linear-gradient(135deg,#ffd6e8,#d9c8ff)}.ncard-img.t-kpdh{background:linear-gradient(135deg,#d9c8ff,#a9dcff)}.ncard-img.t-tcg{background:linear-gradient(135deg,#c9f0ea,#fff1c9)}.ncard-img.t-potw{background:linear-gradient(135deg,#fff1c9,#ffd6e8)}
+.ncard-img.t-winx{background:linear-gradient(135deg,#ffd6e8,#d9c8ff)}.ncard-img.t-kpdh{background:linear-gradient(135deg,#d9c8ff,#a9dcff)}.ncard-img.t-mlp{background:linear-gradient(135deg,#c4e6ff,#ffd9ee)}.ncard-img.t-tcg{background:linear-gradient(135deg,#c9f0ea,#fff1c9)}.ncard-img.t-potw{background:linear-gradient(135deg,#fff1c9,#ffd6e8)}
 .ncard-txt{display:flex;flex-direction:column;gap:6px;padding:12px 14px 16px}
 .ncard-txt b{font-size:1.05rem;line-height:1.3}
 .ndate{font-size:.78rem;color:var(--muted)}
@@ -977,7 +999,7 @@ body>.wrap{flex:1;width:100%}
 </style>
 </head>
 <body>
-<div class="bgfx" aria-hidden="true"><div class="bg-colors"></div><div class="bg-night"></div><div class="bg-lines"></div><div class="bg-glitter"></div><div class="bg-sparkles" id="bgSparkles"></div></div>
+<div class="bgfx" aria-hidden="true"><div class="bg-colors"></div><div class="bg-clouds"></div><div class="bg-night"></div><div class="bg-lines"></div><div class="bg-glitter"></div><div class="bg-sparkles" id="bgSparkles"></div></div>
 
 
 <div class="wrap">
@@ -1099,8 +1121,8 @@ body>.wrap{flex:1;width:100%}
   <footer class="site-foot">
     <nav class="foot-nav" aria-label="About this site"><a href="/news" data-nav="/news">News</a><a href="/updates" data-nav="/updates">Updates</a><a href="/about" data-nav="/about">About</a><a href="/contact" data-nav="/contact">Suggestions &amp; contact</a><a href="/privacy" data-nav="/privacy">Privacy</a><a href="/terms" data-nav="/terms">Terms</a></nav>
     <nav class="foot-social" aria-label="Follow My Pretty Pulls"><a href="https://www.tiktok.com/@myprettypulls" target="_blank" rel="noopener">TikTok</a><a href="https://www.instagram.com/myprettypulls/" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/@MyPrettyPulls" target="_blank" rel="noopener">YouTube</a><a href="https://discord.gg/X2d9BKh5d" target="_blank" rel="noopener">Discord</a></nav>
-    <p>My Pretty Pulls is an unofficial fan project. It isn't affiliated with, sponsored by or endorsed by KAYOU, Rainbow S.p.A. or Netflix.</p>
-    <p>Winx Club® and its characters © Rainbow S.p.A. KPop Demon Hunters and its characters © Netflix. Card images © KAYOU and their respective owners. Card details come from collector checklists and may contain mistakes.</p>
+    <p>My Pretty Pulls is an unofficial fan project. It isn't affiliated with, sponsored by or endorsed by KAYOU, Rainbow S.p.A., Netflix or Hasbro.</p>
+    <p>Winx Club® and its characters © Rainbow S.p.A. KPop Demon Hunters and its characters © Netflix. MY LITTLE PONY and its characters © Hasbro. Card images © KAYOU and their respective owners. Card details come from collector checklists and may contain mistakes.</p>
     <p>© 2026 My Pretty Pulls</p>
   </footer>
 </div>
@@ -1120,10 +1142,14 @@ const RINFO={
  BP:{code:"BP",name:"Brush Rare",color:"#9a5a32"},
  CRP:{code:"◇CR",name:"Creative Rare Parallel",color:"#8a2f86"},
  CR:{code:"CR",name:"Creative Rare",color:"#b8337f"},
+ ZRP:{code:"◇ZR",name:"Zenith Rare Parallel",color:"#2a3a8f"},
+ SC:{code:"SC",name:"Secret Rare",color:"#2f8fb8"},
  ZR:{code:"ZR",name:"Zenith Rare",color:"#3a5fcd"},
+ SGR:{code:"SGR",name:"Super Golden Rare",color:"#b8860b"},
  GP:{code:"GP",name:"GP",color:"#d2559a"},
  SP:{code:"SP",name:"Special Picture",color:"#d4447a"},
  LR:{code:"LR",name:"Legacy Rare",color:"#5a3f9a"},
+ LSR:{code:"LSR",name:"Limited Super Rare",color:"#8a4fb0"},
  AR:{code:"AR",name:"Artist Rare",color:"#7a3fb0"},
  UGR:{code:"UGR",name:"Ultra Golden Rare",color:"#b8860b"},
  UR:{code:"UR",name:"Ultra Rare",color:"#c2366f"},
@@ -1133,6 +1159,7 @@ const RINFO={
  FR:{code:"FR",name:"Function Rare",color:"#2f8a7a"},
  SRP:{code:"◇SR",name:"Super Rare Parallel",color:"#a9442a"},
  SR:{code:"SR",name:"Super Rare",color:"#d0582a"},
+ SPR:{code:"SR",name:"Spark Rare",color:"#d86a3a"},
  QR:{code:"QR",name:"Cute Rare",color:"#d4508f"},
  R:{code:"R",name:"Rare",color:"#6f6577"},
  PR:{code:"PR",name:"Promo",color:"#2a7f62"}
@@ -1377,6 +1404,112 @@ const CPCARDS=[];
  ["Bloom & Stella","Aisha & Tecna","Musa & Flora"].forEach((nm,i)=>mk("PR",nm,i+1,["promo"],{promoNote:"Costume Party promo",how:"Costume Party promo: each 36-pack display box comes with 1 of the 3 promo cards"}));
 }
 
+// ================= My Little Pony (KAYOU Friendship Eternal Cards · Moon Edition, US/NA releases) =================
+// Card numbers and names come from collector checklists (mlpmerch.com's Kayou card database), checked against
+// KAYOU's published card counts per rarity. Printed numbers end in a level mark (L1-L5), e.g. MLPME01-SR-001L2.
+// Each Moon Edition series is its own box and numbered set, so every card belongs to exactly one edition.
+const M_EDITIONS=[
+ {id:"me1",short:"ME1",code:"MLPME01",name:"Moon Edition · Series 1",pack:"8 cards per pack · 24 packs per box · Oct 2025"},
+ {id:"me2",short:"ME2",code:"MLPME02",name:"Moon Edition · Series 2",pack:"8 cards per pack · 24 packs per box · Feb 2026"},
+ {id:"me3",short:"ME3",code:"MLPME03",name:"Moon Edition · Series 3",pack:"8 cards per pack · 24 packs per box · 2026"},
+ {id:"me4",short:"ME4",code:"MLPME04",name:"Moon Edition · Series 4",pack:"8 cards per pack · Oct 2026"}
+];
+M_EDITIONS.forEach(e=>{EDBY[e.id]=e});
+const M_SETED={MLPME01:"me1",MLPME02:"me2",MLPME03:"me3",MLPME04:"me4"};
+const M_NOTPUB="KAYOU hasn't published the exact pull rate for this rarity";
+const M_ODDS={
+ me1:{R:"3 in every pack",SPR:"1 in every pack",HR:"1 in every pack",SSR:"1 in every pack",UR:M_NOTPUB+" (one of the 2 bonus cards in each pack)",LSR:M_NOTPUB+" (one of the 2 bonus cards in each pack)",
+   SGR:"4 in 24 packs (SGR or SC top slot)",SC:"4 in 24 packs (SGR or SC top slot)"},
+ me2:{R:"3 in every pack",SPR:"1 in every pack, plus a chance in the UR or SR slot",HR:"1 in every pack",SSR:"1 in every pack",UR:"1 in every pack (UR or SR slot), or in the top slot",
+   LSR:"Top slot: UR, ZR, LSR, SGR, SC or ◇ZR",SGR:"Top slot: UR, ZR, LSR, SGR, SC or ◇ZR",ZR:"Top slot: UR, ZR, LSR, SGR, SC or ◇ZR",SC:"Top slot: UR, ZR, LSR, SGR, SC or ◇ZR",ZRP:"Top slot: UR, ZR, LSR, SGR, SC or ◇ZR · the rarest card in the set"},
+ me3:{ZRP:"Half the packs have a top-slot card (◇ZR, SC, ZR or SGR)",SC:"Half the packs have a top-slot card (◇ZR, SC, ZR or SGR)",ZR:"Half the packs have a top-slot card (◇ZR, SC, ZR or SGR)",SGR:"Half the packs have a top-slot card (◇ZR, SC, ZR or SGR)"},
+ me4:{}
+};
+// What some rarities look like, from KAYOU's and Hasbro's announcements
+const M_STYLE={
+ MLPME01:{SC:"Crystal Fantasy · the Mane 6 as Greek goddesses"},
+ MLPME02:{SC:"Crystal Fantasy · ponies with sparkling gemstones",SGR:"Shimmering Goldflow · Grand Galloping Gala outfits",ZRP:"Shining Celebration · 15th anniversary party",ZR:"15th anniversary art"},
+ MLPME04:{ZRP:"Thorny rose · line two cards up to reveal a hidden picture",SC:"The pony and “the other me” · resin coating and hot stamping"}
+};
+const M6=["Twilight Sparkle","Pinkie Pie","Rainbow Dash","Rarity","Fluttershy","Applejack"];
+const M_GROUPS=[
+ {name:"Mane 6",chars:M6},
+ {name:"Royals",label:"Princesses & royals",chars:["Princess Celestia","Princess Luna","Princess Cadance","Shining Armor","Flurry Heart","Prince Blueblood"]},
+ {name:"Crusaders",label:"Cutie Mark Crusaders",chars:["Apple Bloom","Sweetie Belle","Scootaloo","Babs Seed"]},
+ {name:"Friends",label:"Friends & family",chars:["Spike","Starlight Glimmer","Trixie","Sunburst","Sunset Shimmer","Discord","Zecora","Maud Pie","Limestone Pie","Marble Pie","Igneous Rock Pie","Cloudy Quartz","Big McIntosh","Granny Smith","Pear Butter","Twilight Velvet","Night Light","Cheese Sandwich","Mrs. Cup Cake","Mr. Carrot Cake"]},
+ {name:"Wonderbolts",chars:["Spitfire","Fleetfoot","Thunderlane","Vapor Trail","Sky Stinger"]},
+ {name:"Student Six",chars:["Sandbar","Gallus","Smolder","Yona","Ocellus","Silverstream"]},
+ {name:"Pillars",label:"Pillars of Equestria",chars:["Star Swirl","Somnambula","Flash Magnus","Mage Meadowbrook","Mistmane","Rockhoof","Stygian"]},
+ {name:"Villains",chars:["Nightmare Moon","Queen Chrysalis","King Sombra","Lord Tirek","Cozy Glow","Smooze"]},
+ {name:"Pets",label:"Pets & creatures",chars:["Angel","Winona","Opalescence","Gummy","Tank","Owlowiscious","Breezies","Parasprite","Cockatrice","Jackalope","Manticore","Pigasus","Hydra","Sphinx","Tri-horned Bunyip","Bloofy","Puckwudgie","Fruit Bat"]},
+ {name:"Everypony",label:"Everypony else",chars:["DJ Pon-3","Octavia","Muffins","Lyra Heartstrings","Sweetie Drops","Doctor Whooves","Cheerilee","Nurse Redheart","Cherry Jubilee","Daring Do","Mayor Mare","Countess Coloratura","Songbird Serenade","Coco Pommel","Diamond Tiara","Silver Spoon","Moon Dancer","Twinkleshine","Lemon Hearts","Minuette","Sugar Belle","Bulk Biceps","Iron Will","Steven Magnet","Pizzelle","Ms. Harshwhinny","Peachbottom","Suri Polomare","Zipporwhill","Dr. Caballeron","Lily Valley","Daisy","Junebug","Toola Roola","Coconut Cream","Inky Rose","Sunny Daze","Peachy Pie","Randolph","Fleur de Lis","Trouble Shoes","Mr. Stripes","Plaid Stripes","Night Glider","Party Favor","Double Diamond","Snips","Snails","Gabriella","Prim Hemline","Hoity Toity","Photo Finish","Sapphire Shores","Fancy Pants","Svengallop","Tree Hugger","Sassy Saddles","Zephyr Breeze","Twist","Pipsqueak","Prince Rutherford","Little Strongheart","Calamity Mane","Ember","Garble","Golden Harvest","Saffron Masala","Coriander Cumin","Braeburn","Gladmane","Tender Taps","Leigh Stride"]}
+];
+const M_ALLCHARS=M_GROUPS.flatMap(g=>g.chars);
+// Card names that are a character under another name, or show more than one character
+const M_APPEARS={"Princess Twilight Sparkle":["Twilight Sparkle"],"Star Swirl the Bearded":["Star Swirl"],"Fluttershy & Discord":["Fluttershy","Discord"],
+ "Happy 15th Anniversary!":M6,"The Reliable Princess Luna":["Princess Luna"],"The One Where Pinkie Pie Knows":["Pinkie Pie"],"What About Discord?":["Discord"],"Nightmare Moon Returns":["Nightmare Moon"]};
+const M_HUE={"Twilight Sparkle":["#c69cf0","#6b3fa8"],"Pinkie Pie":["#ffb3d6","#e0458f"],"Rainbow Dash":["#8fd3ff","#e0566a"],Rarity:["#f4f0ff","#7b5fd0"],
+ Fluttershy:["#fff2a8","#f29ac4"],Applejack:["#ffc98a","#e0782c"],Spike:["#c9a2f0","#5fae5a"],"Princess Celestia":["#fff6e0","#f2a6c8"],"Princess Luna":["#4a5fb8","#1c2250"],
+ "Princess Cadance":["#ffc6e4","#a65fd0"],"Starlight Glimmer":["#f2b8ec","#8a4fb0"],Trixie:["#a9d4f5","#5a6fc8"],Discord:["#c8a07a","#5a3a6a"],
+ "Sunset Shimmer":["#ffd27a","#e0455a"],"Apple Bloom":["#fff0a8","#e0455a"],"Sweetie Belle":["#f4f0ff","#d07ac8"],Scootaloo:["#ffc27a","#a65fd0"],
+ "Queen Chrysalis":["#5a8a7a","#1c2a26"],"Nightmare Moon":["#3a3f8a","#120f30"],"King Sombra":["#6a6a7a","#2a1030"]};
+const M_SCENE=["#cfe3ff","#a98fe0"];
+// Every other character gets a soft colour from their group's palette
+{const pal={Royals:["#ffe6f2","#c79be0"],Crusaders:["#fff1b8","#f29a7a"],Friends:["#d9f0ff","#9a8fe0"],Wonderbolts:["#9ad6ff","#2f5fb0"],"Student Six":["#c8f0d8","#5aa08a"],
+  Pillars:["#e8dcc0","#8a6a4a"],Villains:["#8a7aa8","#2a1f40"],Pets:["#d8f5c8","#7ab06a"],Everypony:["#ffe0ec","#b89be8"],"Mane 6":M_SCENE};
+ M_GROUPS.forEach(g=>g.chars.forEach(n=>{if(!M_HUE[n])M_HUE[n]=pal[g.name]||M_SCENE}));
+ M_HUE["Mane 6"]=["#ffd6ec","#9a7ae0"];}
+const M_BLOCKS=[
+ ["MLPME01","R",1,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Spike", "Cheese Sandwich", "Cheerilee", "Babs Seed", "Diamond Tiara", "Silver Spoon", "Starlight Glimmer", "Trixie", "Lyra Heartstrings", "Sweetie Drops", "Muffins", "Lily Valley", "Daisy", "Junebug", "Ms. Harshwhinny", "Peachbottom", "Suri Polomare", "Zipporwhill", "Dr. Caballeron", "Stygian", "Zecora", "Discord", "Iron Will", "Fruit Bat"]],
+ ["MLPME01","SPR",2,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Sunburst", "Starlight Glimmer", "Big McIntosh", "Maud Pie", "Spitfire", "Flurry Heart", "Pizzelle", "Steven Magnet"]],
+ ["MLPME01","HR",3,["A Brand New Day", "Wow! Hot Springs!", "Drenched Pony", "Mumbling in Dreams", "Penny-Pincher", "The \"Empress\" Arrives", "Another Ambitious One", "Who Dares Invade the Forest?", "The Show Is About to Begin", "Continuous Sonic Boom! Yo-ho-", "Go Help Them", "The Exploiter's Chase", "The Reliable Princess Luna", "Know When to Back Down", "A Great Plan in the Making", "Intelligence Recovery Plan", "Unquenchable Fury", "A Moment to Breathe", "The Invisible Noise Maker", "Out with the Unfashionable", "Tit for Tat", "The Show's On!", "The Forest Queen Sets Forth", "Hot Spring Water Giveaway!", "Nightmare Moon Returns", "Test Your Aim", "Stop the Farce", "Stop the Exploitation", "Stop the Rampage", "Quell the Angel", "A Toast to Alliance", "Already Seen Through", "Strike by Surprise", "Set Things Right", "Lift the Dark Magic", "Now It's Time to Enjoy"]],
+ ["MLPME01","SSR",3,["Princess Twilight Sparkle", "Pinkie Pie", "Fluttershy", "Rainbow Dash", "Rarity", "Applejack", "Spike", "Pear Butter", "Nurse Redheart", "Cherry Jubilee", "Starlight Glimmer", "Trixie", "Sunset Shimmer", "Princess Twilight Sparkle", "Pinkie Pie", "Fluttershy", "Rainbow Dash", "Rarity", "Applejack", "Spike", "Pear Butter", "Nurse Redheart", "Cherry Jubilee", "Starlight Glimmer", "Trixie", "Sunset Shimmer", "Princess Twilight Sparkle", "Pinkie Pie", "Fluttershy", "Rainbow Dash", "Rarity", "Applejack", "Spike", "Pear Butter", "Nurse Redheart", "Cherry Jubilee", "Starlight Glimmer", "Trixie", "Sunset Shimmer", "Princess Twilight Sparkle", "Pinkie Pie", "Fluttershy", "Rainbow Dash", "Rarity", "Applejack", "Spike", "Pear Butter", "Nurse Redheart", "Cherry Jubilee", "Starlight Glimmer", "Trixie", "Sunset Shimmer", "Princess Luna", "Princess Celestia"]],
+ ["MLPME01","UR",4,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Fluttershy", "Rarity", "Applejack", "DJ Pon-3", "Octavia", "Cheerilee", "Sweetie Belle", "Scootaloo", "Apple Bloom", "Songbird Serenade", "Cheese Sandwich", "Countess Coloratura", "Applejack"]],
+ ["MLPME01","LSR",3,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Fluttershy", "Rarity", "Applejack", "Star Swirl the Bearded", "Somnambula", "Flash Magnus", "Mage Meadowbrook", "Mistmane", "Rockhoof", "Starlight Glimmer"]],
+ ["MLPME01","LSR",4,["Trixie", "Sunburst"],14],
+ ["MLPME01","SGR",5,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Fluttershy", "Rarity", "Applejack", "Princess Cadance", "Flurry Heart"]],
+ ["MLPME01","SC",5,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Friends Forever"]],
+ ["MLPME02","R",1,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Nurse Redheart", "Cozy Glow", "Toola Roola", "Coconut Cream", "Inky Rose", "Prince Blueblood", "Sunny Daze", "Peachy Pie", "Bulk Biceps", "Randolph", "Fleur de Lis", "Trouble Shoes", "Mr. Stripes", "Plaid Stripes", "Night Glider", "Party Favor", "Double Diamond", "Snips", "Snails", "Gabriella", "Breezies", "Parasprite", "Cockatrice", "Jackalope"]],
+ ["MLPME02","SPR",2,["Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Fluttershy", "Rarity", "Applejack", "Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Fluttershy", "Rarity", "Applejack", "Apple Bloom", "Scootaloo", "Sweetie Belle", "Octavia", "Moon Dancer", "Twinkleshine", "Lemon Hearts", "Minuette"]],
+ ["MLPME02","HR",3,["Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Spike", "Granny Smith", "Sweetie Belle", "Scare Master", "Sisterhooves Strong", "Instant Besties", "Break Up Break Down", "Glam Pony Pals", "Winter Wrap Up", "Cutie Angels", "Cutie Mark Crusaders", "Spiritual Friendship", "Sing and Trot", "Pinkie Surprise", "Grand Finale", "Yummy Feast"]],
+ ["MLPME02","HR",3,["Princess Twilight Sparkle", "Pinkie Pie", "Fluttershy", "Rainbow Dash", "Applejack", "Rarity", "Spike", "Princess Celestia"],45],
+ ["MLPME02","SSR",3,["Princess Twilight Sparkle", "Pinkie Pie", "Fluttershy", "Rainbow Dash", "Rarity", "Applejack", "Spike", "Apple Bloom", "Scootaloo", "Sweetie Belle", "Vapor Trail", "Flurry Heart", "Princess Cadance", "Princess Twilight Sparkle", "Pinkie Pie", "Fluttershy", "Rainbow Dash", "Rarity", "Applejack", "Spike", "Apple Bloom", "Scootaloo", "Sweetie Belle", "Vapor Trail", "Flurry Heart", "Princess Cadance", "Princess Twilight Sparkle", "Pinkie Pie", "Fluttershy", "Rainbow Dash", "Rarity", "Applejack", "Spike", "Apple Bloom", "Scootaloo", "Sweetie Belle", "Vapor Trail", "Flurry Heart", "Princess Cadance", "Princess Twilight Sparkle", "Pinkie Pie", "Fluttershy", "Rainbow Dash", "Rarity", "Applejack", "Spike", "Apple Bloom", "Scootaloo", "Sweetie Belle", "Vapor Trail", "Flurry Heart", "Princess Cadance", "Queen Chrysalis", "Discord"]],
+ ["MLPME02","UR",4,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Fluttershy", "Rarity", "Applejack", "Spitfire", "Fleetfoot", "Thunderlane", "Vapor Trail", "Maud Pie", "Trixie", "Starlight Glimmer", "Princess Luna", "Princess Cadance", "Rainbow Dash"]],
+ ["MLPME02","LSR",4,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Fluttershy", "Rarity", "Applejack", "Princess Celestia", "Princess Luna", "Apple Bloom", "Scootaloo", "Sweetie Belle", "Sunset Shimmer", "Spike", "Shining Armor", "Maud Pie", "Cheese Sandwich"]],
+ ["MLPME02","SGR",5,["Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Fluttershy", "Rarity", "Applejack", "Spike", "Princess Celestia"]],
+ ["MLPME02","ZR",5,["Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Happy 15th Anniversary!"]],
+ ["MLPME02","SC",5,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Princess Twilight Sparkle"]],
+ ["MLPME02","ZRP",5,["Happy 15th Anniversary!"]],
+ ["MLPME03","R",1,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Spike", "Prim Hemline", "Hoity Toity", "Photo Finish", "Sapphire Shores", "Fancy Pants", "Svengallop", "Tree Hugger", "Sassy Saddles", "Night Light", "Twilight Velvet", "Zephyr Breeze", "Twist", "Pipsqueak", "Sky Stinger", "Vapor Trail", "Lord Tirek", "King Sombra", "Smooze", "Prince Rutherford", "Little Strongheart", "Manticore", "Pigasus", "Hydra", "Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Spike", "Maud Pie", "Limestone Pie", "Marble Pie", "Igneous Rock Pie", "Cloudy Quartz", "Apple Bloom", "Big McIntosh", "Granny Smith", "Lyra Heartstrings", "Sweetie Drops", "Muffins", "Doctor Whooves", "Sandbar", "Gallus", "Smolder", "Yona", "Ocellus", "Silverstream", "Ember", "Sphinx", "Tri-horned Bunyip", "Bloofy", "Puckwudgie"]],
+ ["MLPME03","SPR",2,["Twilight Sparkle", "Twilight Sparkle", "Pinkie Pie", "Pinkie Pie", "Rainbow Dash", "Rainbow Dash", "Fluttershy", "Fluttershy", "Rarity", "Rarity", "Applejack", "Applejack", "Spike", "Muffins", "Mayor Mare", "Sweetie Belle", "Princess Luna", "Fluttershy & Discord", "Spitfire", "Babs Seed", "Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Fluttershy", "Rarity", "Applejack", "Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Fluttershy", "Rarity", "Applejack", "Starlight Glimmer", "Zecora", "Apple Bloom", "Sweetie Belle", "Scootaloo", "Calamity Mane", "Princess Celestia", "Princess Cadance"]],
+ ["MLPME03","HR",3,["Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Spike", "Muffins", "Hearts Strong", "Like-Minded", "Three's a Crowd", "The Lost Treasure of Griffonstone", "Childhood Sweethearts", "Tacit Understanding", "Sound Asleep", "Easy Catch", "The One Where Pinkie Pie Knows", "Going to Seed", "As If Nothing Happened", "Long-Held Wish Finally Fulfilled", "What About Discord?", "Extremely Caring", "Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Princess Luna", "Princess Cadance", "Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Discord", "Starlight Glimmer", "Mood Swing", "Doorbuster", "Attentive Ears", "Precious Memories", "Brothers-in-Arms", "Silver Tongue", "Inseparable Friends", "Harmony of Hearts", "Phantom Flitter", "Pure-Hearted Sparkle", "Clumsy Charm", "Lightning Speed", "Cheerful Roar", "Sisterly Bond", "Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Spike"]],
+ ["MLPME03","SSR",3,["Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Spike", "Starlight Glimmer", "Maud Pie", "Apple Bloom", "Granny Smith", "Zecora", "Mrs. Cup Cake", "Mr. Carrot Cake", "Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Spike", "Sweetie Belle", "Babs Seed", "Diamond Tiara", "Silver Spoon", "Big McIntosh", "Cheese Sandwich", "Garble"]],
+ ["MLPME03","UR",4,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Spike", "Sweetie Belle", "Apple Bloom", "Scootaloo", "Muffins", "Trixie", "Starlight Glimmer", "DJ Pon-3", "Cozy Night", "Nocturnal Plaits", "Slumber Beside the Book", "Rarity"]],
+ ["MLPME03","LSR",4,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Princess Celestia", "Princess Luna", "Starlight Glimmer", "Trixie", "Maud Pie", "Countess Coloratura", "Zecora", "Big McIntosh", "Discord", "Mistmane", "Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Spike", "Discord", "Cozy Glow", "Princess Cadance", "Flurry Heart", "Scootaloo", "Sweetie Belle", "Apple Bloom", "Sunset Shimmer", "King Sombra"]],
+ ["MLPME03","SGR",5,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Starlight Glimmer", "Queen Chrysalis", "Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "United Against the Enemy", "Frenemies"]],
+ ["MLPME03","ZR",5,["Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "The Leaf Umbrella", "Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "The Forest Adventure"]],
+ ["MLPME03","SC",5,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Fluttershy"]],
+ ["MLPME03","ZRP",5,["Childhood Memory", "Friends", "Friendship Is Magic"]],
+ ["MLPME04","R",1,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Spike", "Princess Celestia", "Princess Luna", "Princess Cadance", "Shining Armor", "Flurry Heart", "DJ Pon-3", "Diamond Tiara", "Sunburst", "Golden Harvest", "Saffron Masala", "Coriander Cumin", "Moon Dancer", "Cheerilee", "Coco Pommel", "Braeburn", "Gladmane", "Tender Taps", "Owlowiscious", "Gummy", "Tank", "Opalescence", "Angel", "Winona"]],
+ ["MLPME04","SPR",2,["Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Fluttershy", "Rarity", "Applejack", "Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Fluttershy", "Rarity", "Applejack", "Spike", "Bulk Biceps", "Princess Luna", "Daring Do", "Lyra Heartstrings", "Apple Bloom", "Leigh Stride", "Sunset Shimmer"]],
+ ["MLPME04","HR",3,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "DJ Pon-3", "Muffins", "Meticulous Care", "Creative Direction", "Unbreakable Bond", "Lotus Bloom", "Sharp Critique", "Dazzling Debut", "Effortless Win", "Unkempt Look", "Till We Meet Again", "Pure Joy", "Wise Companion", "Tea Connoisseur", "Heavy Burden", "Agreed as One", "Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Spike", "Princess Celestia"]],
+ ["MLPME04","SSR",3,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Spike", "Zecora", "Cherry Jubilee", "Maud Pie", "Scootaloo", "Daring Do", "Countess Coloratura", "DJ Pon-3", "Octavia", "Nightmare Moon", "Queen Chrysalis", "Starlight Glimmer", "Cozy Glow", "King Sombra", "Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack"]],
+ ["MLPME04","UR",4,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Spike", "Princess Cadance", "Flurry Heart", "Pear Butter", "Maud Pie", "Cheerilee", "Songbird Serenade", "Coco Pommel", "Cherry Jubilee", "Fluttershy"]],
+ ["MLPME04","LSR",4,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Spike", "Starlight Glimmer", "Trixie", "Sweetie Belle", "Scootaloo", "Apple Bloom", "DJ Pon-3", "Muffins", "Sugar Belle", "Cheese Sandwich"]],
+ ["MLPME04","SGR",5,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Princess Celestia", "Princess Luna"]],
+ ["MLPME04","ZR",5,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Spectrum of Magic"]],
+ ["MLPME04","SC",5,["Princess Twilight Sparkle", "Pinkie Pie", "Rainbow Dash", "Rarity", "Fluttershy", "Applejack", "Rarity"]],
+ ["MLPME04","ZRP",5,["Pinkie Pie", "Princess Chaos"]]
+];
+// [set, rarity, level mark, names, first number (default 1)]
+const MCARDS=[];
+M_BLOCKS.forEach(([set,rar,lv,names,start])=>{const ed=M_SETED[set];
+ names.forEach((name,i)=>{const n=String((start||1)+i).padStart(3,"0"),num=`${set}-${RINFO[rar].code}-${n}L${lv}`;
+  const a=M_APPEARS[name]||(M_ALLCHARS.includes(name)?[name]:[]);
+  MCARDS.push({fr:"mlp",set,uid:`${num}|${ed}`,num,n,rar,name,editions:[ed],confirmed:true,main:a.length===1?a[0]:null,appears:[...a]})})});
+// Number repeats within a set + rarity (Rarity 1, Rarity 2...)
+MCARDS.forEach(c=>{const peers=MCARDS.filter(x=>x.set===c.set&&x.rar===c.rar&&x.name===c.name);c.variant=peers.length>1?peers.indexOf(c)+1:null});
+
 // ---------- Franchises: the collection page shows one at a time ----------
 const FRANCH={
  winx:{id:"winx",name:"Winx Club",path:"/winx-club",title:"Winx Club · My Pretty Pulls",cards:[...CARDS,...CPCARDS],editions:[...EDITIONS.filter(e=>e.id!=="promo"),CP_ED,EDBY.promo],odds:ODDS,groups:GROUPS,hue:HUE,scene:SCENE_HUE,
@@ -1391,19 +1524,32 @@ const FRANCH={
      {set:"KPDHM01",code:"KPDHM01",name:"Special Mini Edition · Series 1",ct:"Half-size mini cards, 62 × 44 mm"},
      {set:"KPDH02",code:"KPDH02",name:"Series 2 · Classic + Energy",ct:"C2 = Classic · E2 = Energy"},
      {set:"PROMO",code:"PR",name:"Promo cards",ct:"Not found in booster packs"}],
-   hint:`Try <code>Rumi</code>, <code>HUNTR/X</code>, <code>Saja Boys</code>, <code>SR-004</code>, <code>Energy</code>, <code>Mini</code> or <code>SE</code>. Combine words to narrow it down, like <code>Saja Boys UR Classic</code>.`}
+   hint:`Try <code>Rumi</code>, <code>HUNTR/X</code>, <code>Saja Boys</code>, <code>SR-004</code>, <code>Energy</code>, <code>Mini</code> or <code>SE</code>. Combine words to narrow it down, like <code>Saja Boys UR Classic</code>.`},
+ mlp:{id:"mlp",name:"My Little Pony",path:"/my-little-pony",title:"My Little Pony · My Pretty Pulls",cards:MCARDS,editions:M_EDITIONS,odds:M_ODDS,groups:M_GROUPS,hue:M_HUE,scene:M_SCENE,
+   allCode:"MLP",every:"every My Little Pony card",setsLabel:"KAYOU Friendship Eternal · Moon Edition",emoji:"🦄",
+   setName:c=>`Friendship Eternal Cards · Moon Edition Series ${c.set.slice(-1)}`,
+   series:[{set:"MLPME01",code:"MLPME01",name:"Moon Edition · Series 1",ct:"8 rarities · numbers end in a level mark (L1 to L5)"},
+     {set:"MLPME02",code:"MLPME02",name:"Moon Edition · Series 2",ct:"15th anniversary set · 10 rarities"},
+     {set:"MLPME03",code:"MLPME03",name:"Moon Edition · Series 3",ct:"10 rarities · 289 of 290 cards listed so far"},
+     {set:"MLPME04",code:"MLPME04",name:"Moon Edition · Series 4",ct:"10 rarities · out Oct 2026"}],
+   tcg:{title:"My Little Pony Trading Card Game",ct:"Friendships Begin starter decks and booster packs",
+     text:"Tracking for the playable TCG cards is coming soon. For now this page covers the collect-only Friendship Eternal cards."},
+   hint:`Try <code>Rarity</code>, <code>Mane 6</code>, <code>Crusaders</code>, <code>Wonderbolts</code>, <code>SGR</code>, <code>Series 2</code> or <code>SR-004</code>. Combine words to narrow it down, like <code>Fluttershy SSR Series 1</code>.`}
 };
 // Words people can search to find a whole group of characters
 FRANCH.winx.groupAlias={winx:"Winx",winxgirls:"Winx",fairy:"Winx",fairies:"Winx",girls:"Winx",
   specialist:"Specialists",specialists:"Specialists",boys:"Specialists",
   trix:"Trix",witch:"Trix",witches:"Trix",
   pets:"Pets",pet:"Pets",pixie:"Pets",pixies:"Pets",pixiepets:"Pets"};
+FRANCH.mlp.groupAlias={mane6:"Mane 6",mane:"Mane 6",manesix:"Mane 6",princess:"Royals",princesses:"Royals",royals:"Royals",royal:"Royals",
+  crusaders:"Crusaders",cmc:"Crusaders",cutiemarkcrusaders:"Crusaders",friends:"Friends",family:"Friends",wonderbolts:"Wonderbolts",
+  studentsix:"Student Six",students:"Student Six",pillars:"Pillars",villain:"Villains",villains:"Villains",pets:"Pets",pet:"Pets",creatures:"Pets",everypony:"Everypony"};
 FRANCH.kpdh.groupAlias={huntrix:"HUNTR/X",girls:"HUNTR/X",sajaboys:"Saja Boys",saja:"Saja Boys",boys:"Saja Boys",
   other:"Other",others:"Other",friends:"Other",family:"Other",pets:"Other",pet:"Other",demons:"Other",fans:"Other"};
 let F=FRANCH.winx;
-const ALLCARDS=[...CARDS,...CPCARDS,...KCARDS];
+const ALLCARDS=[...CARDS,...CPCARDS,...KCARDS,...MCARDS];
 const FR_OF=c=>FRANCH[c.fr]||FRANCH.winx;
-const shortNum=c=>c.num.replace(/^(WFD01|KPDH01)-/,"").replace(/^WFD02-/,"W2 ");
+const shortNum=c=>c.num.replace(/^(WFD01|KPDH01)-/,"").replace(/^WFD02-/,"W2 ").replace(/^MLPME0(\d)-/,"ME$1 ");
 const BYUID=Object.fromEntries(ALLCARDS.map(c=>[c.uid,c]));
 const label=c=>c.name+(c.variant?` ${c.variant}`:"");
 const inScope=c=>activeEd==="all"||c.editions.includes(activeEd);
@@ -1449,7 +1595,8 @@ const K_ANIM=new Set(["kpdh01-hr-001", "kpdh01-hr-002", "kpdh01-hr-003", "kpdh01
 // Finish for each rarity (one or two layers)
 const FX={R:["shine"],QR:["pixel"],SR:["shine","stars"],SRP:["shine","glitter-pink"],FR:["rainbow"],HR:["holo"],TR:["lightbar"],
   SSR:["shatter"],UR:["silver"],UGR:["gold","glitter-gold"],AR:["holo","stars"],ZR:["neon"],CR:["prism","glitter-pink"],
-  BP:["shine","glitter-gold"],SE:["holo","glitter-pink"],PR:["pearl","stars"]};
+  BP:["shine","glitter-gold"],SE:["holo","glitter-pink"],PR:["pearl","stars"],
+  SPR:["shine","stars"],LSR:["holo","stars"],SGR:["gold","glitter-gold"],SC:["prism","glitter-pink"],ZRP:["neon","glitter-gold"]};
 // Some cards have their own finish regardless of rarity
 // Cards with a targeted finish only shine in certain areas (lettering, borders, backgrounds), found automatically per card
 const REGION=new Set(["wfd01-ar-001-magic", "wfd01-ar-002-magic", "wfd01-ar-003-magic", "wfd01-ar-004-magic", "wfd01-ar-005-magic", "wfd01-ar-006-magic", "wfd01-fr-001", "wfd01-fr-002", "wfd01-fr-003", "wfd01-fr-004", "wfd01-fr-005", "wfd01-fr-006", "wfd01-fr-007", "wfd01-fr-008", "wfd01-fr-009", "wfd01-fr-010", "wfd01-fr-011", "wfd01-fr-012", "wfd01-fr-013", "wfd01-fr-014", "wfd01-pr-004", "wfd01-qr-001", "wfd01-qr-002", "wfd01-qr-003", "wfd01-qr-004", "wfd01-qr-005", "wfd01-qr-006", "wfd01-qr-007", "wfd01-qr-008", "wfd01-qr-009", "wfd01-qr-010", "wfd01-qr-011", "wfd01-qr-012", "wfd01-qr-013", "wfd01-qr-014", "wfd01-qr-015", "wfd01-qr-016", "wfd01-qr-017", "wfd01-qr-018", "wfd01-qr-019", "wfd01-qr-020", "wfd01-qr-021", "wfd01-qr-022", "wfd01-qr-023", "wfd01-qr-024", "wfd01-r-001", "wfd01-r-002", "wfd01-r-003", "wfd01-r-004", "wfd01-r-005", "wfd01-r-006", "wfd01-r-007", "wfd01-r-008", "wfd01-r-009", "wfd01-r-010", "wfd01-r-011", "wfd01-r-012", "wfd01-r-013", "wfd01-r-014", "wfd01-r-015", "wfd01-r-016", "wfd01-r-017", "wfd01-r-018", "wfd01-r-019", "wfd01-r-020", "wfd01-srp-001", "wfd01-srp-002", "wfd01-srp-003", "wfd01-srp-004", "wfd01-srp-005", "wfd01-srp-006", "wfd01-tr-001", "wfd01-tr-002", "wfd01-tr-003", "wfd01-tr-004", "wfd01-tr-005", "wfd01-tr-006", "wfd01-tr-007", "wfd01-tr-008", "wfd01-tr-009", "wfd01-tr-010", "wfd01-tr-011", "wfd01-tr-012", "wfd01-ur-001", "wfd01-ur-002", "wfd01-ur-003", "wfd01-ur-004", "wfd01-ur-005", "wfd01-ur-006", "wfd01-zr-001", "wfd01-zr-002", "wfd01-zr-003", "wfd01-zr-004", "wfd01-zr-005", "wfd01-zr-006"]);
@@ -1509,7 +1656,8 @@ function fxFor(c){
   return (FX[c.rar]||[]).map(f=>[f,0]);
 }
 function imgKey(c){
-  let k=c.num.toLowerCase().replace(/[◇◊]sr/,"srp").replace(/[◇◊]cr/,"crp");
+  let k=c.num.toLowerCase().replace(/[◇◊]sr/,"srp").replace(/[◇◊]cr/,"crp").replace(/[◇◊]zr/,"zrp");
+  if(c.fr==="mlp")k=k.replace(/l\d$/,""); // picture files leave off the level mark: mlpme01-sr-001
   if(c.rar==="AR"&&c.editions.length===1)k+="-"+c.editions[0];
   return IMGS.has(k)?k:null;
 }
@@ -1546,7 +1694,7 @@ function setTile(id,code,name,cs,sub){const h=cs.filter(c=>has(c.uid)).length,p=
 function renderSets(){
   $("#sets").innerHTML=setTile("all",F.allCode,"Every card",F.cards,"all box types")+
     F.editions.map(e=>{const cs=F.cards.filter(c=>c.editions.includes(e.id));
-      return setTile(e.id,e.code,e.name,cs,e.id==="promo"?"promos":`${cs.filter(c=>c.editions.length>1).length} shared`)}).join("")
+      return setTile(e.id,e.code,e.name,cs,e.id==="promo"?"promos":F.id==="mlp"?`${new Set(cs.map(c=>c.rar)).size} rarities`:`${cs.filter(c=>c.editions.length>1).length} shared`)}).join("")
     +(merchOf(F.id).length?setTile("merch","MERCH","Merchandise",merchOf(F.id),"styles"):"");
 }
 function prow(key,val,text,have,total,sw,pressed){const p=total?Math.round(have/total*100):0;
@@ -1566,17 +1714,18 @@ function renderSide(){
 const flat=s=>s.toLowerCase().replace(/[◇◊]/g,"p").replace(/[^a-z0-9]/g,"");
 function matchQuery(c){
   if(!query)return true;
-  const r=RINFO[c.rar], idFlat=flat(c.num), short=flat(shortNum(c)), short2=flat(c.num.replace(/^[A-Z0-9]+-/,"")), rk=flat(r.code), setF=flat(c.set+" "+(c.promoSet||""));
-  const eds=c.editions.map(e=>EDBY[e].name.toLowerCase()).join(" ")+(c.editions.length>1?" both":"")+(c.set==="KPDHM01"?" mini":"")+(c.promoNote?" "+c.promoNote.toLowerCase():"");
+  const r=RINFO[c.rar], idFlat=flat(c.num), short=flat(shortNum(c)), short2=flat(c.num.replace(/^[A-Z0-9]+-/,"").replace(/L\d$/,"")), rk=flat(r.code), setF=flat(c.set+" "+(c.promoSet||""));
+  const eds=c.editions.map(e=>EDBY[e].name.toLowerCase()).join(" ")+(c.editions.length>1?" both":"")+(c.set==="KPDHM01"?" mini":"")+(c.fr==="mlp"?` series ${c.set.slice(-1)} moon friendship eternal`:"")+(c.promoNote?" "+c.promoNote.toLowerCase():"");
   const tr=(c.fr==="winx"&&TRANSFORM[c.uid]||"").toLowerCase();
   const q=query.replace(/huntr\s*\/\s*x/g,"huntrix").replace(/saja\s+boys/g,"sajaboys").replace(/pixie\s+pets?/g,"pixiepets")
-    .replace(/winx\s+girls/g,"winxgirls").replace(/friends\s*(&|and)\s*family/g,"friends");
+    .replace(/winx\s+girls/g,"winxgirls").replace(/friends\s*(&|and)\s*family/g,"friends")
+    .replace(/mane\s*(6|six)/g,"mane6").replace(/cutie\s+mark\s+crusaders/g,"crusaders").replace(/student\s+(6|six)/g,"studentsix").replace(/pillars\s+of\s+equestria/g,"pillars").replace(/everypony\s+else/g,"everypony");
   return q.split(/\s+/).every(t=>{
     const tf=flat(t); if(!tf)return true;
     // A group word (Winx, Specialists, Trix, HUNTR/X, Saja Boys...) finds every card with someone from that group
     const gn=(F.groupAlias||{})[tf], grp=gn&&F.groups.find(g=>g.name===gn);
     if(grp&&c.appears.some(a=>grp.chars.includes(a)))return true;
-    if(/\d/.test(tf))return idFlat===tf||short===tf||short2===tf||(/^\d+$/.test(tf)&&+c.n===+tf)||setF.includes(tf);
+    if(/\d/.test(tf))return idFlat===tf||short===tf||short2===tf||idFlat.replace(/l\d$/,"")===tf||(/^\d+$/.test(tf)&&+c.n===+tf)||setF.includes(tf);
     return label(c).toLowerCase().includes(t)||c.appears.some(a=>a.toLowerCase().includes(t))
       ||rk===tf||r.name.toLowerCase().includes(t)||eds.includes(t)||tr.includes(t);
   });
@@ -1584,7 +1733,7 @@ function matchQuery(c){
 // Merch styles shown in the collection list: same filters as cards (no rarity), shown in "Every card" or the Merchandise tile
 function matchMerch(m){
   if(!query)return true;
-  const q=query.replace(/huntr\s*\/\s*x/g,"huntrix").replace(/saja\s+boys/g,"sajaboys").replace(/pixie\s+pets?/g,"pixiepets");
+  const q=query.replace(/huntr\s*\/\s*x/g,"huntrix").replace(/saja\s+boys/g,"sajaboys").replace(/pixie\s+pets?/g,"pixiepets").replace(/mane\s*(6|six)/g,"mane6");
   const text=`${m.name} ${m.prodName} ${m.num} merch merchandise ${m.secret?"secret":""} ${m.appears.join(" ")}`.toLowerCase();
   return q.split(/\s+/).every(t=>{const tf=flat(t); if(!tf)return true;
     const gn=(F.groupAlias||{})[tf], grp=gn&&F.groups.find(g=>g.name===gn);
@@ -1626,6 +1775,7 @@ function saveHide(){try{localStorage.setItem(HIDE_KEY,JSON.stringify([...HIDE]))
 const hideBtn=(key,hid,name)=>`<button class="hidebtn" data-hide="${esc(key)}" aria-expanded="${!hid}" aria-label="${hid?"Show":"Hide"} ${esc(name)}">${hid?"Show":"Hide"}<i aria-hidden="true">▾</i></button>`;
 document.addEventListener("click",e=>{
   const h=e.target.closest("[data-hide]"); if(h){const k=h.dataset.hide;HIDE.has(k)?HIDE.delete(k):HIDE.add(k);saveHide();renderCards();document.querySelector(`[data-hide="${CSS.escape(k)}"]`)?.focus();return}
+  if(e.target.closest("[data-tcgguide]")){const d=$("#guideDet");if(d){d.open=true;d.scrollIntoView({behavior:"smooth",block:"start"})}return}
   const ha=e.target.closest("[data-hideall]"); if(ha){
     if(ha.dataset.hideall==="1"){ // fold every collection block on screen
       shownKeys.filter(k=>k.split("|")[1]==="S").forEach(k=>HIDE.add(k))}
@@ -1663,8 +1813,10 @@ function renderCards(){
   if(activeEd!=="all"){
     $("#cards").innerHTML=bar+block("ed:"+activeEd,EDBY[activeEd].code,EDBY[activeEd].name,EDBY[activeEd].pack,list);return}
   // Every card: one block per series (Winx has just one), then merchandise
+  const tcgBlock=()=>{if(!F.tcg||rarF||charF||query||view!=="all")return"";const key=`${F.id}|S|tcg`, hid=HIDE.has(key); shownKeys.push(key);
+    return `<div class="sblock tcgsoon${hid?" folded":""}"><div class="set-h"><span class="code">TCG</span><h2>${F.tcg.title}</h2><span class="sh-r"><span class="sown soonpill">Coming soon</span>${hideBtn(key,hid,"Trading Card Game")}</span><span class="ct">${F.tcg.ct}</span></div>${hid?"":`<p class="tcgnote">${F.tcg.text} <button class="linkbtn" data-tcgguide>See the TCG products</button></p>`}</div>`};
   $("#cards").innerHTML=bar+F.series.map(sr=>{const cl=list.filter(c=>c.set===sr.set||F.series.length===1);if(!cl.length)return"";
-    return block(sr.set,sr.code,sr.name,sr.ct,cl)}).join("")+merchBlock();
+    return block(sr.set,sr.code,sr.name,sr.ct,cl)}).join("")+tcgBlock()+merchBlock();
 }
 // How each promo is obtained
 function promoHow(c){
@@ -1727,7 +1879,7 @@ function renderDetail(){
   const more=who?cf.cards.filter(x=>x!==c&&x.appears.includes(who)):[];
   const found=c.editions[0]==="promo"?`Promo${c.promoWith?` (${EDBY[c.promoWith[0]].name} box bonus)`:c.promoNote?` (${c.promoNote})`:""}`:c.editions.map(e=>EDBY[e].name).join("<br>");
   const odds=c.editions[0]==="promo"?promoHow(c):c.editions.map(e=>`${c.editions.length>1?`<b>${EDBY[e].name.split(" ")[0]}:</b> `:""}${cf.odds[e][c.rar]||"—"}`).join("<br>");
-  const style=c.set==="KPDH01"&&K_STYLE[c.rar], cast=c.appears.length>1?c.appears.join(", "):"";
+  const style=(c.set==="KPDH01"&&K_STYLE[c.rar])||(M_STYLE[c.set]||{})[c.rar], cast=c.appears.length>1?c.appears.join(", "):"";
   el.innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="dTitle">
     <button class="close" id="dClose" aria-label="Close">✕</button>
     <div class="d-left">
@@ -1743,7 +1895,7 @@ function renderDetail(){
       </div>
       <div class="facts">
         <div class="fact"><span>Found in</span><span>${found}</span></div>
-        <div class="fact"><span>Character</span><span>${who||(cast?"Group card":c.fr==="kpdh"?"Scene card":"Group card")}</span></div>
+        <div class="fact"><span>Character</span><span>${who||(cast?"Group card":c.fr!=="winx"?"Scene card":"Group card")}</span></div>
         ${cast?`<div class="fact"><span>On the card</span><span>${esc(cast)}</span></div>`:""}
         ${style?`<div class="fact"><span>Card style</span><span>${style}</span></div>`:""}
         ${TRANSFORM[c.uid]?`<div class="fact"><span>Transformation</span><span>${TRANSFORM[c.uid]}</span></div>`:""}
@@ -1909,9 +2061,50 @@ const K_PRODUCTS=[
    ["Styles (blind box)",["Rumi","Zoey","Mira","Jinu","Demon Jinu","Demon Rumi","Secret style: Derpy"]],
    ["Product specs",["KAYOU name: Plush Wearable Card Holder-001","Model KPDH-KT-MR-001","Box: 4.33 × 7.87 × 2.36 in","Released October 2026"]]]}
 ];
+const M_KAYOU="https://www.kayouofficial.com/en-US/ip-collections";
+const M_PRODUCTS=[
+ {id:"moon-1",ed:"me1",kind:"box",brand:"My Little Pony",name:"Moon Edition",series:"Series 1",when:"Oct 2025",code:"MLPME01",col:["#d9e4ff","#6b6fd0"],
+  intro:"KAYOU's first My Little Pony set in the US. Foil-heavy art of the Mane 6 and friends across 8 rarities.",
+  sections:[
+   ["Every pack",["8 cards","3 × Rare (R)","1 × Spark Rare (SR)","1 × Holo Rare (HR)","1 × Super Spark Rare (SSR)","2 more cards from the higher rarities","Super Golden Rare or Secret Rare (SGR or SC) in about 4 of 24 packs"]],
+   ["Box",["24 packs per box","Every 24-pack box comes with 1 promo (PR) card"]],
+   ["The cards",["186 cards in 8 rarities, numbered MLPME01","R 30 · SR 20 · HR 36 · SSR 54 · UR 16 · LSR 15 · SGR 8 · SC 7","Crystal Fantasy Secret Rares (SC) show the Mane 6 as Greek goddesses"]],
+   ["Good to know",["Only Friendship is Magic characters","Sold at Target, GameStop, Barnes & Noble, Best Buy and Amazon"]]]},
+ {id:"moon-2",ed:"me2",kind:"box",brand:"My Little Pony",name:"Moon Edition",series:"Series 2",when:"Feb 2026",code:"MLPME02",col:["#ffe0f0","#d0559c"],
+  intro:"A 15th anniversary party for Friendship is Magic, with the new ◇ZR Shining Celebration card as the top chase.",
+  sections:[
+   ["Every pack",["8 cards","3 × Rare (R)","1 × Spark Rare (SR)","1 × Holo Rare (HR)","1 × Super Spark Rare (SSR)","1 × Ultra Rare or Spark Rare (UR or SR)","1 top-slot card: UR, ZR, LSR, SGR, SC or ◇ZR"]],
+   ["Ways to buy",["Single packs","24-pack boxes","5-pack collector boxes"]],
+   ["The cards",["189 cards in 10 rarities, numbered MLPME02","R 30 · SR 20 · HR 30 · SSR 54 · UR 16 · LSR 16 · SGR 8 · ZR 7 · SC 7 · ◇ZR 1","◇ZR Shining Celebration: the Mane 6 at a 15th anniversary party","SC Crystal Fantasy: ponies with sparkling gemstones","SGR Shimmering Goldflow: what each pony wore to the Grand Galloping Gala"]],
+   ["Good to know",["A U.S. exclusive PR card recreates the artwork Andy Price painted live at New York Comic Con","20 cards carry Andy Price's autograph","Launched with KAYOU's “Chase the Magic” sweepstakes"]]]},
+ {id:"moon-3",ed:"me3",kind:"box",brand:"My Little Pony",name:"Moon Edition",series:"Series 3",when:"2026",code:"MLPME03",col:["#e8f0d8","#5a9a6a"],
+  intro:"The biggest Moon Edition: 290 cards inspired by European classical art.",
+  sections:[
+   ["Every pack",["8 cards","Half the packs have a top-slot card: ◇ZR, SC, ZR or SGR"]],
+   ["Ways to buy",["Single packs","24-pack boxes (some shops list 12-pack boxes)","5-pack collector boxes"]],
+   ["The cards",["290 cards in 10 rarities, numbered MLPME03","3 ◇ZR cards: Childhood Memory, Friends and Friendship Is Magic","1 Ultra Rare is an overseas exclusive","289 cards are listed here so far: one more will be added once collectors confirm it"]],
+   ["Good to know",["First Print Limited Version: the first batch has a “1st Print” logo on the packs and on every card"]]]},
+ {id:"moon-4",ed:"me4",kind:"box",brand:"My Little Pony",name:"Moon Edition",series:"Series 4",when:"Oct 2026",code:"MLPME04",col:["#f0dcff","#7a3fb0"],
+  intro:"The newest Moon Edition, out early at New York Comic Con 2026 and in stores from October.",
+  sections:[
+   ["Every pack",["8 cards","KAYOU hasn't published the full pack breakdown yet"]],
+   ["Ways to buy",["Single packs","5-pack collector boxes"]],
+   ["The cards",["162 cards in 10 rarities, numbered MLPME04","R 30 · SR 20 · HR 30 · SSR 26 · UR 16 · LSR 16 · SGR 8 · ZR 7 · SC 7 · ◇ZR 2","◇ZR (Zenith Rare Parallel): a thorny rose theme. Line two cards up to reveal a hidden picture","SC (Secret Rare): the pony and “the other me”, with resin coating and hot stamping"]],
+   ["Good to know",["1 Ultra Rare is an overseas exclusive","2 overseas exclusive promo (PR) cards"]]]},
+ // Trading Card Game: tracking is coming soon
+ {id:"tcg-starter",group:"tcg",kind:"box",cardsSoon:true,brand:"My Little Pony",name:"Starter Decks",series:"TCG",when:"May 2026",code:"MLP TCG",col:["#fff0c2","#e0782c"],
+  intro:"Friendships Begin: the My Little Pony Trading Card Game, made by KAYOU and Hasbro. Ready-to-play starter decks to learn the game. Tracking for the TCG cards is coming soon.",
+  sections:[["Coming soon",["The TCG cards aren't tracked yet. They'll get their own section on this page","Want this sooner? Send a suggestion from the Contact page"]],
+   ["Good to know",["A playable card game, separate from the collect-only Friendship Eternal cards","In US stores since May 1, 2026: GameStop, Target, Best Buy, Barnes & Noble and hobby shops"]]]},
+ {id:"tcg-boosters",group:"tcg",kind:"box",cardsSoon:true,brand:"My Little Pony",name:"Boosters",series:"TCG",when:"2026",code:"MLP TCG",col:["#ffd6e0","#b0457a"],
+  intro:"Booster packs that add new cards to the starter decks: Series 1 Fantasy Wonderland, plus the seasonal Nightmare Night and Hearth's Warming Eve boosters. Tracking is coming soon.",
+  sections:[["Coming soon",["The TCG cards aren't tracked yet. They'll get their own section on this page"]]]}
+];
 FRANCH.winx.products=W_PRODUCTS; FRANCH.winx.kayou="https://www.kayouofficial.com/en-US/ip-collections";
 FRANCH.winx.merchSoon="More Winx Club collectibles are on the way: KAYOU's shop lists a Winx Club Card Album, and shops list an Acrylic Card Frame and Mini Card Album for early 2027. They'll show up here once KAYOU posts the details.";
 FRANCH.kpdh.products=K_PRODUCTS; FRANCH.kpdh.kayou="https://www.kayouofficial.com/en-US/ip-collections";
+FRANCH.mlp.products=M_PRODUCTS; FRANCH.mlp.kayou=M_KAYOU;
+FRANCH.mlp.merchSoon="KAYOU's My Little Pony albums and card holders will be added here next.";
 // Merchandise you can track: one item per style
 const MERCH=[];
 Object.values(FRANCH).forEach(ff=>(ff.products||[]).forEach(pr=>{pr.fr=ff.id;(pr.items||[]).forEach((itm,i)=>{
@@ -1942,13 +2135,14 @@ function guideHTML(){
     else if(p.cardsSoon)sub=`${p.series.replace("Mini Collectible Cards · ","")} · ${p.when}<br>Cards coming soon`;
     else{const cs=prodCards(p),h=cs.filter(c=>has(c.uid)).length;sub=`${p.series.replace("Fairy Diary · ","")} · ${p.when}<br>${h} / ${cs.length} cards`}
     return `<button class="ptile" data-prod="${p.id}">${prodArt(p)}<span class="pt-n">${p.name}</span><span class="pt-s">${sub}</span></button>`};
-  const cardsP=P.filter(p=>p.group!=="merch"), merchP=P.filter(p=>p.group==="merch");
+  const cardsP=P.filter(p=>p.group!=="merch"&&p.group!=="tcg"), merchP=P.filter(p=>p.group==="merch"), tcgP=P.filter(p=>p.group==="tcg");
   const mi=merchOf(F.id), mh=mi.filter(m=>has(m.uid)).length;
-  return `<details class="panel gpanel" id="guideDet"${guideOpen()?" open":""}><summary><span><span class="label">Products guide</span><b>Every ${F.name} product from KAYOU</b><span class="hint">${cardsP.length} card products · ${merchP.length?`${merchP.length} merchandise`:"merchandise coming soon"}. Open it to see the boxes, or leave it closed.</span></span><span class="gchev" aria-hidden="true">▾</span></summary>
+  return `<details class="panel gpanel" id="guideDet"${guideOpen()?" open":""}><summary><span><span class="label">Products guide</span><b>Every ${F.name} product from KAYOU</b><span class="hint">${cardsP.length} card products · ${merchP.length?`${merchP.length} merchandise`:"merchandise coming soon"}${tcgP.length?" · TCG coming soon":""}. Open it to see the boxes, or leave it closed.</span></span><span class="gchev" aria-hidden="true">▾</span></summary>
     <div class="gbody">
       <h3 class="pgh">Cards</h3><div class="ptiles">${cardsP.map(tile).join("")}</div>
       <h3 class="pgh">Merchandise <span>· albums, holders and display pieces${mi.length?` · ${mh} / ${mi.length} styles owned`:""}</span></h3>
       ${merchP.length?`<div class="ptiles">${merchP.map(tile).join("")}</div>`:`<p class="hint" style="margin:0">${F.merchSoon||"No merchandise yet."}</p>`}
+      ${tcgP.length?`<h3 class="pgh">Trading Card Game <span>· coming soon</span></h3><div class="ptiles">${tcgP.map(tile).join("")}</div>`:""}
       <p class="credit">Product details come from <a href="${F.kayou}" target="_blank" rel="noopener">KAYOU's official website</a>, plus a few shops and collector reviews. Tap a product for its own KAYOU page. Shop KAYOU products at the <a href="${KAYOU_STORE}" target="_blank" rel="noopener">KAYOU US Official Store</a>.</p>
     </div></details>`;
 }
@@ -2256,10 +2450,12 @@ document.addEventListener("click",e=>{
 });
 // A profile's background follows what that person collects: Winx only → Winx sparkles,
 // KPop Demon Hunters only → the KPop day and night, both → the KPop day and night with the sparkles always on.
+// My Little Pony only → the pastel sky with clouds and rainbow trails (with Winx too → Winx sparkles).
 function profileBackground(counts){
   const H=document.documentElement, has={};
   for(const u in counts){if(counts[u]>0&&BYUID[u])has[BYUID[u].fr]=true}
-  if(has.kpdh){H.dataset.brand="kpdh"; if(has.winx)H.dataset.sparkle="always"; else delete H.dataset.sparkle}
+  if(has.kpdh){H.dataset.brand="kpdh"; if(has.winx||has.mlp)H.dataset.sparkle="always"; else delete H.dataset.sparkle}
+  else if(has.mlp&&!has.winx){H.dataset.brand="mlp"; delete H.dataset.sparkle}
   else{H.dataset.brand="winx"; delete H.dataset.sparkle}
 }
 function profFrHTML(x,own){
@@ -2342,7 +2538,7 @@ function renderProfile(){
       <div><h2>Guess the Secret Pull</h2><p class="hint" style="margin:4px 0 0">${v.game?`${v.game.solved||0} Secret Pulls solved · ${v.game.trivia_perfect||0} perfect trivia days · ✨ ${v.game.total||0} Sparkles · 💫 ${v.game.shimmer||0} Shimmer · ${v.game.streak||0} day streak`:"One hidden card a day, 8 questions to find it."}</p></div>
       <span class="qrow">${own?`<button class="primary" data-nav="/play">Play today's card</button>`:""}<button class="ghost" data-nav="/leaderboard">Leaderboard</button></span>
     </section>
-    ${!own&&!user?`<div class="banner"><span>Track your own Winx Club and KPop Demon Hunters collections and make a profile like this one.</span><button class="primary" data-nav="/collection">Start your collection</button></div>`:""}
+    ${!own&&!user?`<div class="banner"><span>Track your own Winx Club, KPop Demon Hunters and My Little Pony collections and make a profile like this one.</span><button class="primary" data-nav="/collection">Start your collection</button></div>`:""}
     ${own?accountPanelHTML():`<p style="text-align:center;margin:0"><button class="report-link" data-nav="/contact?topic=${encodeURIComponent("Report a profile")}&about=${encodeURIComponent(p.username)}">Report this profile</button></p>`}
   </section>`;
 }
@@ -2746,9 +2942,9 @@ about:()=>`<article class="doc">
   <p>I made My Pretty Pulls to share that joy: a place to show off the collections we love when we can't bring them with us, and to always know exactly what we still need while we're hunting for the newest set or that one rare card we're missing.</p>
   <p>I hope this site brings you as much joy as it brings me. Happy pulling! ✨</p>
   <h2>What's here now</h2>
-  <ul><li>The full Winx Club Fairy Diary set from KAYOU, including promos</li><li>Every KAYOU KPop Demon Hunters card: Classic and Energy Editions (Series 1 and 2), the Special Mini Edition and promos, plus a guide to the boxes and packs</li><li>Your collection, saved to your account so it's there on every device</li><li>Profiles you can share, with a showcase of your best cards</li><li>Guess the Secret Pull and Daily Trivia, where you can win ✨ Sparkles</li></ul>
+  <ul><li>The full Winx Club Fairy Diary set from KAYOU, including promos</li><li>Every KAYOU KPop Demon Hunters card: Classic and Energy Editions (Series 1 and 2), the Special Mini Edition and promos, plus a guide to the boxes and packs</li><li>My Little Pony Friendship Eternal Cards: Moon Edition Series 1 to 4</li><li>Your collection, saved to your account so it's there on every device</li><li>Profiles you can share, with a showcase of your best cards</li><li>Guess the Secret Pull and Daily Trivia, where you can win ✨ Sparkles</li></ul>
   <h2>What's coming</h2>
-  <p>My Little Pony is next, with more card collections to follow. Want a set added? <a href="/contact" data-nav="/contact">Tell me which one</a>.</p>
+  <p>More My Little Pony sets (Rainbow, Fun Moments and Star Editions), the My Little Pony Trading Card Game, and more card collections to follow. Want a set added? <a href="/contact" data-nav="/contact">Tell me which one</a>.</p>
   <h2>Follow along</h2>
   <p>Pack openings, new sets and site updates: find us on <a href="https://www.tiktok.com/@myprettypulls" target="_blank" rel="noopener">TikTok</a>, <a href="https://www.instagram.com/myprettypulls/" target="_blank" rel="noopener">Instagram</a> and <a href="https://www.youtube.com/@MyPrettyPulls" target="_blank" rel="noopener">YouTube</a>, and come hang out in our <a href="https://discord.gg/X2d9BKh5d" target="_blank" rel="noopener">Discord</a>. Following earns you a badge and ✨ Sparkles too.</p>
   <h2>The fine print</h2>
@@ -2944,13 +3140,13 @@ document.addEventListener("click",e=>{ if(e.target.closest("[data-bopen]")){badg
 // The collections you've added something to (the sample binder doesn't count)
 function frProgress(f){const cs=[...f.cards,...merchOf(f.id)], h=cs.filter(c=>has(c.uid)>0).length;return{h,t:cs.length,p:cs.length?Math.round(h/cs.length*100):0}}
 function myFrs(){if(isSample)return [];return Object.values(FRANCH).filter(f=>frProgress(f).h>0)}
-const FR_ART={winx:["wfd01-zr-001","wfd01-cr-001","wfd01-ugr-001"],kpdh:["kpdh01-sp-002","kpdh01-se-001","kpdh02-sp-001"]};
+const FR_ART={winx:["wfd01-zr-001","wfd01-cr-001","wfd01-ugr-001"],kpdh:["kpdh01-sp-002","kpdh01-se-001","kpdh02-sp-001"],mlp:["mlpme02-zrp-001","mlpme01-sc-001","mlpme04-sgr-001"]};
 function frTile(f,big){const pr=frProgress(f), mine=!isSample&&pr.h>0;
   return `<a class="frtile${big?" big":""} fr-${f.id}" href="${f.path}" data-nav="${f.path}">
-    <span class="frart" aria-hidden="true">${FR_ART[f.id].filter(k=>IMGS.has(k)).map(k=>`<img src="cards/${k}-s.webp" alt="" loading="lazy">`).join("")}</span>
+    ${(FR_ART[f.id]||[]).some(k=>IMGS.has(k))?`<span class="frart" aria-hidden="true">${FR_ART[f.id].filter(k=>IMGS.has(k)).map(k=>`<img src="cards/${k}-s.webp" alt="" loading="lazy">`).join("")}</span>`:`<span class="frart ph fr-ph-${f.id}" aria-hidden="true">${f.emoji||"✨"}</span>`}
     <span class="frtxt"><b>${esc(f.name)}</b>${mine?`<span class="frnum">${pr.h} / ${pr.t} · ${pr.p}%</span><span class="bar"><i style="width:${pr.p}%"></i></span>`:`<span class="frnum">${pr.t} cards and merch to collect</span>`}
       <span class="frgo">${mine?"Open my collection":"Start collecting"}</span></span></a>`}
-const FR_SOON=`<div class="frtile soon" aria-disabled="true"><span class="frart ph" aria-hidden="true">🦄</span><span class="frtxt"><b>My Little Pony</b><span class="frnum">Coming soon</span><a class="linkbtn" href="/contact" data-nav="/contact?topic=${encodeURIComponent("Add a card collection")}">Suggest a collection</a></span></div>`;
+const FR_SOON=`<div class="frtile soon" aria-disabled="true"><span class="frart ph" aria-hidden="true">✨</span><span class="frtxt"><b>More collections</b><span class="frnum">Coming soon</span><a class="linkbtn" href="/contact" data-nav="/contact?topic=${encodeURIComponent("Add a card collection")}">Suggest a collection</a></span></div>`;
 function renderMyCollections(){ setHomeBackground();
   const mine=myFrs(), rest=Object.values(FRANCH).filter(f=>!mine.includes(f));
   $("#viewPage").innerHTML=`<article class="doc wide home-sec">
@@ -2969,7 +3165,7 @@ async function renderHome(){ setHomeBackground();
       <p>${owned?`${owned} card${owned===1?"":"s"} in your binder.`:"Your binder is empty. Pick a collection below to start."}${gToday?` ✨ ${gToday.total||0} Sparkles · ${gToday.streak||0} day streak.`:""}</p></div>
       <a class="primary btnlink" href="/collection" data-nav="/collection">${mine.length>1?"My collections":mine.length?`Open ${esc(mine[0].name)}`:"Start collecting"}</a></div>`
     :`<div class="hhero"><div><div class="label">My Pretty Pulls</div><h1>Track every KAYOU card you pull.</h1>
-      <p>Winx Club and KPop Demon Hunters, with the real card pictures. Free to use, and you can start without an account.</p></div>
+      <p>Winx Club, KPop Demon Hunters and My Little Pony. Free to use, and you can start without an account.</p></div>
       <div class="qrow"><a class="primary btnlink" href="/collection" data-nav="/collection">Start collecting</a><button class="ghost" id="openSignup">Create account</button></div></div>`;
   const games=`<section class="hcard"><div class="hhead"><h2>Play today</h2><a href="/leaderboard" data-nav="/leaderboard">Leaderboard</a></div>
       <div class="hgames">
@@ -3027,7 +3223,7 @@ async function loadPosts(kind){
   return POSTS[kind];
 }
 const postDate=d=>new Date(d+"T12:00:00Z").toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric",timeZone:"UTC"});
-const NEWS_TAGS={winx:{name:"Winx Club",cls:"t-winx"},kpdh:{name:"KPop Demon Hunters",cls:"t-kpdh"},tcg:{name:"Trading card world",cls:"t-tcg"},potw:{name:"Pretty Pull of the Week",cls:"t-potw"}};
+const NEWS_TAGS={winx:{name:"Winx Club",cls:"t-winx"},kpdh:{name:"KPop Demon Hunters",cls:"t-kpdh"},mlp:{name:"My Little Pony",cls:"t-mlp"},tcg:{name:"Trading card world",cls:"t-tcg"},potw:{name:"Pretty Pull of the Week",cls:"t-potw"}};
 const tagPill=t=>NEWS_TAGS[t]?`<span class="ntag ${NEWS_TAGS[t].cls}">${esc(NEWS_TAGS[t].name)}</span>`:"";
 const draftPill=p=>p.draft?`<span class="ntag draft">Draft</span>`:"";
 // A little markdown: ## headings, - lists, **bold**, *italic*, [link](url), ![photo](url). "You asked…" and "Behind the scenes" headings become callouts.
@@ -3098,7 +3294,7 @@ async function renderNews(slug){
     ${potw?potwBox(potw):POTW_INVITE}
     <div class="seg nchips" role="group" aria-label="News sections">${chips.map(t=>`<button type="button" data-ntag="${t}" aria-pressed="${t===newsTag}">${t==="all"?"All news":esc(NEWS_TAGS[t].name)}</button>`).join("")}</div>
     ${list.length?`<div class="nlist">${list.map(p=>{const t=(p.tags||[])[0]||"tcg";return `<a class="ncard" href="/news/${esc(p.slug)}" data-nav="/news/${esc(p.slug)}">
-      ${p.thumb||p.cover||(p.potw&&p.potw.photo)?`<img class="ncard-img" src="${esc(p.thumb||p.cover||p.potw.photo)}" alt="" loading="lazy">`:`<span class="ncard-img ph ${NEWS_TAGS[t]?NEWS_TAGS[t].cls:"t-tcg"}" aria-hidden="true">${t==="winx"?"🧚":t==="kpdh"?"🎤":t==="potw"?"💖":"🃏"}</span>`}
+      ${p.thumb||p.cover||(p.potw&&p.potw.photo)?`<img class="ncard-img" src="${esc(p.thumb||p.cover||p.potw.photo)}" alt="" loading="lazy">`:`<span class="ncard-img ph ${NEWS_TAGS[t]?NEWS_TAGS[t].cls:"t-tcg"}" aria-hidden="true">${t==="winx"?"🧚":t==="kpdh"?"🎤":t==="mlp"?"🦄":t==="potw"?"💖":"🃏"}</span>`}
       <span class="ncard-txt"><span class="ntags">${draftPill(p)}${(p.tags||[]).map(tagPill).join("")}</span><b>${esc(p.title)}</b><span class="ndate">${postDate(p.date)}</span><span class="nsum">${esc(p.summary||"")}</span></span></a>`}).join("")}</div>`
       :`<p class="hint" style="margin-top:14px">${newsTag==="all"?"No news yet. Check back soon!":`No ${esc(NEWS_TAGS[newsTag].name)} news yet. Check back soon!`}</p>`}
   </article>`;
@@ -3605,7 +3801,7 @@ function renderMenu(){
     <h3>Collections</h3>
     <a class="mi" href="/winx-club" data-nav="/winx-club"${cur("/winx-club")}><span class="ic">🧚</span>Winx Club${frTag("winx")}</a>
     <a class="mi" href="/kpop-demon-hunters" data-nav="/kpop-demon-hunters"${cur("/kpop-demon-hunters")}><span class="ic">🎤</span>KPop Demon Hunters${frTag("kpdh")}</a>
-    <button class="mi soon" data-soon><span class="ic">🦄</span>My Little Pony<span class="tag">Soon</span></button>
+    <a class="mi" href="/my-little-pony" data-nav="/my-little-pony"${cur("/my-little-pony")}><span class="ic">🦄</span>My Little Pony${frTag("mlp")}</a>
     <a class="mi more" href="/contact" data-nav="/contact?topic=${encodeURIComponent("Add a card collection")}"><span class="ic">✨</span><span>More coming soon. <b>Suggest one</b></span></a>
     <hr>
     <h3>What's new</h3>
