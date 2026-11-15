@@ -3018,7 +3018,7 @@ function lbMini(){ if(!homeLb||!homeLb.top)return "";
   return `<div class="label">This week's top players</div><ol class="hlbl">${top.map(r=>`<li><span class="rk">${["🥇","🥈","🥉"][r.rank-1]||r.rank}</span>${avatarHTML(r)}<span class="who">${r.is_public?`<a href="/u/${esc(r.username)}" data-nav="/u/${esc(r.username)}">${esc(r.display_name||r.username)}</a>`:esc(r.display_name||"A collector")}</span><span class="pts">✨ ${r.sparkles}</span></li>`).join("")}</ol>`}
 // ---------- News and Pretty Pull Updates ----------
 // Posts live in content/news.json and content/updates.json. "draft": true posts only show on the preview site.
-const POSTS={}, isPreviewHost=()=>/^(preview\.|localhost$|127\.)/.test(location.hostname);
+const POSTS={}, isPreviewHost=()=>/^(localhost$|127\.)|\.my-pretty-pulls\.pages\.dev$/.test(location.hostname);
 async function loadPosts(kind){
   if(POSTS[kind])return POSTS[kind];
   try{const r=await fetch(`/content/${kind}.json`,{cache:"no-cache"});const j=await r.json();
