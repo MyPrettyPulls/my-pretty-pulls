@@ -7,11 +7,11 @@
   - Starts from a soft neutral shimmer. A brand-new account with no cards sees only that.
   - Each franchise adds its signature layer only once the person owns at least 1 card from it
     (Winx: rainbow glitter + shooting stars; KPDH: glowing patterned light lines, inspired by the show's style,
-    not a copy of Rumi's markings; MLP: TBD, e.g. soft clouds / rainbow trails). Layers stack as more franchises are collected.
+    not a copy of Rumi's markings; MLP: pastel Equestria sky, puffy clouds, rainbow trails). Layers stack as more franchises are collected.
 
 ## Later
 - Sparkle Store (button says "Coming soon"; what Sparkles buy is undecided).
-- eBay prices, MLP card data, card backs.
+- eBay prices, card backs.
 
 ## KPop Demon Hunters (added Nov 2026)
 - Page: /kpop-demon-hunters. 399 cards: Series 1 Classic + Energy (KPDH01, 170), Special Mini Edition (KPDHM01, 41), Series 2 Classic + Energy (KPDH02, 178), 10 promos.
@@ -136,3 +136,17 @@
 - Winx Club moved from "/" to /winx-club (KPop stays /kpop-demon-hunters). Old bookmarks to "/" now open Home.
 - /collection ("My collections" in the menu): collectors of one collection go straight to it; two or more (or none) see a picker. Sample/visitor binders count as none.
 - _redirects: /winx-club and /collection added. Unknown paths fall back to Home.
+
+## My Little Pony (preview, Nov 14 2026)
+- Pull rates for ME3 (March 2026, 24 packs/box) and ME4 (Oct 2026, 12 packs/box) from KAYOU's product pages (Kinsey's screenshots).
+- Page: /my-little-pony (menu, home tiles and My collections link to it; _redirects updated). Starts with KAYOU's US Friendship Eternal Cards · Moon Edition Series 1–4: 826 cards (ME1 186, ME2 189, ME3 289 of 290, ME4 162).
+- Card numbers and names: collector checklist at data.mlpmerch.com (Kayou card database), checked against KAYOU's rarity counts. Printed numbers keep the level mark (MLPME01-SR-001L2); search also works without it (SR-001). Picture files will leave it off: cards/mlpme01-sr-001-s.webp, ◇ZR = "zrp".
+- Each Moon Edition series is its own edition (ME1–ME4), no shared cards. New rarities: ◇ZR Zenith Rare Parallel (ZRP), SC Secret Rare, SGR Super Golden Rare, LSR Limited Super Rare, and SR = Spark Rare for MLP (key SPR, shows as "SR").
+- Characters: groups Mane 6, Princesses & royals, Cutie Mark Crusaders, Friends & family, Wonderbolts, Student Six, Pillars of Equestria, Villains, Pets & creatures, Everypony else. "Princess Twilight Sparkle" counts as Twilight Sparkle. 100 scene cards (HR story cards, ZR/SGR/◇ZR scenes) have no characters tagged yet.
+- Products guide: Moon Edition 1–4 tiles + a "Trading Card Game · coming soon" group (Starter Decks, Boosters). The card list has a "My Little Pony Trading Card Game · Coming soon" block (Hide/Show) under the Moon Edition series.
+- Background: pastel sky, drifting puffy clouds, rainbow trails instead of shooting stars, sparkles on. Profiles: MLP only = MLP sky; KPop + anything = KPop day/night with sparkles.
+- To do: card pictures (from KAYOU's MLP series pages, same download routine as KPop); the 290th ME3 card (a Holo Rare: KAYOU lists 60 HR, the checklist has 59); more promo cards (KAYOU's pages show no box promos for Moon Edition; overseas-exclusive cards and the Hasbro sweepstakes card left out until Kinsey researches them); tag characters on scene cards; MLP merch; Rainbow, Fun Moments and Star Editions; the TCG; MLP badges (rerun dump_cards.py + make_badges.py + SQL); MLP games.
+- MLP promo cards (M_PROMOS): NYCC 2026 jumbo art card that came with the NYCC exclusive My Little Pony: Friendship Is Magic #1 comic. No number from KAYOU yet, so it's MLP-PR-NYCC26 and the card window says so (noNum). Photo of the comic: products/mlp-promos.webp.
+
+## KPop background on phones (Nov 14 2026)
+- On phones and tablets (max-width 820px or no hover) the animated, blurred SVG lines stuttered. There, 4 still pictures of the lines (the 4 keyframes of the 28 s loop, colours included, with the day colour boost baked in) fade into each other (.bg-kf, kfade) while the layer drifts. No redrawing while it runs. Computers keep the original moving lines.

@@ -2,9 +2,29 @@
  "_how": "Updates page posts. Newest first is automatic. 'draft': true shows only on the preview site.",
  "posts": [
   {
+   "slug": "my-little-pony-in-the-works",
+   "date": "2026-11-14",
+   "title": "My Little Pony is in the works",
+   "summary": "Our third collection is on the way: KAYOU's My Little Pony Friendship Eternal cards, starting with Moon Edition Series 1 to 4.",
+   "body": "## Coming soon\n- **My Little Pony.** The next collection is being built now, starting with KAYOU's Friendship Eternal Cards: Moon Edition Series 1 to 4. That's over 800 cards to track.\n- **Same tools you already use.** Hide and show each series and rarity, track by character (the Mane 6, the Cutie Mark Crusaders, the Wonderbolts and more), a products guide for every box, and trade lists.\n- **Its own background.** A soft Equestria sky with drifting clouds and rainbow trails.\n- **The My Little Pony Trading Card Game** will get its own section later on.\n\n## Behind the scenes\n- Card numbers and names come from collector checklists, checked against KAYOU's own card counts for each rarity. Card pictures will follow.\n\nWant a My Little Pony set added sooner? [Tell me](/contact)."
+  },
+  {
+   "slug": "smoother-kpop-background",
+   "date": "2026-11-14",
+   "title": "A smoother KPop Demon Hunters background on phones",
+   "summary": "The glowing lines behind the KPop Demon Hunters pages no longer stutter on phones and tablets.",
+   "body": "## Fixed\n- **Smoother on phones.** The glowing, colour-changing lines behind the KPop Demon Hunters pages could stutter on phones and tablets. On those screens, the lines now gently fade from one shape into the next while the background drifts, so scrolling stays smooth.\n- On computers, the background looks exactly the same as before.\n\n## Behind the scenes\n- The old lines were redrawn and re-blurred across the whole screen many times a second, which is a lot of work for a phone. Now the phone shows a few ready-made pictures of the lines and just fades between them."
+  },
+  {
+   "slug": "first-pretty-pull-of-the-week",
+   "date": "2026-11-14",
+   "title": "Our first Pretty Pull of the Week",
+   "summary": "Pretty Pull of the Week is here! Our first feature is @questwithamy and her Tecna UR, and every past feature now has a home.",
+   "body": "## New\n- **Pretty Pull of the Week.** Each week we feature one collector's favorite pull on Home and on the News page. Our very first feature is [@questwithamy and her Tecna UR](/news/potw-questwithamy) from Winx Club Daily Edition!\n- **Past pulls.** Every feature stays on the site. Tap **Past pulls** on Home, or **See every Pretty Pull of the Week** on the News page, to look back at earlier features.\n- **Feature date.** Each feature shows the date it was featured.\n\n## Want to be featured?\n- Post your favorite pull and tag **@myprettypulls** on TikTok or Instagram."
+  },
+  {
    "slug": "home-page",
    "date": "2026-11-12",
-   "draft": true,
    "title": "A new Home page",
    "summary": "The site now opens on Home, with your collections, the latest news, Pretty Pull of the Week and the daily games all in one place.",
    "body": "## New\n- **A Home page.** The site now opens on Home instead of the Winx Club page. Everything is in one place: your collections and progress, the latest news, Pretty Pull of the Week, today's games, the top of the weekly leaderboard, badges and the Sparkle Store.\n- **My collections.** Find it on Home or in the menu. If you collect one series, it takes you straight there. If you collect more than one, you can pick which binder to open.\n\n## You asked, we built\n- **Open on what you collect.** The site always opened on Winx Club, even if you only collect KPop Demon Hunters. Now it opens on Home, and My collections takes you right to your binder.\n\n## Good to know\n- The Winx Club page has moved to [myprettypulls.com/winx-club](/winx-club). If you bookmarked the main address for Winx, it now opens Home, and Winx is one tap away."
