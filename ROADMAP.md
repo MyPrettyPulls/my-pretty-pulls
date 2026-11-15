@@ -163,3 +163,6 @@
 - Reprints: INT02-x-nnn = MLPME01-x-nnn and INT03 = MLPME02 (same picture, new number), and FME01-SR reprints of ME1 SRs: merged into the Moon card, shown as "Also printed as" and searchable. INT01 (shared by RB1 + FM1) is its own block "Shared cards (INT01)".
 - KAYOU's names on these pages are often shifted; names come from the Moon data or from the page where the card sits at its own number. Kinsey's research tab "MLP Cards to Check" in the card sheet is left as is.
 - New rarity keys: XR, USR, MTR, TGR, TPR (Transparent Rare, code TR), FUR (Fun Rare, code FR), ST, BASE, N, NP (◇N), SCR, ARP (◇AR), OR. Picture keys turn ◇X into Xp (fme04-crp-003). Pull rates per rarity come from KAYOU's pack lines (M_NEWODDS).
+
+## For later: MLP TCG promos
+- Kinsey's source: https://kayoumylittleponycardgame.miraheze.org/wiki/Promotional_cards (TCG only, not Friendship Eternal): FunTCG order promos PR01-06 (Wave 1) and BP02-CR01-06 (Wave 2); event promos MCM London (BP01-CR01-06), BiliBiliWorld (BP03-GR10, BP03-SR13), SDCC 2026 (BP01-CR07-12), NYCC/Pony Day 2026 (TK-01 Treat); Chinese PR07-15, Japanese SD01/BP02 promos; TR01 trial decks. Use when the TCG section is built.
