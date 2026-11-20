@@ -2,6 +2,27 @@
  "_how": "News posts. tags: winx, kpdh, tcg (trading card world), potw (Pretty Pull of the Week; add potw:{handle,platform,url,urlLabel,profile,photo,card}). 'draft': true shows only on the preview site. 'thumb' = picture on the news card only; 'cover' = picture at the top of the post (also used on the card if there's no thumb).",
  "posts": [
   {
+   "slug": "potw-vekacutie",
+   "date": "2026-11-21",
+   "draft": true,
+   "tags": [
+    "potw",
+    "winx"
+   ],
+   "title": "Erika's Aisha ◇SR pull",
+   "summary": "This week's Pretty Pull of the Week is @vekacutie and her sparkly Aisha ◇SR from Winx Club Magic Edition!",
+   "potw": {
+    "handle": "@vekacutie",
+    "platform": "instagram",
+    "url": "https://www.instagram.com/vekacutie/",
+    "urlLabel": "See her Instagram",
+    "profile": "https://www.instagram.com/vekacutie/",
+    "photo": "/content/news/potw-vekacutie.webp",
+    "card": "Aisha · ◇SR · Magic Edition"
+   },
+   "body": "Meet this week's Pretty Pull of the Week: **Erika** from [@vekacutie](https://www.instagram.com/vekacutie/)! ✨\n\nErika is a dedicated doll collector with a huge Winx Club collection, from pens and stickers all the way to tins. Now her Winx Club trading card collection is growing fast too, and she pulled this beautiful **Aisha ◇SR** (WFD01-◇SR-006) from the Magic Edition. The sketch-style art with that glittery finish is stunning in person!\n\nThank you so much, Erika, for letting us feature you and your pull! We can't wait to see your card collection keep growing. 💖\n\nFollow Erika on [Instagram](https://www.instagram.com/vekacutie/), [YouTube](https://www.youtube.com/@VekaCutie/videos) and [TikTok](https://www.tiktok.com/@vekacutie).\n\n## Want to be next?\nPost your favorite KAYOU pull and tag **@myprettypulls** on TikTok or Instagram. Each week we pick one collector to feature here."
+  },
+  {
    "slug": "potw-questwithamy",
    "date": "2026-11-14",
    "tags": [
